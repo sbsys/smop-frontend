@@ -1,0 +1,37 @@
+@use 'sass:list';
+
+@function size($size-key, $size-type-key) {
+    @if not list.index($size-keys, $size-key) {
+        @error "No size #{$size-key}";
+    }
+
+    @if not list.index($size-type-keys, $size-type-key) {
+        @error "No size type #{$size-key}";
+    }
+
+    @return var(--#{$prefix}-#{$size-type-key}-#{$size-key});
+}
+
+@mixin width($size-key, $size-type-key) {
+    width: size($size-key, $size-type-key);
+}
+
+@mixin max-width($size-key, $size-type-key) {
+    max-width: size($size-key, $size-type-key);
+}
+
+@mixin min-width($size-key, $size-type-key) {
+    min-width: size($size-key, $size-type-key);
+}
+
+@mixin height($size-key, $size-type-key) {
+    height: size($size-key, $size-type-key);
+}
+
+@mixin max-height($size-key, $size-type-key) {
+    max-height: size($size-key, $size-type-key);
+}
+
+@mixin min-height($size-key, $size-type-key) {
+    min-height: size($size-key, $size-type-key);
+}

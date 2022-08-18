@@ -1,0 +1,50 @@
+@import 'styles';
+
+.ScrollLayout {
+    flex-grow: 1;
+    overflow: hidden;
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar {
+        @include height(none, split);
+        @include width(none, split);
+        background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-track {
+        @include bg-color(50, none);
+        @include bg-opacity(0);
+        @include rounded(all md);
+        background-clip: content-box;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        @include bg-color(500, none);
+        @include bg-opacity(70);
+        @include rounded(all md);
+    }
+
+    &:hover {
+        &::-webkit-scrollbar {
+            @include height(md, split);
+            @include width(md, split);
+            background-color: transparent;
+        }
+
+        &::-webkit-scrollbar-track {
+            @include bg-opacity(70);
+        }
+    }
+
+    &.Col {
+        @include flex;
+        overflow-y: auto;
+        overflow-y: overlay;
+    }
+
+    &.Row {
+        @include flex(row);
+        overflow-x: auto;
+        overflow-x: overlay;
+    }
+}

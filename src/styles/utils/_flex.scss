@@ -1,0 +1,25 @@
+@use 'sass:list';
+
+@mixin flex($orientation: col, $alignment: none, $justify: none) {
+    @if not list.index($orientation-keys, $orientation) {
+        @error "No orientation #{$orientation}";
+    }
+
+    display: flex;
+
+    @if $orientation == row {
+        flex-direction: row;
+    }
+
+    @if $orientation == col {
+        flex-direction: column;
+    }
+
+    @if $alignment != none {
+        align-items: $alignment;
+    }
+
+    @if $justify != none {
+        justify-content: $justify;
+    }
+}

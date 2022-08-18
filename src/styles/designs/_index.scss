@@ -1,0 +1,83 @@
+@use 'sass:list';
+
+/* prefix */
+$prefix: 'sbsys';
+
+/* themes */
+$theme-keys: light, dark;
+
+/* break point pxs */
+$break-points: (
+    6xs: 320,
+    5xs: 384,
+    4xs: 448,
+    3xs: 512,
+    2xs: 576,
+    xs: 640,
+    sm: 704,
+    md: 768,
+    lg: 896,
+    xl: 1024,
+    2xl: 1152,
+    3xl: 1280,
+    4xl: 1408,
+    5xl: 1536,
+    6xl: 1664,
+);
+
+/* opacities */
+$opacities: (
+    0: 0,
+    10: 0.1,
+    20: 0.2,
+    30: 0.3,
+    40: 0.4,
+    50: 0.5,
+    60: 0.6,
+    70: 0.7,
+    80: 0.8,
+    90: 0.9,
+    100: 1,
+);
+
+/* sizes */
+$size-keys: none, xs, sm, md, lg, xl, 2xl;
+
+/* size types */
+$size-type-keys: 
+    /* html font size */ text, /* border width */ border,
+    /* border rounded */ rounded, /* text separation */ split,
+    /* font size */ font, /* element size */ element,
+    /* element separation */ space, /* component size */ component,
+    /* view segment size */ view;
+
+/* series */
+$serie-keys: 
+    /* background */ bg, /* font */ font, /* gray scale */ none,
+    primary, secondary, tertiary, accent, info, success, warning, danger;
+
+/* intensities */
+$intensity-keys: 50, 100, 200, 300, 400, 500, 600, 700, 800, 900;
+
+/* apply opacity */
+$opacity-keys: bg, font, border-left, border-right, border-top, border-bottom,
+    shadow;
+
+/* alignments */
+$alignment-keys: start, center, end;
+
+/* orientations */
+$orientation-keys: row, col;
+
+/* positions */
+$corner-position-keys: top-left, top-right, bottom-left, bottom-right;
+$cardinal-position-keys: top, bottom, left, right;
+$special-position-keys: x, y, all;
+
+$position-keys: top, bottom, left, right, x, y, all;
+
+$extended-position-keys: top-left, top-right, bottom-left, bottom-right, top,
+    bottom, left, right, all;
+
+/* fonts */
+$font-family-keys: main, number;

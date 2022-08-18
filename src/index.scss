@@ -1,0 +1,61 @@
+@import '~modern-normalize/modern-normalize.css';
+@import 'styles';
+
+:root {
+    @include generate;
+}
+
+* {
+    @include normalize;
+}
+
+body,
+#root,
+#modal,
+#loader,
+#notification {
+    @include flex;
+    overflow: hidden;
+}
+
+/* body */
+body {
+    @include font-family;
+    @include inset;
+}
+
+/* root */
+#root {
+    flex-grow: 1;
+}
+
+/* modal */
+#modal {
+    z-index: 110;
+}
+
+/* loader */
+#loader {
+    z-index: 120;
+}
+
+/* notification */
+#notification {
+    z-index: 130;
+}
+
+input,
+select,
+button,
+textarea {
+    -webkit-tap-highlight-color: transparent;
+
+    &:focus {
+        outline-offset: 2px;
+        outline: 2px solid transparent;
+    }
+}
+
+i {
+    @include flex(col, center, center);
+}

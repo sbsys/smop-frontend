@@ -1,0 +1,79 @@
+@import 'styles';
+
+.Drop {
+    @include flex;
+    position: relative;
+
+    .Content {
+        @include flex;
+        position: absolute;
+        transform: translate(
+            var(--#{$prefix}-translate-x),
+            var(--#{$prefix}-translate-y)
+        );
+
+        &.Anchor {
+            &Row {
+                &Start {
+                    left: 0;
+                }
+                &Center {
+                    left: 50%;
+                }
+                &End {
+                    left: 100%;
+                }
+            }
+
+            &Col {
+                &Start {
+                    top: 0;
+                }
+                &Center {
+                    top: 50%;
+                }
+                &End {
+                    top: 100%;
+                }
+            }
+        }
+
+        &.Drop {
+            &Row {
+                &Start {
+                    --#{$prefix}-translate-x: 0;
+                }
+                &Center {
+                    --#{$prefix}-translate-x: -50%;
+                }
+                &End {
+                    --#{$prefix}-translate-x: -100%;
+                }
+            }
+
+            &Col {
+                &Start {
+                    --#{$prefix}-translate-y: 0;
+                }
+                &Center {
+                    --#{$prefix}-translate-y: -50%;
+                }
+                &End {
+                    --#{$prefix}-translate-y: -100%;
+                }
+            }
+        }
+    }
+
+    &.Hoverable {
+        .Content {
+            display: none;
+        }
+
+        &:hover {
+            .Content {
+                display: flex;
+            }
+        }
+    }
+}

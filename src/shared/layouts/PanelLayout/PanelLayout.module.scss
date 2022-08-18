@@ -1,0 +1,14 @@
+@import 'styles';
+
+.PanelLayout {
+    flex-grow: 1;
+    overflow: hidden;
+
+    &.Col {
+        @include flex;
+    }
+
+    &.Row {
+        @include flex(row);
+    }
+}

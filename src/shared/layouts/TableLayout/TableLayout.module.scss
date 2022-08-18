@@ -1,0 +1,18 @@
+@import 'styles';
+
+.Table {
+    @include gap(all sm);
+
+    thead,
+    tbody {
+        tr {
+            display: grid;
+
+            th,
+            td {
+                @include flex(row, center);
+                overflow: hidden;
+            }
+        }
+    }
+}

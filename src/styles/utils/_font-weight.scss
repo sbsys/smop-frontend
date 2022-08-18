@@ -1,0 +1,9 @@
+@use 'sass:list';
+
+@mixin font-weight($size-key) {
+    @if not list.index($size-keys, $size-key) {
+        @error "No font family #{$size-key}";
+    }
+
+    font-weight: var(--#{$prefix}-weight-#{$size-key});
+}

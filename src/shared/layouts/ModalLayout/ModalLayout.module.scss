@@ -1,0 +1,53 @@
+@import 'styles';
+
+.ModalLayout {
+    @include inset;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+
+    &.Indentation {
+        padding: 1rem;
+    }
+
+    &.Row {
+        &Start {
+            align-items: start;
+        }
+
+        &Center {
+            align-items: center;
+        }
+
+        &End {
+            align-items: end;
+        }
+    }
+
+    &.Col {
+        &Start {
+            justify-items: start;
+        }
+
+        &Center {
+            justify-items: center;
+        }
+
+        &End {
+            justify-items: end;
+        }
+    }
+}
+
+.Overlay {
+    @include inset;
+    background-color: rgb(0 0 0 / 0.75);
+}
+
+.Content {
+    @include flex;
+    max-height: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    z-index: 1;
+}

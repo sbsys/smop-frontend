@@ -1,0 +1,9 @@
+@use 'sass:list';
+
+@mixin font-family($font-family-key: main) {
+    @if not list.index($font-family-keys, $font-family-key) {
+        @error "No font family #{$font-family-key}";
+    }
+
+    font-family: var(--#{$prefix}-font-family-#{$font-family-key});
+}

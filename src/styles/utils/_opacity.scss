@@ -1,0 +1,13 @@
+@use 'sass:map';
+
+@function opacity($opacity-key) {
+    @if not map.get($opacities, $opacity-key) {
+        @error "No size #{$opacity-key}";
+    }
+
+    @return var(--#{$prefix}-opacity-#{$opacity-key});
+}
+
+@mixin opacity($opacity-key) {
+    opacity: opacity($opacity-key);
+}

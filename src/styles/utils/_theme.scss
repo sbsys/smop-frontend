@@ -1,0 +1,26 @@
+@use 'sass:list';
+
+/* apply theme */
+@mixin theme($theme-key) {
+    @if not list.index($theme-keys, $theme-key) {
+        @error "No media theme #{$theme-key}";
+    }
+
+    .theme--#{$theme-key} & {
+        @content;
+    }
+}
+
+/* dark color scheme */
+@mixin dark {
+    @media (prefers-color-scheme: dark) {
+        @content;
+    }
+}
+
+/* light color scheme */
+@mixin light {
+    @media (prefers-color-scheme: light) {
+        @content;
+    }
+}

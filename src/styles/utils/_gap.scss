@@ -1,0 +1,25 @@
+@use 'sass:list';
+
+@mixin gap($positions...) {
+    @each $position-key, $size-key, $size-type-key in $positions {
+        @if not list.index($special-position-keys, $position-key) {
+            @error "No position #{$position-key}";
+        }
+
+        @if not $size-type-key {
+            $size-type-key: space;
+        }
+
+        @if $position-key == all {
+            gap: size($size-key, $size-type-key);
+        }
+
+        @if $position-key == x {
+            column-gap: size($size-key, $size-type-key);
+        }
+
+        @if $position-key == y {
+            row-gap: size($size-key, $size-type-key);
+        }
+    }
+}

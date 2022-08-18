@@ -1,0 +1,49 @@
+@import 'styles';
+
+:root {
+    @include generate-theme($app-theme);
+}
+
+html {
+    @include font-size(xs, text);
+
+    @include screen-height(xs) {
+        @include font-size(sm, text);
+    }
+
+    @include screen-height(md) {
+        @include font-size(md, text);
+    }
+
+    @include screen-height(xl) {
+        @include font-size(lg, text);
+    }
+
+    @include screen-height(xl) {
+        @include font-size(xl, text);
+    }
+}
+
+body {
+    @include font-size(md);
+    @include line-height(md);
+}
+
+#root,
+#modal,
+#loader,
+#notification {
+    @include font-color(700);
+
+    @include theme(dark) {
+        @include font-color(200);
+    }
+}
+
+#root {
+    @include bg-color(200);
+
+    @include theme(dark) {
+        @include bg-color(700);
+    }
+}

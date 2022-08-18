@@ -1,0 +1,3 @@
+@mixin font-size($size-key, $size-type-key: font) {
+    font-size: size($size-key, $size-type-key);
+}

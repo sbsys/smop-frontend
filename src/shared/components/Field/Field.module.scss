@@ -1,0 +1,87 @@
+@import 'styles';
+
+.Field {
+    @include flex(row);
+    align-items: center;
+}
+
+.TextField {
+    background-color: transparent;
+    flex-grow: 1;
+    overflow: hidden;
+
+    &[type='password'] {
+        letter-spacing: 0.25rem;
+
+        &::placeholder {
+            letter-spacing: 0;
+        }
+    }
+
+    &[type='password']::-ms-reveal,
+    &[type='password']::-ms-clear {
+        display: none;
+    }
+
+    &[type='number'] {
+        -moz-appearance: textfield;
+    }
+    &[type='number']::-webkit-outer-spin-button,
+    &[type='number']::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+
+    &[type='radio'],
+    &[type='checkbox'] {
+        appearance: none;
+        border-radius: 50%;
+        border: 0.1em solid currentColor;
+        color: currentColor;
+        display: grid;
+        flex-grow: unset;
+        font: inherit;
+        height: 1em;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0;
+        place-content: center;
+        width: 1em;
+
+        &::before {
+            border-radius: 50%;
+            box-shadow: inset 1em 1em currentColor;
+            content: '';
+            height: 1em;
+            transform: scale(0);
+            transition: 0.2s transform ease-in-out;
+            width: 1em;
+        }
+
+        &:checked::before {
+            transform: scale(0.75);
+        }
+    }
+
+    &[type='checkbox'] {
+        border-radius: 25%;
+
+        &::before {
+            border-radius: 25%;
+        }
+    }
+
+    &[type='file'] {
+        display: none;
+    }
+}
+
+.FileLabel {
+    @include flex(row);
+    cursor: pointer;
+    flex-grow: 1;
+}
+
+.PasswordIcon {
+    @include flex(col, center, center);
+    @include interactable;
+}

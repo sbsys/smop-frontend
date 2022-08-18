@@ -1,0 +1,39 @@
+@import 'styles';
+
+.AccordionLayout {
+    @include hidden;
+    display: flex;
+    justify-content: start;
+
+    &.Top {
+        flex-direction: column-reverse;
+    }
+
+    &.Bottom {
+        flex-direction: column;
+    }
+
+    &.Left {
+        flex-direction: row-reverse;
+    }
+
+    &.Right {
+        flex-direction: row;
+    }
+
+    .Content {
+        @include flex;
+    }
+
+    &.Hoverable {
+        .Content {
+            display: none;
+        }
+
+        &:hover {
+            .Content {
+                display: flex;
+            }
+        }
+    }
+}

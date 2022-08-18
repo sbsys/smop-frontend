@@ -1,0 +1,19 @@
+@import 'styles';
+
+.FillPrimary {
+    @include bg-color(400, primary);
+    @include font-color(200);
+    @include interactable;
+    @include padding(all sm split);
+    @include rounded(all xs);
+
+    &:hover {
+        @include bg-color(300, primary);
+        @include font-color(100);
+    }
+
+    &:active {
+        @include bg-color(500, primary);
+        @include font-color(300);
+    }
+}

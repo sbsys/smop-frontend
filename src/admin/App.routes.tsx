@@ -3,7 +3,7 @@ import { FC, memo } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 /* layouts */
 /* modules */
-import { AuthLayout } from './auth';
+import { AuthLayout, SignInView } from './auth';
 
 const AppRoutes: FC = () => {
     return (
@@ -13,7 +13,7 @@ const AppRoutes: FC = () => {
             <Route path="auth" element={<AuthLayout />}>
                 <Route path="" element={<Navigate to={'sign-in'} replace />} />
 
-                <Route path="sign-in" element={null} />
+                <Route path="sign-in" element={<SignInView />} />
             </Route>
 
             <Route path="*" element={<span>404</span>} />

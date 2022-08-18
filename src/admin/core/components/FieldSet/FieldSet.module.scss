@@ -1,0 +1,12 @@
+@import 'styles';
+
+.FieldSet {
+    @include flex;
+    @include gap(all xs split);
+
+    & > span {
+        @include margin(x sm split);
+        @include font-weight(sm);
+        @include font-size(sm);
+    }
+}

@@ -3,10 +3,19 @@
 .FieldSet {
     @include flex;
     @include gap(all xs split);
+    overflow: hidden;
 
     & > span {
-        @include margin(x sm split);
-        @include font-weight(sm);
         @include font-size(sm);
+        @include font-weight(sm);
+        @include margin(x sm split);
+    }
+
+    &.HintReserved {
+        margin-bottom: calc((size(sm, font) * var(--#{$prefix}-line-md)) + size(xs, split));
+    }
+
+    & > * {
+        overflow: hidden;
     }
 }

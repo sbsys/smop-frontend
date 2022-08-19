@@ -9,9 +9,11 @@ import { classNames } from 'shared/utils';
 /* styles */
 import styles from './FieldSet.module.scss';
 
-const FieldSet: FC<FieldSetProps> = ({ className, field, hint, ...rest }) => {
+const FieldSet: FC<FieldSetProps> = ({ className, field, hint, isHintReserved, ...rest }) => {
     return (
-        <fieldset className={classNames(styles.FieldSet, className)} {...rest}>
+        <fieldset
+            className={classNames(styles.FieldSet, !hint && isHintReserved && styles.HintReserved, className)}
+            {...rest}>
             <Field {...field} />
 
             {hint && <Legend {...hint} />}

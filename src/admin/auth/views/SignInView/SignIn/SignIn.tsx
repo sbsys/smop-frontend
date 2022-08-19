@@ -1,18 +1,27 @@
 /* react */
-import { memo } from 'react';
+import { memo, useContext } from 'react';
+/* context */
+import { Context } from '../SignIn.context';
 /* layouts */
 import { PanelLayout } from 'shared/layouts';
 /* components */
-import { Button } from 'shared/components';
+import { Button, Legend } from 'shared/components';
 import { FieldSet } from 'admin/core';
 /* assets */
-import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 import { OrgsBGSrc } from 'assets';
 /* styles */
-import { ButtonStyles, CardStyles, FieldStyles } from 'shared/styles';
+import { ButtonStyles, CardStyles } from 'shared/styles';
 import styles from './SignIn.module.scss';
 
 const SignIn = () => {
+    const {
+        /* functions */
+        handleSignIn,
+        /* props */
+        emailProps,
+        passwordProps,
+    } = useContext(Context);
+
     return (
         <PanelLayout className={styles.SignIn}>
             <PanelLayout className={styles.BG}>
@@ -26,28 +35,14 @@ const SignIn = () => {
             </PanelLayout>
 
             <PanelLayout className={styles.Form}>
-                <form className={CardStyles.Primary} onSubmit={event => event.preventDefault()}>
-                    <legend>Sign In Admins</legend>
+                <form className={CardStyles.Primary} onSubmit={handleSignIn}>
+                    <legend>
+                        <Legend hasDots>Sign In Admins</Legend>
+                    </legend>
 
-                    <FieldSet
-                        field={{ className: FieldStyles.OutlinePrimary, strategy: 'email', placeholder: 'Email' }}
-                        hint={{
-                            children: 'Hint',
-                        }}
-                    />
+                    <FieldSet {...emailProps} />
 
-                    <FieldSet
-                        field={{
-                            className: FieldStyles.OutlinePrimary,
-                            strategy: 'password',
-                            placeholder: 'Password',
-                            showIcon: <IoMdEye />,
-                            hideIcon: <IoMdEyeOff />,
-                        }}
-                        hint={{
-                            children: 'Hint',
-                        }}
-                    />
+                    <FieldSet {...passwordProps} />
 
                     <Button className={ButtonStyles.FillPrimary} type="submit">
                         Sign In

@@ -52,6 +52,7 @@
             @include flex;
             @include gap(all 2xl);
             @include max-width(md, component);
+            overflow: hidden;
             width: 100%;
 
             & > legend {

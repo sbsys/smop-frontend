@@ -5,7 +5,7 @@ import { FieldSetProps } from 'admin/core';
 
 export interface SignInContext {
     /* functions */
-    handleSignIn: (event?: BaseSyntheticEvent<object, any, any> | undefined) => Promise<void>;
+    handleSignIn: (event?: BaseSyntheticEvent) => Promise<void>;
     /* props */
     emailProps: FieldSetProps;
     passwordProps: FieldSetProps;

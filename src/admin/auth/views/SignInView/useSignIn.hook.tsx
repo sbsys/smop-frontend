@@ -55,6 +55,8 @@ export const useSignIn = () => {
         hint: errors.email
             ? {
                   children: errors.email.message,
+                  hasDots: true,
+                  title: errors.email.message,
               }
             : undefined,
     };
@@ -75,6 +77,8 @@ export const useSignIn = () => {
         hint: errors.password
             ? {
                   children: errors.password.message,
+                  hasDots: true,
+                  title: errors.password.message,
               }
             : undefined,
     };

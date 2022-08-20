@@ -36,7 +36,7 @@ const SignIn = () => {
 
             <PanelLayout className={styles.Form}>
                 <form className={CardStyles.Primary} onSubmit={handleSignIn}>
-                    <legend>
+                    <legend title="Sign In Admins">
                         <Legend hasDots>Sign In Admins</Legend>
                     </legend>
 
@@ -44,7 +44,7 @@ const SignIn = () => {
 
                     <FieldSet {...passwordProps} />
 
-                    <Button className={ButtonStyles.FillPrimary} type="submit">
+                    <Button className={ButtonStyles.FillPrimary} type="submit" title="Sign In">
                         Sign In
                     </Button>
                 </form>

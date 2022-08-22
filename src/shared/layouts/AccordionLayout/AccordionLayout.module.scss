@@ -3,7 +3,7 @@
 .AccordionLayout {
     @include hidden;
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
 
     &.Top {
         flex-direction: column-reverse;

@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { FieldSetProps } from 'admin/core';
 import { SignInContext } from './SignIn.props';
 /* hooks */
-import { useActive } from 'shared/hooks';
+import { useActive, useLoader } from 'shared/hooks';
 /* utils */
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -29,6 +29,8 @@ export const useSignIn = () => {
     /* states */
     const [isPassword, showPassword, hidePassword] = useActive();
 
+    const { showLoader, hideLoader } = useLoader();
+
     /* form */
     const {
         register,
@@ -40,7 +42,19 @@ export const useSignIn = () => {
 
     /* functions */
 
-    const handleSignIn = handleSubmit(data => console.log(data));
+    const handleSignIn = handleSubmit(async data => {
+        showLoader();
+
+        await new Promise(resolve => {
+            setTimeout(() => {
+                console.log(data);
+
+                resolve({});
+            }, 5000);
+        });
+
+        hideLoader();
+    });
 
     /* props */
 

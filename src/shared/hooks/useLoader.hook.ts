@@ -1,16 +1,8 @@
 /* react */
-import { ReactNode, useEffect } from 'react';
-/* hooks */
-import { useActive } from './useActive.hook';
+import { useContext } from 'react';
+/* context */
+import { LoaderContext } from 'shared/components';
 
-interface UseLoaderProps {
-    loader?: ReactNode;
-}
-
-export const useLoader = ({ loader }: UseLoaderProps) => {
-    const [isLoader, showLoader, hideLoader] = useActive();
-
-    useEffect(() => {
-        if (!loader) return;
-    }, [loader]);
+export const useLoader = () => {
+    return useContext(LoaderContext);
 };

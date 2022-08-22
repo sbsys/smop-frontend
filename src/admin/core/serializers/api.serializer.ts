@@ -8,10 +8,10 @@ export const apiSerializer = <T>(data: any, serializer?: (data: any) => T): ApiR
 });
 
 export const apiErrorSerializer = <T>(error: AxiosError, serializer?: (data: any) => T): ApiResponse<T> => {
-    if (error.response) return apiSerializer(error.response, serializer);
-    else if (error.request)
+    if (error.response?.data) return apiSerializer({ ...(error.response?.data as Object), error: true }, serializer);
+    else if (error.request?.data)
         return {
-            message: error.request,
+            message: error.request.data,
             error: true,
             data: {} as T,
         };

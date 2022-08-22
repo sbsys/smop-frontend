@@ -13,6 +13,7 @@ import * as yup from 'yup';
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 /* styles */
 import { FieldStyles } from 'shared/styles';
+import { signInService } from 'admin/auth/services';
 
 interface SignInForm {
     email: string;
@@ -22,7 +23,7 @@ interface SignInForm {
 const SignInSchema = yup
     .object({
         email: yup.string().email('views.signin.form.email.format').required('views.signin.form.email.required'),
-        password: yup.string().min(8, 'views.signin.form.password.min').required('views.signin.form.password.required'),
+        password: yup.string().required('views.signin.form.password.required').min(8, 'views.signin.form.password.min'),
     })
     .required();
 
@@ -48,15 +49,13 @@ export const useSignIn = () => {
     const handleSignIn = handleSubmit(async data => {
         showLoader();
 
-        await new Promise(resolve => {
-            setTimeout(() => {
-                console.log(data);
-
-                resolve({});
-            }, 5000);
-        });
+        const service = await signInService(data);
 
         hideLoader();
+
+        if (service.error) return alert(service.message);
+
+        console.log(data);
     });
 
     /* props */

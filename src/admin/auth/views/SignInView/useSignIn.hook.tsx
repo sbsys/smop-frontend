@@ -1,5 +1,6 @@
 /* react */
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 /* props */
 import { FieldSetProps } from 'admin/core';
 import { SignInContext } from './SignIn.props';
@@ -20,8 +21,8 @@ interface SignInForm {
 
 const SignInSchema = yup
     .object({
-        email: yup.string().email('signin.email.error.email').required('signin.email.error.required'),
-        password: yup.string().required('signin.password.error.required'),
+        email: yup.string().email('views.signin.form.email.format').required('views.signin.form.email.required'),
+        password: yup.string().min(8, 'views.signin.form.password.min').required('views.signin.form.password.required'),
     })
     .required();
 
@@ -30,6 +31,8 @@ export const useSignIn = () => {
     const [isPassword, showPassword, hidePassword] = useActive();
 
     const { showLoader, hideLoader } = useLoader();
+
+    const { t } = useTranslation();
 
     /* form */
     const {
@@ -62,15 +65,15 @@ export const useSignIn = () => {
         field: {
             className: errors.email ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'email',
-            placeholder: 'Email',
+            placeholder: t('views.signin.form.email.placeholder'),
             ...register('email'),
         },
         isHintReserved: true,
         hint: errors.email
             ? {
-                  children: errors.email.message,
+                  children: t(errors.email.message as string),
                   hasDots: true,
-                  title: errors.email.message,
+                  title: t(errors.email.message as string),
               }
             : undefined,
     };
@@ -79,7 +82,7 @@ export const useSignIn = () => {
         field: {
             className: errors.password ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'password',
-            placeholder: 'Password',
+            placeholder: t('views.signin.form.password.placeholder'),
             isPasswordVisible: isPassword,
             showIcon: <IoMdEye />,
             onShowPassword: showPassword,
@@ -90,9 +93,9 @@ export const useSignIn = () => {
         isHintReserved: true,
         hint: errors.password
             ? {
-                  children: errors.password.message,
+                  children: t(errors.password.message as string),
                   hasDots: true,
-                  title: errors.password.message,
+                  title: t(errors.password.message as string),
               }
             : undefined,
     };

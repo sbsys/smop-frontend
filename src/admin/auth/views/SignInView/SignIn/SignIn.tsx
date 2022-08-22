@@ -1,5 +1,6 @@
 /* react */
 import { memo, useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 /* context */
 import { Context } from '../SignIn.context';
 /* layouts */
@@ -22,6 +23,8 @@ const SignIn = () => {
         passwordProps,
     } = useContext(Context);
 
+    const { t } = useTranslation();
+
     return (
         <PanelLayout className={styles.SignIn}>
             <PanelLayout className={styles.BG}>
@@ -36,16 +39,18 @@ const SignIn = () => {
 
             <PanelLayout className={styles.Form}>
                 <form className={CardStyles.Primary} onSubmit={handleSignIn}>
-                    <legend title="Sign In Admins">
-                        <Legend hasDots>Sign In Admins</Legend>
+                    <legend title={t('views.signin.form.title')}>
+                        <Legend hasDots>{t('views.signin.form.title')}</Legend>
                     </legend>
 
                     <FieldSet {...emailProps} />
 
                     <FieldSet {...passwordProps} />
 
-                    <Button className={ButtonStyles.FillPrimary} type="submit" title="Sign In">
-                        Sign In
+                    <Button className={ButtonStyles.FillPrimary} type="submit" title={t('views.signin.form.signin')}>
+                        <Legend hasDots justify="center">
+                            {t('views.signin.form.signin')}
+                        </Legend>
                     </Button>
                 </form>
             </PanelLayout>

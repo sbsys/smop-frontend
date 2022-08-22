@@ -1,0 +1,20 @@
+{
+    "views": {
+        "signin": {
+            "form": {
+                "title": "Inicio de Sesión Admins",
+                "email": {
+                    "placeholder": "Correo electrónico",
+                    "required": "El correo electrónico es requerido",
+                    "format": "Formato de correo electrónico inválido"
+                },
+                "password": {
+                    "placeholder": "Contraseña",
+                    "required": "La contraseña es requerida",
+                    "min": "La contraseña debe contener al menos 8 caracteres"
+                },
+                "signin": "Iniciar Sesión"
+            }
+        }
+    }
+}

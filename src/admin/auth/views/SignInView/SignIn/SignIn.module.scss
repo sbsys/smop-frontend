@@ -51,7 +51,7 @@
         & > form {
             @include flex;
             @include gap(all 2xl);
-            @include max-width(md, component);
+            @include max-width(lg, component);
             overflow: hidden;
             width: 100%;
 

@@ -6,8 +6,8 @@ import { HelmetProvider, Helmet } from 'react-helmet-async';
 /* routes */
 import AppRoutes from './App.routes';
 /* components */
-import { Loader } from 'shared/components';
-import { AdminLoader, langs } from './core';
+import { Loader, Notification } from 'shared/components';
+import { AdminLoader, AdminNotification, langs } from './core';
 /* utils */
 import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
@@ -41,9 +41,12 @@ const AdminApp: FC = () => {
 
             <BrowserRouter basename="admin">
                 <Suspense fallback={<span>Loading...</span>}>
-                    <Loader element={<AdminLoader />}>
-                        <AppRoutes />
-                    </Loader>
+                    <Notification
+                        element={<AdminNotification rowAlignment="start" colAlignment="end" direction="left-right" />}>
+                        <Loader element={<AdminLoader />}>
+                            <AppRoutes />
+                        </Loader>
+                    </Notification>
                 </Suspense>
             </BrowserRouter>
         </HelmetProvider>

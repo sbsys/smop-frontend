@@ -6,14 +6,17 @@ import { FieldSetProps } from 'admin/core';
 import { SignInContext } from './SignIn.props';
 /* hooks */
 import { useActive, useLoader } from 'shared/hooks';
+import { useAdminNotify } from 'admin/core/hooks';
+/* services */
+import { signInService } from 'admin/auth/services';
 /* utils */
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 /* assets */
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
+import { MdDangerous } from 'react-icons/md';
 /* styles */
 import { FieldStyles } from 'shared/styles';
-import { signInService } from 'admin/auth/services';
 
 interface SignInForm {
     email: string;
@@ -32,6 +35,8 @@ export const useSignIn = () => {
     const [isPassword, showPassword, hidePassword] = useActive();
 
     const { showLoader, hideLoader } = useLoader();
+
+    const { notify } = useAdminNotify();
 
     const { t } = useTranslation();
 
@@ -53,7 +58,13 @@ export const useSignIn = () => {
 
         hideLoader();
 
-        if (service.error) return alert(service.message);
+        if (service.error)
+            return notify('danger', {
+                title: 'Error',
+                icon: <MdDangerous />,
+                text: service.message,
+                timestamp: new Date(),
+            });
 
         console.log(data);
     });

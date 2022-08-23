@@ -1,6 +1,29 @@
+/* react */
+import { ReactNode } from 'react';
 /* props */
 import { ChildrenProps } from 'shared/props';
+/* types */
+import { Alignment, Direction } from 'shared/types';
 
-export interface NotificationContextProps {}
+export interface NotificationLayoutProps {
+    colAlignment?: Alignment;
+    rowAlignment?: Alignment;
+    direction?: Direction;
+}
 
-export interface NotificationProps extends ChildrenProps {}
+export interface NotificationElement<T = any> {
+    id: string;
+    type: string;
+    data: T;
+}
+
+export interface NotificationProps<T> extends ChildrenProps<T> {
+    element?: ReactNode | ReactNode[] | ((params: T) => ReactNode);
+    duration?: number;
+}
+
+export interface NotificationContextProps {
+    notifications: NotificationElement[];
+    addNotification: <T>(type: string, data: T) => void;
+    removeNotification: (id: string) => void;
+}

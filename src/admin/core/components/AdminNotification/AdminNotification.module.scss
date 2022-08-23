@@ -1,0 +1,32 @@
+@import 'styles';
+
+.AdminNotification {
+    @include disabled;
+
+    .Container {
+        @include gap(all md);
+        display: flex;
+        overflow: hidden;
+
+        * {
+            pointer-events: all;
+            user-select: all;
+        }
+
+        .LeftRight {
+            flex-direction: row;
+        }
+
+        .RightLeft {
+            flex-direction: row-reverse;
+        }
+
+        .TopBottom {
+            flex-direction: column;
+        }
+
+        .BottomTop {
+            flex-direction: column-reverse;
+        }
+    }
+}

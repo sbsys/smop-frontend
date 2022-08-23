@@ -13,7 +13,7 @@ const AdminLoader = () => {
     const { isLoading } = useLoader();
 
     return (
-        <ModalLayout isVisible={isLoading} hasIndentation rowAlignment="center" colAlignment="center">
+        <ModalLayout isVisible={isLoading} hasIndentation rowAlignment="center" colAlignment="center" nodeId="loader">
             <ThreeCircles color="currentColor" wrapperClass={styles.AdminLoader} visible={true} />
         </ModalLayout>
     );

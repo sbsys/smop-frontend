@@ -9,24 +9,24 @@
         overflow: hidden;
 
         * {
-            pointer-events: all;
-            user-select: all;
+            pointer-events: auto;
+            user-select: auto;
         }
 
-        .LeftRight {
-            flex-direction: row;
-        }
-
-        .RightLeft {
+        &.LeftRight {
             flex-direction: row-reverse;
         }
 
-        .TopBottom {
-            flex-direction: column;
+        &.RightLeft {
+            flex-direction: row;
         }
 
-        .BottomTop {
+        &.TopBottom {
             flex-direction: column-reverse;
+        }
+
+        &.BottomTop {
+            flex-direction: column;
         }
     }
 }

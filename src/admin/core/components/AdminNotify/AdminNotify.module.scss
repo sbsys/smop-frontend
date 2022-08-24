@@ -1,5 +1,51 @@
 @import 'styles';
 
 .AdminNotify {
-    @include flex(col);
+    @include bg-opacity(90);
+    @include font-color(100);
+    @include padding(all xs);
+    @include rounded(all xs);
+    @include width(md, component);
+
+    .Title {
+        @include flex(row, center, space-between);
+        @include font-size(lg);
+        @include font-weight(lg);
+
+        & > button {
+            @include interactable;
+            @include padding(all sm split);
+            @include rounded(all xl);
+        }
+    }
+
+    .Date {
+        @include font-size(xs);
+        @include font-weight(lg);
+    }
+
+    .Content {
+        @include flex(row, center);
+        @include gap(all xs);
+
+        & > i {
+            @include font-size(sm, element);
+        }
+    }
+
+    &.Info {
+        @include bg-color(500, info);
+    }
+
+    &.Success {
+        @include bg-color(500, success);
+    }
+
+    &.Warning {
+        @include bg-color(500, warning);
+    }
+
+    &.Danger {
+        @include bg-color(500, danger);
+    }
 }

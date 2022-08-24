@@ -2,7 +2,8 @@
 import { FC, memo } from 'react';
 import { createPortal } from 'react-dom';
 /* props */
-import { NotificationLayoutProps } from 'shared/components';
+import { NotificationElement, NotificationLayoutProps } from 'shared/components';
+import { AdminNotifyProps } from 'admin/core/types';
 /* hooks */
 import { useNotification } from 'shared/hooks';
 /* utils */
@@ -32,7 +33,12 @@ const ContainerAlignmentStrategy: Record<Direction, string> = {
     'bottom-top': styles.BottomTop,
 };
 
-const AdminNotification: FC<NotificationLayoutProps> = ({ rowAlignment, colAlignment, direction }) => {
+const AdminNotification: FC<NotificationLayoutProps<NotificationElement<AdminNotifyProps>>> = ({
+    rowAlignment,
+    colAlignment,
+    direction,
+    children,
+}) => {
     const { notifications } = useNotification();
 
     if (notifications.length === 0) return <></>;
@@ -47,9 +53,9 @@ const AdminNotification: FC<NotificationLayoutProps> = ({ rowAlignment, colAlign
                 rowAlignment && rowAlignmentStrategy[rowAlignment]
             )}>
             <div className={classNames(styles.Container, direction && ContainerAlignmentStrategy[direction])}>
-                {notifications.map((notification, index) => (
-                    <span key={index}>{notification.id}</span>
-                ))}
+                {notifications.map(
+                    (notification, index) => typeof children === 'function' && children({ ...notification, key: index })
+                )}
             </div>
         </div>,
         document.getElementById('notification') as HTMLElement

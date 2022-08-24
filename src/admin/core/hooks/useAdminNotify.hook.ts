@@ -6,8 +6,10 @@ import { AdminNotifyProps, AdminNotifyType } from '../types';
 export const useAdminNotify = () => {
     const { addNotification, removeNotification } = useNotification();
 
+    const notify = (type: AdminNotifyType, data: AdminNotifyProps) => addNotification(type, data);
+
     return {
-        notify: (type: AdminNotifyType, data: AdminNotifyProps) => addNotification(type, data),
+        notify,
         unnotify: removeNotification,
     };
 };

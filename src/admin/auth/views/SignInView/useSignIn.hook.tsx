@@ -1,6 +1,7 @@
 /* react */
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 /* props */
 import { FieldSetProps } from 'admin/core';
 import { SignInContext } from './SignIn.props';
@@ -40,6 +41,8 @@ export const useSignIn = () => {
 
     const { t } = useTranslation();
 
+    const navigate = useNavigate();
+
     /* form */
     const {
         register,
@@ -58,7 +61,7 @@ export const useSignIn = () => {
 
         hideLoader();
 
-        if (service.error)
+        if (!service.error)
             return notify('danger', {
                 title: 'Error',
                 icon: <MdDangerous />,
@@ -66,7 +69,7 @@ export const useSignIn = () => {
                 timestamp: new Date(),
             });
 
-        console.log(data);
+        navigate('/dashboard', { replace: true });
     });
 
     /* props */

@@ -9,6 +9,7 @@
     background-color: transparent;
     flex-grow: 1;
     overflow: hidden;
+    width: 0;
 
     &[type='password'] {
         letter-spacing: 0.25rem;

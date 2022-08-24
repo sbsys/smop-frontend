@@ -2,8 +2,8 @@
 import {
     DetailedHTMLProps,
     DragEvent,
-    HTMLAttributes,
     InputHTMLAttributes,
+    LabelHTMLAttributes,
     ReactNode,
     SelectHTMLAttributes,
 } from 'react';
@@ -11,7 +11,7 @@ import {
 import { ChildrenProps, ContentLayoutProps } from 'shared/props';
 
 export interface FieldLayoutProps
-    extends Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, 'children'>,
+    extends Omit<DetailedHTMLProps<LabelHTMLAttributes<HTMLLabelElement>, HTMLLabelElement>, 'children' | 'htmlFor'>,
         ChildrenProps,
         ContentLayoutProps {}
 

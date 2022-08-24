@@ -1,0 +1,57 @@
+@import 'styles';
+
+.OutlinePrimary {
+    @include border-color(bottom 400 primary);
+    @include border-width(bottom sm);
+
+    & *:not(input):not(select):not(option) {
+        @include font-color(400, primary);
+    }
+
+    &:hover,
+    &:focus-within {
+        @include border-color(bottom 300 primary);
+
+        & *:not(input):not(select):not(option) {
+            @include font-color(300, primary);
+        }
+    }
+
+    & > input,
+    & > select {
+        @include padding(x sm split, y xs split);
+    }
+
+    & > input:disabled,
+    & > select:disabled {
+        @include disabled;
+    }
+}
+
+.OutlineDanger {
+    @include border-color(bottom 400 danger);
+    @include border-width(bottom sm);
+
+    & *:not(input):not(select):not(option) {
+        @include font-color(400, danger);
+    }
+
+    &:hover,
+    &:focus-within {
+        @include border-color(bottom 300 danger);
+
+        & *:not(input):not(select):not(option) {
+            @include font-color(300, danger);
+        }
+    }
+
+    & > input,
+    & > select {
+        @include padding(x sm split, y xs split);
+    }
+
+    & > input:disabled,
+    & > select:disabled {
+        @include disabled;
+    }
+}

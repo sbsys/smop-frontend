@@ -1,0 +1,20 @@
+{
+    "views": {
+        "signin": {
+            "form": {
+                "title": "Sign In Admins",
+                "email": {
+                    "placeholder": "Email",
+                    "required": "Email is required",
+                    "format": "Invalid email format"
+                },
+                "password": {
+                    "placeholder": "Password",
+                    "required": "Password is required",
+                    "min": "Password must contain at least 8 characters"
+                },
+                "signin": "Sign In"
+            }
+        }
+    }
+}

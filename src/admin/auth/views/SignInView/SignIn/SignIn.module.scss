@@ -1,0 +1,64 @@
+@import 'styles';
+
+.SignIn {
+    @include flex;
+
+    @include screen-width(lg) {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .BG {
+        display: none;
+        position: relative;
+
+        @include screen-width(lg) {
+            @include flex;
+        }
+
+        & > img {
+            flex-grow: 1;
+            object-fit: cover;
+        }
+
+        .Branding {
+            @include bg-color(800, primary);
+            @include bg-opacity(90);
+            @include flex(col, center, center);
+            @include font-color(200);
+            @include font-family(number);
+            @include inset;
+
+            & > h1,
+            & > p {
+                letter-spacing: 0.1em;
+            }
+
+            & > h1 {
+                @include font-size(2xl, element);
+            }
+
+            & > p {
+                @include font-size(sm, element);
+            }
+        }
+    }
+
+    .Form {
+        @include flex(col, center, center);
+        @include padding(all md);
+
+        & > form {
+            @include flex;
+            @include gap(all 2xl);
+            @include max-width(lg, component);
+            overflow: hidden;
+            width: 100%;
+
+            & > legend {
+                @include font-size(lg);
+                @include font-weight(lg);
+            }
+        }
+    }
+}

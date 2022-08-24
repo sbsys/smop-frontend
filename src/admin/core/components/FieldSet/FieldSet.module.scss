@@ -1,0 +1,18 @@
+@import 'styles';
+
+.FieldSet {
+    @include flex;
+    @include gap(all xs split);
+    min-width: 100%;
+    overflow: hidden;
+
+    & > span {
+        @include font-size(sm);
+        @include font-weight(sm);
+        @include margin(x sm split);
+    }
+
+    &.HintReserved {
+        margin-bottom: calc((size(sm, font) * var(--#{$prefix}-line-md)) + size(xs, split));
+    }
+}

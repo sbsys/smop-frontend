@@ -1,7 +1,0 @@
-@mixin card($serie-key) {
-    @include padding(all md);
-    @include rounded(all sm);
-    @include shadow(all xs);
-    @include shadow-color(all 700 $serie-key);
-    @include shadow-opacity(all 10);
-}

@@ -1,0 +1,9 @@
+@import 'styles';
+
+.Dashboard {
+    display: none;
+
+    @include screen-width(xl) {
+        @include flex(row);
+    }
+}

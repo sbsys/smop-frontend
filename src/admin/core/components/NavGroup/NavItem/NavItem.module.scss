@@ -1,0 +1,35 @@
+@import 'styles';
+
+.NavItem {
+    @include bg-color(600, secondary);
+    @include bg-opacity(0);
+    @include flex(row, center, flex-start);
+    @include font-weight(lg);
+    @include gap(all md);
+    @include interactable;
+    @include padding(x md, y xs);
+    text-decoration: none;
+    transform-origin: left center;
+
+    &:hover {
+        @include bg-opacity(20);
+    }
+
+    &:active {
+        @include bg-opacity(30);
+    }
+
+    & > i {
+        @include font-size(2xl);
+    }
+
+    &Active {
+        @include bg-opacity(10);
+        @include border-color(left 200 secondary);
+        @include border-width(left md);
+        @include font-color(200, secondary);
+        @include padding(left sm);
+        @include shadow(all sm inset);
+        @include shadow-color(all 600 secondary);
+    }
+}

@@ -1,0 +1,17 @@
+@import 'styles';
+
+.NavGroup {
+    @include flex;
+    @include gap(all xs);
+
+    & > span {
+        @include font-size(lg);
+        @include font-weight(lg);
+        @include padding(x md);
+    }
+
+    & > ul {
+        @include flex;
+        @include gap(all xs split);
+    }
+}

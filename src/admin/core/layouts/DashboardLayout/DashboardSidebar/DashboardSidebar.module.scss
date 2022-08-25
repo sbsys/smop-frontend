@@ -39,8 +39,8 @@
 
     .Content {
         @include flex;
-        @include padding(y md);
-        
+        @include padding(y lg);
+
         & > ul {
             @include flex;
             @include gap(all md);

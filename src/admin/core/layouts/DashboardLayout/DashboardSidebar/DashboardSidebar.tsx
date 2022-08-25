@@ -16,9 +16,8 @@ const DashboardSidebar = () => {
     const {
         /* states */
         title,
-        /* functions */
-        backProps,
         /* props */
+        backProps,
         groups,
     } = useContext(Context);
 

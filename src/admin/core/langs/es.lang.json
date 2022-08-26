@@ -19,13 +19,14 @@
     },
     "dashboard": {
         "actions": {
-            "back": "Cerrar menú lateral"
+            "back": "Cerrar menú lateral",
+            "menu": "Abrir menú lateral"
         },
         "navigation": {
-            "home": {
-                "name": "Inicio",
+            "dashboard": {
+                "name": "Tablero",
                 "items": {
-                    "dashboard": "Tablero"
+                    "home": "Inicio"
                 }
             },
             "root": {

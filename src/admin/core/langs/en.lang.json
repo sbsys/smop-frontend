@@ -19,13 +19,14 @@
     },
     "dashboard": {
         "actions": {
-            "back": "Close side menu"
+            "back": "Close side menu",
+            "menu": "Open side menu"
         },
         "navigation": {
-            "home": {
-                "name": "Home",
+            "dashboard": {
+                "name": "Dashboard",
                 "items": {
-                    "dashboard": "Dashboard"
+                    "home": "Home"
                 }
             },
             "root": {

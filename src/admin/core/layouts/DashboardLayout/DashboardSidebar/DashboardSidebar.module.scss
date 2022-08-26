@@ -28,7 +28,7 @@
         & > button {
             @include bg-color(800);
             @include bg-opacity(30);
-            @include font-size(xl);
+            @include font-size(2xl);
             @include interactable;
             @include padding(all xs split);
             @include rounded(all lg);

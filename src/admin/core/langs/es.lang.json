@@ -16,5 +16,24 @@
                 "signin": "Iniciar Sesión"
             }
         }
+    },
+    "dashboard": {
+        "actions": {
+            "back": "Cerrar menú lateral"
+        },
+        "navigation": {
+            "home": {
+                "name": "Inicio",
+                "items": {
+                    "dashboard": "Tablero"
+                }
+            },
+            "root": {
+                "name": "Administrador",
+                "items": {
+                    "companies": "Compañías"
+                }
+            }
+        }
     }
 }

@@ -16,5 +16,24 @@
                 "signin": "Sign In"
             }
         }
+    },
+    "dashboard": {
+        "actions": {
+            "back": "Close side menu"
+        },
+        "navigation": {
+            "home": {
+                "name": "Home",
+                "items": {
+                    "dashboard": "Dashboard"
+                }
+            },
+            "root": {
+                "name": "Root",
+                "items": {
+                    "companies": "Companies"
+                }
+            }
+        }
     }
 }

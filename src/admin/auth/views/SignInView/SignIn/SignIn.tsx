@@ -7,7 +7,7 @@ import { Context } from '../SignIn.context';
 import { PanelLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
-import { FieldSet } from 'admin/core';
+import { FieldSet, LanguageChanger } from 'admin/core';
 /* assets */
 import { OrgsBGSrc } from 'assets';
 /* styles */
@@ -52,6 +52,8 @@ const SignIn = () => {
                             {t('views.signin.form.signin')}
                         </Legend>
                     </Button>
+
+                    <LanguageChanger />
                 </form>
             </PanelLayout>
         </PanelLayout>

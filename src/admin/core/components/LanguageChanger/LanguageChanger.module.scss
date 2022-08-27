@@ -1,0 +1,38 @@
+@import 'styles';
+
+.LanguageChanger {
+    & > ul {
+        @include flex(row, center);
+        @include gap(all xs);
+        list-style: none;
+
+        & > li {
+            @include flex(row);
+            @include gap(all xs);
+
+            & > span {
+                @include border-width(x xs);
+                @include opacity(40);
+            }
+        }
+    }
+
+    .Lang {
+        @include font-family(number);
+        @include font-size(lg);
+        @include font-weight(lg);
+        @include interactable;
+        @include opacity(60);
+        @include padding(all xs split);
+        @include rounded(all xs);
+        text-transform: uppercase;
+
+        &:hover {
+            @include opacity(80);
+        }
+
+        &:disabled {
+            @include opacity(100);
+        }
+    }
+}

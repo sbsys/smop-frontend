@@ -1,0 +1,55 @@
+@import 'styles';
+
+.Sidebar {
+    @include bg-color(600, primary);
+    @include font-color(100);
+    @include gap(all xs);
+    @include max-width(md, component);
+    flex-grow: 0;
+    width: 100%;
+
+    & > fieldset {
+        @include margin(x md, bottom xs);
+        margin-left: auto;
+    }
+
+    .Header {
+        @include bg-color(800, primary);
+        @include flex(row, center, space-between);
+        @include gap(all xs);
+        @include padding(all xs);
+
+        & > span {
+            @include font-size(lg);
+            @include font-weight(xl);
+            letter-spacing: 0.1em;
+        }
+
+        & > button {
+            @include bg-color(800);
+            @include bg-opacity(30);
+            @include font-size(2xl);
+            @include interactable;
+            @include padding(all xs split);
+            @include rounded(all lg);
+
+            &:hover {
+                @include bg-opacity(50);
+            }
+
+            &:active {
+                @include bg-opacity(70);
+            }
+        }
+    }
+
+    .Content {
+        @include flex;
+        @include padding(y lg);
+
+        & > ul {
+            @include flex;
+            @include gap(all md);
+        }
+    }
+}

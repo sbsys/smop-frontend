@@ -1,0 +1,23 @@
+@import 'styles';
+
+.Appbar {
+    @include bg-color(400);
+    @include flex(row, center, space-between);
+    @include padding(all xs);
+
+    .Menu {
+        @include font-size(2xl);
+        @include interactable;
+        @include padding(all xs split);
+        @include rounded(all xs);
+
+        &:hover {
+            @include bg-color(600);
+            @include bg-opacity(30);
+        }
+
+        &:active {
+            @include bg-opacity(50);
+        }
+    }
+}

@@ -16,5 +16,31 @@
                 "signin": "Iniciar Sesión"
             }
         }
+    },
+    "dashboard": {
+        "actions": {
+            "back": "Cerrar menú lateral",
+            "menu": "Abrir menú lateral"
+        },
+        "navigation": {
+            "dashboard": {
+                "name": "Tablero",
+                "items": {
+                    "home": "Inicio"
+                }
+            },
+            "root": {
+                "name": "Administrador de Sistema",
+                "items": {
+                    "tenants": "Inquilinos"
+                }
+            },
+            "admin": {
+                "name": "Administrador",
+                "items": {
+                    "companies": "Compañías"
+                }
+            }
+        }
     }
 }

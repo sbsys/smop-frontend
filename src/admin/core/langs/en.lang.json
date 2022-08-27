@@ -16,5 +16,31 @@
                 "signin": "Sign In"
             }
         }
+    },
+    "dashboard": {
+        "actions": {
+            "back": "Close side menu",
+            "menu": "Open side menu"
+        },
+        "navigation": {
+            "dashboard": {
+                "name": "Dashboard",
+                "items": {
+                    "home": "Home"
+                }
+            },
+            "root": {
+                "name": "System Admin",
+                "items": {
+                    "tenants": "Tenants"
+                }
+            },
+            "admin": {
+                "name": "Admin",
+                "items": {
+                    "companies": "Companies"
+                }
+            }
+        }
     }
 }

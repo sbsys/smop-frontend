@@ -1,0 +1,16 @@
+@import 'styles';
+
+.TenantList {
+    display: none;
+
+    @include screen-width(lg) {
+        @include flex;
+        @include gap(all md);
+        @include padding(y md);
+    }
+
+    & > h1 {
+        @include font-size(2xl);
+        @include font-weight(lg);
+    }
+}

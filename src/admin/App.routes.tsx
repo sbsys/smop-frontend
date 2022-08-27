@@ -9,7 +9,7 @@ import { DashboardLayout } from './core';
 /* authentication */
 import { AuthLayout, SignInView } from './auth';
 /* tenants */
-import { TenantsLayout } from './tenants';
+import { TenantListView, TenantsLayout } from './tenants';
 /* companies */
 import { CompaniesLayout } from './companies';
 
@@ -32,7 +32,11 @@ const AppRoutes: FC = () => {
                 <Route path="home" element={null} />
 
                 {/* tenants module */}
-                <Route path="tenants" element={<TenantsLayout />}></Route>
+                <Route path="tenants" element={<TenantsLayout />}>
+                    <Route index element={<Navigate to={'list'} replace />} />
+
+                    <Route path="list" element={<TenantListView />} />
+                </Route>
 
                 {/* companies module */}
                 <Route path="companies" element={<CompaniesLayout />}></Route>

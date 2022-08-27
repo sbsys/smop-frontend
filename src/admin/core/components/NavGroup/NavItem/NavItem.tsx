@@ -10,12 +10,13 @@ import { classNames } from 'shared/utils';
 /* styles */
 import styles from './NavItem.module.scss';
 
-const NavItem: FC<NavItemProps> = ({ to, icon, text }) => {
+const NavItem: FC<NavItemProps> = ({ to, icon, text, ...rest }) => {
     return (
         <NavLink
             className={({ isActive }) => classNames(styles.NavItem, isActive && styles.NavItemActive)}
             to={to}
-            title={text}>
+            title={text}
+            {...rest}>
             <i>{typeof icon === 'function' ? icon() : icon}</i>
 
             <Legend hasDots>{text}</Legend>

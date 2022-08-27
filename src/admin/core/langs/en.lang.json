@@ -30,7 +30,13 @@
                 }
             },
             "root": {
-                "name": "Root",
+                "name": "System Admin",
+                "items": {
+                    "tenants": "Tenants"
+                }
+            },
+            "admin": {
+                "name": "Admin",
                 "items": {
                     "companies": "Companies"
                 }

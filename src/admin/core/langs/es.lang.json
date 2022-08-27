@@ -30,6 +30,12 @@
                 }
             },
             "root": {
+                "name": "Administrador de Sistema",
+                "items": {
+                    "tenants": "Inquilinos"
+                }
+            },
+            "admin": {
                 "name": "Administrador",
                 "items": {
                     "companies": "Compañías"

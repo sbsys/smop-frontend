@@ -3,8 +3,14 @@ import { FC, memo } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 /* layouts */
 import { DashboardLayout } from './core';
+
 /* modules */
+
+/* authentication */
 import { AuthLayout, SignInView } from './auth';
+/* tenants */
+import { TenantsLayout } from './tenants';
+/* companies */
 import { CompaniesLayout } from './companies';
 
 const AppRoutes: FC = () => {
@@ -24,6 +30,9 @@ const AppRoutes: FC = () => {
                 {/* dashboard */}
                 <Route index element={<Navigate to={'home'} replace />} />
                 <Route path="home" element={null} />
+
+                {/* tenants module */}
+                <Route path="tenants" element={<TenantsLayout />}></Route>
 
                 {/* companies module */}
                 <Route path="companies" element={<CompaniesLayout />}></Route>

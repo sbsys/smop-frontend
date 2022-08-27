@@ -11,7 +11,7 @@ import { useActive, useMinWidth } from 'shared/hooks';
 /* utils */
 import { matchBreakPoint } from 'shared/utils';
 /* assets */
-import { MdDashboard, MdStore } from 'react-icons/md';
+import { MdDashboard, MdDashboardCustomize, MdStore } from 'react-icons/md';
 
 export const useDashboardLayout = () => {
     /* states */
@@ -61,8 +61,18 @@ export const useDashboardLayout = () => {
             title: t('dashboard.navigation.root.name'),
             items: [
                 {
+                    icon: <MdDashboardCustomize />,
+                    text: t('dashboard.navigation.root.items.tenants'),
+                    to: 'tenants',
+                },
+            ],
+        },
+        {
+            title: t('dashboard.navigation.admin.name'),
+            items: [
+                {
                     icon: <MdStore />,
-                    text: t('dashboard.navigation.root.items.companies'),
+                    text: t('dashboard.navigation.admin.items.companies'),
                     to: 'companies',
                 },
             ],

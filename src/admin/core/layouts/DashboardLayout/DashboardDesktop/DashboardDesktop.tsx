@@ -24,7 +24,7 @@ const DashboardDesktop = () => {
             <PanelLayout className={styles.Wrapper} orientation="col">
                 <DashboardAppbar />
 
-                <PanelLayout className={styles.Content}>
+                <PanelLayout className={styles.Content} orientation="col">
                     <Outlet />
                 </PanelLayout>
             </PanelLayout>

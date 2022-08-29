@@ -15,6 +15,24 @@
     }
 
     .Filter {
-        @include margin(x sm split);
+        @include margin(bottom xs);
+    }
+
+    .Container {
+        @include gap(all md);
+    }
+
+    .List {
+        @include flex;
+        flex-grow: 1;
+        overflow: hidden;
+    }
+
+    .Route {
+        @include flex;
+        @include max-width(2xl, component);
+        flex-grow: 1;
+        overflow: hidden;
+        width: 100%;
     }
 }

@@ -6,7 +6,5 @@ export interface TenantListContextProps {
     textSearchProps: FieldSetProps;
     startDateSearchProps: FieldSetProps;
     endDateSearchProps: FieldSetProps;
-    fromBusinessSearchProps: FieldSetProps;
-    toBusinessSearchProps: FieldSetProps;
     stateSearchProps: FieldSetProps;
 }

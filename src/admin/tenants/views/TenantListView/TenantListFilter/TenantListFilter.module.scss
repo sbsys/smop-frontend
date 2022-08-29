@@ -12,7 +12,7 @@
         @include gap(all md);
         align-items: center;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(min(100%, size(lg, component)), 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, size(2xl, component)), 1fr));
 
         & > div {
             @include gap(all md);
@@ -22,7 +22,10 @@
         }
 
         & > div:last-child {
+            @include max-width(md, component);
             grid-column-end: -1;
+            justify-self: end;
+            width: 100%;
         }
     }
 }

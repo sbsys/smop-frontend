@@ -20,6 +20,30 @@ export const useTenantList = () => {
         },
     };
 
+    const stateSearchProps: FieldSetProps = {
+        field: {
+            className: FieldStyles.OutlinePrimary,
+            strategy: 'select',
+            placeholder: 'Choose state',
+            options: [
+                {
+                    label: 'Active',
+                    value: 'active',
+                },
+                {
+                    label: 'Inactive',
+                    value: 'inactive',
+                },
+            ],
+        },
+        isHintReserved: true,
+        hint: {
+            children: 'Tenant state',
+            hasDots: true,
+            title: 'Tenant state',
+        },
+    };
+
     const startDateSearchProps: FieldSetProps = {
         field: {
             className: FieldStyles.OutlinePrimary,
@@ -48,71 +72,13 @@ export const useTenantList = () => {
         },
     };
 
-    const fromBusinessSearchProps: FieldSetProps = {
-        field: {
-            className: FieldStyles.OutlinePrimary,
-            strategy: 'number',
-            placeholder: 'From business amount',
-            step: 1,
-            min: 0,
-        },
-        isHintReserved: true,
-        hint: {
-            children: 'From business amount',
-            hasDots: true,
-            title: 'From business amount',
-        },
-    };
-
-    const toBusinessSearchProps: FieldSetProps = {
-        field: {
-            className: FieldStyles.OutlinePrimary,
-            strategy: 'number',
-            placeholder: 'To business amount',
-            step: 1,
-            min: 0,
-        },
-        isHintReserved: true,
-        hint: {
-            children: 'To business amount',
-            hasDots: true,
-            title: 'To business amount',
-        },
-    };
-
-    const stateSearchProps: FieldSetProps = {
-        field: {
-            className: FieldStyles.OutlinePrimary,
-            strategy: 'select',
-            placeholder: 'Choose state',
-            options: [
-                {
-                    label: 'Active',
-                    value: 'active',
-                },
-                {
-                    label: 'Inactive',
-                    value: 'inactive',
-                },
-            ],
-        },
-        isHintReserved: true,
-        hint: {
-            children: 'Tenant state',
-            hasDots: true,
-            title: 'Tenant state',
-        },
-    };
-
     /* context */
     const context: TenantListContextProps = {
         /* props */
         textSearchProps,
+        stateSearchProps,
         startDateSearchProps,
         endDateSearchProps,
-        fromBusinessSearchProps,
-        toBusinessSearchProps,
-        stateSearchProps,
     };
 
     return { context };

@@ -16,8 +16,6 @@ const TenantListFilter = () => {
         textSearchProps,
         startDateSearchProps,
         endDateSearchProps,
-        fromBusinessSearchProps,
-        toBusinessSearchProps,
         stateSearchProps,
     } = useContext(TenantListContext);
 
@@ -27,7 +25,7 @@ const TenantListFilter = () => {
             onSubmit={event => event.preventDefault()}
             onReset={event => console.log(event)}>
             <legend>
-                <Legend hasDots>Filter tenants</Legend>
+                <Legend hasDots>Filter</Legend>
             </legend>
 
             <div className={styles.Content}>
@@ -41,12 +39,6 @@ const TenantListFilter = () => {
                     <FieldSet {...startDateSearchProps} />
 
                     <FieldSet {...endDateSearchProps} />
-                </div>
-
-                <div>
-                    <FieldSet {...fromBusinessSearchProps} />
-
-                    <FieldSet {...toBusinessSearchProps} />
                 </div>
 
                 <div>

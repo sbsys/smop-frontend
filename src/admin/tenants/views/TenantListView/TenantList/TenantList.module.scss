@@ -1,0 +1,149 @@
+@import 'styles';
+
+.TenantList {
+    & > thead {
+        @include bg-color(400, primary);
+        @include font-color(100);
+        @include font-weight(lg);
+        @include padding(x xs, y sm split);
+        @include rounded(all xs);
+
+        & > tr {
+            @include gap(all xs);
+        }
+    }
+
+    & > tbody > tr {
+        @include gap(all xs);
+        @include padding(all xs);
+    }
+
+    .Column,
+    .TitleHint,
+    .Contacts,
+    .State,
+    .Actions {
+        flex-grow: 1;
+        overflow: hidden;
+    }
+
+    .TitleHint,
+    .Contacts {
+        @include flex;
+        @include gap(all xs split);
+    }
+
+    .TitleHint {
+        & > h4 {
+            @include font-size(lg);
+            @include font-weight(lg);
+        }
+
+        & > span {
+            @include font-size(sm);
+        }
+    }
+
+    .Contacts {
+        & > span:first-child {
+            @include font-weight(lg);
+        }
+
+        & > span:last-child {
+            @include font-size(sm);
+        }
+    }
+
+    .State {
+        @include border-width(all sm);
+        @include font-size(sm);
+        @include font-weight(lg);
+        @include max-width(xs, component);
+        @include padding(all xs split);
+        @include rounded(all lg);
+        margin: 0 auto;
+
+        &Active {
+            @include bg-color(100, success);
+            @include bg-opacity(20);
+            @include border-color(all 400 success);
+            @include font-color(600, success);
+        }
+
+        &Inactive {
+            @include bg-color(100, danger);
+            @include bg-opacity(20);
+            @include border-color(all 400 danger);
+            @include font-color(600, danger);
+        }
+    }
+
+    .Actions {
+        @include flex(row, center, space-evenly);
+        @include gap(all sm);
+
+        & > button {
+            @include font-size(2xl);
+            @include interactable;
+            @include padding(all xs split);
+            @include rounded(all xs);
+
+            &:hover {
+                @include bg-color(600);
+                @include bg-opacity(10);
+            }
+
+            &:active {
+                @include bg-opacity(20);
+            }
+        }
+
+        .Delete {
+            @include font-color(400, danger);
+
+            &:hover {
+                @include font-color(300, danger);
+            }
+
+            &:active {
+                @include font-color(500, danger);
+            }
+        }
+
+        .Restore {
+            @include font-color(400, success);
+
+            &:hover {
+                @include font-color(300, success);
+            }
+
+            &:active {
+                @include font-color(500, success);
+            }
+        }
+
+        .Edit {
+            @include font-color(400, warning);
+
+            &:hover {
+                @include font-color(300, warning);
+            }
+
+            &:active {
+                @include font-color(500, warning);
+            }
+        }
+
+        .View {
+            @include font-color(400, info);
+
+            &:hover {
+                @include font-color(300, info);
+            }
+
+            &:active {
+                @include font-color(500, info);
+            }
+        }
+    }
+}

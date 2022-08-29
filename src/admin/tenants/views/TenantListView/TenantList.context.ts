@@ -8,7 +8,5 @@ export const TenantListContext = createContext<TenantListContextProps>({
     textSearchProps: { field: {} },
     startDateSearchProps: { field: {} },
     endDateSearchProps: { field: {} },
-    fromBusinessSearchProps: { field: {} },
-    toBusinessSearchProps: { field: {} },
     stateSearchProps: { field: {} },
 });

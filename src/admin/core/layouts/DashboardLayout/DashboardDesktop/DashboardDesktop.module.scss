@@ -3,7 +3,7 @@
 .Dashboard {
     display: none;
 
-    @include screen-width(2xl) {
+    @include screen-width(3xl) {
         @include flex(row);
     }
 

@@ -4,12 +4,12 @@
     @include flex;
     @include gap(all xs);
 
-    @include screen-width(2xl) {
+    @include screen-width(3xl) {
         display: none;
     }
 
     .Content {
-        @include max-width(lg, view);
+        @include max-width(xl, view);
         @include padding(x xs);
         margin: 0 auto;
         width: 100%;

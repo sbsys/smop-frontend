@@ -5,10 +5,8 @@ import { Legend } from 'shared/components';
 import { PanelLayout } from 'shared/layouts';
 /* components */
 import { TenantListFilter } from '../TenantListFilter';
-/* utils */
-import { classNames } from 'shared/utils';
+import { TenantList } from '../TenantList';
 /* styles */
-import { CardStyles } from 'shared/styles';
 import styles from './TenantListDesktop.module.scss';
 
 const TenantListDesktop = () => {
@@ -18,14 +16,16 @@ const TenantListDesktop = () => {
                 <Legend hasDots>Tenants</Legend>
             </h1>
 
-            <section className={classNames(CardStyles.Primary, styles.Filter)}>
+            <section className={styles.Filter}>
                 <TenantListFilter />
             </section>
 
-            <PanelLayout orientation="row">
-                <section>Tenants</section>
+            <PanelLayout orientation="row" className={styles.Container}>
+                <section className={styles.List}>
+                    <TenantList />
+                </section>
 
-                <section>Optional action</section>
+                {true && <section className={styles.Route}>Optional action</section>}
             </PanelLayout>
         </PanelLayout>
     );

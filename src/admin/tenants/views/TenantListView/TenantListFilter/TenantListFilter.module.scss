@@ -1,4 +1,28 @@
 @import 'styles';
 
 .Filter {
+    @include flex;
+    @include gap(all xs);
+
+    & > legend {
+        @include font-weight(lg);
+    }
+
+    .Content {
+        @include gap(all md);
+        align-items: center;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, size(lg, component)), 1fr));
+
+        & > div {
+            @include gap(all md);
+            align-items: center;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        & > div:last-child {
+            grid-column-end: -1;
+        }
+    }
 }

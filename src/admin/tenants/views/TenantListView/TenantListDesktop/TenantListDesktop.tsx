@@ -5,7 +5,10 @@ import { Legend } from 'shared/components';
 import { PanelLayout } from 'shared/layouts';
 /* components */
 import { TenantListFilter } from '../TenantListFilter';
+/* utils */
+import { classNames } from 'shared/utils';
 /* styles */
+import { CardStyles } from 'shared/styles';
 import styles from './TenantListDesktop.module.scss';
 
 const TenantListDesktop = () => {
@@ -15,7 +18,7 @@ const TenantListDesktop = () => {
                 <Legend hasDots>Tenants</Legend>
             </h1>
 
-            <section>
+            <section className={classNames(CardStyles.Primary, styles.Filter)}>
                 <TenantListFilter />
             </section>
 

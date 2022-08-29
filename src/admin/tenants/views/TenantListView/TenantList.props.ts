@@ -1,1 +1,12 @@
-export interface TenantListContextProps {}
+/* props */
+import { FieldSetProps } from 'admin/core';
+
+export interface TenantListContextProps {
+    /* props */
+    textSearchProps: FieldSetProps;
+    startDateSearchProps: FieldSetProps;
+    endDateSearchProps: FieldSetProps;
+    fromBusinessSearchProps: FieldSetProps;
+    toBusinessSearchProps: FieldSetProps;
+    stateSearchProps: FieldSetProps;
+}

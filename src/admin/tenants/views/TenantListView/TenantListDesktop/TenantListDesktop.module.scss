@@ -13,4 +13,8 @@
         @include font-size(2xl);
         @include font-weight(lg);
     }
+
+    .Filter {
+        @include margin(x sm split);
+    }
 }

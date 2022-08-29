@@ -31,5 +31,6 @@
         @include padding(left sm);
         @include shadow(all sm inset);
         @include shadow-color(all 600 secondary);
+        @include disabled;
     }
 }

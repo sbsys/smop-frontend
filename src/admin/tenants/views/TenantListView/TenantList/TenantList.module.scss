@@ -10,6 +10,10 @@
 
         & > tr {
             @include gap(all xs);
+
+            & > th > a {
+                margin-left: auto;
+            }
         }
     }
 

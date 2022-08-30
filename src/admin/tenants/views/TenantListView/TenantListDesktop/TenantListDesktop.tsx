@@ -1,15 +1,18 @@
 /* react */
 import { memo } from 'react';
-import { Legend } from 'shared/components';
+import { Outlet, useOutlet } from 'react-router-dom';
 /* layouts */
 import { PanelLayout } from 'shared/layouts';
 /* components */
+import { Legend } from 'shared/components';
 import { TenantListFilter } from '../TenantListFilter';
 import { TenantList } from '../TenantList';
 /* styles */
 import styles from './TenantListDesktop.module.scss';
 
 const TenantListDesktop = () => {
+    const out = useOutlet();
+
     return (
         <PanelLayout className={styles.TenantList}>
             <h1>
@@ -25,7 +28,11 @@ const TenantListDesktop = () => {
                     <TenantList />
                 </section>
 
-                {true && <section className={styles.Route}>Optional action</section>}
+                {out !== null && (
+                    <section className={styles.Route}>
+                        <Outlet />
+                    </section>
+                )}
             </PanelLayout>
         </PanelLayout>
     );

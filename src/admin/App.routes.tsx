@@ -35,7 +35,9 @@ const AppRoutes: FC = () => {
                 <Route path="tenants" element={<TenantsLayout />}>
                     <Route index element={<Navigate to={'list'} replace />} />
 
-                    <Route path="list" element={<TenantListView />} />
+                    <Route path="list" element={<TenantListView />}>
+                        <Route path="new" element={null} />
+                    </Route>
                 </Route>
 
                 {/* companies module */}

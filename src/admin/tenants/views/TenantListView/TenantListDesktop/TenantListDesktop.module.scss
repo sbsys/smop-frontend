@@ -31,7 +31,6 @@
     .Route {
         @include flex;
         @include max-width(2xl, component);
-        flex-grow: 1;
         overflow: hidden;
         width: 100%;
     }

@@ -5,7 +5,7 @@
         @include bg-color(400, primary);
         @include font-color(100);
         @include font-weight(lg);
-        @include padding(x xs, y sm split);
+        @include padding(x xs);
         @include rounded(all xs);
 
         & > tr {
@@ -79,7 +79,7 @@
     }
 
     .Actions {
-        @include flex(row, center, space-evenly);
+        @include flex(row, center, center);
         @include gap(all sm);
 
         & > button {
@@ -95,6 +95,11 @@
 
             &:active {
                 @include bg-opacity(20);
+            }
+
+            &:disabled {
+                @include font-opacity(50);
+                transform: scale(0.75);
             }
         }
 

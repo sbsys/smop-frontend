@@ -24,36 +24,30 @@ const TenantListFilter = () => {
             className={styles.Filter}
             onSubmit={event => event.preventDefault()}
             onReset={event => console.log(event)}>
-            <legend>
-                <Legend hasDots>Filter</Legend>
-            </legend>
+            <div>
+                <FieldSet {...textSearchProps} />
 
-            <div className={styles.Content}>
-                <div>
-                    <FieldSet {...textSearchProps} />
+                <FieldSet {...stateSearchProps} />
+            </div>
 
-                    <FieldSet {...stateSearchProps} />
-                </div>
+            <div>
+                <FieldSet {...startDateSearchProps} />
 
-                <div>
-                    <FieldSet {...startDateSearchProps} />
+                <FieldSet {...endDateSearchProps} />
+            </div>
 
-                    <FieldSet {...endDateSearchProps} />
-                </div>
+            <div>
+                <Button type="reset" className={ButtonStyles.OutlineNone}>
+                    <Legend hasDots justify="center">
+                        Clean up
+                    </Legend>
+                </Button>
 
-                <div>
-                    <Button type="reset" className={ButtonStyles.OutlineNone}>
-                        <Legend hasDots justify="center">
-                            Clean up
-                        </Legend>
-                    </Button>
-
-                    <Button type="submit" className={ButtonStyles.FillSecondary}>
-                        <Legend hasDots justify="center">
-                            Filter
-                        </Legend>
-                    </Button>
-                </div>
+                <Button type="submit" className={ButtonStyles.FillSecondary}>
+                    <Legend hasDots justify="center">
+                        Filter
+                    </Legend>
+                </Button>
             </div>
         </form>
     );

@@ -1,3 +1,5 @@
+/* react */
+import { memo } from 'react';
 /* props */
 import { TableRow } from 'shared/layouts';
 /* components */
@@ -72,3 +74,9 @@ export const TenantListRow = (): TableRow => ({
         },
     ],
 });
+
+const TenantListItem = () => {
+    return <div></div>;
+};
+
+export default memo(TenantListItem);

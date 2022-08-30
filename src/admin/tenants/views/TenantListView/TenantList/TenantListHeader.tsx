@@ -2,9 +2,7 @@
 import { TableRow } from 'shared/layouts';
 /* components */
 import { Legend } from 'shared/components';
-import { NavItem } from 'admin/core';
-/* assets */
-import { MdDashboardCustomize } from 'react-icons/md';
+import NewTenantAction from './NewTenantAction';
 /* styles */
 import styles from './TenantList.module.scss';
 
@@ -32,7 +30,7 @@ export const TenantListHeader = (): TableRow => ({
             ),
         },
         {
-            children: <NavItem icon={<MdDashboardCustomize />} text="New Tenant" to="new" />,
+            children: <NewTenantAction />,
         },
     ],
 });

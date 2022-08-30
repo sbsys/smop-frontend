@@ -5,6 +5,7 @@ import { TenantListContext } from './TenantList.context';
 /* custom hook */
 import { useTenantList } from './useTenantList.hook';
 /* components */
+import { TenantListMobile } from './TenantListMobile';
 import { TenantListDesktop } from './TenantListDesktop';
 
 const TenantListView = () => {
@@ -12,6 +13,8 @@ const TenantListView = () => {
 
     return (
         <TenantListContext.Provider value={context}>
+            <TenantListMobile />
+
             <TenantListDesktop />
         </TenantListContext.Provider>
     );

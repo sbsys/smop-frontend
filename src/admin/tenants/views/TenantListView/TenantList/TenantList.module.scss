@@ -12,7 +12,7 @@
             @include gap(all xs);
 
             & > th > a {
-                margin-left: auto;
+                margin: 0 auto;
                 overflow: hidden;
             }
         }

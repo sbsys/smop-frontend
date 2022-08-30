@@ -1,31 +1,23 @@
 @import 'styles';
 
 .Filter {
-    @include flex;
-    @include gap(all xs);
+    @include gap(all md);
+    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, size(2xl, component)), 1fr));
 
-    & > legend {
-        @include font-weight(lg);
-    }
-
-    .Content {
+    & > div {
         @include gap(all md);
         align-items: center;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(min(100%, size(2xl, component)), 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, size(sm, component)), 1fr));
+    }
 
-        & > div {
-            @include gap(all md);
-            align-items: center;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        & > div:last-child {
-            @include max-width(md, component);
-            grid-column-end: -1;
-            justify-self: end;
-            width: 100%;
-        }
+    & > div:last-child {
+        @include max-width(lg, component);
+        grid-column-end: -1;
+        grid-template-columns: repeat(2, 1fr);
+        justify-self: end;
+        width: 100%;
     }
 }

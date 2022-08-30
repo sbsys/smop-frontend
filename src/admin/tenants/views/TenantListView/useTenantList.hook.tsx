@@ -1,10 +1,20 @@
+/* react */
+import { useMemo } from 'react';
 /* props */
 import { TenantListContextProps } from './TenantList.props';
 import { FieldSetProps } from 'admin/core';
+/* hooks */
+import { useMinWidth } from 'shared/hooks';
+/* utils */
+import { matchBreakPoint } from 'shared/utils';
 /* styles */
 import { FieldStyles } from 'shared/styles';
 
 export const useTenantList = () => {
+    /* states */
+    const [bp] = useMinWidth();
+    const isInBreakPoint = useMemo(() => matchBreakPoint('md', bp).in || matchBreakPoint('lg', bp).in, [bp]);
+
     /* props */
     const textSearchProps: FieldSetProps = {
         field: {
@@ -74,6 +84,8 @@ export const useTenantList = () => {
 
     /* context */
     const context: TenantListContextProps = {
+        /* states */
+        isInBreakPoint,
         /* props */
         textSearchProps,
         stateSearchProps,

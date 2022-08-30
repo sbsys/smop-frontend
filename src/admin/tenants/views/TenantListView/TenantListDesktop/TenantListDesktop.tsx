@@ -1,8 +1,10 @@
 /* react */
-import { memo } from 'react';
+import { memo, useContext } from 'react';
 import { Outlet, useOutlet } from 'react-router-dom';
+/* context */
+import { TenantListContext } from '../TenantList.context';
 /* layouts */
-import { PanelLayout } from 'shared/layouts';
+import { ModalLayout, PanelLayout } from 'shared/layouts';
 /* components */
 import { Legend } from 'shared/components';
 import { TenantListFilter } from '../TenantListFilter';
@@ -11,6 +13,11 @@ import { TenantList } from '../TenantList';
 import styles from './TenantListDesktop.module.scss';
 
 const TenantListDesktop = () => {
+    const {
+        /* states */
+        isInBreakPoint,
+    } = useContext(TenantListContext);
+
     const out = useOutlet();
 
     return (
@@ -34,6 +41,16 @@ const TenantListDesktop = () => {
                     </section>
                 )}
             </PanelLayout>
+
+            <ModalLayout
+                isVisible={out !== null && isInBreakPoint}
+                rowAlignment="center"
+                colAlignment="center"
+                hasIndentation>
+                <PanelLayout className={styles.RouteModal}>
+                    <Outlet />
+                </PanelLayout>
+            </ModalLayout>
         </PanelLayout>
     );
 };

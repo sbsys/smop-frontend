@@ -3,7 +3,7 @@
 .TenantList {
     display: none;
 
-    @include screen-width(lg) {
+    @include screen-width(md) {
         @include flex;
         @include gap(all md);
         @include padding(y md);
@@ -29,9 +29,24 @@
     }
 
     .Route {
-        @include flex;
-        @include max-width(2xl, component);
-        overflow: hidden;
-        width: 100%;
+        display: none;
+
+        @include screen-width(xl) {
+            @include flex;
+            @include max-width(xl, component);
+            overflow: hidden;
+            width: 100%;
+        }
+
+        @include screen-width(3xl) {
+            @include max-width(2xl, component);
+        }
+    }
+}
+
+.RouteModal {
+    & > * {
+        @include bg-color(200);
+        @include rounded(all xs);
     }
 }

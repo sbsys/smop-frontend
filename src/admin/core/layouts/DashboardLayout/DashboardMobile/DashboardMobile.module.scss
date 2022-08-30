@@ -10,7 +10,7 @@
 
     .Content {
         @include max-width(xl, view);
-        @include padding(x xs);
+        @include padding(x md);
         margin: 0 auto;
         width: 100%;
     }

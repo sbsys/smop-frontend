@@ -7,10 +7,8 @@
     .Content {
         @include flex;
         position: absolute;
-        transform: translate(
-            var(--#{$prefix}-translate-x),
-            var(--#{$prefix}-translate-y)
-        );
+        transform: translate(var(--#{$prefix}-translate-x), var(--#{$prefix}-translate-y));
+        z-index: 1;
 
         &.Anchor {
             &Row {

@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { TenantListContextProps } from './TenantList.props';
 import { FieldSetProps } from 'admin/core';
 /* hooks */
-import { useActive, useMinWidth } from 'shared/hooks';
+import { useMinWidth } from 'shared/hooks';
 /* utils */
 import { matchBreakPoint } from 'shared/utils';
 /* styles */
@@ -12,7 +12,6 @@ import { FieldStyles } from 'shared/styles';
 
 export const useTenantList = () => {
     /* states */
-    const [isDropFilter, showDropFilter, hideDropFilter] = useActive();
 
     const [bp] = useMinWidth();
     const isInBreakPoint = useMemo(() => matchBreakPoint('sm', bp).on && matchBreakPoint('xl', bp).under, [bp]);
@@ -87,9 +86,6 @@ export const useTenantList = () => {
     /* context */
     const context: TenantListContextProps = {
         /* states */
-        isDropFilter,
-        showDropFilter,
-        hideDropFilter,
         isInBreakPoint,
         /* props */
         textSearchProps,

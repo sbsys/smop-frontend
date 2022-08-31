@@ -1,66 +1,82 @@
 /* react */
-import { memo, useContext } from 'react';
+import { memo /* useContext */ } from 'react';
+import { Outlet, useOutlet } from 'react-router-dom';
 /* context */
-import { TenantListContext } from '../TenantList.context';
+//import { TenantListContext } from '../TenantList.context';
 /* layouts */
 import { DropLayout, PanelLayout, ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
 import { TenantListFilter } from '../TenantListFilter';
 import { NewTenantAction, TenantListItem } from '../TenantList';
+/* hooks */
+import { useActive, useKeyDownEvent } from 'shared/hooks';
 /* assets */
 import { MdClose, MdFilterList } from 'react-icons/md';
 /* styles */
 import styles from './TenantListMobile.module.scss';
 
 const TenantListMobile = () => {
-    const {
-        /* states */
-        isDropFilter,
-        showDropFilter,
-        hideDropFilter,
-    } = useContext(TenantListContext);
+    //const {} = useContext(TenantListContext);
+
+    const out = useOutlet();
+
+    const [isDropFilter, showDropFilter, hideDropFilter] = useActive();
+
+    useKeyDownEvent(event => event.key === 'Escape' && hideDropFilter());
 
     return (
-        <PanelLayout className={styles.TenantList}>
-            <div className={styles.Header}>
-                <h1>
-                    <Legend hasDots>Tenants</Legend>
-                </h1>
+        <>
+            {out === null ? (
+                <PanelLayout className={styles.TenantList}>
+                    <div className={styles.Header}>
+                        <h1>
+                            <Legend hasDots>Tenants</Legend>
+                        </h1>
 
-                <DropLayout
-                    isDrop={isDropFilter}
-                    dropCol="start"
-                    dropRow="end"
-                    anchorCol="start"
-                    anchorRow="end"
-                    drop={
-                        <PanelLayout className={styles.FilterContent} orientation="col">
-                            <Button onClick={hideDropFilter}>
+                        <DropLayout
+                            isDrop={isDropFilter}
+                            dropCol="start"
+                            dropRow="end"
+                            anchorCol="start"
+                            anchorRow="end"
+                            drop={
+                                <PanelLayout className={styles.FilterContent} orientation="col">
+                                    <Button onClick={hideDropFilter}>
+                                        <i>
+                                            <MdClose />
+                                        </i>
+                                    </Button>
+
+                                    <TenantListFilter />
+                                </PanelLayout>
+                            }>
+                            <Button className={styles.Filter} onClick={showDropFilter}>
                                 <i>
-                                    <MdClose />
+                                    <MdFilterList />
                                 </i>
                             </Button>
+                        </DropLayout>
+                    </div>
 
-                            <TenantListFilter />
-                        </PanelLayout>
-                    }>
-                    <Button className={styles.Filter} onClick={showDropFilter}>
-                        <i>
-                            <MdFilterList />
-                        </i>
-                    </Button>
-                </DropLayout>
-            </div>
+                    <span>
+                        <NewTenantAction />
+                    </span>
 
-            <span>
-                <NewTenantAction />
-            </span>
-
-            <ScrollLayout orientation="col">
-                <TenantListItem />
-            </ScrollLayout>
-        </PanelLayout>
+                    <ScrollLayout classNameContent={styles.List} orientation="col">
+                        <ul>
+                            {[...Array(20)].map((_, index) => (
+                                <li key={index}>
+                                    <TenantListItem />
+                                </li>
+                            ))}
+                        </ul>
+                    </ScrollLayout>
+                </PanelLayout>
+            ) : (
+                <Outlet />
+            )}
+        </>
     );
 };
 

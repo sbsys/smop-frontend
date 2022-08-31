@@ -64,8 +64,17 @@
     & > span {
         @include bg-color(400, primary);
         @include font-color(100);
-        @include font-weight(lg);
+        @include font-size(sm);
         @include rounded(all xs);
         margin-left: auto;
+    }
+
+    .List {
+        @include padding(y xs split);
+
+        & > ul {
+            @include flex;
+            @include gap(all xs);
+        }
     }
 }

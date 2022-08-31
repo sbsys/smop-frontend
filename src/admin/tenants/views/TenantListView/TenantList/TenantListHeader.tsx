@@ -1,3 +1,5 @@
+/* react */
+import { useTranslation } from 'react-i18next';
 /* props */
 import { TableRow } from 'shared/layouts';
 /* components */
@@ -6,31 +8,35 @@ import NewTenantAction from './NewTenantAction';
 /* styles */
 import styles from './TenantList.module.scss';
 
-export const TenantListHeader = (): TableRow => ({
-    columns: [
-        {
-            children: (
-                <Legend className={styles.Column} hasDots>
-                    Schema
-                </Legend>
-            ),
-        },
-        {
-            children: (
-                <Legend className={styles.Column} hasDots>
-                    Contacts
-                </Legend>
-            ),
-        },
-        {
-            children: (
-                <Legend className={styles.Column} hasDots justify="center">
-                    State
-                </Legend>
-            ),
-        },
-        {
-            children: <NewTenantAction />,
-        },
-    ],
-});
+export const TenantListHeader = (): TableRow => {
+    const { t } = useTranslation();
+
+    return {
+        columns: [
+            {
+                children: (
+                    <Legend className={styles.Column} hasDots title={t('views.tenants.list.schema')}>
+                        {t('views.tenants.list.schema')}
+                    </Legend>
+                ),
+            },
+            {
+                children: (
+                    <Legend className={styles.Column} hasDots title={t('views.tenants.list.contacts')}>
+                        {t('views.tenants.list.contacts')}
+                    </Legend>
+                ),
+            },
+            {
+                children: (
+                    <Legend className={styles.Column} hasDots justify="center" title={t('views.tenants.list.state')}>
+                        {t('views.tenants.list.state')}
+                    </Legend>
+                ),
+            },
+            {
+                children: <NewTenantAction />,
+            },
+        ],
+    };
+};

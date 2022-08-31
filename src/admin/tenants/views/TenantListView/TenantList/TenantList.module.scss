@@ -86,7 +86,7 @@
 
 .Actions {
     @include flex(row, center, center);
-    @include gap(all sm);
+    @include gap(all md);
 
     & > button {
         @include font-size(2xl);

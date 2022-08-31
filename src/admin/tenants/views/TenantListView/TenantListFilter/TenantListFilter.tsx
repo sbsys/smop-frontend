@@ -1,5 +1,6 @@
 /* react */
 import { memo, useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 /* context */
 import { TenantListContext } from '../TenantList.context';
 /* layouts */
@@ -19,6 +20,8 @@ const TenantListFilter = () => {
         stateSearchProps,
     } = useContext(TenantListContext);
 
+    const { t } = useTranslation();
+
     return (
         <form
             className={styles.Filter}
@@ -37,15 +40,21 @@ const TenantListFilter = () => {
             </div>
 
             <div>
-                <Button type="reset" className={ButtonStyles.OutlineNone}>
+                <Button
+                    type="reset"
+                    className={ButtonStyles.OutlineNone}
+                    title={t('views.tenants.filter.actions.clean')}>
                     <Legend hasDots justify="center">
-                        Clean up
+                        {t('views.tenants.filter.actions.clean')}
                     </Legend>
                 </Button>
 
-                <Button type="submit" className={ButtonStyles.FillSecondary}>
+                <Button
+                    type="submit"
+                    className={ButtonStyles.FillSecondary}
+                    title={t('views.tenants.filter.actions.filter')}>
                     <Legend hasDots justify="center">
-                        Filter
+                        {t('views.tenants.filter.actions.filter')}
                     </Legend>
                 </Button>
             </div>

@@ -1,5 +1,6 @@
 /* react */
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 /* props */
 import { TenantListContextProps } from './TenantList.props';
 import { FieldSetProps } from 'admin/core';
@@ -14,20 +15,22 @@ export const useTenantList = () => {
     /* states */
 
     const [bp] = useMinWidth();
-    const isInBreakPoint = useMemo(() => matchBreakPoint('sm', bp).on && matchBreakPoint('xl', bp).under, [bp]);
+    const isInBreakPoint = useMemo(() => matchBreakPoint('md', bp).on && matchBreakPoint('xl', bp).under, [bp]);
+
+    const { t } = useTranslation();
 
     /* props */
     const textSearchProps: FieldSetProps = {
         field: {
             className: FieldStyles.OutlinePrimary,
             strategy: 'text',
-            placeholder: 'Schema',
+            placeholder: t('views.tenants.filter.schema.placeholder'),
         },
         isHintReserved: true,
         hint: {
-            children: 'Search schema',
+            children: t('views.tenants.filter.schema.hint'),
             hasDots: true,
-            title: 'Search schema',
+            title: t('views.tenants.filter.schema.hint'),
         },
     };
 
@@ -35,23 +38,23 @@ export const useTenantList = () => {
         field: {
             className: FieldStyles.OutlinePrimary,
             strategy: 'select',
-            placeholder: 'Choose state',
+            placeholder: t('views.tenants.filter.state.placeholder'),
             options: [
                 {
-                    label: 'Active',
+                    label: t('views.tenants.filter.state.states.active'),
                     value: 'active',
                 },
                 {
-                    label: 'Inactive',
+                    label: t('views.tenants.filter.state.states.inactive'),
                     value: 'inactive',
                 },
             ],
         },
         isHintReserved: true,
         hint: {
-            children: 'Tenant state',
+            children: t('views.tenants.filter.state.hint'),
             hasDots: true,
-            title: 'Tenant state',
+            title: t('views.tenants.filter.state.hint'),
         },
     };
 
@@ -59,13 +62,13 @@ export const useTenantList = () => {
         field: {
             className: FieldStyles.OutlinePrimary,
             strategy: 'date',
-            placeholder: 'Start date',
+            placeholder: t('views.tenants.filter.start.placeholder'),
         },
         isHintReserved: true,
         hint: {
-            children: 'Start date',
+            children: t('views.tenants.filter.start.hint'),
             hasDots: true,
-            title: 'Start date',
+            title: t('views.tenants.filter.start.hint'),
         },
     };
 
@@ -73,13 +76,13 @@ export const useTenantList = () => {
         field: {
             className: FieldStyles.OutlinePrimary,
             strategy: 'date',
-            placeholder: 'End date',
+            placeholder: t('views.tenants.filter.end.placeholder'),
         },
         isHintReserved: true,
         hint: {
-            children: 'End date',
+            children: t('views.tenants.filter.end.hint'),
             hasDots: true,
-            title: 'End date',
+            title: t('views.tenants.filter.end.hint'),
         },
     };
 

@@ -1,6 +1,7 @@
 /* react */
 import { memo, useContext } from 'react';
 import { Outlet, useOutlet } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 /* context */
 import { TenantListContext } from '../TenantList.context';
 /* layouts */
@@ -18,12 +19,14 @@ const TenantListDesktop = () => {
         isInBreakPoint,
     } = useContext(TenantListContext);
 
+    const { t } = useTranslation();
+
     const out = useOutlet();
 
     return (
         <PanelLayout className={styles.TenantList}>
-            <h1>
-                <Legend hasDots>Tenants</Legend>
+            <h1 title={t('views.tenants.header.title')}>
+                <Legend hasDots>{t('views.tenants.header.title')}</Legend>
             </h1>
 
             <section className={styles.Filter}>

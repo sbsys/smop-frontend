@@ -1,5 +1,6 @@
 /* react */
 import { memo } from 'react';
+import { useTranslation } from 'react-i18next';
 /* props */
 import { DropLayout, TableRow } from 'shared/layouts';
 /* components */
@@ -36,38 +37,40 @@ const TenantListContacts = () => {
     );
 };
 
-const TenantListState = () => {
+const TenantListState = ({ state }: { state: string }) => {
     return (
-        <Legend className={classNames(styles.State, styles.StateInactive)} hasDots justify="center">
-            Inactive
+        <Legend className={classNames(styles.State, styles.StateInactive)} hasDots justify="center" title={state}>
+            {state}
         </Legend>
     );
 };
 
 const TenantListActions = () => {
+    const { t } = useTranslation();
+
     return (
         <div className={styles.Actions}>
             {false ? (
-                <Button className={styles.Delete}>
+                <Button className={styles.Delete} title={t('views.tenants.list.suspend')}>
                     <i>
                         <MdDelete />
                     </i>
                 </Button>
             ) : (
-                <Button className={styles.Restore}>
+                <Button className={styles.Restore} title={t('views.tenants.list.restore')}>
                     <i>
                         <MdRestoreFromTrash />
                     </i>
                 </Button>
             )}
 
-            <Button className={styles.Edit} disabled>
+            <Button className={styles.Edit} title={t('views.tenants.list.edit')}>
                 <i>
                     <MdEdit />
                 </i>
             </Button>
 
-            <Button className={styles.View} disabled>
+            <Button className={styles.View} title={t('views.tenants.list.view')}>
                 <i>
                     <MdVisibility />
                 </i>
@@ -85,7 +88,7 @@ export const TenantListRow = (): TableRow => ({
             children: <TenantListContacts />,
         },
         {
-            children: <TenantListState />,
+            children: <TenantListState state='active' />,
         },
         {
             children: <TenantListActions />,
@@ -94,6 +97,8 @@ export const TenantListRow = (): TableRow => ({
 });
 
 const TenantListMore = () => {
+    const { t } = useTranslation();
+
     const [isDropMore, showDropMore, hideDropMore] = useActive();
 
     const [ref] = useClickOutside(() => hideDropMore());
@@ -112,7 +117,7 @@ const TenantListMore = () => {
                     <TenantListActions />
                 </div>
             }>
-            <Button className={styles.DropMoreAction} onClick={showDropMore}>
+            <Button className={styles.DropMoreAction} onClick={showDropMore} title={t('views.tenants.list.more')}>
                 <i>
                     <MdMoreVert />
                 </i>
@@ -128,7 +133,7 @@ const TenantListItem = () => {
 
             <TenantListContacts />
 
-            <TenantListState />
+            <TenantListState state='inactive' />
 
             <TenantListMore />
         </div>

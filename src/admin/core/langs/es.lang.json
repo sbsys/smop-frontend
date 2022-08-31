@@ -1,22 +1,4 @@
 {
-    "views": {
-        "signin": {
-            "form": {
-                "title": "Inicio de Sesión Admins",
-                "email": {
-                    "placeholder": "Correo electrónico",
-                    "required": "El correo electrónico es requerido",
-                    "format": "Formato de correo electrónico inválido"
-                },
-                "password": {
-                    "placeholder": "Contraseña",
-                    "required": "La contraseña es requerida",
-                    "min": "La contraseña debe contener al menos 8 caracteres"
-                },
-                "signin": "Iniciar Sesión"
-            }
-        }
-    },
     "dashboard": {
         "actions": {
             "back": "Cerrar menú lateral",
@@ -40,6 +22,68 @@
                 "items": {
                     "companies": "Compañías"
                 }
+            }
+        }
+    },
+    "views": {
+        "signin": {
+            "form": {
+                "title": "Inicio de Sesión Admins",
+                "email": {
+                    "placeholder": "Correo electrónico",
+                    "required": "El correo electrónico es requerido",
+                    "format": "Formato de correo electrónico inválido"
+                },
+                "password": {
+                    "placeholder": "Contraseña",
+                    "required": "La contraseña es requerida",
+                    "min": "La contraseña debe contener al menos 8 caracteres"
+                },
+                "signin": "Iniciar Sesión"
+            }
+        },
+        "tenants": {
+            "header": {
+                "title": "Inquilinos",
+                "openfilter": "Abrir filtro",
+                "closefilter": "Cerrar filtro"
+            },
+            "filter": {
+                "schema": {
+                    "placeholder": "Filtrar por esquema",
+                    "hint": "correo electrónico o número telefónico"
+                },
+                "state": {
+                    "placeholder": "Selecciona estado",
+                    "hint": "filtrar por estado",
+                    "states": {
+                        "active": "Activo",
+                        "inactive": "Inactivo"
+                    }
+                },
+                "start": {
+                    "placeholder": "Desde la fecha de creación",
+                    "hint": "desde la fecha de creación"
+                },
+                "end": {
+                    "placeholder": "Hasta la fecha de creación",
+                    "hint": "hasta la fecha de creación"
+                },
+                "actions": {
+                    "clean": "Limpiar",
+                    "filter": "Filtrar"
+                }
+            },
+            "list": {
+                "schema": "Esquema",
+                "contacts": "Contactos",
+                "state": "Estado",
+                "new": "Nuevo inquilino",
+                "more": "Acciones",
+                "suspend": "Suspender inquilino",
+                "restore": "Restablecer inquilino",
+                "edit": "Editar inquilino",
+                "view": "Ver detalles de inquilino"
             }
         }
     }

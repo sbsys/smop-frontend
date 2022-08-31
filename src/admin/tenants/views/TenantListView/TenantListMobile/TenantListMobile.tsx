@@ -1,6 +1,7 @@
 /* react */
 import { memo /* useContext */ } from 'react';
 import { Outlet, useOutlet } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 /* context */
 //import { TenantListContext } from '../TenantList.context';
 /* layouts */
@@ -19,6 +20,8 @@ import styles from './TenantListMobile.module.scss';
 const TenantListMobile = () => {
     //const {} = useContext(TenantListContext);
 
+    const { t } = useTranslation();
+
     const out = useOutlet();
 
     const [isDropFilter, showDropFilter, hideDropFilter] = useActive();
@@ -30,8 +33,8 @@ const TenantListMobile = () => {
             {out === null ? (
                 <PanelLayout className={styles.TenantList}>
                     <div className={styles.Header}>
-                        <h1>
-                            <Legend hasDots>Tenants</Legend>
+                        <h1 title={t('views.tenants.header.title')}>
+                            <Legend hasDots>{t('views.tenants.header.title')}</Legend>
                         </h1>
 
                         <DropLayout
@@ -42,7 +45,7 @@ const TenantListMobile = () => {
                             anchorRow="end"
                             drop={
                                 <PanelLayout className={styles.FilterContent} orientation="col">
-                                    <Button onClick={hideDropFilter}>
+                                    <Button onClick={hideDropFilter} title={t('views.tenants.header.closefilter')}>
                                         <i>
                                             <MdClose />
                                         </i>
@@ -51,7 +54,10 @@ const TenantListMobile = () => {
                                     <TenantListFilter />
                                 </PanelLayout>
                             }>
-                            <Button className={styles.Filter} onClick={showDropFilter}>
+                            <Button
+                                className={styles.Filter}
+                                onClick={showDropFilter}
+                                title={t('views.tenants.header.openfilter')}>
                                 <i>
                                     <MdFilterList />
                                 </i>

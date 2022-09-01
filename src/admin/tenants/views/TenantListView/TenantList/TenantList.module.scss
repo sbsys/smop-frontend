@@ -21,6 +21,11 @@
     & > tbody > tr {
         @include gap(all xs);
         @include padding(all xs);
+        @include shadow(bottom xs);
+
+        &:last-child {
+            @include margin(bottom xs);
+        }
     }
 }
 

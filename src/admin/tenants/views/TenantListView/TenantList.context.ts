@@ -5,6 +5,7 @@ import { TenantListContextProps } from './TenantList.props';
 
 export const TenantListContext = createContext<TenantListContextProps>({
     /* states */
+    tenantList: [],
     isInBreakPoint: false,
     /* props */
     textSearchProps: { field: {} },

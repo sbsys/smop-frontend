@@ -12,7 +12,7 @@ import { useActive, useClickOutside, useKeyDownEvent } from 'shared/hooks';
 import { format } from 'date-fns';
 import { classNames } from 'shared/utils';
 /* types */
-import { TenantState } from 'admin/tenants';
+import { TenantState, TenantItemDTO } from 'admin/tenants';
 /* assets */
 import { MdDelete, MdEdit, MdMoreVert, MdRestoreFromTrash, MdVisibility } from 'react-icons/md';
 /* styles */
@@ -101,19 +101,19 @@ const TenantListActions = ({ state }: { state: TenantState }) => {
     );
 };
 
-export const TenantListRow = (): TableRow => ({
+export const TenantListRow = (tenant: TenantItemDTO): TableRow => ({
     columns: [
         {
-            children: <TenantListTitle title="Churrascos" subtitle={format(new Date(), 'MMM do, yyyy')} />,
+            children: <TenantListTitle title={tenant.schema} subtitle={format(tenant.created, 'MMM do, yyyy')} />,
         },
         {
-            children: <TenantListContacts title="admin@churrascos.com" subtitle="+505-88772211" />,
+            children: <TenantListContacts title={tenant.email} subtitle={tenant.phone} />,
         },
         {
-            children: <TenantListState state="active" />,
+            children: <TenantListState state={tenant.state} />,
         },
         {
-            children: <TenantListActions state="active" />,
+            children: <TenantListActions state={tenant.state} />,
         },
     ],
 });
@@ -148,14 +148,14 @@ const TenantListMore = () => {
     );
 };
 
-const TenantListItem = () => {
+const TenantListItem: FC<TenantItemDTO> = ({ schema, created, email, phone, state }) => {
     return (
         <div className={styles.TenantListItem}>
-            <TenantListTitle title="Churrascos" subtitle={format(new Date(), 'MMM do, yyyy')} />
+            <TenantListTitle title={schema} subtitle={format(created, 'MMM do, yyyy')} />
 
-            <TenantListContacts title="admin@churrascos.com" subtitle="+505-88772211" />
+            <TenantListContacts title={email} subtitle={phone} />
 
-            <TenantListState state="active" />
+            <TenantListState state={state} />
 
             <TenantListMore />
         </div>

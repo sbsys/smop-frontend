@@ -13,6 +13,9 @@ import styles from './TenantListFilter.module.scss';
 
 const TenantListFilter = () => {
     const {
+        /* functions */
+        handleFilter,
+        handleResetFilter,
         /* props */
         textSearchProps,
         startDateSearchProps,
@@ -23,10 +26,7 @@ const TenantListFilter = () => {
     const { t } = useTranslation();
 
     return (
-        <form
-            className={styles.Filter}
-            onSubmit={event => event.preventDefault()}
-            onReset={event => console.log(event)}>
+        <form className={styles.Filter} onSubmit={handleFilter} onReset={handleResetFilter}>
             <div>
                 <FieldSet {...textSearchProps} />
 

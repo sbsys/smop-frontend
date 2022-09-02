@@ -28,7 +28,7 @@
     "views": {
         "signin": {
             "form": {
-                "title": "Inicio de Sesión Admins",
+                "title": "Inicio de Sesión Administrador",
                 "email": {
                     "placeholder": "Correo electrónico",
                     "required": "El correo electrónico es requerido",

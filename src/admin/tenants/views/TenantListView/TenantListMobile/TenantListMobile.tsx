@@ -1,9 +1,9 @@
 /* react */
-import { memo /* useContext */ } from 'react';
+import { memo, useContext } from 'react';
 import { Outlet, useOutlet } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 /* context */
-//import { TenantListContext } from '../TenantList.context';
+import { TenantListContext } from '../TenantList.context';
 /* layouts */
 import { DropLayout, PanelLayout, ScrollLayout } from 'shared/layouts';
 /* components */
@@ -18,7 +18,10 @@ import { MdClose, MdFilterList } from 'react-icons/md';
 import styles from './TenantListMobile.module.scss';
 
 const TenantListMobile = () => {
-    //const {} = useContext(TenantListContext);
+    const {
+        /* state */
+        tenantList,
+    } = useContext(TenantListContext);
 
     const { t } = useTranslation();
 
@@ -71,9 +74,9 @@ const TenantListMobile = () => {
 
                     <ScrollLayout classNameContent={styles.List} orientation="col">
                         <ul>
-                            {[...Array(20)].map((_, index) => (
+                            {tenantList.map((tenant, index) => (
                                 <li key={index}>
-                                    <TenantListItem />
+                                    <TenantListItem {...tenant} />
                                 </li>
                             ))}
                         </ul>

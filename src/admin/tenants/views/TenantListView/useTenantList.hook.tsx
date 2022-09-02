@@ -1,5 +1,6 @@
 /* react */
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 /* props */
 import { TenantListContextProps } from './TenantList.props';
@@ -9,30 +10,58 @@ import { useLoader, useMinWidth } from 'shared/hooks';
 /* utils */
 import { matchBreakPoint } from 'shared/utils';
 /* types */
-import { TenantItemDTO } from 'admin/tenants/types';
+import { TenantItemDTO, TenantState } from 'admin/tenants/types';
 /* styles */
 import { FieldStyles } from 'shared/styles';
 
+interface FilterForm {
+    schema: string;
+    state: TenantState | '';
+    start_date: Date | null;
+    end_date: Date | null;
+}
+
+const filterFormInitialState: FilterForm = {
+    schema: '',
+    state: '',
+    start_date: null,
+    end_date: null,
+};
+
 export const useTenantList = () => {
     /* states */
-    const [tenantList, setTenantList] = useState<TenantItemDTO[]>([]);
+    const [tenants, setTenants] = useState<TenantItemDTO[]>([]);
+    const [currentFilter, setCurrentFilter] = useState<FilterForm>(filterFormInitialState);
+
+    const { register, handleSubmit } = useForm<FilterForm>();
 
     const [bp] = useMinWidth();
     const isInBreakPoint = useMemo(() => matchBreakPoint('md', bp).on && matchBreakPoint('xl', bp).under, [bp]);
 
-    const {showLoader, hideLoader} = useLoader()
+    const { showLoader, hideLoader } = useLoader();
 
     const { t } = useTranslation();
 
+    const tenantList = useMemo(() => {
+        let list = tenants;
+
+        if (currentFilter.schema)
+            list = list.filter(currentTenant =>
+                currentTenant.schema.toLocaleLowerCase().includes(currentFilter.schema.toLocaleLowerCase())
+            );
+
+        return list;
+    }, [tenants, currentFilter]);
+
     /* functions */
-    const getTenantList = async () => {
+    const getTenantList = useCallback(async () => {
         showLoader();
 
         await new Promise(resolve => setTimeout(() => resolve(null), 2000));
 
         hideLoader();
 
-        setTenantList([
+        setTenants([
             {
                 id: 1,
                 schema: 'churrascos',
@@ -49,11 +78,17 @@ export const useTenantList = () => {
                 created: new Date('2021-02-27'),
                 state: 'inactive',
             },
-        ])
-    }
+        ]);
+    }, [hideLoader, showLoader]);
+
+    const handleFilter = handleSubmit(data => setCurrentFilter(data));
+
+    const handleResetFilter = () => setCurrentFilter(filterFormInitialState);
 
     /* reactivity */
-    useEffect(() => {getTenantList()}, [getTenantList])
+    useEffect(() => {
+        getTenantList();
+    }, [getTenantList]);
 
     /* props */
     const textSearchProps: FieldSetProps = {
@@ -61,6 +96,7 @@ export const useTenantList = () => {
             className: FieldStyles.OutlinePrimary,
             strategy: 'text',
             placeholder: t('views.tenants.filter.schema.placeholder'),
+            ...register('schema'),
         },
         isHintReserved: true,
         hint: {
@@ -85,6 +121,7 @@ export const useTenantList = () => {
                     value: 'inactive',
                 },
             ],
+            /* ...register('state'), */
         },
         isHintReserved: true,
         hint: {
@@ -99,6 +136,7 @@ export const useTenantList = () => {
             className: FieldStyles.OutlinePrimary,
             strategy: 'date',
             placeholder: t('views.tenants.filter.start.placeholder'),
+            /* ...register('start_date'), */
         },
         isHintReserved: true,
         hint: {
@@ -113,6 +151,7 @@ export const useTenantList = () => {
             className: FieldStyles.OutlinePrimary,
             strategy: 'date',
             placeholder: t('views.tenants.filter.end.placeholder'),
+            /* ...register('end_date'), */
         },
         isHintReserved: true,
         hint: {
@@ -127,6 +166,9 @@ export const useTenantList = () => {
         /* states */
         tenantList,
         isInBreakPoint,
+        /* functions */
+        handleFilter,
+        handleResetFilter,
         /* props */
         textSearchProps,
         stateSearchProps,

@@ -7,6 +7,9 @@ export const TenantListContext = createContext<TenantListContextProps>({
     /* states */
     tenantList: [],
     isInBreakPoint: false,
+    /* functions */
+    handleFilter: () => {},
+    handleResetFilter: () => {},
     /* props */
     textSearchProps: { field: {} },
     startDateSearchProps: { field: {} },

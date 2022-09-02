@@ -1,5 +1,7 @@
 /* react */
-import { memo } from 'react';
+import { memo, useContext } from 'react';
+/* context */
+import { TenantListContext } from '../TenantList.context';
 /* layouts */
 import { TableLayout } from 'shared/layouts';
 /* components */
@@ -9,11 +11,16 @@ import { TenantListRow } from './TenantListRow';
 import styles from './TenantList.module.scss';
 
 const TenantList = () => {
+    const {
+        /* states */
+        tenantList,
+    } = useContext(TenantListContext);
+
     return (
         <TableLayout
             className={styles.TenantList}
             header={TenantListHeader()}
-            body={[...Array(20)].map(() => TenantListRow())}
+            body={tenantList.map(tenant => TenantListRow(tenant))}
         />
     );
 };

@@ -7,6 +7,9 @@ export interface TenantListContextProps {
     /* states */
     tenantList: TenantItemDTO[];
     isInBreakPoint: boolean;
+    /* functions */
+    handleFilter: () => void;
+    handleResetFilter: () => void;
     /* props */
     textSearchProps: FieldSetProps;
     startDateSearchProps: FieldSetProps;

@@ -1,4 +1,7 @@
+/* react */
+import { BaseSyntheticEvent } from 'react';
 /* props */
+import { ChildrenProps } from 'shared/props';
 import { FieldSetProps } from 'admin/core';
 /* types */
 import { TenantItemDTO } from 'admin/tenants/types';
@@ -8,7 +11,7 @@ export interface TenantListContextProps {
     tenantList: TenantItemDTO[];
     isInBreakPoint: boolean;
     /* functions */
-    handleFilter: () => void;
+    handleFilter: (event?: BaseSyntheticEvent) => Promise<void>;
     handleResetFilter: () => void;
     /* props */
     textSearchProps: FieldSetProps;
@@ -21,3 +24,7 @@ export type TitleSubtitle = {
     title: string;
     subtitle: string;
 };
+
+export interface TenantListProviderProps extends ChildrenProps {
+    context: TenantListContextProps;
+}

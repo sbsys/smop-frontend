@@ -1,7 +1,7 @@
 /* react */
 import { memo } from 'react';
 /* context */
-import { TenantListContext } from './TenantList.context';
+import { TenantListProvider } from './TenantList.context';
 /* custom hook */
 import { useTenantList } from './useTenantList.hook';
 /* components */
@@ -12,11 +12,11 @@ const TenantListView = () => {
     const { context } = useTenantList();
 
     return (
-        <TenantListContext.Provider value={context}>
+        <TenantListProvider context={context}>
             <TenantListMobile />
 
             <TenantListDesktop />
-        </TenantListContext.Provider>
+        </TenantListProvider>
     );
 };
 

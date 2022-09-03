@@ -1,9 +1,9 @@
 /* react */
-import { memo, useContext } from 'react';
+import { memo } from 'react';
 import { Outlet, useOutlet } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 /* context */
-import { TenantListContext } from '../TenantList.context';
+import { useTenantListContext } from '../TenantList.context';
 /* layouts */
 import { DropLayout, PanelLayout, ScrollLayout } from 'shared/layouts';
 /* components */
@@ -21,7 +21,7 @@ const TenantListMobile = () => {
     const {
         /* state */
         tenantList,
-    } = useContext(TenantListContext);
+    } = useTenantListContext();
 
     const { t } = useTranslation();
 

@@ -1,5 +1,5 @@
 /* react */
-import { forwardRef, memo } from 'react';
+import { FC, memo } from 'react';
 /* props */
 import { FieldSetProps } from './FieldSet.props';
 /* components */
@@ -9,7 +9,7 @@ import { classNames } from 'shared/utils';
 /* styles */
 import styles from './FieldSet.module.scss';
 
-const FieldSet = forwardRef<any | null, FieldSetProps>(({ className, field, hint, isHintReserved, ...rest }) => {
+const FieldSet: FC<FieldSetProps> = ({ className, field, hint, isHintReserved, ...rest }) => {
     return (
         <fieldset
             className={classNames(styles.FieldSet, !hint && isHintReserved && styles.HintReserved, className)}
@@ -19,6 +19,6 @@ const FieldSet = forwardRef<any | null, FieldSetProps>(({ className, field, hint
             {hint && <Legend {...hint} />}
         </fieldset>
     );
-});
+};
 
 export default memo(FieldSet);

@@ -41,7 +41,7 @@
         @include bg-color(400);
         @include padding(all xs);
         @include rounded(all xs);
-        @include width(sm, component);
+        @include width(md, component);
 
         & > button {
             @include font-size(lg);

@@ -1,7 +1,7 @@
 /* react */
-import { memo, useContext } from 'react';
+import { memo } from 'react';
 /* context */
-import { TenantListContext } from '../TenantList.context';
+import { useTenantListContext } from '../TenantList.context';
 /* layouts */
 import { TableLayout } from 'shared/layouts';
 /* components */
@@ -14,7 +14,7 @@ const TenantList = () => {
     const {
         /* states */
         tenantList,
-    } = useContext(TenantListContext);
+    } = useTenantListContext();
 
     return (
         <TableLayout

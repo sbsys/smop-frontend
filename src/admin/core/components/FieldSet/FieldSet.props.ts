@@ -2,7 +2,7 @@ import { DetailedHTMLProps, FieldsetHTMLAttributes } from 'react';
 import { FieldsProps, LegendProps } from 'shared/components';
 
 export interface FieldSetProps
-    extends Omit<DetailedHTMLProps<FieldsetHTMLAttributes<HTMLFieldSetElement>, HTMLFieldSetElement>, 'ref'> {
+    extends DetailedHTMLProps<FieldsetHTMLAttributes<HTMLFieldSetElement>, HTMLFieldSetElement> {
     field: FieldsProps;
     hint?: LegendProps;
     isHintReserved?: boolean;

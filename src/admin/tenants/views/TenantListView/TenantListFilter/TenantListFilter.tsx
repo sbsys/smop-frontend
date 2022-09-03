@@ -1,8 +1,8 @@
 /* react */
-import { memo, useContext } from 'react';
+import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 /* context */
-import { TenantListContext } from '../TenantList.context';
+import { useTenantListContext } from '../TenantList.context';
 /* layouts */
 import { FieldSet } from 'admin/core';
 /* components */
@@ -21,7 +21,7 @@ const TenantListFilter = () => {
         startDateSearchProps,
         endDateSearchProps,
         stateSearchProps,
-    } = useContext(TenantListContext);
+    } = useTenantListContext();
 
     const { t } = useTranslation();
 

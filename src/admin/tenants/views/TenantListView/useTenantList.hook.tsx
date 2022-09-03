@@ -81,7 +81,11 @@ export const useTenantList = () => {
         ]);
     }, [hideLoader, showLoader]);
 
-    const handleFilter = handleSubmit(data => setCurrentFilter(data));
+    const handleFilter = handleSubmit(async data => {
+        setCurrentFilter({ ...data });
+
+        console.log(data);
+    });
 
     const handleResetFilter = () => setCurrentFilter(filterFormInitialState);
 
@@ -121,7 +125,7 @@ export const useTenantList = () => {
                     value: 'inactive',
                 },
             ],
-            /* ...register('state'), */
+            ...register('state'),
         },
         isHintReserved: true,
         hint: {
@@ -136,7 +140,7 @@ export const useTenantList = () => {
             className: FieldStyles.OutlinePrimary,
             strategy: 'date',
             placeholder: t('views.tenants.filter.start.placeholder'),
-            /* ...register('start_date'), */
+            ...register('start_date'),
         },
         isHintReserved: true,
         hint: {
@@ -151,7 +155,7 @@ export const useTenantList = () => {
             className: FieldStyles.OutlinePrimary,
             strategy: 'date',
             placeholder: t('views.tenants.filter.end.placeholder'),
-            /* ...register('end_date'), */
+            ...register('end_date'),
         },
         isHintReserved: true,
         hint: {

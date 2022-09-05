@@ -5,17 +5,14 @@ import { Context } from './DashboardLayout.context';
 /* custom hook */
 import { useDashboardLayout } from './useDashboardLayout.hook';
 /* components */
-import { DashboardMobile } from './DashboardMobile';
-import { DashboardDesktop } from './DashboardDesktop';
+import { Dashboard } from './Dashboard';
 
 const DashboardLayout = () => {
     const { context } = useDashboardLayout();
 
     return (
         <Context.Provider value={context}>
-            <DashboardMobile />
-
-            <DashboardDesktop />
+            <Dashboard />
         </Context.Provider>
     );
 };

@@ -1,0 +1,34 @@
+@import 'styles';
+
+.Dashboard {
+    @include flex;
+
+    @include screen-width(3xl) {
+        @include flex(row);
+    }
+
+    .Wrapper {
+        @include gap(all xs);
+
+        @include screen-width(3xl) {
+            @include gap(all md);
+        }
+    }
+
+    .Content {
+        @include max-width(2xl, view);
+        @include padding(x md);
+        margin: 0 auto;
+        width: 100%;
+    }
+}
+
+.Drawer {
+    height: 100%;
+    max-width: min(size(md, component), calc(100% - size(sm, element)));
+    width: 100%;
+
+    & > div {
+        flex-grow: 1;
+    }
+}

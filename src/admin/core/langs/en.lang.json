@@ -1,22 +1,4 @@
 {
-    "views": {
-        "signin": {
-            "form": {
-                "title": "Sign In Admins",
-                "email": {
-                    "placeholder": "Email",
-                    "required": "Email is required",
-                    "format": "Invalid email format"
-                },
-                "password": {
-                    "placeholder": "Password",
-                    "required": "Password is required",
-                    "min": "Password must contain at least 8 characters"
-                },
-                "signin": "Sign In"
-            }
-        }
-    },
     "dashboard": {
         "actions": {
             "back": "Close side menu",
@@ -40,6 +22,68 @@
                 "items": {
                     "companies": "Companies"
                 }
+            }
+        }
+    },
+    "views": {
+        "signin": {
+            "form": {
+                "title": "Sign In Admins",
+                "email": {
+                    "placeholder": "Email",
+                    "required": "Email is required",
+                    "format": "Invalid email format"
+                },
+                "password": {
+                    "placeholder": "Password",
+                    "required": "Password is required",
+                    "min": "Password must contain at least 8 characters"
+                },
+                "signin": "Sign In"
+            }
+        },
+        "tenants": {
+            "header": {
+                "title": "Tenants",
+                "openfilter": "Open filter",
+                "closefilter": "Close filter"
+            },
+            "filter": {
+                "schema": {
+                    "placeholder": "Filter by schema",
+                    "hint": "email or phone number"
+                },
+                "state": {
+                    "placeholder": "Choose state",
+                    "hint": "filter by state",
+                    "states": {
+                        "active": "Active",
+                        "inactive": "Inactive"
+                    }
+                },
+                "start": {
+                    "placeholder": "From creation date",
+                    "hint": "from creation date"
+                },
+                "end": {
+                    "placeholder": "To creation date",
+                    "hint": "to creation date"
+                },
+                "actions": {
+                    "clean": "Clean up",
+                    "filter": "Filter"
+                }
+            },
+            "list": {
+                "schema": "Schema",
+                "contacts": "Contacts",
+                "state": "State",
+                "new": "New tenant",
+                "more": "Tenant actions",
+                "suspend": "Suspend tenant",
+                "restore": "Restore tenant",
+                "edit": "Edit tenant",
+                "view": "View tenant detail"
             }
         }
     }

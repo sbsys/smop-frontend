@@ -25,7 +25,9 @@ const SelectField = forwardRef<HTMLSelectElement | null, SelectFieldProps>(
         return (
             <FieldLayout {...layoutProps}>
                 <select {...selectProps}>
-                    <option hidden>{placeholder}</option>
+                    <option hidden value="">
+                        {placeholder}
+                    </option>
 
                     {options?.map((option, index) => (
                         <option key={index} value={option.value}>

@@ -2,18 +2,76 @@
 
 .FillPrimary {
     @include bg-color(400, primary);
-    @include font-color(200);
+    @include border-color(all 400 primary);
+    @include border-width(all sm);
+    @include font-color(100);
     @include interactable;
     @include padding(all sm split);
     @include rounded(all xs);
 
     &:hover {
         @include bg-color(300, primary);
-        @include font-color(100);
+        @include border-color(all 300 primary);
+        @include font-color(50);
     }
 
     &:active {
         @include bg-color(500, primary);
-        @include font-color(300);
+        @include border-color(all 500 primary);
+        @include font-color(200);
+    }
+}
+
+.FillSecondary {
+    @include bg-color(400, secondary);
+    @include border-color(all 400 secondary);
+    @include border-width(all sm);
+    @include font-color(100);
+    @include interactable;
+    @include padding(all sm split);
+    @include rounded(all xs);
+
+    &:hover {
+        @include bg-color(300, secondary);
+        @include border-color(all 300 secondary);
+        @include font-color(50);
+    }
+
+    &:active {
+        @include bg-color(500, secondary);
+        @include border-color(all 500 secondary);
+        @include font-color(200);
+    }
+}
+
+.OutlineNone {
+    @include border-color(all 700 none);
+    @include border-width(all sm);
+    @include interactable;
+    @include padding(all sm split);
+    @include rounded(all xs);
+
+    &:hover {
+        @include border-color(all 600 none);
+    }
+
+    &:active {
+        @include border-color(all 900 none);
+    }
+}
+
+.OutlineSecondary {
+    @include border-color(all 400 secondary);
+    @include border-width(all sm);
+    @include interactable;
+    @include padding(all sm split);
+    @include rounded(all xs);
+
+    &:hover {
+        @include border-color(all 300 secondary);
+    }
+
+    &:active {
+        @include border-color(all 500 secondary);
     }
 }

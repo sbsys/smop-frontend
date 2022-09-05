@@ -1,0 +1,23 @@
+@import 'styles';
+
+.Filter {
+    @include gap(all md);
+    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, size(2xl, component)), 1fr));
+
+    & > div {
+        @include gap(all md);
+        align-items: center;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, size(sm, component)), 1fr));
+    }
+
+    & > div:last-child {
+        @include max-width(lg, component);
+        grid-column-end: -1;
+        grid-template-columns: repeat(2, 1fr);
+        justify-self: end;
+        width: 100%;
+    }
+}

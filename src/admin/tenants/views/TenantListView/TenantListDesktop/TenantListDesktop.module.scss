@@ -1,0 +1,45 @@
+@import 'styles';
+
+.TenantList {
+    display: none;
+
+    @include screen-width(md) {
+        @include flex;
+        @include gap(all md);
+        @include padding(y md);
+    }
+
+    & > h1 {
+        @include font-size(2xl);
+        @include font-weight(lg);
+    }
+
+    .Filter {
+        @include margin(bottom xs);
+    }
+
+    .Container {
+        @include gap(all md);
+    }
+
+    .List {
+        @include flex;
+        flex-grow: 1;
+        overflow: hidden;
+    }
+
+    .Route {
+        display: none;
+
+        @include screen-width(xl) {
+            @include flex;
+            @include max-width(xl, component);
+            overflow: hidden;
+            width: 100%;
+        }
+
+        @include screen-width(3xl) {
+            @include max-width(2xl, component);
+        }
+    }
+}

@@ -20,7 +20,7 @@ export const useDashboardLayout = () => {
     const { t } = useTranslation();
 
     const [bp] = useMinWidth();
-    const isUnderBreakPoint = useMemo(() => matchBreakPoint('2xl', bp).under, [bp]);
+    const isUnderBreakPoint = useMemo(() => matchBreakPoint('3xl', bp).under, [bp]);
 
     const location = useLocation();
 

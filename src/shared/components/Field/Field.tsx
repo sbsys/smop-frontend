@@ -22,7 +22,11 @@ import { classNames } from 'shared/utils';
 import styles from './Field.module.scss';
 
 const components: Record<FieldStrategy, FC<FieldsProps>> = {
-    text: memo(props => <TextField inputMode="text" {...(props as FieldProps)} />),
+    text: memo(
+        forwardRef<HTMLInputElement | null>((props, ref) => (
+            <TextField inputMode="text" {...(props as FieldProps)} ref={ref} />
+        ))
+    ),
     password: memo(
         forwardRef<HTMLInputElement | null>((props, ref) => (
             <PasswordField inputMode="text" {...(props as PasswordFieldProps)} ref={ref} />

@@ -43,10 +43,3 @@
         }
     }
 }
-
-.RouteModal {
-    & > * {
-        @include bg-color(200);
-        @include rounded(all xs);
-    }
-}

@@ -8,8 +8,11 @@ import { TenantItemDTO } from 'admin/tenants/types';
 
 export interface TenantListContextProps {
     /* states */
+    isDropFilter: boolean;
+    showDropFilter: () => void;
+    hideDropFilter: () => void;
+    isBreakPoint: boolean;
     tenantList: TenantItemDTO[];
-    isInBreakPoint: boolean;
     /* functions */
     handleFilter: (event?: BaseSyntheticEvent) => Promise<void>;
     handleResetFilter: () => void;

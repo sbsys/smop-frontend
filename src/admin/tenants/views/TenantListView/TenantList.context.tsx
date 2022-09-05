@@ -5,8 +5,11 @@ import { TenantListContextProps, TenantListProviderProps } from './TenantList.pr
 
 export const TenantListContext = createContext<TenantListContextProps>({
     /* states */
+    isDropFilter: false,
+    showDropFilter: () => {},
+    hideDropFilter: () => {},
+    isBreakPoint: false,
     tenantList: [],
-    isInBreakPoint: false,
     /* functions */
     handleFilter: () => new Promise<void>(resolve => resolve()),
     handleResetFilter: () => {},

@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { TenantListContextProps } from './TenantList.props';
 import { FieldSetProps } from 'admin/core';
 /* hooks */
-import { useLoader, useMinWidth } from 'shared/hooks';
+import { useActive, useKeyDownEvent, useLoader, useMinWidth } from 'shared/hooks';
 /* utils */
 import { matchBreakPoint } from 'shared/utils';
 /* types */
@@ -33,10 +33,15 @@ export const useTenantList = () => {
     const [tenants, setTenants] = useState<TenantItemDTO[]>([]);
     const [currentFilter, setCurrentFilter] = useState<FilterForm>(filterFormInitialState);
 
-    const { register, handleSubmit } = useForm<FilterForm>();
-
     const [bp] = useMinWidth();
-    const isInBreakPoint = useMemo(() => matchBreakPoint('md', bp).on && matchBreakPoint('xl', bp).under, [bp]);
+
+    const [isDropFilter, showDropFilter, hideDropFilter] = useActive();
+
+    useKeyDownEvent(event => event.key === 'Escape' && hideDropFilter());
+
+    const isBreakPoint = useMemo(() => matchBreakPoint('md', bp).on, [bp]);
+
+    const { register, handleSubmit, reset } = useForm<FilterForm>();
 
     const { showLoader, hideLoader } = useLoader();
 
@@ -46,9 +51,15 @@ export const useTenantList = () => {
         let list = tenants;
 
         if (currentFilter.schema)
-            list = list.filter(currentTenant =>
-                currentTenant.schema.toLocaleLowerCase().includes(currentFilter.schema.toLocaleLowerCase())
+            list = list.filter(
+                currentTenant =>
+                    currentTenant.schema.toLocaleLowerCase().includes(currentFilter.schema.toLocaleLowerCase()) ||
+                    currentTenant.email.toLocaleLowerCase().includes(currentFilter.schema.toLocaleLowerCase()) ||
+                    currentTenant.phone.toLocaleLowerCase().includes(currentFilter.schema.toLocaleLowerCase())
             );
+
+        if (currentFilter.state !== '')
+            list = list.filter(currentTenant => currentTenant.state === currentFilter.state);
 
         return list;
     }, [tenants, currentFilter]);
@@ -81,13 +92,13 @@ export const useTenantList = () => {
         ]);
     }, [hideLoader, showLoader]);
 
-    const handleFilter = handleSubmit(async data => {
-        setCurrentFilter({ ...data });
+    const handleFilter = handleSubmit(data => setCurrentFilter({ ...data }));
 
-        console.log(data);
-    });
+    const handleResetFilter = () => {
+        setCurrentFilter(filterFormInitialState);
 
-    const handleResetFilter = () => setCurrentFilter(filterFormInitialState);
+        reset(filterFormInitialState);
+    };
 
     /* reactivity */
     useEffect(() => {
@@ -168,8 +179,11 @@ export const useTenantList = () => {
     /* context */
     const context: TenantListContextProps = {
         /* states */
+        isDropFilter,
+        showDropFilter,
+        hideDropFilter,
+        isBreakPoint,
         tenantList,
-        isInBreakPoint,
         /* functions */
         handleFilter,
         handleResetFilter,

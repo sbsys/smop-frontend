@@ -8,6 +8,7 @@ import { FieldSetProps } from 'admin/core';
 /* hooks */
 import { useActive, useKeyDownEvent, useLoader, useMinWidth } from 'shared/hooks';
 /* utils */
+import { isAfter, isBefore, isDate, isEqual, parse } from 'date-fns';
 import { matchBreakPoint } from 'shared/utils';
 /* types */
 import { TenantItemDTO, TenantState } from 'admin/tenants/types';
@@ -27,6 +28,9 @@ const filterFormInitialState: FilterForm = {
     start_date: null,
     end_date: null,
 };
+
+const isAfterOrEqual = (evaluate: Date, base: Date) => isAfter(evaluate, base) || isEqual(evaluate, base);
+const isBeforeOrEqual = (evaluate: Date, base: Date) => isBefore(evaluate, base) || isEqual(evaluate, base);
 
 export const useTenantList = () => {
     /* states */
@@ -61,6 +65,14 @@ export const useTenantList = () => {
         if (currentFilter.state !== '')
             list = list.filter(currentTenant => currentTenant.state === currentFilter.state);
 
+        if (isDate(currentFilter.start_date))
+            list = list.filter(currentTenant =>
+                isAfterOrEqual(currentTenant.created, currentFilter.start_date as Date)
+            );
+
+        if (isDate(currentFilter.end_date))
+            list = list.filter(currentTenant => isBeforeOrEqual(currentTenant.created, currentFilter.end_date as Date));
+
         return list;
     }, [tenants, currentFilter]);
 
@@ -78,7 +90,7 @@ export const useTenantList = () => {
                 schema: 'churrascos',
                 email: 'admin@churrascos.com',
                 phone: '+505-88664422',
-                created: new Date('2020-08-30'),
+                created: parse('2020-08-30', 'yyyy-MM-dd', Date.now()),
                 state: 'active',
             },
             {
@@ -86,13 +98,20 @@ export const useTenantList = () => {
                 schema: 'primas',
                 email: 'admin@primas.com',
                 phone: '+505-77553311',
-                created: new Date('2021-02-27'),
+                created: parse('2021-02-27', 'yyyy-MM-dd', Date.now()),
                 state: 'inactive',
             },
         ]);
     }, [hideLoader, showLoader]);
 
-    const handleFilter = handleSubmit(data => setCurrentFilter({ ...data }));
+    const handleFilter = handleSubmit(data => {
+        const values = { ...data };
+
+        if (data.start_date) values.start_date = parse(data.start_date.toString(), 'yyyy-MM-dd', Date.now());
+        if (data.end_date) values.end_date = parse(data.end_date.toString(), 'yyyy-MM-dd', Date.now());
+
+        setCurrentFilter(values);
+    });
 
     const handleResetFilter = () => {
         setCurrentFilter(filterFormInitialState);

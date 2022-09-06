@@ -9,7 +9,7 @@ import { DashboardLayout } from './core';
 /* authentication */
 import { AuthLayout, SignInView } from './auth';
 /* tenants */
-import { TenantListView, TenantsLayout } from './tenants';
+import { CreateTenantView, TenantListView, TenantsLayout } from './tenants';
 /* companies */
 import { CompaniesLayout } from './companies';
 
@@ -36,7 +36,7 @@ const AppRoutes: FC = () => {
                     <Route index element={<Navigate to={'list'} replace />} />
 
                     <Route path="list" element={<TenantListView />}>
-                        <Route path="new" element={null} />
+                        <Route path="create" element={<CreateTenantView />} />
                     </Route>
                 </Route>
 

@@ -1,0 +1,27 @@
+@import 'styles';
+
+.CreateTenant {
+    @include padding(all xs split);
+    @include width(xl, component);
+    max-width: 100%;
+
+    & > form {
+        @include flex;
+        @include gap(all md);
+
+        & > legend {
+            @include font-size(xl);
+            @include font-weight(lg);
+        }
+
+        & > div {
+            @include gap(all md);
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+
+            & > button {
+                overflow: hidden;
+            }
+        }
+    }
+}

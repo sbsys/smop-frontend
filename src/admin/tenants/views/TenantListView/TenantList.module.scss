@@ -3,6 +3,7 @@
 .RouteModal {
     & > * {
         @include bg-color(200);
+        @include padding(all md);
         @include rounded(all xs);
     }
 }

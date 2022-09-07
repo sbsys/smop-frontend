@@ -13,6 +13,8 @@ import styles from './CreateTenant.module.scss';
 
 const CreateTenant = () => {
     const {
+        /* functions */
+        handleCreateTenant,
         /* props */
         schemaProps,
         emailProps,
@@ -22,7 +24,7 @@ const CreateTenant = () => {
 
     return (
         <ScrollLayout classNameContent={styles.CreateTenant} orientation="col">
-            <form onSubmit={event => event.preventDefault()}>
+            <form onSubmit={handleCreateTenant}>
                 <legend>
                     <Legend hasDots>Create new tenant</Legend>
                 </legend>

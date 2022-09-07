@@ -4,6 +4,9 @@ import { createContext, FC, useContext } from 'react';
 import { CreateTenantContextProps, CreateTenantProviderProps } from './CreateTenant.props';
 
 export const CreateTenantContext = createContext<CreateTenantContextProps>({
+    /* functions */
+    handleCreateTenant: () => new Promise<void>(resolve => resolve()),
+    /* props */
     schemaProps: { field: {} },
     emailProps: { field: {} },
     passwordProps: { field: {} },

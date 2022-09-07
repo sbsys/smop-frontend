@@ -1,8 +1,12 @@
+/* react */
+import { BaseSyntheticEvent } from 'react';
 /* props */
 import { ChildrenProps } from 'shared/props';
 import { FieldSetProps } from 'admin/core';
 
 export interface CreateTenantContextProps {
+    /* functions */
+    handleCreateTenant: (event?: BaseSyntheticEvent) => Promise<void>;
     /* props */
     schemaProps: FieldSetProps;
     emailProps: FieldSetProps;

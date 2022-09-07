@@ -85,6 +85,25 @@
                 "edit": "Edit tenant",
                 "view": "View tenant detail"
             }
+        },
+        "createtenant": {
+            "form": {
+                "schema": {
+                    "placeholder": "Schema's name",
+                    "hint": "only lowercase alphabets"
+                },
+                "email": {
+                    "placeholder": "Administrator's email",
+                    "hint": "Click on @ to generate a schema email",
+                    "hintgenerate": "Click to generate a schema email"
+                },
+                "password": {
+                    "placeholder": "Administrator's password"
+                },
+                "repeatpassword": {
+                    "placeholder": "Repeat password"
+                }
+            }
         }
     }
 }

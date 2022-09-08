@@ -2,25 +2,30 @@
 import { BaseSyntheticEvent } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 /* props */
-import { FieldSetProps } from 'admin/core';
+import { FieldSetProps, useAdminNotify } from 'admin/core';
 import { CreateTenantContextProps } from './CreateTenant.props';
 /* components */
 import { Button } from 'shared/components';
 /* hooks */
-import { useActive } from 'shared/hooks';
+import { useActive, useLoader } from 'shared/hooks';
+/* services */
+import { createTenantService } from 'admin/tenants/services';
 /* utils */
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 /* assets */
-import { MdAlternateEmail } from 'react-icons/md';
+import { MdAlternateEmail, MdBookmarkAdded, MdDangerous } from 'react-icons/md';
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 /* styles */
 import { FieldStyles } from 'shared/styles';
 
 interface CreateTenantForm {
     schema: string;
+    name: string;
     email: string;
+    phone: string;
     password: string;
     repeat_password: string;
 }
@@ -63,10 +68,45 @@ export const useCreateTenant = () => {
 
     const [isPassword, showPassword, hidePassword] = useActive();
 
+    const { showLoader, hideLoader } = useLoader();
+
+    const { notify } = useAdminNotify();
+
     const { t } = useTranslation();
 
+    const navigate = useNavigate();
+
     /* functions */
-    const handleCreateTenant = handleSubmit(async data => console.log(data));
+    const handleCreateTenant = handleSubmit(async data => {
+        showLoader();
+
+        const service = await createTenantService({
+            schema: data.schema,
+            fullname: data.name,
+            phone_number: data.phone,
+            email: data.email,
+            password: data.schema,
+        });
+
+        hideLoader();
+
+        if (!service.error)
+            return notify('danger', {
+                title: 'Error',
+                icon: <MdDangerous />,
+                text: service.message,
+                timestamp: new Date(),
+            });
+
+        notify('success', {
+            title: 'Created',
+            icon: <MdBookmarkAdded />,
+            text: service.message,
+            timestamp: new Date(),
+        });
+
+        navigate(-1);
+    });
 
     const handleGenerateEmailBySchema = async (event?: BaseSyntheticEvent) => {
         event?.preventDefault();
@@ -78,6 +118,8 @@ export const useCreateTenant = () => {
         setValue('email', `admin@${watch('schema')}.com`, { shouldValidate: true });
         setFocus('password');
     };
+
+    const handleCalcelCreateTenant = () => navigate(-1);
 
     /* props */
     const schemaProps: FieldSetProps = {
@@ -98,6 +140,48 @@ export const useCreateTenant = () => {
                   children: t('views.createtenant.form.schema.hint'),
                   hasDots: true,
                   title: t('views.createtenant.form.schema.hint'),
+              },
+    };
+
+    const nameProps: FieldSetProps = {
+        field: {
+            className: errors.name ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
+            strategy: 'text',
+            placeholder: t('views.createtenant.form.name.placeholder'),
+            ...register('name'),
+        },
+        isHintReserved: true,
+        hint: errors.name
+            ? {
+                  children: t(errors.name.message as string),
+                  hasDots: true,
+                  title: t(errors.name.message as string),
+              }
+            : {
+                  children: t('views.createtenant.form.name.hint'),
+                  hasDots: true,
+                  title: t('views.createtenant.form.name.hint'),
+              },
+    };
+
+    const phoneProps: FieldSetProps = {
+        field: {
+            className: errors.phone ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
+            strategy: 'text',
+            placeholder: t('views.createtenant.form.phone.placeholder'),
+            ...register('phone'),
+        },
+        isHintReserved: true,
+        hint: errors.phone
+            ? {
+                  children: t(errors.phone.message as string),
+                  hasDots: true,
+                  title: t(errors.phone.message as string),
+              }
+            : {
+                  children: t('views.createtenant.form.phone.hint'),
+                  hasDots: true,
+                  title: t('views.createtenant.form.phone.hint'),
               },
     };
 
@@ -178,15 +262,15 @@ export const useCreateTenant = () => {
             : undefined,
     };
 
+    const createTenantFieldProps = [schemaProps, nameProps, phoneProps, emailProps, passwordProps, repeatPasswordProps];
+
     /* context */
     const context: CreateTenantContextProps = {
         /* functions */
         handleCreateTenant,
+        handleCalcelCreateTenant,
         /* props */
-        schemaProps,
-        emailProps,
-        passwordProps,
-        repeatPasswordProps,
+        createTenantFieldProps,
     };
 
     return { context };

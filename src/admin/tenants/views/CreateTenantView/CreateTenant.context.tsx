@@ -6,11 +6,9 @@ import { CreateTenantContextProps, CreateTenantProviderProps } from './CreateTen
 export const CreateTenantContext = createContext<CreateTenantContextProps>({
     /* functions */
     handleCreateTenant: () => new Promise<void>(resolve => resolve()),
+    handleCalcelCreateTenant: () => {},
     /* props */
-    schemaProps: { field: {} },
-    emailProps: { field: {} },
-    passwordProps: { field: {} },
-    repeatPasswordProps: { field: {} },
+    createTenantFieldProps: [],
 });
 
 export const CreateTenantProvider: FC<CreateTenantProviderProps> = ({ context, children }) => {

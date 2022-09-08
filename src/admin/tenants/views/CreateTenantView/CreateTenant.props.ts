@@ -7,11 +7,9 @@ import { FieldSetProps } from 'admin/core';
 export interface CreateTenantContextProps {
     /* functions */
     handleCreateTenant: (event?: BaseSyntheticEvent) => Promise<void>;
+    handleCalcelCreateTenant: () => void;
     /* props */
-    schemaProps: FieldSetProps;
-    emailProps: FieldSetProps;
-    passwordProps: FieldSetProps;
-    repeatPasswordProps: FieldSetProps;
+    createTenantFieldProps: FieldSetProps[];
 }
 
 export interface CreateTenantProviderProps extends ChildrenProps {

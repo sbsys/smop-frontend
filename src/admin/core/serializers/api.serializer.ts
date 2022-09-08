@@ -3,12 +3,12 @@ import { ApiResponse } from '../types';
 
 export const apiSerializer = <T>(data: any, serializer?: (data: any) => T): ApiResponse<T> => ({
     message: data.message,
-    error: data.error,
+    error: !data.status,
     data: typeof serializer === 'function' ? serializer(data.data) : ({} as T),
 });
 
 export const apiErrorSerializer = <T>(error: AxiosError, serializer?: (data: any) => T): ApiResponse<T> => {
-    if (error.response?.data) return apiSerializer({ ...(error.response?.data as Object), error: true }, serializer);
+    if (error.response?.data) return apiSerializer({ ...(error.response?.data as Object) }, serializer);
     else if (error.request?.data)
         return {
             message: error.request.data,

@@ -15,11 +15,9 @@ const CreateTenant = () => {
     const {
         /* functions */
         handleCreateTenant,
+        handleCalcelCreateTenant,
         /* props */
-        schemaProps,
-        emailProps,
-        passwordProps,
-        repeatPasswordProps,
+        createTenantFieldProps,
     } = useCreateTenantContext();
 
     return (
@@ -29,16 +27,12 @@ const CreateTenant = () => {
                     <Legend hasDots>Create new tenant</Legend>
                 </legend>
 
-                <FieldSet {...schemaProps} />
-
-                <FieldSet {...emailProps} />
-
-                <FieldSet {...passwordProps} />
-
-                <FieldSet {...repeatPasswordProps} />
+                {createTenantFieldProps.map((field, index) => (
+                    <FieldSet {...field} key={index} />
+                ))}
 
                 <div>
-                    <Button type="button" className={ButtonStyles.OutlineNone}>
+                    <Button type="button" className={ButtonStyles.OutlineNone} onClick={handleCalcelCreateTenant}>
                         <Legend hasDots justify="center">
                             Cancel
                         </Legend>

@@ -9,7 +9,7 @@ import { MdDashboardCustomize } from 'react-icons/md';
 const NewTenantAction = () => {
     const { t } = useTranslation();
 
-    return <NavItem icon={<MdDashboardCustomize />} text={t('views.tenants.list.new')} to="new" />;
+    return <NavItem icon={<MdDashboardCustomize />} text={t('views.tenants.list.new')} to="create" />;
 };
 
 export default memo(NewTenantAction);

@@ -25,7 +25,9 @@ const TenantListView = () => {
             <TenantListDesktop />
 
             <ModalLayout isVisible={outlet !== null} rowAlignment="center" colAlignment="center" hasIndentation>
-                <PanelLayout className={styles.RouteModal}>{outlet}</PanelLayout>
+                <PanelLayout className={styles.RouteModal} orientation="col">
+                    {outlet}
+                </PanelLayout>
             </ModalLayout>
         </TenantListProvider>
     );

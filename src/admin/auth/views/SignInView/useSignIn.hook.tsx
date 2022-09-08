@@ -2,20 +2,24 @@
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+/* store */
+import { authStoreSignIn } from 'admin/auth/store';
 /* props */
-import { FieldSetProps } from 'admin/core';
+import { FieldSetProps, useAdminDispatch } from 'admin/core';
 import { SignInContext } from './SignIn.props';
 /* hooks */
-import { useActive, useLoader } from 'shared/hooks';
+import { useActive, useLoader, useLocalStorage } from 'shared/hooks';
 import { useAdminNotify } from 'admin/core/hooks';
 /* services */
 import { signInService } from 'admin/auth/services';
 /* utils */
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+/* types */
+import { SignInDTO } from 'admin/auth/types';
 /* assets */
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
-import { MdDangerous } from 'react-icons/md';
+import { MdBookmarkAdded, MdDangerous } from 'react-icons/md';
 /* styles */
 import { FieldStyles } from 'shared/styles';
 
@@ -43,6 +47,10 @@ export const useSignIn = () => {
 
     const navigate = useNavigate();
 
+    const dispatch = useAdminDispatch();
+
+    const [, setAuthLocalStorage] = useLocalStorage<SignInDTO>('auth', {} as SignInDTO);
+
     /* form */
     const {
         register,
@@ -61,13 +69,24 @@ export const useSignIn = () => {
 
         hideLoader();
 
-        if (!service.error)
+        if (service.error)
             return notify('danger', {
                 title: 'Error',
                 icon: <MdDangerous />,
                 text: service.message,
                 timestamp: new Date(),
             });
+
+        dispatch(authStoreSignIn(service.data));
+
+        setAuthLocalStorage(service.data);
+
+        notify('info', {
+            title: 'Logged in',
+            icon: <MdBookmarkAdded />,
+            text: service.message,
+            timestamp: new Date(),
+        });
 
         navigate('/dashboard', { replace: true });
     });

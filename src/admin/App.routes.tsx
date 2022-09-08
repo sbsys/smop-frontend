@@ -1,32 +1,46 @@
 /* react */
-import { FC, memo } from 'react';
+import { FC, memo, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+/* hooks */
+import { useLocalStorage } from 'shared/hooks';
 /* layouts */
-import { DashboardLayout } from './core';
+import { DashboardLayout, useAdminDispatch, useAdminSelector } from './core';
 
 /* modules */
 
 /* authentication */
-import { AuthLayout, SignInView } from './auth';
+import { AuthLayout, authStoreSignIn, selectAuthStore, SignInView } from './auth';
 /* tenants */
 import { CreateTenantView, TenantListView, TenantsLayout } from './tenants';
 /* companies */
 import { CompaniesLayout } from './companies';
 
 const AppRoutes: FC = () => {
+    const { isAuth } = useAdminSelector(selectAuthStore);
+
+    const [authLocalStorage] = useLocalStorage('auth', null);
+
+    const dispatch = useAdminDispatch();
+
+    useEffect(() => {
+        if (!authLocalStorage) return;
+
+        dispatch(authStoreSignIn(authLocalStorage));
+    }, [authLocalStorage, dispatch]);
+
     return (
         <Routes>
-            <Route path="" element={<Navigate to={'auth'} replace />} />
+            <Route path="" element={<Navigate to={isAuth ? 'dashboard' : 'auth'} replace />} />
 
             {/* authentication module */}
-            <Route path="auth" element={<AuthLayout />}>
+            <Route path="auth" element={!isAuth ? <AuthLayout /> : <Navigate to={'../dashboard'} replace />}>
                 <Route index element={<Navigate to={'sign-in'} replace />} />
 
                 <Route path="sign-in" element={<SignInView />} />
             </Route>
 
             {/* signed in modules */}
-            <Route path="dashboard" element={<DashboardLayout />}>
+            <Route path="dashboard" element={isAuth ? <DashboardLayout /> : <Navigate to={'../auth'} replace />}>
                 {/* dashboard */}
                 <Route index element={<Navigate to={'home'} replace />} />
                 <Route path="home" element={null} />

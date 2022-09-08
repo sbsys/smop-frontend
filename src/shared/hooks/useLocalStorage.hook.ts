@@ -1,7 +1,7 @@
 /* react */
 import { useState } from 'react';
 
-export const useLocalStorage = <T = any>(key: string, initialValue: T) => {
+export const useLocalStorage = <T = any>(key: string, initialValue: T): [T, (value: T) => void] => {
     /* states */
 
     const [storedValue, setStoredValue] = useState<T>(() => {
@@ -20,13 +20,11 @@ export const useLocalStorage = <T = any>(key: string, initialValue: T) => {
 
     const setValue = (value: T) => {
         try {
-            const valueToStore =
-                value instanceof Function ? value(storedValue) : value;
+            const valueToStore = value instanceof Function ? value(storedValue) : value;
 
             setStoredValue(valueToStore);
 
-            if (typeof window !== 'undefined')
-                window.localStorage.setItem(key, JSON.stringify(valueToStore));
+            if (typeof window !== 'undefined') window.localStorage.setItem(key, JSON.stringify(valueToStore));
         } catch (error) {
             throw new Error('NO_LOCALSTORAGE');
         }

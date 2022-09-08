@@ -1,4 +1,6 @@
+/* react */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+/* types */
 import { AdminStoreState } from 'admin/core';
 import { SignInDTO, UserDTO } from '../types';
 

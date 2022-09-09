@@ -1,5 +1,5 @@
 /* react */
-import { FC, memo } from 'react';
+import { forwardRef, memo } from 'react';
 /* props */
 import { DropLayoutProps } from './DropLayout.props';
 /* utils */
@@ -37,44 +37,43 @@ const anchorColStrategy: Record<Alignment, string> = {
     end: styles.AnchorColEnd,
 };
 
-const DropLayout: FC<DropLayoutProps> = ({
-    className,
-    classNameDrop,
-    drop,
-    dropRow = 'center',
-    dropCol = 'start',
-    anchorRow = 'center',
-    anchorCol = 'end',
-    isDrop,
-    isHoverable,
-    children,
-    ...rest
-}) => {
-    return (
-        <div
-            className={classNames(
-                styles.Drop,
-                isHoverable && styles.Hoverable,
-                className
-            )}
-            {...rest}>
-            {typeof children === 'function' ? children() : children}
+const DropLayout = forwardRef<HTMLDivElement | null, DropLayoutProps>(
+    (
+        {
+            className,
+            classNameDrop,
+            drop,
+            dropRow = 'center',
+            dropCol = 'start',
+            anchorRow = 'center',
+            anchorCol = 'end',
+            isDrop,
+            isHoverable,
+            children,
+            ...rest
+        },
+        ref
+    ) => {
+        return (
+            <div className={classNames(styles.Drop, isHoverable && styles.Hoverable, className)} ref={ref} {...rest}>
+                {typeof children === 'function' ? children() : children}
 
-            {(isDrop || isHoverable) && (
-                <div
-                    className={classNames(
-                        styles.Content,
-                        dropRow && dropRowStrategy[dropRow],
-                        dropCol && dropColStrategy[dropCol],
-                        anchorRow && anchorRowStrategy[anchorRow],
-                        anchorCol && anchorColStrategy[anchorCol],
-                        classNameDrop
-                    )}>
-                    {typeof drop === 'function' ? drop() : drop}
-                </div>
-            )}
-        </div>
-    );
-};
+                {(isDrop || isHoverable) && (
+                    <div
+                        className={classNames(
+                            styles.Content,
+                            dropRow && dropRowStrategy[dropRow],
+                            dropCol && dropColStrategy[dropCol],
+                            anchorRow && anchorRowStrategy[anchorRow],
+                            anchorCol && anchorColStrategy[anchorCol],
+                            classNameDrop
+                        )}>
+                        {typeof drop === 'function' ? drop() : drop}
+                    </div>
+                )}
+            </div>
+        );
+    }
+);
 
 export default memo(DropLayout);

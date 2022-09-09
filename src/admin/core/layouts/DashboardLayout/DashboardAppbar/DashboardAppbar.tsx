@@ -4,6 +4,7 @@ import { memo, useContext } from 'react';
 import { Context } from '../DashboardLayout.context';
 /* components */
 import { Button } from 'shared/components';
+import { AppbarActions } from './AppbarActions';
 /* assets */
 import { MdMenu } from 'react-icons/md';
 /* styles */
@@ -22,6 +23,8 @@ const DashboardAppbar = () => {
                     <MdMenu />
                 </i>
             </Button>
+
+            <AppbarActions />
         </div>
     );
 };

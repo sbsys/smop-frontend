@@ -3,6 +3,7 @@
 .Appbar {
     @include bg-color(400);
     @include flex(row, center, space-between);
+    @include gap(all md);
     @include padding(all xs);
 
     .Menu {

@@ -1,0 +1,65 @@
+@import 'styles';
+
+.MainAction {
+    @include flex(row, center);
+    @include font-weight(lg);
+    @include gap(all xs split);
+    @include interactable;
+    @include max-width(sm, component);
+    @include padding(y xs split, left xs);
+    @include rounded(all xs);
+
+    &:hover {
+        @include bg-color(500);
+        @include bg-opacity(10);
+    }
+
+    &:active {
+        @include bg-opacity(20);
+    }
+
+    & > i {
+        @include font-size(2xl);
+    }
+}
+
+.Actions {
+    @include bg-color(400);
+    @include gap(all xs);
+    @include margin(top xs);
+    @include padding(all xs);
+    @include rounded(all xs);
+    @include shadow(all xs);
+    @include width(sm, component);
+
+    .Action {
+        @include flex(row, center);
+        @include font-weight(lg);
+        @include gap(all md);
+        @include interactable;
+        @include padding(all sm split);
+        @include rounded(all xs);
+
+        & > i {
+            @include font-size(2xl);
+        }
+    }
+
+    .Langs {
+        & > ul {
+            @include flex;
+            @include gap(all xs);
+            @include padding(top xs, left 2xl);
+            list-style: none;
+        }
+    }
+
+    .Lang {
+        width: 100%;
+
+        &:disabled {
+            @include bg-color(500);
+            @include bg-opacity(20);
+        }
+    }
+}

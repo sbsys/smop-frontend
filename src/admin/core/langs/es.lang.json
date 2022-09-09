@@ -2,7 +2,9 @@
     "dashboard": {
         "actions": {
             "back": "Cerrar menú lateral",
-            "menu": "Abrir menú lateral"
+            "menu": "Abrir menú lateral",
+            "lang": "Idioma",
+            "logout": "Cerrar sesión"
         },
         "navigation": {
             "dashboard": {

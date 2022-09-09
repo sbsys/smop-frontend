@@ -6,7 +6,7 @@ import { Context } from '../DashboardLayout.context';
 import { PanelLayout, ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
-import { LanguageChanger, NavGroup } from 'admin/core/components';
+import { NavGroup } from 'admin/core/components';
 /* assets */
 import { MdArrowBack } from 'react-icons/md';
 /* styles */
@@ -46,8 +46,6 @@ const DashboardSidebar = () => {
                     </ul>
                 </nav>
             </ScrollLayout>
-
-            <LanguageChanger />
         </PanelLayout>
     );
 };

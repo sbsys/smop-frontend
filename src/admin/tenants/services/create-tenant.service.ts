@@ -1,4 +1,14 @@
-import { AdminApiService, apiErrorSerializer, ApiResponse, apiSerializer } from 'admin/core';
+/* services */
+import {
+    AdminApiService,
+    apiErrorSerializer,
+    apiOnErrorSideEffect,
+    ApiResponse,
+    apiSerializer,
+    is403ErrorResponse,
+} from 'admin/core';
+import { getCurrentUserToken, repeatRequestOnRefreshTokenService } from 'admin/auth';
+/* handlers */
 import { apiRequestHandler } from 'shared/handlers';
 
 interface CreateTenantProps {
@@ -17,9 +27,16 @@ export const createTenantService = async (props: CreateTenantProps): Promise<Api
     return await apiRequestHandler<ApiResponse<{}>, FormData>({
         instance: AdminApiService,
         endpoint: '/admin/generate-schema',
+        token: getCurrentUserToken(),
         method: 'POST',
         body,
-        responseSerializer: data => apiSerializer<{}>(data),
-        errorSerializer: error => apiErrorSerializer<{}>(error),
+        responseSerializer: async data => apiSerializer<{}>(data),
+        errorSerializer: error =>
+            apiOnErrorSideEffect<ApiResponse<{}>>(
+                error,
+                is403ErrorResponse,
+                async () => await repeatRequestOnRefreshTokenService(() => createTenantService(props)),
+                error => apiErrorSerializer<{}>(error)
+            ),
     });
 };

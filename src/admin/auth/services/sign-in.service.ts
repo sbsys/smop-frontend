@@ -22,7 +22,7 @@ export const signInService = async (props: SignInProps): Promise<ApiResponse<Sig
         endpoint: '/auth/login/admins',
         method: 'POST',
         body,
-        responseSerializer: data => apiSerializer<SignInDTO>(data, signInSerializer),
-        errorSerializer: error => apiErrorSerializer<SignInDTO>(error),
+        responseSerializer: async data => apiSerializer<SignInDTO>(data, signInSerializer),
+        errorSerializer: async error => apiErrorSerializer<SignInDTO>(error, signInSerializer),
     });
 };

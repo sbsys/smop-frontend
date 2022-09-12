@@ -90,7 +90,7 @@ export const useCreateTenant = () => {
 
         hideLoader();
 
-        if (!service.error)
+        if (service.error)
             return notify('danger', {
                 title: 'Error',
                 icon: <MdDangerous />,

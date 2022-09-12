@@ -10,12 +10,13 @@ interface ApiRequestProps<R, B, P> {
     instance: AxiosInstance;
     headers?: KeyValue;
     token?: string;
+    lang?: string;
     method?: ApiMethods;
     endpoint: string;
     body?: B;
     params?: P;
-    responseSerializer: (data: any) => R;
-    errorSerializer: (error: AxiosError) => R;
+    responseSerializer: (data: any) => Promise<R>;
+    errorSerializer: (error: AxiosError) => Promise<R>;
     abort?: AbortController;
 }
 
@@ -23,6 +24,7 @@ export const apiRequestHandler = async <R, B = any, P extends KeyValue = {}>({
     instance,
     headers,
     token = '',
+    lang = 'en',
     method = 'GET',
     endpoint,
     body,
@@ -33,7 +35,7 @@ export const apiRequestHandler = async <R, B = any, P extends KeyValue = {}>({
 }: ApiRequestProps<R, B, P>): Promise<R> => {
     try {
         const response = await instance.request({
-            headers: { 'Content-Type': 'application/json', Authorization: token, ...headers },
+            headers: { 'Content-Type': 'application/json', Authorization: token, 'Accept-Language': lang, ...headers },
             method,
             url: endpoint,
             params,
@@ -41,8 +43,8 @@ export const apiRequestHandler = async <R, B = any, P extends KeyValue = {}>({
             signal: abort?.signal,
         });
 
-        return responseSerializer(response.data);
+        return await responseSerializer(response.data);
     } catch (error) {
-        return errorSerializer(error as AxiosError);
+        return await errorSerializer(error as AxiosError);
     }
 };

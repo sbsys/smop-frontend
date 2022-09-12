@@ -24,11 +24,14 @@ const authSlice = createSlice({
             state.isAuth = true;
         },
         authStoreSignOut: state => (state = initialState),
+        authUpdateToken: (state, { payload }: PayloadAction<string>) => {
+            state.token = payload;
+        },
     },
 });
 
 export const AuthReducer = authSlice.reducer;
 
-export const { authStoreSignIn, authStoreSignOut } = authSlice.actions;
+export const { authStoreSignIn, authStoreSignOut, authUpdateToken } = authSlice.actions;
 
 export const selectAuthStore = (state: AdminStoreState) => state.auth;

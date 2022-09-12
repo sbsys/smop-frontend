@@ -4,7 +4,7 @@ import { ApiResponse } from '../types';
 export const apiSerializer = <T>(data: any, serializer?: (data: any) => T): ApiResponse<T> => ({
     message: data.message,
     error: !data.status,
-    data: typeof serializer === 'function' ? serializer(data.data) : ({} as T),
+    data: typeof serializer === 'function' ? serializer(data.data) : (data.data as T),
 });
 
 export const apiErrorSerializer = <T>(error: AxiosError, serializer?: (data: any) => T): ApiResponse<T> => {
@@ -22,3 +22,16 @@ export const apiErrorSerializer = <T>(error: AxiosError, serializer?: (data: any
             data: {} as T,
         };
 };
+
+export const apiOnErrorSideEffect = async <R>(
+    error: AxiosError,
+    condition: (error: AxiosError) => boolean,
+    SideEffect: () => Promise<R>,
+    errorSerializer: (error: AxiosError) => R
+) => {
+    if (condition(error)) return await SideEffect();
+
+    return errorSerializer(error);
+};
+
+export const is403ErrorResponse = (error: AxiosError) => error.response?.status === 403;

@@ -13,23 +13,26 @@ import { MdError } from 'react-icons/md';
 /* modules */
 
 /* authentication */
-import { AuthLayout, authStoreSignIn, selectAuthStore, SignInView } from './auth';
+import { AuthLayout, authStoreSignIn, selectAuthStore, SignInDTO, SignInView } from './auth';
 /* tenants */
 import { CreateTenantView, TenantListView, TenantsLayout } from './tenants';
 /* companies */
 import { CompaniesLayout } from './companies';
 
 const AppRoutes: FC = () => {
-    const { isAuth } = useAdminSelector(selectAuthStore);
+    const { isAuth, token } = useAdminSelector(selectAuthStore);
 
-    const [authLocalStorage, , clearAuthLocalStorage] = useLocalStorage('auth', null);
+    const [authLocalStorage, setAuthLocalStorage, clearAuthLocalStorage] = useLocalStorage<SignInDTO>(
+        'auth',
+        {} as SignInDTO
+    );
 
     const dispatch = useAdminDispatch();
 
     const { notify } = useAdminNotify();
 
     useEffect(() => {
-        if (!authLocalStorage) return;
+        if (!authLocalStorage.token) return;
 
         dispatch(authStoreSignIn(authLocalStorage));
     }, [authLocalStorage, dispatch]);
@@ -52,6 +55,11 @@ const AppRoutes: FC = () => {
             offCustomEvent('logout_notify', logout_notify);
         };
     }, [clearAuthLocalStorage, notify]);
+
+    useEffect(() => {
+        if (authLocalStorage.token && token && authLocalStorage.token !== token)
+            setAuthLocalStorage({ ...authLocalStorage, token });
+    }, [authLocalStorage, setAuthLocalStorage, token]);
 
     return (
         <Routes>

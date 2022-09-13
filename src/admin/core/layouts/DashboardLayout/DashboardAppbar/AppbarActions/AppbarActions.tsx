@@ -2,16 +2,16 @@
 import { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 /* store */
-import { selectAuthStore } from 'admin/auth';
+import { authStoreSignOut, selectAuthStore, SignInDTO } from 'admin/auth';
 /* hooks */
-import { useActive, useClickOutside, useKeyDownEvent } from 'shared/hooks';
+import { useActive, useClickOutside, useKeyDownEvent, useLocalStorage } from 'shared/hooks';
 import { Lang, LangProps, useAdminLang } from 'admin/core/hooks';
 /* layouts */
 import { AccordionLayout, DropLayout, PanelLayout } from 'shared/layouts';
 /* components */
 import { Button, ButtonProps, Legend } from 'shared/components';
 /* services */
-import { useAdminSelector } from 'admin/core/services';
+import { useAdminDispatch, useAdminSelector } from 'admin/core/services';
 /* utils */
 import { classNames } from 'shared/utils';
 /* assets */
@@ -20,6 +20,7 @@ import { MdArrowDropDown, MdArrowDropUp, MdLanguage, MdLogout } from 'react-icon
 import styles from './AppbarActions.module.scss';
 
 const AppbarActions = () => {
+    /* states */
     const [isDrop, , hideDrop, toggleDrop] = useActive();
 
     useKeyDownEvent(event => event.key === 'Escape' && hideDrop());
@@ -34,6 +35,16 @@ const AppbarActions = () => {
         () => Object.keys(availableLangs).map(item => availableLangs[item as Lang]),
         [availableLangs]
     );
+
+    const { user } = useAdminSelector(selectAuthStore);
+
+    const dispatch = useAdminDispatch();
+
+    const [, , clearAuthLocalStorage] = useLocalStorage<SignInDTO>('auth', {} as SignInDTO);
+
+    const { t } = useTranslation();
+
+    /* functions */
 
     const langProps = (langProps: LangProps): ButtonProps => ({
         className: classNames(styles.Action, styles.Lang),
@@ -50,9 +61,11 @@ const AppbarActions = () => {
         disabled: langProps.lang === lang,
     });
 
-    const { user } = useAdminSelector(selectAuthStore);
+    const handleSignOut = () => {
+        clearAuthLocalStorage();
 
-    const { t } = useTranslation();
+        dispatch(authStoreSignOut());
+    };
 
     return (
         <DropLayout
@@ -85,7 +98,7 @@ const AppbarActions = () => {
                             <Legend hasDots>{t('dashboard.actions.lang')}</Legend>
                         </Button>
                     </AccordionLayout>
-                    <Button className={styles.Action} title={t('dashboard.actions.logout')}>
+                    <Button className={styles.Action} title={t('dashboard.actions.logout')} onClick={handleSignOut}>
                         <i>
                             <MdLogout />
                         </i>

@@ -30,7 +30,7 @@ const onceCustomEvent = <T>(name: string, cb: (event?: CustomEvent<T>) => void) 
     onCustomEvent(name, handleEventOnce);
 };
 
-const triggerCustomEvent = <T>(name: string, data: T) => {
+const triggerCustomEvent = <T>(name: string, data?: T) => {
     const event: CustomEvent<T> = new CustomEvent(name, { detail: data });
 
     document.dispatchEvent(event);

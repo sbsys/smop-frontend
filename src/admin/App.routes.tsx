@@ -4,7 +4,11 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 /* hooks */
 import { useLocalStorage } from 'shared/hooks';
 /* layouts */
-import { DashboardLayout, useAdminDispatch, useAdminSelector } from './core';
+import { DashboardLayout, useAdminDispatch, useAdminNotify, useAdminSelector } from './core';
+/* utils */
+import { offCustomEvent, onCustomEvent } from 'shared/utils';
+/* assets */
+import { MdError } from 'react-icons/md';
 
 /* modules */
 
@@ -22,11 +26,29 @@ const AppRoutes: FC = () => {
 
     const dispatch = useAdminDispatch();
 
+    const { notify } = useAdminNotify();
+
     useEffect(() => {
         if (!authLocalStorage) return;
 
         dispatch(authStoreSignIn(authLocalStorage));
     }, [authLocalStorage, dispatch]);
+
+    useEffect(() => {
+        const logout_notify = () =>
+            notify('danger', {
+                title: 'Signed out',
+                icon: <MdError />,
+                text: 'Session terminated due to authorization token expiration',
+                timestamp: new Date(),
+            });
+
+        onCustomEvent('logout_notify', logout_notify);
+
+        return () => {
+            offCustomEvent('logout_notify', logout_notify);
+        };
+    }, [notify]);
 
     return (
         <Routes>

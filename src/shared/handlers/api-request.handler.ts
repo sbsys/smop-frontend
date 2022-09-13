@@ -35,7 +35,12 @@ export const apiRequestHandler = async <R, B = any, P extends KeyValue = {}>({
 }: ApiRequestProps<R, B, P>): Promise<R> => {
     try {
         const response = await instance.request({
-            headers: { 'Content-Type': 'application/json', Authorization: token, 'Accept-Language': lang, ...headers },
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+                'Accept-Language': lang,
+                ...headers,
+            },
             method,
             url: endpoint,
             params,

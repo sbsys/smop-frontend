@@ -1,7 +1,7 @@
 /* react */
 import { useState } from 'react';
 
-export const useLocalStorage = <T = any>(key: string, initialValue: T): [T, (value: T) => void] => {
+export const useLocalStorage = <T = any>(key: string, initialValue: T): [T, (value: T) => void, () => void] => {
     /* states */
 
     const [storedValue, setStoredValue] = useState<T>(() => {
@@ -30,5 +30,13 @@ export const useLocalStorage = <T = any>(key: string, initialValue: T): [T, (val
         }
     };
 
-    return [storedValue, setValue];
+    const clear = () => {
+        try {
+            window.localStorage.removeItem(key);
+        } catch (error) {
+            throw new Error('NO_LOCALSTORAGE');
+        }
+    };
+
+    return [storedValue, setValue, clear];
 };

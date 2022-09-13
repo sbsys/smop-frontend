@@ -14,7 +14,7 @@ export const refreshTokenService = async (): Promise<ApiResponse<RefreshTokenDTO
         instance: AdminApiService,
         endpoint: `/auth/${getCurrentUserId()}/refresh-token`,
         token: getCurrentUserToken(),
-        method: 'POST',
+        method: 'GET',
         responseSerializer: async data => apiSerializer<RefreshTokenDTO>(data),
         errorSerializer: async error => apiErrorSerializer<RefreshTokenDTO>(error),
     });

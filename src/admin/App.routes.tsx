@@ -22,7 +22,7 @@ import { CompaniesLayout } from './companies';
 const AppRoutes: FC = () => {
     const { isAuth } = useAdminSelector(selectAuthStore);
 
-    const [authLocalStorage] = useLocalStorage('auth', null);
+    const [authLocalStorage, , clearAuthLocalStorage] = useLocalStorage('auth', null);
 
     const dispatch = useAdminDispatch();
 
@@ -35,7 +35,7 @@ const AppRoutes: FC = () => {
     }, [authLocalStorage, dispatch]);
 
     useEffect(() => {
-        const logout_notify = () =>
+        const logout_notify = () => {
             notify('danger', {
                 title: 'Signed out',
                 icon: <MdError />,
@@ -43,12 +43,15 @@ const AppRoutes: FC = () => {
                 timestamp: new Date(),
             });
 
+            clearAuthLocalStorage();
+        };
+
         onCustomEvent('logout_notify', logout_notify);
 
         return () => {
             offCustomEvent('logout_notify', logout_notify);
         };
-    }, [notify]);
+    }, [clearAuthLocalStorage, notify]);
 
     return (
         <Routes>

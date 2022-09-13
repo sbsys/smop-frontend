@@ -21,7 +21,7 @@ i18n.use(LanguageDetector)
     .init({
         detection: {
             order: ['localStorage'],
-            lookupLocalStorage: 'i18nextLng',
+            lookupLocalStorage: 'admin_lang',
             caches: ['localStorage'],
         },
         resources: langs,

@@ -85,7 +85,7 @@ export const useCreateTenant = () => {
             fullname: data.name,
             phone_number: data.phone,
             email: data.email,
-            password: data.schema,
+            password: data.password,
         });
 
         hideLoader();

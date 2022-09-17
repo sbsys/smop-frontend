@@ -1,0 +1,17 @@
+FROM node:16.17.0 AS dev
+
+ENV NODE_ENV=development
+
+ENV NODE_OPTIONS=--max-old-space-size=8192
+
+RUN mkdir -p /home/app
+
+WORKDIR /home/app
+
+COPY package.json .
+
+RUN npm i
+
+EXPOSE 3000
+
+CMD ["npm", "run", "start"]

@@ -14,15 +14,15 @@
                 }
             },
             "root": {
-                "name": "Administrador de Sistema",
+                "name": "System Root",
                 "items": {
-                    "tenants": "Inquilinos"
+                    "tenants": "Compañías"
                 }
             },
             "admin": {
                 "name": "Administrador",
                 "items": {
-                    "companies": "Compañías"
+                    "companies": "Restaurantes"
                 }
             }
         }
@@ -46,13 +46,13 @@
         },
         "tenants": {
             "header": {
-                "title": "Inquilinos",
+                "title": "Compañías",
                 "openfilter": "Abrir filtro",
                 "closefilter": "Cerrar filtro"
             },
             "filter": {
                 "schema": {
-                    "placeholder": "Filtrar por esquema",
+                    "placeholder": "Filtrar por nombre de compañía",
                     "hint": "correo electrónico o número telefónico"
                 },
                 "state": {
@@ -77,15 +77,59 @@
                 }
             },
             "list": {
-                "schema": "Esquema",
+                "schema": "Compañía",
                 "contacts": "Contactos",
                 "state": "Estado",
-                "new": "Nuevo inquilino",
+                "new": "Nueva compañía",
                 "more": "Acciones",
-                "suspend": "Suspender inquilino",
-                "restore": "Restablecer inquilino",
-                "edit": "Editar inquilino",
-                "view": "Ver detalles de inquilino"
+                "suspend": "Suspender compañía",
+                "restore": "Restablecer compañía",
+                "edit": "Editar compañía",
+                "view": "Ver detalles de compañía"
+            }
+        },
+        "createtenant": {
+            "form": {
+                "title": "Crear nueva compañía",
+                "actions": {
+                    "cancel": "Cancelar",
+                    "create": "Crear"
+                },
+                "schema": {
+                    "placeholder": "Nombre de la compañía en minusculas",
+                    "hint": "Nombre de la compañía (solo alfabetos en minúsculas)",
+                    "required": "El nombre de la compañía es requerido",
+                    "alphabets": "Solo alfabetos en minúsculas"
+                },
+                "name": {
+                    "placeholder": "Nombre completo del administrador",
+                    "hint": "Administrador de la compañía",
+                    "required": "El nombre completo es requerido"
+                },
+                "phone": {
+                    "placeholder": "Número de teléfono del administrador",
+                    "hint": "Formato: +000-00000000",
+                    "required": "El número de teléfono es requerido",
+                    "format": "Formato: +000-00000000"
+                },
+                "email": {
+                    "placeholder": "Correo electrónico del administrador",
+                    "hint": "Haga click sobre @ para generar correo electrónico",
+                    "hintgenerate": "Click aquí para generar correo electrónico",
+                    "required": "El correo electrónico es requerido",
+                    "format": "Formato de correo electrónico inválido"
+                },
+                "password": {
+                    "placeholder": "Nueva contraseña para el administrador",
+                    "hint": "Al menos una mayúscula, una minúscula & un caracter especial @$!%*?&",
+                    "required": "La contraseña es requerida",
+                    "format": "min:8 max:15. Un caracter especial @$!%*?&, una mayúscula & una minúscula"
+                },
+                "repeatpassword": {
+                    "placeholder": "Confirmar contraseña",
+                    "required": "La confirmación de contraseña es requerida",
+                    "equal": "La nueva contraseña y la confirmación deben coincidir"
+                }
             }
         }
     }

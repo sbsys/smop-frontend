@@ -36,6 +36,11 @@ const CreateTenantSchema = yup
             .string()
             .required('views.createtenant.form.schema.required')
             .matches(/^[a-z]+$/, 'views.createtenant.form.schema.alphabets'),
+        name: yup.string().required('views.createtenant.form.name.required'),
+        phone: yup
+            .string()
+            .required('views.createtenant.form.phone.required')
+            .matches(/^\+\d{3}-\d{7,8}$/, 'views.createtenant.form.phone.format'),
         email: yup
             .string()
             .required('views.createtenant.form.email.required')
@@ -43,7 +48,10 @@ const CreateTenantSchema = yup
         password: yup
             .string()
             .required('views.createtenant.form.password.required')
-            .min(8, 'views.createtenant.form.password.min'),
+            .matches(
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/,
+                'views.createtenant.form.password.format'
+            ),
         repeat_password: yup
             .string()
             .required('views.createtenant.form.repeatpassword.required')
@@ -237,12 +245,17 @@ export const useCreateTenant = () => {
                   hasDots: true,
                   title: t(errors.password.message as string),
               }
-            : undefined,
+            : {
+                  children: t('views.createtenant.form.password.hint'),
+                  hasDots: true,
+                  title: t('views.createtenant.form.password.hint'),
+              },
     };
 
     const repeatPasswordProps: FieldSetProps = {
         field: {
-            className: errors.repeat_password ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
+            className:
+                errors.password || errors.repeat_password ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'password',
             placeholder: t('views.createtenant.form.repeatpassword.placeholder'),
             ...register('repeat_password'),

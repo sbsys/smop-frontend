@@ -1,5 +1,6 @@
 /* react */
 import { memo } from 'react';
+import { useTranslation } from 'react-i18next';
 /* context */
 import { useCreateTenantContext } from '../CreateTenant.context';
 /* layouts */
@@ -20,11 +21,13 @@ const CreateTenant = () => {
         createTenantFieldProps,
     } = useCreateTenantContext();
 
+    const { t } = useTranslation();
+
     return (
         <ScrollLayout classNameContent={styles.CreateTenant} orientation="col">
             <form onSubmit={handleCreateTenant}>
-                <legend>
-                    <Legend hasDots>Create new tenant</Legend>
+                <legend title={t('views.createtenant.form.title')}>
+                    <Legend hasDots>{t('views.createtenant.form.title')}</Legend>
                 </legend>
 
                 {createTenantFieldProps.map((field, index) => (
@@ -32,15 +35,22 @@ const CreateTenant = () => {
                 ))}
 
                 <div>
-                    <Button type="button" className={ButtonStyles.OutlineNone} onClick={handleCalcelCreateTenant}>
+                    <Button
+                        type="button"
+                        title={t('views.createtenant.form.actions.cancel')}
+                        className={ButtonStyles.OutlineNone}
+                        onClick={handleCalcelCreateTenant}>
                         <Legend hasDots justify="center">
-                            Cancel
+                            {t('views.createtenant.form.actions.cancel')}
                         </Legend>
                     </Button>
 
-                    <Button type="submit" className={ButtonStyles.FillSecondary}>
+                    <Button
+                        type="submit"
+                        title={t('views.createtenant.form.actions.create')}
+                        className={ButtonStyles.FillSecondary}>
                         <Legend hasDots justify="center">
-                            Create
+                            {t('views.createtenant.form.actions.create')}
                         </Legend>
                     </Button>
                 </div>

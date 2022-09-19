@@ -14,15 +14,15 @@
                 }
             },
             "root": {
-                "name": "System Admin",
+                "name": "System Root",
                 "items": {
-                    "tenants": "Tenants"
+                    "tenants": "Companies"
                 }
             },
             "admin": {
                 "name": "Admin",
                 "items": {
-                    "companies": "Companies"
+                    "companies": "Restaurants"
                 }
             }
         }
@@ -46,13 +46,13 @@
         },
         "tenants": {
             "header": {
-                "title": "Tenants",
+                "title": "Companies",
                 "openfilter": "Open filter",
                 "closefilter": "Close filter"
             },
             "filter": {
                 "schema": {
-                    "placeholder": "Filter by schema",
+                    "placeholder": "Filter by company name",
                     "hint": "email or phone number"
                 },
                 "state": {
@@ -77,33 +77,58 @@
                 }
             },
             "list": {
-                "schema": "Schema",
+                "schema": "Company",
                 "contacts": "Contacts",
                 "state": "State",
-                "new": "New tenant",
-                "more": "Tenant actions",
-                "suspend": "Suspend tenant",
-                "restore": "Restore tenant",
-                "edit": "Edit tenant",
-                "view": "View tenant detail"
+                "new": "New company",
+                "more": "Company actions",
+                "suspend": "Suspend company",
+                "restore": "Restore company",
+                "edit": "Edit company",
+                "view": "View company detail"
             }
         },
         "createtenant": {
             "form": {
+                "title": "Create new company",
+                "actions": {
+                    "cancel": "Cancel",
+                    "create": "Create"
+                },
                 "schema": {
-                    "placeholder": "Schema's name",
-                    "hint": "only lowercase alphabets"
+                    "placeholder": "Company name in lowercase",
+                    "hint": "Company name (lowercase alphabets only)",
+                    "required": "Company name is required",
+                    "alphabets": "Lowercase alphabets only"
+                },
+                "name": {
+                    "placeholder": "Admin full name",
+                    "hint": "Company Admin",
+                    "required": "Full name is required"
+                },
+                "phone": {
+                    "placeholder": "Admin phone number",
+                    "hint": "Format: +000-00000000",
+                    "required": "Phone number is required",
+                    "format": "Format: +000-00000000"
                 },
                 "email": {
-                    "placeholder": "Administrator's email",
-                    "hint": "Click on @ to generate a schema email",
-                    "hintgenerate": "Click to generate a schema email"
+                    "placeholder": "Admin email",
+                    "hint": "Click on @ to generate email",
+                    "hintgenerate": "Click here to generate email",
+                    "required": "Email is required",
+                    "format": "Invalid email format"
                 },
                 "password": {
-                    "placeholder": "Administrator's password"
+                    "placeholder": "New password for admin",
+                    "hint": "At least one uppercase, one lowercase & one special character @$!%*?&",
+                    "required": "Password is required",
+                    "format": "min:8 max:15. One special character @$!%*?&, one uppercase & one lowercase"
                 },
                 "repeatpassword": {
-                    "placeholder": "Repeat password"
+                    "placeholder": "Confirm password",
+                    "required": "Password confirmation is required",
+                    "equal": "The new password and confirmation must match"
                 }
             }
         }

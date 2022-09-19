@@ -1,4 +1,4 @@
-version: '3.9'
+version: "3.9"
 services:
   app:
     container_name: smop-frontend
@@ -11,3 +11,6 @@ services:
     volumes:
       - .:/home/app
       - /home/app/node_modules
+    environment:
+      - NODE_ENV=development
+      - WATCHPACK_POLLING=true

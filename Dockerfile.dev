@@ -1,8 +1,4 @@
-FROM node:16.17.0 AS dev
-
-ENV NODE_ENV=development
-
-ENV NODE_OPTIONS=--max-old-space-size=8192
+FROM node:16.17.0-alpine AS dev
 
 RUN mkdir -p /home/app
 

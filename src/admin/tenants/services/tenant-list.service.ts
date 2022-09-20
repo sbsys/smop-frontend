@@ -9,6 +9,8 @@ import {
     offline,
 } from 'admin/core';
 import { getCurrentUserToken, repeatRequestOnRefreshTokenService } from 'admin/auth';
+/* serializers */
+import { tenantListSerializer } from '../serializers';
 /* handlers */
 import { apiRequestHandler } from 'shared/handlers';
 /* utils */
@@ -24,6 +26,7 @@ const mock: ApiResponse<TenantItemDTO[]> = {
     data: [
         {
             id: 1,
+            name: 'Admin Churrascos',
             schema: 'churrascos',
             email: 'admin@churrascos.com',
             phone: '+505-88664422',
@@ -32,6 +35,7 @@ const mock: ApiResponse<TenantItemDTO[]> = {
         },
         {
             id: 2,
+            name: 'Admin Primas',
             schema: 'primas',
             email: 'admin@primas.com',
             phone: '+505-77553311',
@@ -41,7 +45,7 @@ const mock: ApiResponse<TenantItemDTO[]> = {
     ],
 };
 
-export const listTenantService = async (props?: ListTenantProps): Promise<ApiResponse<TenantItemDTO[]>> => {
+export const tenantListService = async (props?: ListTenantProps): Promise<ApiResponse<TenantItemDTO[]>> => {
     if (offline) return mock;
     /* const body = new FormData();
 
@@ -52,13 +56,13 @@ export const listTenantService = async (props?: ListTenantProps): Promise<ApiRes
         endpoint: '/admin/schema',
         token: getCurrentUserToken(),
         method: 'GET',
-        responseSerializer: async data => apiSerializer<TenantItemDTO[]>(data),
+        responseSerializer: async data => apiSerializer<TenantItemDTO[]>(data, tenantListSerializer),
         errorSerializer: error =>
             apiOnErrorSideEffect<ApiResponse<TenantItemDTO[]>>(
                 error,
                 is403ErrorResponse,
                 async () =>
-                    (await repeatRequestOnRefreshTokenService(() => listTenantService(props))) as ApiResponse<
+                    (await repeatRequestOnRefreshTokenService(() => tenantListService(props))) as ApiResponse<
                         TenantItemDTO[]
                     >,
                 error => apiErrorSerializer<TenantItemDTO[]>(error)

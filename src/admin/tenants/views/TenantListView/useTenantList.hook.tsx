@@ -12,7 +12,7 @@ import { useActive, useKeyDownEvent, useLoader, useMinWidth } from 'shared/hooks
 import { isAfter, isBefore, isDate, isEqual, parse } from 'date-fns';
 import { matchBreakPoint } from 'shared/utils';
 /* services */
-import { listTenantService } from 'admin/tenants/services';
+import { tenantListService } from 'admin/tenants/services';
 /* types */
 import { TenantItemDTO, TenantState } from 'admin/tenants/types';
 /* styles */
@@ -88,7 +88,7 @@ export const useTenantList = () => {
     const getTenantList = useCallback(async () => {
         showLoader();
 
-        const service = await listTenantService();
+        const service = await tenantListService();
 
         hideLoader();
 

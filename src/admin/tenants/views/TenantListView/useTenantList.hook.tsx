@@ -2,18 +2,22 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useOutlet } from 'react-router-dom';
 /* props */
 import { TenantListContextProps } from './TenantList.props';
-import { FieldSetProps } from 'admin/core';
+import { FieldSetProps, useAdminNotify } from 'admin/core';
 /* hooks */
 import { useActive, useKeyDownEvent, useLoader, useMinWidth } from 'shared/hooks';
 /* utils */
 import { isAfter, isBefore, isDate, isEqual, parse } from 'date-fns';
 import { matchBreakPoint } from 'shared/utils';
+/* services */
+import { listTenantService } from 'admin/tenants/services';
 /* types */
 import { TenantItemDTO, TenantState } from 'admin/tenants/types';
 /* styles */
 import { FieldStyles } from 'shared/styles';
+import { MdCheckCircle, MdDangerous } from 'react-icons/md';
 
 interface FilterForm {
     schema: string;
@@ -49,7 +53,11 @@ export const useTenantList = () => {
 
     const { showLoader, hideLoader } = useLoader();
 
+    const { notify } = useAdminNotify();
+
     const { t } = useTranslation();
+
+    const outlet = useOutlet();
 
     const tenantList = useMemo(() => {
         let list = tenants;
@@ -80,29 +88,27 @@ export const useTenantList = () => {
     const getTenantList = useCallback(async () => {
         showLoader();
 
-        await new Promise(resolve => setTimeout(() => resolve(null), 2000));
+        const service = await listTenantService();
 
         hideLoader();
 
-        setTenants([
-            {
-                id: 1,
-                schema: 'churrascos',
-                email: 'admin@churrascos.com',
-                phone: '+505-88664422',
-                created: parse('2020-08-30', 'yyyy-MM-dd', Date.now()),
-                state: 'active',
-            },
-            {
-                id: 2,
-                schema: 'primas',
-                email: 'admin@primas.com',
-                phone: '+505-77553311',
-                created: parse('2021-02-27', 'yyyy-MM-dd', Date.now()),
-                state: 'inactive',
-            },
-        ]);
-    }, [hideLoader, showLoader]);
+        if (service.error)
+            return notify('danger', {
+                title: 'Error',
+                icon: <MdDangerous />,
+                text: service.message,
+                timestamp: new Date(),
+            });
+
+        notify('success', {
+            title: 'Success',
+            icon: <MdCheckCircle />,
+            text: service.message,
+            timestamp: new Date(),
+        });
+
+        setTenants(service.data);
+    }, [hideLoader, notify, showLoader]);
 
     const handleFilter = handleSubmit(data => {
         const values = { ...data };
@@ -121,8 +127,8 @@ export const useTenantList = () => {
 
     /* reactivity */
     useEffect(() => {
-        getTenantList();
-    }, [getTenantList]);
+        if (!outlet) getTenantList();
+    }, [getTenantList, outlet]);
 
     /* props */
     const textSearchProps: FieldSetProps = {

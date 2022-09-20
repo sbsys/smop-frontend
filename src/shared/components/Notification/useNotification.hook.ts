@@ -1,5 +1,5 @@
 /* react */
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 /* props */
 import { NotificationContextProps, NotificationElement } from './Notification.props';
@@ -7,25 +7,31 @@ import { NotificationContextProps, NotificationElement } from './Notification.pr
 export const useNotification = (duration: number) => {
     const [notifications, setNotifications] = useState<NotificationElement[]>([]);
 
-    const addNotification = <T>(type: string, data: T): void => {
-        const id = uuidv4();
+    const removeNotification = useCallback(
+        (id: string): void =>
+            setNotifications(notifications => [...notifications.filter(notification => notification.id !== id)]),
+        []
+    );
 
-        setNotifications([...notifications, { type, id, data }]);
+    const addNotification = useCallback(
+        <T>(type: string, data: T): void => {
+            const id = uuidv4();
 
-        const start = Date.now();
+            setNotifications(notifications => [...notifications, { type, id, data }]);
 
-        const keepNotification = (_time: number) => {
-            const interval = Date.now() - start;
+            const start = Date.now();
 
-            if (interval < duration) requestAnimationFrame(keepNotification);
-            else removeNotification(id);
-        };
+            const keepNotification = (_time: number) => {
+                const interval = Date.now() - start;
 
-        requestAnimationFrame(keepNotification);
-    };
+                if (interval < duration) requestAnimationFrame(keepNotification);
+                else removeNotification(id);
+            };
 
-    const removeNotification = (id: string): void =>
-        setNotifications(notifications => [...notifications.filter(notification => notification.id !== id)]);
+            requestAnimationFrame(keepNotification);
+        },
+        [duration, removeNotification]
+    );
 
     /* context */
     const context: NotificationContextProps = {

@@ -1,5 +1,5 @@
 /* services */
-import { AdminApiService, apiErrorSerializer, ApiResponse, apiSerializer } from 'admin/core';
+import { AdminApiService, apiErrorSerializer, ApiResponse, apiSerializer, offline } from 'admin/core';
 /* serializers */
 import { signInSerializer } from '../serializers';
 /* handlers */
@@ -11,8 +11,6 @@ interface SignInProps {
     email: string;
     password: string;
 }
-
-const offline: boolean = true;
 
 const mock: ApiResponse<SignInDTO> = {
     data: {

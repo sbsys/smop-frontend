@@ -65,6 +65,8 @@ const AppRoutes: FC = () => {
 
     return (
         <Routes>
+            <Route index element={<Navigate to={'admin'} replace />} />
+
             <Route path="admin">
                 <Route index element={<Navigate to={isAuth ? 'dashboard' : 'auth'} replace />} />
 

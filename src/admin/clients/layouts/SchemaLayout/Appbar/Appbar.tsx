@@ -1,9 +1,8 @@
 /* react */
 import { memo } from 'react';
-/* layouts */
-import { DropLayout } from 'shared/layouts';
 /* components */
-import { Button, Legend } from 'shared/components';
+import { Button } from 'shared/components';
+import { Actions } from './Actions';
 /* styles */
 import styles from './Appbar.module.scss';
 
@@ -14,11 +13,7 @@ const Appbar = () => {
                 <i>LOGO</i>
             </Button>
 
-            <DropLayout>
-                <Button>
-                    <Legend hasDots>Guest</Legend>
-                </Button>
-            </DropLayout>
+            <Actions />
         </div>
     );
 };

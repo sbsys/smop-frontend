@@ -3,7 +3,7 @@
 
 ## Instructions for *development* & *testing*
 
-- Modify **[.env](./.env)** file with the correct **environment** value (current **backend service** location): **`REACT_APP_ADMIN_API_SERVICE=\<host>:\<port>`**
+- Modify **[.env](./.env)** file with the correct **environment** value (current **backend service** location): **`REACT_APP_ADMIN_API_SERVICE=<host>:<port>`**
 
 - To **start** the **Docker** image app, execute the command: **`docker compose -f docker-compose-dev.yml up`**
 

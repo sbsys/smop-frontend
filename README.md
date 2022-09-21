@@ -15,4 +15,4 @@
 >
 > - To get the current **Docker image name**, execute the command: **`docker images`**
 >
-> - To **delete** the current **Dokcer image**, execute the commad: **`docker image rm \<dokcer-image-name>`**
+> - To **delete** the current **Dokcer image**, execute the commad: **`docker image rm <dokcer-image-name>`**

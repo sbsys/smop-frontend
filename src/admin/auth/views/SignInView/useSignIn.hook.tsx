@@ -88,7 +88,7 @@ export const useSignIn = () => {
             timestamp: new Date(),
         });
 
-        navigate('/dashboard', { replace: true });
+        navigate('/admin/dashboard', { replace: true });
     });
 
     /* props */

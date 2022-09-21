@@ -1,0 +1,8 @@
+@import 'styles';
+
+.Appbar {
+    @include flex(row, center, space-between);
+    @include padding(all xs);
+    @include shadow(bottom xs);
+    overflow: hidden;
+}

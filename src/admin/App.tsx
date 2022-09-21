@@ -40,7 +40,7 @@ const AdminApp: FC = () => {
                 <html lang={i18n.language} />
             </Helmet>
 
-            <BrowserRouter basename="admin">
+            <BrowserRouter basename="">
                 <Suspense fallback={<span>Loading...</span>}>
                     <Provider store={adminStore}>
                         <Notification

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { authStoreSignOut, selectAuthStore, SignInDTO } from 'admin/auth';
 /* hooks */
 import { useActive, useClickOutside, useKeyDownEvent, useLocalStorage } from 'shared/hooks';
-import { Lang, LangProps, useAdminLang } from 'admin/core/hooks';
+import { Lang, LangProps, useAdminLang, useAdminNotify } from 'admin/core/hooks';
 /* layouts */
 import { AccordionLayout, DropLayout, PanelLayout } from 'shared/layouts';
 /* components */
@@ -15,7 +15,7 @@ import { useAdminDispatch, useAdminSelector } from 'admin/core/services';
 /* utils */
 import { classNames } from 'shared/utils';
 /* assets */
-import { MdArrowDropDown, MdArrowDropUp, MdLanguage, MdLogout } from 'react-icons/md';
+import { MdArrowDropDown, MdArrowDropUp, MdCheck, MdLanguage, MdLogout } from 'react-icons/md';
 /* atyles */
 import styles from './AppbarActions.module.scss';
 
@@ -44,6 +44,8 @@ const AppbarActions = () => {
 
     const { t } = useTranslation();
 
+    const { notify } = useAdminNotify();
+
     /* functions */
 
     const langProps = (langProps: LangProps): ButtonProps => ({
@@ -65,6 +67,13 @@ const AppbarActions = () => {
         clearAuthLocalStorage();
 
         dispatch(authStoreSignOut());
+
+        return notify('warning', {
+            title: 'Success',
+            icon: <MdCheck />,
+            text: 'Session terminated by the current user',
+            timestamp: new Date(),
+        });
     };
 
     return (

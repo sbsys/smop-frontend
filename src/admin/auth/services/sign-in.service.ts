@@ -1,5 +1,14 @@
 /* services */
-import { AdminApiService, apiErrorSerializer, ApiResponse, apiSerializer, offline } from 'admin/core';
+import {
+    AdminApiService,
+    apiErrorSerializer,
+    apiOnErrorSideEffect,
+    ApiResponse,
+    apiSerializer,
+    is307ErrorResponse,
+    offline,
+} from 'admin/core';
+import { triggerPasswordRecoveryService } from './trigger-password-recovery.service';
 /* serializers */
 import { signInSerializer } from '../serializers';
 /* handlers */
@@ -41,6 +50,17 @@ export const signInService = async (props: SignInProps): Promise<ApiResponse<Sig
         method: 'POST',
         body,
         responseSerializer: async data => apiSerializer<SignInDTO>(data, signInSerializer),
-        errorSerializer: async error => apiErrorSerializer<SignInDTO>(error),
+        /* errorSerializer: async error => apiErrorSerializer<SignInDTO>(error), */
+        errorSerializer: error =>
+            apiOnErrorSideEffect<ApiResponse<SignInDTO>>(
+                error,
+                is307ErrorResponse,
+                async () => {
+                    triggerPasswordRecoveryService();
+
+                    return await apiErrorSerializer<SignInDTO>(error);
+                },
+                error => apiErrorSerializer<SignInDTO>(error)
+            ),
     });
 };

@@ -44,6 +44,32 @@
                 "signin": "Sign In"
             }
         },
+        "passwordrecovery": {
+            "form": {
+                "title": "Password Recovery",
+                "email": {
+                    "placeholder": "Email",
+                    "required": "Email is required",
+                    "format": "Invalid email format"
+                },
+                "password": {
+                    "placeholder": "Current password",
+                    "required": "Current password is required"
+                },
+                "newpassword": {
+                    "placeholder": "New password",
+                    "hint": "At least one uppercase, one lowercase & one special character @$!%*?&",
+                    "required": "New password is required",
+                    "format": "min:8 max:15. One special character @$!%*?&, one uppercase & one lowercase"
+                },
+                "repeatpassword": {
+                    "placeholder": "Confirm password",
+                    "required": "Password confirmation is required",
+                    "equal": "The new password and confirmation must match"
+                },
+                "passwordrecovery": "Password Recovery"
+            }
+        },
         "tenants": {
             "header": {
                 "title": "Companies",

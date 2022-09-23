@@ -35,3 +35,5 @@ export const apiOnErrorSideEffect = async <R>(
 };
 
 export const is403ErrorResponse = (error: AxiosError) => error.response?.status === 403;
+
+export const is307ErrorResponse = (error: AxiosError) => error.response?.status === 307;

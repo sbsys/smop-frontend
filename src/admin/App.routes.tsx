@@ -4,7 +4,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 /* hooks */
 import { useLocalStorage } from 'shared/hooks';
 /* layouts */
-import { DashboardLayout, useAdminDispatch, useAdminNotify, useAdminSelector } from './core';
+import { AdminLayout, DashboardLayout, useAdminDispatch, useAdminNotify, useAdminSelector } from './core';
 /* utils */
 import { offCustomEvent, onCustomEvent } from 'shared/utils';
 /* assets */
@@ -13,7 +13,7 @@ import { MdError } from 'react-icons/md';
 /* modules */
 
 /* authentication */
-import { AuthLayout, authStoreSignIn, selectAuthStore, SignInDTO, SignInView } from './auth';
+import { AuthLayout, authStoreSignIn, PasswordRecoveryView, selectAuthStore, SignInDTO, SignInView } from './auth';
 /* tenants */
 import { CreateTenantView, TenantListView, TenantsLayout } from './tenants';
 /* companies */
@@ -67,7 +67,7 @@ const AppRoutes: FC = () => {
         <Routes>
             <Route index element={<Navigate to={'admin'} replace />} />
 
-            <Route path="admin">
+            <Route path="admin" element={<AdminLayout />}>
                 <Route index element={<Navigate to={isAuth ? 'dashboard' : 'auth'} replace />} />
 
                 {/* authentication module */}
@@ -75,6 +75,12 @@ const AppRoutes: FC = () => {
                     <Route index element={<Navigate to={'sign-in'} replace />} />
 
                     <Route path="sign-in" element={<SignInView />} />
+                </Route>
+
+                <Route path="security" element={<AuthLayout />}>
+                    <Route index element={<Navigate to={'password-recovery'} replace />} />
+
+                    <Route path="password-recovery" element={<PasswordRecoveryView />} />
                 </Route>
 
                 {/* signed in modules */}

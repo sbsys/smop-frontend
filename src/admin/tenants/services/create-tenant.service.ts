@@ -16,7 +16,7 @@ import { apiRequestHandler } from 'shared/handlers';
 interface CreateTenantProps {
     schema: string;
     fullname: string;
-    phone_number: string;
+    phoneNumber: string;
     email: string;
     password: string;
 }

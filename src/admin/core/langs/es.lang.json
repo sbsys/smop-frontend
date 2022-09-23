@@ -44,6 +44,32 @@
                 "signin": "Iniciar Sesión"
             }
         },
+        "passwordrecovery": {
+            "form": {
+                "title": "Recuperación de contraseña",
+                "email": {
+                    "placeholder": "Correo electrónico",
+                    "required": "El correo electrónico es requerido",
+                    "format": "Formato de correo electrónico inválido"
+                },
+                "password": {
+                    "placeholder": "Contraseña actual",
+                    "required": "La contraseña actual es requerida"
+                },
+                "newpassword": {
+                    "placeholder": "Nueva contraseña",
+                    "hint": "Al menos una mayúscula, una minúscula & un caracter especial @$!%*?&",
+                    "required": "La nueva contraseña es requerida",
+                    "format": "min:8 max:15. Un caracter especial @$!%*?&, una mayúscula & una minúscula"
+                },
+                "repeatpassword": {
+                    "placeholder": "Confirmar contraseña",
+                    "required": "La confirmación de contraseña es requerida",
+                    "equal": "La nueva contraseña y la confirmación deben coincidir"
+                },
+                "passwordrecovery": "Recuperar contraseña"
+            }
+        },
         "tenants": {
             "header": {
                 "title": "Compañías",

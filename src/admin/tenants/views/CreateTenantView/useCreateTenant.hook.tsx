@@ -91,7 +91,7 @@ export const useCreateTenant = () => {
         const service = await createTenantService({
             schema: data.schema,
             fullname: data.name,
-            phone_number: data.phone,
+            phoneNumber: data.phone,
             email: data.email,
             password: data.password,
         });

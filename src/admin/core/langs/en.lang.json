@@ -16,13 +16,14 @@
             "root": {
                 "name": "System Root",
                 "items": {
-                    "tenants": "Companies"
+                    "tenants": "Organizations"
                 }
             },
             "admin": {
                 "name": "Admin",
                 "items": {
-                    "companies": "Restaurants"
+                    "organization": "Organization",
+                    "commerces": "Commerces"
                 }
             }
         }
@@ -73,13 +74,13 @@
         },
         "tenants": {
             "header": {
-                "title": "Companies",
+                "title": "Organizations",
                 "openfilter": "Open filter",
                 "closefilter": "Close filter"
             },
             "filter": {
                 "schema": {
-                    "placeholder": "Filter by company name",
+                    "placeholder": "Filter by organization name",
                     "hint": "email or phone number"
                 },
                 "state": {
@@ -104,33 +105,33 @@
                 }
             },
             "list": {
-                "schema": "Company",
+                "schema": "Organization",
                 "contacts": "Contacts",
                 "state": "State",
-                "new": "New company",
-                "more": "Company actions",
-                "suspend": "Suspend company",
-                "restore": "Restore company",
-                "edit": "Edit company",
-                "view": "View company detail"
+                "new": "New organization",
+                "more": "Organization actions",
+                "suspend": "Suspend organization",
+                "restore": "Restore organization",
+                "edit": "Edit organization",
+                "view": "View organization detail"
             }
         },
         "createtenant": {
             "form": {
-                "title": "Create new company",
+                "title": "Create new organization",
                 "actions": {
                     "cancel": "Cancel",
                     "create": "Create"
                 },
                 "schema": {
-                    "placeholder": "Company name in lowercase",
-                    "hint": "Company name (lowercase alphabets only)",
-                    "required": "Company name is required",
+                    "placeholder": "Organization name in lowercase",
+                    "hint": "Organization name (lowercase alphabets only)",
+                    "required": "Organization name is required",
                     "alphabets": "Lowercase alphabets only"
                 },
                 "name": {
                     "placeholder": "Admin full name",
-                    "hint": "Company Admin",
+                    "hint": "Organization Admin",
                     "required": "Full name is required"
                 },
                 "phone": {

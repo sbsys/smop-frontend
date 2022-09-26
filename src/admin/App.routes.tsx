@@ -15,9 +15,9 @@ import { MdError } from 'react-icons/md';
 /* authentication */
 import { AuthLayout, authStoreSignIn, PasswordRecoveryView, selectAuthStore, SignInDTO, SignInView } from './auth';
 /* tenants */
-import { CreateTenantView, TenantListView, TenantsLayout } from './tenants';
-/* companies */
-import { CompaniesLayout } from './companies';
+import { CreateTenantView, TenantListView, TenantSettingsView, TenantsLayout } from './tenants';
+/* commerces */
+import { CommercesLayout } from './commerces';
 /* clients */
 import { SchemaLayout } from './clients';
 
@@ -98,15 +98,23 @@ const AppRoutes: FC = () => {
                         </Route>
                     </Route>
 
-                    {/* companies module */}
-                    <Route path="companies" element={<CompaniesLayout />}></Route>
+                    {/* tenants module / current admin organization */}
+                    <Route path="organization" element={<TenantsLayout />}>
+                        <Route index element={<Navigate to="settings" replace />} />
+
+                        <Route path="settings" element={<TenantSettingsView />} />
+                    </Route>
+
+                    {/* commerces module */}
+                    <Route path="commerces" element={<CommercesLayout />}></Route>
                 </Route>
             </Route>
 
+            {/* client side app */}
             <Route path=":schema" element={<SchemaLayout />}>
                 <Route index element={<span>Schemas List</span>} />
 
-                <Route path=":restaurant" element={<span>Restaurant</span>} />
+                <Route path=":commerces" element={<span>Restaurant</span>} />
             </Route>
 
             <Route path="*" element={<span>404</span>} />

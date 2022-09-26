@@ -16,13 +16,14 @@
             "root": {
                 "name": "System Root",
                 "items": {
-                    "tenants": "Compañías"
+                    "tenants": "Organizaciones"
                 }
             },
             "admin": {
                 "name": "Administrador",
                 "items": {
-                    "companies": "Restaurantes"
+                    "organization": "Organización",
+                    "commerces": "Comercios"
                 }
             }
         }
@@ -73,13 +74,13 @@
         },
         "tenants": {
             "header": {
-                "title": "Compañías",
+                "title": "Organizaciones",
                 "openfilter": "Abrir filtro",
                 "closefilter": "Cerrar filtro"
             },
             "filter": {
                 "schema": {
-                    "placeholder": "Filtrar por nombre de compañía",
+                    "placeholder": "Filtrar por nombre de organización",
                     "hint": "correo electrónico o número telefónico"
                 },
                 "state": {
@@ -104,33 +105,33 @@
                 }
             },
             "list": {
-                "schema": "Compañía",
+                "schema": "Organización",
                 "contacts": "Contactos",
                 "state": "Estado",
-                "new": "Nueva compañía",
+                "new": "Nueva organización",
                 "more": "Acciones",
-                "suspend": "Suspender compañía",
-                "restore": "Restablecer compañía",
-                "edit": "Editar compañía",
-                "view": "Ver detalles de compañía"
+                "suspend": "Suspender organización",
+                "restore": "Restablecer organización",
+                "edit": "Editar organización",
+                "view": "Ver detalles de organización"
             }
         },
         "createtenant": {
             "form": {
-                "title": "Crear nueva compañía",
+                "title": "Crear nueva organización",
                 "actions": {
                     "cancel": "Cancelar",
                     "create": "Crear"
                 },
                 "schema": {
-                    "placeholder": "Nombre de la compañía en minusculas",
-                    "hint": "Nombre de la compañía (solo alfabetos en minúsculas)",
-                    "required": "El nombre de la compañía es requerido",
+                    "placeholder": "Nombre de la organización en minusculas",
+                    "hint": "Nombre de la organización (solo alfabetos en minúsculas)",
+                    "required": "El nombre de la organización es requerido",
                     "alphabets": "Solo alfabetos en minúsculas"
                 },
                 "name": {
                     "placeholder": "Nombre completo del administrador",
-                    "hint": "Administrador de la compañía",
+                    "hint": "Administrador de la organización",
                     "required": "El nombre completo es requerido"
                 },
                 "phone": {

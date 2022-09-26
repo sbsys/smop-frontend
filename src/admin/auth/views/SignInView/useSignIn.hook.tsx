@@ -91,6 +91,8 @@ export const useSignIn = () => {
         navigate('/admin/dashboard', { replace: true });
     });
 
+    const navigateToPasswordRecovery = () => navigate('/admin/security/password-recovery');
+
     /* props */
 
     const emailProps: FieldSetProps = {
@@ -136,6 +138,7 @@ export const useSignIn = () => {
     const context: SignInContext = {
         /* functions */
         handleSignIn,
+        navigateToPasswordRecovery,
         /* props */
         emailProps,
         passwordProps,

@@ -41,7 +41,8 @@
                     "required": "La contraseña es requerida",
                     "min": "La contraseña debe contener al menos 8 caracteres"
                 },
-                "signin": "Iniciar Sesión"
+                "signin": "Iniciar Sesión",
+                "passwordrecovery": "Recuperar contraseña"
             }
         },
         "passwordrecovery": {

@@ -41,7 +41,8 @@
                     "required": "Password is required",
                     "min": "Password must contain at least 8 characters"
                 },
-                "signin": "Sign In"
+                "signin": "Sign In",
+                "passwordrecovery": "Password Recovery"
             }
         },
         "passwordrecovery": {

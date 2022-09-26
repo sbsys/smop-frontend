@@ -18,6 +18,7 @@ const SignIn = () => {
     const {
         /* functions */
         handleSignIn,
+        navigateToPasswordRecovery,
         /* props */
         emailProps,
         passwordProps,
@@ -50,6 +51,16 @@ const SignIn = () => {
                     <Button className={ButtonStyles.FillPrimary} type="submit" title={t('views.signin.form.signin')}>
                         <Legend hasDots justify="center">
                             {t('views.signin.form.signin')}
+                        </Legend>
+                    </Button>
+
+                    <Button
+                        className={ButtonStyles.OutlineSecondary}
+                        type="button"
+                        title={t('views.signin.form.passwordrecovery')}
+                        onClick={navigateToPasswordRecovery}>
+                        <Legend hasDots justify="center">
+                            {t('views.signin.form.passwordrecovery')}
                         </Legend>
                     </Button>
 

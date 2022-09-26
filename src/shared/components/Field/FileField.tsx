@@ -62,9 +62,9 @@ const FileField = forwardRef<HTMLInputElement | null, FileFieldProps>(
 
         return (
             <FieldLayout {...layoutProps}>
-                <label {...labelProps}>
+                <span {...labelProps}>
                     {typeof children === 'function' ? children() : children}
-                </label>
+                </span>
 
                 <input {...inputProps} />
             </FieldLayout>

@@ -1,0 +1,27 @@
+@import 'styles';
+
+.Settings {
+    @include gap(all md);
+
+    h1 {
+        @include font-size(xl);
+        @include font-weight(2xl);
+    }
+
+    .Section {
+        @include flex;
+        @include gap(all sm);
+
+        .Title {
+            @include flex(row, center, space-between);
+            @include gap(all xs);
+            @include padding(x xs);
+
+            h2 {
+                @include font-size(lg);
+                @include font-weight(xl);
+                overflow: hidden;
+            }
+        }
+    }
+}

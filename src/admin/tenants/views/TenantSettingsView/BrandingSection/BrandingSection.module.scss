@@ -1,0 +1,41 @@
+@import 'styles';
+
+.Branding {
+    @include flex(row);
+    position: relative;
+
+    & > img:first-of-type {
+        @include margin(x xs split);
+        @include rounded(all xs);
+        @include shadow(all xs);
+        aspect-ratio: 2 / 1;
+        margin-bottom: calc(size(xs, component) / 2);
+        object-fit: cover;
+        overflow: hidden;
+
+        @include screen-width(xs) {
+            aspect-ratio: 3 / 1;
+            margin-bottom: calc(size(sm, component) / 2);
+        }
+    }
+
+    & > img:last-of-type {
+        @include border-color(all 200 bg);
+        @include border-width(all sm);
+        @include height(xs, component);
+        @include rounded(all xs component);
+        @include shadow(all xs);
+        @include width(xs, component);
+        bottom: 0;
+        left: 50%;
+        object-fit: cover;
+        overflow: hidden;
+        position: absolute;
+        transform: translateX(-50%);
+
+        @include screen-width(xs) {
+            @include height(sm, component);
+            @include width(sm, component);
+        }
+    }
+}

@@ -3,7 +3,10 @@ import { createContext, FC, useContext } from 'react';
 /* props */
 import { TenantSettingsContextProps, TenantSettingsProviderProps } from './TenantSettings.props';
 
-const TenantSettingsContext = createContext<TenantSettingsContextProps>({});
+const TenantSettingsContext = createContext<TenantSettingsContextProps>({
+    /* props */
+    formFields: [],
+});
 
 const TenantSettingsProvider: FC<TenantSettingsProviderProps> = ({ context, children }) => {
     return (

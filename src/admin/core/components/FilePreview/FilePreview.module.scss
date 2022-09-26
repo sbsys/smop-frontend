@@ -1,0 +1,28 @@
+@import 'styles';
+
+.FilePreview {
+    @include bg-color(400);
+    @include flex(col, center, center);
+    @include rounded(all xs);
+    flex-grow: 1;
+    overflow: hidden;
+
+    & > i {
+        @include margin(all xs);
+        aspect-ratio: 1;
+        flex-grow: 1;
+
+        & > svg {
+            height: 100%;
+            width: 100%;
+        }
+    }
+
+    .Preview {
+        flex-grow: 1;
+        height: 100%;
+        object-fit: cover;
+        overflow: hidden;
+        width: 100%;
+    }
+}

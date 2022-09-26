@@ -1,0 +1,58 @@
+@import 'styles';
+
+.UpdateBranding {
+    @include bg-color(200);
+    @include padding(all xs);
+    @include rounded(all xs);
+    @include width(xs, view);
+    max-width: 100%;
+
+    & > form {
+        @include flex;
+        @include gap(all md);
+    }
+
+    .Header {
+        @include flex(row, center, center);
+        @include font-weight(lg);
+        @include gap(all xs);
+    }
+
+    .Content {
+        @include gap(all md);
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+
+        & > fieldset > label {
+            flex-grow: 1;
+        }
+
+        & > fieldset:first-of-type {
+            aspect-ratio: 3 / 1;
+            grid-column: span 4;
+        }
+
+        & > fieldset:last-of-type {
+            aspect-ratio: 1 / 1;
+            grid-column: span 1;
+        }
+    }
+
+    .Actions {
+        @include gap(all md);
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+
+        & > button {
+            overflow: hidden;
+        }
+
+        @include screen-width(2xs) {
+            @include flex(row, center, flex-end);
+
+            & > button {
+                @include width(sm, component);
+            }
+        }
+    }
+}

@@ -3,6 +3,8 @@
 .Field {
     @include flex(row);
     align-items: center;
+    height: 100%;
+    overflow: hidden;
 }
 
 .TextField {
@@ -80,6 +82,7 @@
     @include flex(row);
     cursor: pointer;
     flex-grow: 1;
+    height: 100%;
 }
 
 .PasswordIcon {

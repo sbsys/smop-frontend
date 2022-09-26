@@ -44,6 +44,28 @@
     }
 }
 
+.FillWarning {
+    @include bg-color(400, warning);
+    @include border-color(all 400 warning);
+    @include border-width(all sm);
+    @include font-color(100);
+    @include interactable;
+    @include padding(all sm split);
+    @include rounded(all xs);
+
+    &:hover {
+        @include bg-color(300, warning);
+        @include border-color(all 300 warning);
+        @include font-color(50);
+    }
+
+    &:active {
+        @include bg-color(500, warning);
+        @include border-color(all 500 warning);
+        @include font-color(200);
+    }
+}
+
 .OutlineNone {
     @include border-color(all 700 none);
     @include border-width(all sm);

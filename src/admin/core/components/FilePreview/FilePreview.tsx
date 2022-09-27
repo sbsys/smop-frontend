@@ -1,18 +1,19 @@
 /* react */
-import { memo } from 'react';
+import { FC, memo } from 'react';
+/* props */
+import { FilePreviewProps } from './FilePreview.props';
 /* utils */
 import { classNames } from 'shared/utils';
 /* assets */
 import { MdAdd } from 'react-icons/md';
-import { TenantCoverSrc } from 'assets';
 /* styles */
 import styles from './FilePreview.module.scss';
 
-const FilePreview = () => {
+const FilePreview: FC<FilePreviewProps> = ({ className, data, type }) => {
     return (
-        <span className={classNames(styles.FilePreview)}>
-            {true ? (
-                <object data={TenantCoverSrc} aria-label="upload" type="image/jpeg" className={styles.Preview} />
+        <span className={classNames(styles.FilePreview, className)}>
+            {data && type ? (
+                <object data={data} aria-label="upload" type={type} className={styles.Preview} />
             ) : (
                 <i>
                     <MdAdd />

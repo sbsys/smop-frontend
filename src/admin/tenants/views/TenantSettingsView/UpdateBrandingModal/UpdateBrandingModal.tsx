@@ -1,7 +1,10 @@
 /* react */
 import { memo } from 'react';
+import { useTranslation } from 'react-i18next';
 /* context */
 import { useTenantSettingsContext } from '../TenantSettings.context';
+/* custom hook */
+import { useUpdateBranding } from './useUpdateBranding.hook';
 /* layouts */
 import { ModalLayout, ScrollLayout } from 'shared/layouts';
 /* components */
@@ -16,37 +19,49 @@ import styles from './UpdateBrandingModal.module.scss';
 const UpdateBrandingModal = () => {
     const {
         /* props */
-        formFields,
+        isUpdateBranding,
+        hideUpdateBranding,
     } = useTenantSettingsContext();
 
+    const { updateBrandingFormFields, handleUpdateBranding } = useUpdateBranding();
+
+    const { t } = useTranslation();
+
     return (
-        <ModalLayout isVisible rowAlignment="center" colAlignment="center" hasIndentation>
+        <ModalLayout isVisible={isUpdateBranding} rowAlignment="center" colAlignment="center" hasIndentation>
             <ScrollLayout orientation="col" classNameContent={styles.UpdateBranding}>
-                <form onSubmit={event => event.preventDefault()}>
-                    <div className={styles.Header}>
+                <form onSubmit={handleUpdateBranding}>
+                    <div className={styles.Header} title={t('views.updatebranding.title')}>
                         <i>
                             <MdWarning />
                         </i>
 
-                        <Legend hasDots>Update branding</Legend>
+                        <Legend hasDots>{t('views.updatebranding.title')}</Legend>
                     </div>
 
                     <div className={styles.Content}>
-                        {formFields.map((field, index) => (
+                        {updateBrandingFormFields.map((field, index) => (
                             <FieldSet {...field} key={index} />
                         ))}
                     </div>
 
                     <div className={styles.Actions}>
-                        <Button type="button" className={ButtonStyles.OutlineNone}>
+                        <Button
+                            type="button"
+                            className={ButtonStyles.OutlineNone}
+                            title={t('views.updatebranding.actions.cancel')}
+                            onClick={hideUpdateBranding}>
                             <Legend hasDots justify="center">
-                                Cancel
+                                {t('views.updatebranding.actions.cancel')}
                             </Legend>
                         </Button>
 
-                        <Button type="submit" className={ButtonStyles.FillSecondary}>
+                        <Button
+                            type="submit"
+                            className={ButtonStyles.FillSecondary}
+                            title={t('views.updatebranding.actions.update')}>
                             <Legend hasDots justify="center">
-                                Update
+                                {t('views.updatebranding.actions.update')}
                             </Legend>
                         </Button>
                     </div>

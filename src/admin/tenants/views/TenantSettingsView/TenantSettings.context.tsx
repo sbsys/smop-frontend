@@ -4,8 +4,11 @@ import { createContext, FC, useContext } from 'react';
 import { TenantSettingsContextProps, TenantSettingsProviderProps } from './TenantSettings.props';
 
 const TenantSettingsContext = createContext<TenantSettingsContextProps>({
+    /* states */
+    isUpdateBranding: false,
+    showUpdateBranding: () => {},
+    hideUpdateBranding: () => {},
     /* props */
-    formFields: [],
 });
 
 const TenantSettingsProvider: FC<TenantSettingsProviderProps> = ({ context, children }) => {

@@ -21,7 +21,11 @@
     .Content {
         @include gap(all md);
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(4, 1fr);
+
+        @include screen-width(2xs) {
+            grid-template-columns: repeat(5, 1fr);
+        }
 
         & > fieldset > label {
             flex-grow: 1;
@@ -34,7 +38,11 @@
 
         & > fieldset:last-of-type {
             aspect-ratio: 1 / 1;
-            grid-column: span 1;
+            grid-column: span 2;
+
+            @include screen-width(2xs) {
+                grid-column: span 1;
+            }
         }
     }
 

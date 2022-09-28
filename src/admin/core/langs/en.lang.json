@@ -159,6 +159,33 @@
                     "equal": "The new password and confirmation must match"
                 }
             }
+        },
+        "brandingsection": {
+            "title": "Branding",
+            "edit": "Edit branding"
+        },
+        "updatebranding": {
+            "title": "Update branding",
+            "form": {
+                "cover": {
+                    "hint": "Branding cover",
+                    "required": "Branding cover is required",
+                    "size": "File cover size up to 10MB",
+                    "type": "File cover type allowed: jpg / png",
+                    "close": "Remove cover file"
+                },
+                "profile": {
+                    "hint": "Branding profile",
+                    "required": "Branding profile is required",
+                    "size": "File profile size up to 10MB",
+                    "type": "File profile type allowed: jpg / png",
+                    "close": "Remove profile file"
+                }
+            },
+            "actions": {
+                "cancel": "Cancel",
+                "update": "Update"
+            }
         }
     }
 }

@@ -1,18 +1,21 @@
 /* react */
+import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 /* components */
 import { Button, Legend } from 'shared/components';
 /* hooks */
-import { useDragAndDropFiles } from 'shared/hooks';
+import { useDragAndDropFiles, useLoader } from 'shared/hooks';
 /* props */
-import { FieldSetProps, FilePreview, FilePreviewProps } from 'admin/core';
+import { FieldSetProps, FilePreview, FilePreviewProps, useAdminNotify } from 'admin/core';
+/* services */
+import { updateBrandingService } from 'admin/tenants/services';
 /* utils */
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { classNames } from 'shared/utils';
 /* assets */
-import { MdClose } from 'react-icons/md';
+import { MdClose, MdError } from 'react-icons/md';
 /* styles */
 import { ButtonStyles } from 'shared/styles';
 import styles from './UpdateBrandingModal.module.scss';
@@ -59,6 +62,7 @@ export const useUpdateBranding = () => {
         register,
         handleSubmit,
         resetField,
+        reset,
         watch,
         formState: { errors },
     } = useForm<UpdateBrandingForm>({
@@ -68,23 +72,51 @@ export const useUpdateBranding = () => {
 
     const { t } = useTranslation();
 
+    const { showLoader, hideLoader } = useLoader();
+
+    const { notify } = useAdminNotify();
+
     /* update branding */
     const [updateCoverFile, isCoverDragging] = useDragAndDropFiles();
     const [updateProfileFile, isProfileDragging] = useDragAndDropFiles();
 
     /* functions */
-    const handleUpdateBranding = handleSubmit(data => {
-        console.log(data);
+    const handleUpdateBranding = handleSubmit(async data => {
+        showLoader();
+
+        const service = await updateBrandingService({
+            orgId: '',
+            branding: {
+                cover: data.cover[0],
+                profile: data.profile[0],
+            },
+        });
+
+        hideLoader();
+
+        if (service.error)
+            return notify('danger', {
+                title: 'Error',
+                icon: <MdError />,
+                timestamp: new Date(),
+                text: service.message,
+            });
     });
+
+    const handleResetUpdateBrandingForm = () => reset();
 
     /* props */
 
     /* update branding */
-    const coverPreviewProps: FilePreviewProps = {
-        className: isCoverDragging ? styles.DraggingBorder : '',
-        data: watch('cover') && watch('cover')?.length > 0 ? URL.createObjectURL(watch('cover')[0]) : undefined,
-        type: watch('cover') && watch('cover')?.length > 0 ? watch('cover')[0].type : undefined,
-    };
+    const coverPreviewProps: FilePreviewProps = useMemo(
+        () => ({
+            className: isCoverDragging ? styles.DraggingBorder : '',
+            data: watch('cover') && watch('cover')?.length > 0 ? URL.createObjectURL(watch('cover')[0]) : undefined,
+            type: watch('cover') && watch('cover')?.length > 0 ? watch('cover')[0].type : undefined,
+        }),
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [isCoverDragging, watch('cover')]
+    );
     const updateCoverField: FieldSetProps = {
         field: {
             strategy: 'file',
@@ -126,11 +158,15 @@ export const useUpdateBranding = () => {
             ),
         },
     };
-    const profilePreviewProps: FilePreviewProps = {
-        className: isProfileDragging ? styles.DraggingBorder : '',
-        data: watch('profile')?.length > 0 ? URL.createObjectURL(watch('profile')[0]) : undefined,
-        type: watch('profile')?.length > 0 ? watch('profile')[0].type : undefined,
-    };
+    const profilePreviewProps: FilePreviewProps = useMemo(
+        () => ({
+            className: isProfileDragging ? styles.DraggingBorder : '',
+            data: watch('profile')?.length > 0 ? URL.createObjectURL(watch('profile')[0]) : undefined,
+            type: watch('profile')?.length > 0 ? watch('profile')[0].type : undefined,
+        }),
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [isProfileDragging, watch('profile')]
+    );
     const updateProfileField: FieldSetProps = {
         field: {
             strategy: 'file',
@@ -178,5 +214,5 @@ export const useUpdateBranding = () => {
     };
     const updateBrandingFormFields: FieldSetProps[] = [updateCoverField, updateProfileField];
 
-    return { updateBrandingFormFields, handleUpdateBranding };
+    return { updateBrandingFormFields, handleUpdateBranding, handleResetUpdateBrandingForm };
 };

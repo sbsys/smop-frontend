@@ -23,7 +23,7 @@ const UpdateBrandingModal = () => {
         hideUpdateBranding,
     } = useTenantSettingsContext();
 
-    const { updateBrandingFormFields, handleUpdateBranding } = useUpdateBranding();
+    const { updateBrandingFormFields, handleUpdateBranding, handleResetUpdateBrandingForm } = useUpdateBranding();
 
     const { t } = useTranslation();
 
@@ -50,7 +50,11 @@ const UpdateBrandingModal = () => {
                             type="button"
                             className={ButtonStyles.OutlineNone}
                             title={t('views.updatebranding.actions.cancel')}
-                            onClick={hideUpdateBranding}>
+                            onClick={() => {
+                                handleResetUpdateBrandingForm();
+
+                                hideUpdateBranding();
+                            }}>
                             <Legend hasDots justify="center">
                                 {t('views.updatebranding.actions.cancel')}
                             </Legend>

@@ -159,6 +159,33 @@
                     "equal": "La nueva contraseña y la confirmación deben coincidir"
                 }
             }
+        },
+        "brandingsection": {
+            "title": "Marca",
+            "edit": "Editar marca"
+        },
+        "updatebranding": {
+            "title": "Actualizar marca",
+            "form": {
+                "cover": {
+                    "hint": "Imagen de portada de marca",
+                    "required": "La imagen de portada es requerida",
+                    "size": "Tamaño de imagen de portada de hasta 10MB",
+                    "type": "Tipo de imagen de portada permitido: jpg / png",
+                    "close": "Eliminar imagen de portada"
+                },
+                "profile": {
+                    "hint": "Imagen de perfil de marca",
+                    "required": "La imagen de perfil es requerida",
+                    "size": "Tamaño de imagen de perfil de hasta 10MB",
+                    "type": "Tipo de imagen de perfil permitido: jpg / png",
+                    "close": "Eliminar imagen de perfil"
+                }
+            },
+            "actions": {
+                "cancel": "Cancelar",
+                "update": "Actualizar"
+            }
         }
     }
 }

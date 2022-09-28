@@ -4,6 +4,7 @@ import { memo } from 'react';
 import { ScrollLayout } from 'shared/layouts';
 /* components */
 import { Legend } from 'shared/components';
+import { ReferenceSection } from '../ReferenceSection';
 import { BrandingSection } from '../BrandingSection';
 import { UpdateBrandingModal } from '../UpdateBrandingModal';
 /* styles */
@@ -16,7 +17,7 @@ const TenantSettings = () => {
                 <Legend hasDots>Organization Settings</Legend>
             </h1>
 
-            <section>Owner reference & Organization name</section>
+            <ReferenceSection />
 
             <section>Language & decimals</section>
 

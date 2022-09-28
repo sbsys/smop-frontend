@@ -5,6 +5,7 @@ import { useActive } from 'shared/hooks';
 
 export const useTenantSettings = () => {
     /* states */
+    const [isUpdateReference, showUpdateReference, hideUpdateReference] = useActive();
     const [isUpdateBranding, showUpdateBranding, hideUpdateBranding] = useActive();
 
     /* props */
@@ -12,6 +13,9 @@ export const useTenantSettings = () => {
     /* context */
     const context: TenantSettingsContextProps = {
         /* states */
+        isUpdateReference,
+        showUpdateReference,
+        hideUpdateReference,
         isUpdateBranding,
         showUpdateBranding,
         hideUpdateBranding,

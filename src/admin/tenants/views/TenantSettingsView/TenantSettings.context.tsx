@@ -5,6 +5,9 @@ import { TenantSettingsContextProps, TenantSettingsProviderProps } from './Tenan
 
 const TenantSettingsContext = createContext<TenantSettingsContextProps>({
     /* states */
+    isUpdateReference: false,
+    showUpdateReference: () => {},
+    hideUpdateReference: () => {},
     isUpdateBranding: false,
     showUpdateBranding: () => {},
     hideUpdateBranding: () => {},

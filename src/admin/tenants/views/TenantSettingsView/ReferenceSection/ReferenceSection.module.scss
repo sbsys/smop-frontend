@@ -1,0 +1,11 @@
+@import 'styles';
+
+.Reference {
+    @include flex;
+    @include gap(all md);
+    @include padding(x xs split);
+
+    .Title {
+        @include font-weight(lg);
+    }
+}

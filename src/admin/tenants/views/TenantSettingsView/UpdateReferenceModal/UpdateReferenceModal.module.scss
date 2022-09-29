@@ -1,0 +1,44 @@
+@import 'styles';
+
+.UpdateReference {
+    @include bg-color(200);
+    @include padding(all xs);
+    @include rounded(all xs);
+    @include width(2xl, component);
+    max-width: 100%;
+
+    & > form {
+        @include flex;
+        @include gap(all md);
+    }
+
+    .Header {
+        @include flex(row, center, center);
+        @include font-weight(lg);
+        @include gap(all xs);
+    }
+
+    .Content {
+        @include flex;
+        @include gap(all md);
+        @include padding(x xs split);
+    }
+
+    .Actions {
+        @include gap(all md);
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+
+        & > button {
+            overflow: hidden;
+        }
+
+        /* @include screen-width(2xs) {
+            @include flex(row, center, flex-end);
+
+            & > button {
+                @include width(sm, component);
+            }
+        } */
+    }
+}

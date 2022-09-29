@@ -186,6 +186,31 @@
                 "cancel": "Cancelar",
                 "update": "Actualizar"
             }
+        },
+        "referencesection": {
+            "title": "Referencias",
+            "edit": "Editar referencias",
+            "organization": "Nombre de la organización",
+            "owner": "Nombre del propietario"
+        },
+        "updatereference": {
+            "title": "Actualizar referencias",
+            "form": {
+                "organization": {
+                    "placeholder": "Nombre de la organización",
+                    "hint": "Nombre de referencia de la organización",
+                    "required": "El nombre de la organización es obligatorio"
+                },
+                "owner": {
+                    "placeholder": "Nombre del propietario",
+                    "hint": "Nombre de referencia del propietario",
+                    "required": "Se requiere el nombre del propietario"
+                }
+            },
+            "actions": {
+                "cancel": "Cancelar",
+                "update": "Actualizar"
+            }
         }
     }
 }

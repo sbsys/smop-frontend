@@ -186,6 +186,31 @@
                 "cancel": "Cancel",
                 "update": "Update"
             }
+        },
+        "referencesection": {
+            "title": "References",
+            "edit": "Edit references",
+            "organization": "Organization name",
+            "owner": "Owner"
+        },
+        "updatereference": {
+            "title": "Update references",
+            "form": {
+                "organization": {
+                    "placeholder": "Organization name",
+                    "hint": "Organization reference name",
+                    "required": "Organization name is required"
+                },
+                "owner": {
+                    "placeholder": "Owner name",
+                    "hint": "Owner reference name",
+                    "required": "Owner name is required"
+                }
+            },
+            "actions": {
+                "cancel": "Cancel",
+                "update": "Update"
+            }
         }
     }
 }

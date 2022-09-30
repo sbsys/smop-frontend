@@ -6,6 +6,8 @@ import { ScrollLayout } from 'shared/layouts';
 import { Legend } from 'shared/components';
 import { ReferenceSection } from '../ReferenceSection';
 import { UpdateReferenceModal } from '../UpdateReferenceModal';
+import { SettingsSection } from '../SettingsSection';
+import { UpdateSettingsModal } from '../UpdateSettingsModal';
 import { BrandingSection } from '../BrandingSection';
 import { UpdateBrandingModal } from '../UpdateBrandingModal';
 /* styles */
@@ -21,7 +23,8 @@ const TenantSettings = () => {
             <ReferenceSection />
             <UpdateReferenceModal />
 
-            <section>Language & decimals</section>
+            <SettingsSection />
+            <UpdateSettingsModal />
 
             <BrandingSection />
             <UpdateBrandingModal />

@@ -2,6 +2,8 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 /* props */
 import { FieldSetProps, useAdminNotify } from 'admin/core';
+/* hooks */
+import { useLoader } from 'shared/hooks';
 /* services */
 import { updateReferenceService } from 'admin/tenants/services';
 /* utils */
@@ -11,7 +13,6 @@ import * as yup from 'yup';
 import { MdError } from 'react-icons/md';
 /* styles */
 import { FieldStyles } from 'shared/styles';
-import { useLoader } from 'shared/hooks';
 
 interface UpdateReferenceForm {
     organization: string;

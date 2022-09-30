@@ -6,6 +6,9 @@ export interface TenantSettingsContextProps {
     isUpdateReference: boolean;
     showUpdateReference: () => void;
     hideUpdateReference: () => void;
+    isUpdateSettings: boolean;
+    showUpdateSettings: () => void;
+    hideUpdateSettings: () => void;
     isUpdateBranding: boolean;
     showUpdateBranding: () => void;
     hideUpdateBranding: () => void;

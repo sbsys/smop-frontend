@@ -1,0 +1,30 @@
+@import 'styles';
+
+.Settings {
+    @include flex;
+    @include gap(all md);
+    @include padding(x xs split);
+
+    .Title {
+        @include font-weight(lg);
+    }
+
+    .Flags {
+        @include flex(row, center);
+        @include gap(all xs);
+    }
+
+    .Flag {
+        @include opacity(50);
+        @include rounded(all xs);
+        @include shadow(all xs);
+        @include width(xs, element);
+        aspect-ratio: 5 / 4;
+        object-fit: cover;
+        overflow: hidden;
+
+        &.Default {
+            @include opacity(100);
+        }
+    }
+}

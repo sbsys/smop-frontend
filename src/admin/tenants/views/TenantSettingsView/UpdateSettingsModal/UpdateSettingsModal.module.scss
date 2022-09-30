@@ -1,0 +1,73 @@
+@import 'styles';
+
+.UpdateSettings {
+    @include bg-color(200);
+    @include padding(all xs);
+    @include rounded(all xs);
+    @include width(2xl, component);
+    max-width: 100%;
+
+    & > form {
+        @include flex;
+        @include gap(all md);
+    }
+
+    .Header {
+        @include flex(row, center, center);
+        @include font-weight(lg);
+        @include gap(all xs);
+    }
+
+    .Content {
+        @include flex;
+        @include gap(all md);
+        @include padding(x xs split);
+    }
+
+    .Actions {
+        @include gap(all md);
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+
+        & > button {
+            overflow: hidden;
+        }
+
+        /* @include screen-width(2xs) {
+            @include flex(row, center, flex-end);
+
+            & > button {
+                @include width(sm, component);
+            }
+        } */
+    }
+
+    .MultiLang {
+        @include gap(all xs);
+        align-items: center;
+        flex-direction: row-reverse;
+        justify-content: start;
+
+        & > label > input {
+            @include font-color(400, secondary);
+
+            &:disabled {
+                @include opacity(70);
+            }
+        }
+    }
+
+    .Languages {
+        @include flex(row, center);
+        @include gap(all xs);
+    }
+}
+
+.LangFlag {
+    @include rounded(all xs);
+    @include shadow(all xs);
+    @include width(xs, element);
+    aspect-ratio: 5 / 4;
+    object-fit: cover;
+    overflow: hidden;
+}

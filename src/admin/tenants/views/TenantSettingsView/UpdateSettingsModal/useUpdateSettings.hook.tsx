@@ -2,14 +2,21 @@
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 /* props */
-import { FieldSetProps } from 'admin/core';
+import { FieldSetProps, useAdminNotify } from 'admin/core';
+/* hooks */
+import { useLoader } from 'shared/hooks';
+/* services */
+import { updateSettingsService } from 'admin/tenants/services';
 /* utils */
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+/* assets */
+import { MdError } from 'react-icons/md';
+import { TenantCoverSrc } from 'assets';
 /* styles */
 import { FieldStyles } from 'shared/styles';
 import styles from './UpdateSettingsModal.module.scss';
-import { TenantCoverSrc } from 'assets';
+import { useCallback } from 'react';
 
 interface Language {
     languageId: string;
@@ -30,7 +37,7 @@ const UpdateSettingsSchema = yup
             .integer('views.updatesettings.form.decimals.integer')
             .min(1, 'views.updatesettings.form.decimals.min')
             .max(4, 'views.updatesettings.form.decimals.max'),
-        multiLanguage: yup.boolean(),
+        multiLanguage: yup.boolean().required(),
         languages: yup
             .array()
             .of(
@@ -61,26 +68,49 @@ export const useUpdateSettings = () => {
 
     const { t } = useTranslation();
 
+    const { showLoader, hideLoader } = useLoader();
+
+    const { notify } = useAdminNotify();
+
     /* functions */
     const handleUpdateSettings = handleSubmit(async data => {
-        console.log(data);
+        showLoader();
+
+        const service = await updateSettingsService({
+            orgId: '',
+            settings: data,
+        });
+
+        hideLoader();
+
+        if (service.error)
+            return notify('danger', {
+                title: 'Error',
+                icon: <MdError />,
+                timestamp: new Date(),
+                text: service.message,
+            });
     });
 
     const handleResetUpdateSettingsForm = () => reset();
 
-    const generateLanguageField = (index: number): FieldSetProps => {
-        setValue(`languages.${index}.preferredLanguage`, index === 0 ? true : false);
+    const generateLanguageField = useCallback(
+        (index: number): FieldSetProps => {
+            setValue(`languages.${index}.preferredLanguage`, index === 0 ? true : false);
 
-        return {
-            field: {
-                strategy: 'select',
-                placeholder: 'Languages',
-                afterContent: <img src={TenantCoverSrc} alt="lang" className={styles.LangFlag} />,
-                ...register(`languages.${index}.languageId`),
-                options: [{ label: 'en', value: '1' }],
-            },
-        };
-    };
+            return {
+                field: {
+                    strategy: 'select',
+                    placeholder: 'views.updatesettings.form.languages.placeholder',
+                    options: [{ label: 'English', value: '1' }],
+                    value: '1',
+                    afterContent: <img src={TenantCoverSrc} alt="lang" className={styles.LangFlag} />,
+                    ...register(`languages.${index}.languageId`),
+                },
+            };
+        },
+        [register, setValue]
+    );
 
     /* props */
     const decimalsField: FieldSetProps = {
@@ -106,8 +136,7 @@ export const useUpdateSettings = () => {
         title: t('views.updatesettings.form.multilang.description'),
         field: {
             strategy: 'checkbox',
-            defaultChecked: true,
-            disabled: true,
+            checked: true,
             ...register('multiLanguage'),
         },
         isHintReserved: true,

@@ -31,7 +31,7 @@ const UpdateSettingsModal = () => {
         <ModalLayout isVisible={isUpdateSettings} rowAlignment="center" colAlignment="center" hasIndentation>
             <ScrollLayout orientation="col" classNameContent={styles.UpdateSettings}>
                 <form onSubmit={handleUpdateSettings}>
-                    <div className={styles.Header} title={t('views.updateresettings.title')}>
+                    <div className={styles.Header} title={t('views.updatesettings.title')}>
                         <i>
                             <MdWarning />
                         </i>
@@ -51,23 +51,23 @@ const UpdateSettingsModal = () => {
                         <Button
                             type="button"
                             className={ButtonStyles.OutlineNone}
-                            title={t('views.updateresettings.actions.cancel')}
+                            title={t('views.updatesettings.actions.cancel')}
                             onClick={() => {
                                 handleResetUpdateSettingsForm();
 
                                 hideUpdateSettings();
                             }}>
                             <Legend hasDots justify="center">
-                                {t('views.updateresettings.actions.cancel')}
+                                {t('views.updatesettings.actions.cancel')}
                             </Legend>
                         </Button>
 
                         <Button
                             type="submit"
                             className={ButtonStyles.FillSecondary}
-                            title={t('views.updateresettings.actions.update')}>
+                            title={t('views.updatesettings.actions.update')}>
                             <Legend hasDots justify="center">
-                                {t('views.updateresettings.actions.update')}
+                                {t('views.updatesettings.actions.update')}
                             </Legend>
                         </Button>
                     </div>

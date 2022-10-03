@@ -211,6 +211,33 @@
                 "cancel": "Cancelar",
                 "update": "Actualizar"
             }
+        },
+        "settingssection": {
+            "header": "Configuración de la organización",
+            "edit": "Editar configuración",
+            "title": "Configuraciones",
+            "decimals": "Decimales",
+            "langs": "Idiomas aceptados"
+        },
+        "updatesettings": {
+            "title": "Actualizar configuraciones",
+            "form": {
+                "decimals": {
+                    "placeholder": "Decimales para precios desde 1 asta 4",
+                    "hint": "Cantidad de decimales para precios",
+                    "integer": "Solo números enteros",
+                    "min": "Cantidad mínima: 1",
+                    "max": "Cantidad máxima: 4"
+                },
+                "multilang": {
+                    "description": "Característica en proceso de trabajo",
+                    "hint": "Soporte multilenguaje"
+                }
+            },
+            "actions": {
+                "cancel": "Cancelar",
+                "update": "Actualizar"
+            }
         }
     }
 }

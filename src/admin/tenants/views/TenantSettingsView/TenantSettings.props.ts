@@ -1,8 +1,11 @@
 /* props */
 import { ChildrenProps } from 'shared/props';
+/* types */
+import { OrganizationSettingsDTO } from 'admin/tenants/types';
 
 export interface TenantSettingsContextProps {
     /* states */
+    settings: OrganizationSettingsDTO;
     isUpdateReference: boolean;
     showUpdateReference: () => void;
     hideUpdateReference: () => void;

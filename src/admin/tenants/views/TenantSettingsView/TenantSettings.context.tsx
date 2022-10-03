@@ -2,9 +2,12 @@
 import { createContext, FC, useContext } from 'react';
 /* props */
 import { TenantSettingsContextProps, TenantSettingsProviderProps } from './TenantSettings.props';
+/* types */
+import { OrganizationSettingsDTO } from 'admin/tenants/types';
 
 const TenantSettingsContext = createContext<TenantSettingsContextProps>({
     /* states */
+    settings: {} as OrganizationSettingsDTO,
     isUpdateReference: false,
     showUpdateReference: () => {},
     hideUpdateReference: () => {},

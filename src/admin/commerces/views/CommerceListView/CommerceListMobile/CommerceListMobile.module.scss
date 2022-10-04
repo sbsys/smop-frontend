@@ -1,0 +1,11 @@
+@import 'styles';
+
+.CommerceList {
+    @include flex;
+    @include gap(all md);
+    @include padding(y md);
+
+    @include screen-width(md) {
+        display: none;
+    }
+}

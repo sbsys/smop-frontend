@@ -15,7 +15,7 @@
     }
 
     .Flag {
-        @include opacity(50);
+        @include opacity(20);
         @include rounded(all xs);
         @include shadow(all xs);
         @include width(xs, element);

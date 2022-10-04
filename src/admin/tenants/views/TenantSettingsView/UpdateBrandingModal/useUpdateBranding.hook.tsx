@@ -2,6 +2,8 @@
 import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+/* context */
+import { useTenantSettingsContext } from '../TenantSettings.context';
 /* components */
 import { Button, Legend } from 'shared/components';
 /* hooks */
@@ -59,6 +61,11 @@ const UpdateBrandingSchema = yup
 export const useUpdateBranding = () => {
     /* states */
     const {
+        /* states */
+        settings,
+    } = useTenantSettingsContext();
+
+    const {
         register,
         handleSubmit,
         resetField,
@@ -85,7 +92,7 @@ export const useUpdateBranding = () => {
         showLoader();
 
         const service = await updateBrandingService({
-            orgId: '',
+            orgId: settings?.organizationId ?? '',
             branding: {
                 cover: data.cover[0],
                 profile: data.profile[0],

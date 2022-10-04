@@ -15,13 +15,51 @@ import { organizationSettingsSerializer } from '../serializers';
 import { apiRequestHandler } from 'shared/handlers';
 /* types */
 import { OrganizationSettingsDTO } from '../types';
+/* assets */
+import { TenantCoverSrc, TenantProfileSrc } from 'assets';
 
 interface OrganizationSettingsProps {}
 
 const mock: ApiResponse<OrganizationSettingsDTO> = {
     error: false,
     message: 'Organization Settings',
-    data: {},
+    data: {
+        organizationId: 'f547b83e-2ac2-4462-90bf-f2a956a3d7fe',
+        ownerReference: 'Nikolas Warren',
+        organizationName: 'NikeSport',
+        multiLanguage: true,
+        maxLangAllow: 2,
+        decimals: 2,
+        readySettings: false,
+        internationalization: [
+            {
+                id: 1,
+                abbreviation: 'en',
+                flagpng: 'https://flagcdn.com/w320/gb.png',
+                flagsvg: 'https://flagcdn.com/gb.svg',
+                isAvailable: true,
+                preferredLanguage: true,
+            },
+            {
+                id: 2,
+                abbreviation: 'es',
+                flagpng: 'https://flagcdn.com/w320/es.png',
+                flagsvg: 'https://flagcdn.com/es.svg',
+                isAvailable: true,
+                preferredLanguage: false,
+            },
+        ],
+        files: [
+            {
+                isCover: false,
+                url: TenantProfileSrc,
+            },
+            {
+                isCover: true,
+                url: TenantCoverSrc,
+            },
+        ],
+    },
 };
 
 export const getOrganizationSettingsService = async (

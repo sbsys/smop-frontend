@@ -1,6 +1,9 @@
 /* react */
+import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+/* context */
+import { useTenantSettingsContext } from '../TenantSettings.context';
 /* props */
 import { FieldSetProps, useAdminNotify } from 'admin/core';
 /* hooks */
@@ -12,11 +15,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 /* assets */
 import { MdError } from 'react-icons/md';
-import { TenantCoverSrc } from 'assets';
 /* styles */
 import { FieldStyles } from 'shared/styles';
 import styles from './UpdateSettingsModal.module.scss';
-import { useCallback } from 'react';
 
 interface Language {
     languageId: string;
@@ -56,6 +57,11 @@ const UpdateSettingsSchema = yup
 export const useUpdateSettings = () => {
     /* states */
     const {
+        /* states */
+        settings,
+    } = useTenantSettingsContext();
+
+    const {
         handleSubmit,
         reset,
         formState: { errors },
@@ -77,7 +83,7 @@ export const useUpdateSettings = () => {
         showLoader();
 
         const service = await updateSettingsService({
-            orgId: '',
+            orgId: settings?.organizationId ?? '',
             settings: data,
         });
 
@@ -102,14 +108,26 @@ export const useUpdateSettings = () => {
                 field: {
                     strategy: 'select',
                     placeholder: 'views.updatesettings.form.languages.placeholder',
-                    options: [{ label: 'English', value: '1' }],
-                    value: '1',
-                    afterContent: <img src={TenantCoverSrc} alt="lang" className={styles.LangFlag} />,
+                    options: [
+                        ...(settings?.internationalization.map(internationalization => ({
+                            label: internationalization.abbreviation,
+                            value: internationalization.id,
+                        })) ?? []),
+                    ],
+                    value: settings?.internationalization[index].id,
+                    afterContent: (
+                        <img
+                            src={settings?.internationalization[index].flagpng}
+                            alt="lang"
+                            className={styles.LangFlag}
+                        />
+                    ),
                     ...register(`languages.${index}.languageId`),
                 },
+                disabled: true,
             };
         },
-        [register, setValue]
+        [register, setValue, settings?.internationalization]
     );
 
     /* props */
@@ -117,7 +135,7 @@ export const useUpdateSettings = () => {
         field: {
             className: errors.decimals ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'decimal',
-            defaultValue: 1,
+            defaultValue: settings?.decimals,
             step: 1,
             min: 1,
             max: 4,
@@ -145,9 +163,14 @@ export const useUpdateSettings = () => {
             title: t((errors.multiLanguage?.message as string) ?? 'views.updatesettings.form.multilang.hint'),
             children: t((errors.multiLanguage?.message as string) ?? 'views.updatesettings.form.multilang.hint'),
         },
+        disabled: true,
     };
 
-    const updateSettingsFormFields: FieldSetProps[] = [decimalsField, multiLanguageField, generateLanguageField(0)];
+    const updateSettingsFormFields: FieldSetProps[] = [
+        decimalsField,
+        multiLanguageField,
+        ...(settings?.internationalization.map((_, index) => generateLanguageField(index)) ?? []),
+    ];
 
     return { handleUpdateSettings, handleResetUpdateSettingsForm, updateSettingsFormFields };
 };

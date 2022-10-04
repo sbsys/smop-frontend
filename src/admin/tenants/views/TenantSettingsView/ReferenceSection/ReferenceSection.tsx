@@ -15,6 +15,7 @@ import styles from './ReferenceSection.module.scss';
 const ReferenceSection = () => {
     const {
         /* states */
+        settings,
         showUpdateReference,
     } = useTenantSettingsContext();
 
@@ -39,12 +40,15 @@ const ReferenceSection = () => {
 
             <div className={styles.Reference}>
                 <Legend hasDots>
-                    <span className={styles.Title}>{t('views.referencesection.organization')}:</span> Las Primas SA
+                    <span className={styles.Title}>{t('views.referencesection.organization')}: </span>
+
+                    <span>{settings?.organizationName}</span>
                 </Legend>
 
                 <Legend hasDots>
-                    <span className={styles.Title}>{t('views.referencesection.owner')}:</span> Steven Joseph Bustillo
-                    López
+                    <span className={styles.Title}>{t('views.referencesection.owner')}: </span>
+
+                    <span>{settings?.ownerReference}</span>
                 </Legend>
             </div>
         </section>

@@ -5,7 +5,7 @@ import { OrganizationSettingsDTO } from 'admin/tenants/types';
 
 export interface TenantSettingsContextProps {
     /* states */
-    settings: OrganizationSettingsDTO;
+    settings: OrganizationSettingsDTO | null;
     isUpdateReference: boolean;
     showUpdateReference: () => void;
     hideUpdateReference: () => void;

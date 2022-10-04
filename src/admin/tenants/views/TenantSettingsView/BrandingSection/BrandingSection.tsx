@@ -7,7 +7,6 @@ import { useTenantSettingsContext } from '../TenantSettings.context';
 import { Button, Legend } from 'shared/components';
 /* assets */
 import { MdEdit } from 'react-icons/md';
-import { TenantCoverSrc, TenantProfileSrc } from 'assets';
 /* styles */
 import { ButtonStyles } from 'shared/styles';
 import SectionStyles from '../TenantSettings.module.scss';
@@ -16,6 +15,7 @@ import styles from './BrandingSection.module.scss';
 const BrandingSection = () => {
     const {
         /* states */
+        settings,
         showUpdateBranding,
     } = useTenantSettingsContext();
 
@@ -39,9 +39,9 @@ const BrandingSection = () => {
             </div>
 
             <div className={styles.Branding}>
-                <img src={TenantCoverSrc} alt={t('views.brandingsection.cover')} />
+                <img src={settings?.files.find(file => file.isCover)?.url} alt={t('views.brandingsection.cover')} />
 
-                <img src={TenantProfileSrc} alt={t('views.brandingsection.profile')} />
+                <img src={settings?.files.find(file => !file.isCover)?.url} alt={t('views.brandingsection.profile')} />
             </div>
         </section>
     );

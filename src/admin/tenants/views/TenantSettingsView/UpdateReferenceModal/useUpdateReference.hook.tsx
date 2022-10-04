@@ -1,5 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+/* context */
+import { useTenantSettingsContext } from '../TenantSettings.context';
 /* props */
 import { FieldSetProps, useAdminNotify } from 'admin/core';
 /* hooks */
@@ -29,6 +31,11 @@ const UpdateReferenceSchema = yup
 export const useUpdateReference = () => {
     /* states */
     const {
+        /* states */
+        settings,
+    } = useTenantSettingsContext();
+
+    const {
         handleSubmit,
         formState: { errors },
         reset,
@@ -49,7 +56,7 @@ export const useUpdateReference = () => {
         showLoader();
 
         const service = await updateReferenceService({
-            orgId: '',
+            orgId: settings?.organizationId ?? '',
             reference: {
                 organizationName: data.organization,
                 ownerReference: data.owner,
@@ -74,6 +81,7 @@ export const useUpdateReference = () => {
         field: {
             className: errors.organization ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             placeholder: t('views.updatereference.form.organization.placeholder'),
+            defaultValue: settings?.organizationName,
             ...register('organization'),
         },
         isHintReserved: true,
@@ -88,6 +96,7 @@ export const useUpdateReference = () => {
         field: {
             className: errors.owner ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             placeholder: t('views.updatereference.form.owner.placeholder'),
+            defaultValue: settings?.ownerReference,
             ...register('owner'),
         },
         isHintReserved: true,

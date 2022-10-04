@@ -15,7 +15,7 @@ import { MdCheckCircle, MdDangerous } from 'react-icons/md';
 
 export const useTenantSettings = () => {
     /* states */
-    const [settings, setSettings] = useState<OrganizationSettingsDTO>({});
+    const [settings, setSettings] = useState<OrganizationSettingsDTO | null>(null);
 
     const [isUpdateReference, showUpdateReference, hideUpdateReference] = useActive();
     const [isUpdateSettings, showUpdateSettings, hideUpdateSettings] = useActive();

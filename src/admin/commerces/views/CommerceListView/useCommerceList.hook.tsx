@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 /* props */
 import { CommerceListContextProps } from './CommerceList.props';
 import { FieldSetProps, useAdminNotify } from 'admin/core';
+/* services */
+import { commerceListService } from 'admin/commerces/services';
 /* hooks */
 import { useLoader } from 'shared/hooks';
 /* types */
@@ -57,7 +59,7 @@ export const useCommerceList = () => {
     const getCommerceList = useCallback(async () => {
         showLoader();
 
-        const service = await { error: true, message: 'Commerce Lists Error', data: [] };
+        const service = await commerceListService();
 
         hideLoader();
 

@@ -13,4 +13,46 @@
         @include font-size(2xl);
         @include font-weight(lg);
     }
+
+    .Commerces {
+        @include flex;
+        flex-grow: 1;
+        overflow: hidden;
+    }
+
+    .List {
+        & > thead,
+        & > tbody {
+            & > tr {
+                & > th,
+                & > td {
+                    & > span {
+                        flex-grow: 1;
+                    }
+                }
+            }
+        }
+
+        & > thead {
+            @include bg-color(400, primary);
+            @include font-color(100);
+            @include font-weight(lg);
+            @include padding(all xs);
+            @include rounded(all xs);
+
+            & > tr {
+                @include gap(all xs);
+            }
+        }
+
+        & > tbody > tr {
+            @include gap(all xs);
+            @include padding(all xs);
+            @include shadow(bottom xs);
+
+            &:last-child {
+                @include margin(bottom xs);
+            }
+        }
+    }
 }

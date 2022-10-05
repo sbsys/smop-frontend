@@ -14,7 +14,7 @@ import { updateSettingsService } from 'admin/tenants/services';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 /* assets */
-import { MdError } from 'react-icons/md';
+import { MdCheckCircle, MdError } from 'react-icons/md';
 /* styles */
 import { FieldStyles } from 'shared/styles';
 import styles from './UpdateSettingsModal.module.scss';
@@ -59,6 +59,9 @@ export const useUpdateSettings = () => {
     const {
         /* states */
         settings,
+        hideUpdateSettings,
+        /* functions */
+        getOrganizationSettings,
     } = useTenantSettingsContext();
 
     const {
@@ -96,6 +99,17 @@ export const useUpdateSettings = () => {
                 timestamp: new Date(),
                 text: service.message,
             });
+
+        notify('success', {
+            title: 'Success',
+            icon: <MdCheckCircle />,
+            timestamp: new Date(),
+            text: service.message,
+        });
+
+        hideUpdateSettings();
+
+        getOrganizationSettings();
     });
 
     const handleResetUpdateSettingsForm = () => reset();

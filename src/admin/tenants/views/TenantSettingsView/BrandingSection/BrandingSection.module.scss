@@ -12,6 +12,7 @@
         margin-bottom: calc(size(xs, component) / 2);
         object-fit: cover;
         overflow: hidden;
+        width: 100%;
 
         @include screen-width(xs) {
             aspect-ratio: 3 / 1;

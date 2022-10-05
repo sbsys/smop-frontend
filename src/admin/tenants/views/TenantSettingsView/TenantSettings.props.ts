@@ -15,6 +15,8 @@ export interface TenantSettingsContextProps {
     isUpdateBranding: boolean;
     showUpdateBranding: () => void;
     hideUpdateBranding: () => void;
+    /* functions */
+    getOrganizationSettings: () => Promise<void>;
     /* props */
 }
 

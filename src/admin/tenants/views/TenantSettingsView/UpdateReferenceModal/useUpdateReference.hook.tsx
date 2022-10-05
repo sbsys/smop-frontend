@@ -12,7 +12,7 @@ import { updateReferenceService } from 'admin/tenants/services';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 /* assets */
-import { MdError } from 'react-icons/md';
+import { MdCheckCircle, MdError } from 'react-icons/md';
 /* styles */
 import { FieldStyles } from 'shared/styles';
 
@@ -33,6 +33,9 @@ export const useUpdateReference = () => {
     const {
         /* states */
         settings,
+        hideUpdateReference,
+        /* functions */
+        getOrganizationSettings,
     } = useTenantSettingsContext();
 
     const {
@@ -72,6 +75,17 @@ export const useUpdateReference = () => {
                 timestamp: new Date(),
                 text: service.message,
             });
+
+        notify('success', {
+            title: 'Success',
+            icon: <MdCheckCircle />,
+            timestamp: new Date(),
+            text: service.message,
+        });
+
+        hideUpdateReference();
+
+        getOrganizationSettings();
     });
 
     const handleResetUpdateReferenceForm = () => reset();

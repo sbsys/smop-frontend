@@ -47,7 +47,7 @@ export const commerceListService = async (props?: CommerceListProps): Promise<Ap
 
     return await apiRequestHandler<ApiResponse<CommerceListItemDTO[]>>({
         instance: AdminApiService,
-        endpoint: '/commerces',
+        endpoint: '/commerce',
         token: getCurrentUserToken(),
         method: 'GET',
         responseSerializer: async data => apiSerializer<CommerceListItemDTO[]>(data, commerceListSerializer),

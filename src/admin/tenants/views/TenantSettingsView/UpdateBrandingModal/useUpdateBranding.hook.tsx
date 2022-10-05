@@ -17,7 +17,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { classNames } from 'shared/utils';
 /* assets */
-import { MdClose, MdError } from 'react-icons/md';
+import { MdCheckCircle, MdClose, MdError } from 'react-icons/md';
 /* styles */
 import { ButtonStyles } from 'shared/styles';
 import styles from './UpdateBrandingModal.module.scss';
@@ -63,6 +63,9 @@ export const useUpdateBranding = () => {
     const {
         /* states */
         settings,
+        hideUpdateBranding,
+        /* functions */
+        getOrganizationSettings,
     } = useTenantSettingsContext();
 
     const {
@@ -108,6 +111,17 @@ export const useUpdateBranding = () => {
                 timestamp: new Date(),
                 text: service.message,
             });
+
+        notify('success', {
+            title: 'Success',
+            icon: <MdCheckCircle />,
+            timestamp: new Date(),
+            text: service.message,
+        });
+
+        hideUpdateBranding();
+
+        getOrganizationSettings();
     });
 
     const handleResetUpdateBrandingForm = () => reset();

@@ -71,6 +71,8 @@ export const useTenantSettings = () => {
         isUpdateBranding,
         showUpdateBranding,
         hideUpdateBranding,
+        /* functions */
+        getOrganizationSettings,
         /* props */
     };
 

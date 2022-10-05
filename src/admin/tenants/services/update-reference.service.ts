@@ -32,7 +32,7 @@ export const updateReferenceService = async (
 
     return await apiRequestHandler<ApiResponse<UpdateReferenceResponse>, FormData>({
         instance: AdminApiService,
-        endpoint: `/maintenance/org/${props.orgId}/references`,
+        endpoint: `/org/${props.orgId}/references`,
         token: getCurrentUserToken(),
         method: 'PUT',
         body,

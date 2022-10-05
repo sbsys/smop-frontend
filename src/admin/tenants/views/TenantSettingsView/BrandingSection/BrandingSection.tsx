@@ -38,11 +38,21 @@ const BrandingSection = () => {
                 </Button>
             </div>
 
-            <div className={styles.Branding}>
-                <img src={settings?.files.find(file => file.isCover)?.url} alt={t('views.brandingsection.cover')} />
+            {(settings?.files.length ?? 0) > 0 && (
+                <div className={styles.Branding}>
+                    <img
+                        crossOrigin="anonymous"
+                        src={settings?.files.find(file => file.isCover)?.url}
+                        alt={t('views.brandingsection.cover')}
+                    />
 
-                <img src={settings?.files.find(file => !file.isCover)?.url} alt={t('views.brandingsection.profile')} />
-            </div>
+                    <img
+                        crossOrigin="anonymous"
+                        src={settings?.files.find(file => !file.isCover)?.url}
+                        alt={t('views.brandingsection.profile')}
+                    />
+                </div>
+            )}
         </section>
     );
 };

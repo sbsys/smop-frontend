@@ -34,7 +34,7 @@ export const updateSettingsService = async (
 ): Promise<ApiResponse<UpdateSettingsResponse>> => {
     return await apiRequestHandler<ApiResponse<UpdateSettingsResponse>, SettingsProps>({
         instance: AdminApiService,
-        endpoint: `/maintenance/org/${props.orgId}/settings`,
+        endpoint: `/org/${props.orgId}/settings`,
         token: getCurrentUserToken(),
         method: 'PUT',
         body: props.settings,

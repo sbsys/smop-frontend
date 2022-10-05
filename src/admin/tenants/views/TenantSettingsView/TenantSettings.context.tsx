@@ -15,6 +15,8 @@ const TenantSettingsContext = createContext<TenantSettingsContextProps>({
     isUpdateBranding: false,
     showUpdateBranding: () => {},
     hideUpdateBranding: () => {},
+    /* functions */
+    getOrganizationSettings: () => new Promise(resolve => resolve()),
     /* props */
 });
 

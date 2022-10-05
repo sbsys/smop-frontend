@@ -32,7 +32,7 @@ export const updateBrandingService = async (
 
     return await apiRequestHandler<ApiResponse<UpdateBrandingResponse>, FormData>({
         instance: AdminApiService,
-        endpoint: `/maintenance/org/${props.orgId}/brand`,
+        endpoint: `/org/${props.orgId}/brand`,
         token: getCurrentUserToken(),
         method: 'PUT',
         headers: {

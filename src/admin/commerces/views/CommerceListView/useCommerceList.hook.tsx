@@ -81,6 +81,8 @@ export const useCommerceList = () => {
         reset();
 
         setFilter(null);
+
+        hideDropFilter();
     };
 
     const getCommerceList = useCallback(async () => {

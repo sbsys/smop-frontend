@@ -60,4 +60,27 @@
             }
         }
     }
+
+    & > span {
+        @include bg-color(400, primary);
+        @include flex(row, center, flex-end);
+        @include font-color(100);
+        @include font-size(sm);
+        @include rounded(all xs);
+        margin-left: auto;
+        max-width: 100%;
+
+        & > a {
+            overflow: hidden;
+        }
+    }
+
+    .List {
+        @include padding(y xs split);
+
+        & > ul {
+            @include flex;
+            @include gap(all xs);
+        }
+    }
 }

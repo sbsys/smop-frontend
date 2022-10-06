@@ -5,7 +5,7 @@
 
 - Modify **[.env](./.env)** file with the correct **environment** value (current **backend service** location): **`REACT_APP_ADMIN_API_SERVICE=<host>:<port>`**
 
-- Modify **[src/admin/core/constants/constants.ts](./src/admin/core/constants/constants.ts)** file with the correct **constant** value (**to false**): **`export const offline: boolean = false;`** to perform **HTTP Request** instead of local data
+- Modify **[src/admin/core/constants/constant.ts](./src/admin/core/constants/constant.ts)** file with the correct **constant** value (**to false**): **`export const offline: boolean = false;`** to perform **HTTP Request** instead of local data
 
 - To **start** the **Docker** image app, execute the command: **`docker compose -f docker-compose-dev.yml up`**
 

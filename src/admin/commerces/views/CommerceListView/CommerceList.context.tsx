@@ -6,6 +6,10 @@ import { CommerceListContextProps, CommerceListProviderProps } from './CommerceL
 const Context = createContext<CommerceListContextProps>({
     /* states */
     commerceList: [],
+    isDropFilter: false,
+    showDropFilter: () => {},
+    hideDropFilter: () => {},
+    isBreakPoint: false,
     /* functions */
     handleFilter: () => new Promise(resolve => resolve),
     handleResetFilter: () => {},

@@ -9,7 +9,7 @@ import { PanelLayout, TableLayout } from 'shared/layouts';
 import { Legend } from 'shared/components';
 import { CommerceListFilter } from '../CommerceListFilter';
 import { CommerceListState } from '../CommerceListState';
-import { CommerceListActions } from '../CommerceListActions';
+import { CommerceListActions, NewCommerceAction } from '../CommerceListActions';
 /* utils */
 import { format } from 'date-fns';
 /* styles */
@@ -19,6 +19,7 @@ const CommerceListDesktop = () => {
     const {
         /* states */
         commerceList,
+        isBreakPoint,
     } = useCommerceListContext();
 
     const { t } = useTranslation();
@@ -29,9 +30,11 @@ const CommerceListDesktop = () => {
                 <Legend hasDots>{t('views.commercelist.title')}</Legend>
             </h1>
 
-            <section className={styles.Filter}>
-                <CommerceListFilter />
-            </section>
+            {isBreakPoint && (
+                <section className={styles.Filter}>
+                    <CommerceListFilter />
+                </section>
+            )}
 
             <section className={styles.Commerces}>
                 <TableLayout
@@ -60,7 +63,7 @@ const CommerceListDesktop = () => {
                                 ),
                             },
                             {
-                                span: 1,
+                                children: <NewCommerceAction />,
                             },
                         ],
                     }}
@@ -84,7 +87,7 @@ const CommerceListDesktop = () => {
                                 children: <CommerceListState state={item.isActive} />,
                             },
                             {
-                                children: <CommerceListActions />,
+                                children: <CommerceListActions state={item.isActive} commerceId={item.id} />,
                             },
                         ],
                     }))}

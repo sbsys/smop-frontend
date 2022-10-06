@@ -9,8 +9,8 @@ import { FieldSetProps, useAdminNotify } from 'admin/core';
 /* hooks */
 import { useActive, useKeyDownEvent, useLoader, useMinWidth } from 'shared/hooks';
 /* utils */
-import { isAfter, isBefore, isDate, isEqual, parse } from 'date-fns';
-import { matchBreakPoint } from 'shared/utils';
+import { isDate, parse } from 'date-fns';
+import { isAfterOrEqual, isBeforeOrEqual, matchBreakPoint } from 'shared/utils';
 /* services */
 import { tenantListService } from 'admin/tenants/services';
 /* types */
@@ -32,9 +32,6 @@ const filterFormInitialState: FilterForm = {
     start_date: null,
     end_date: null,
 };
-
-const isAfterOrEqual = (evaluate: Date, base: Date) => isAfter(evaluate, base) || isEqual(evaluate, base);
-const isBeforeOrEqual = (evaluate: Date, base: Date) => isBefore(evaluate, base) || isEqual(evaluate, base);
 
 export const useTenantList = () => {
     /* states */

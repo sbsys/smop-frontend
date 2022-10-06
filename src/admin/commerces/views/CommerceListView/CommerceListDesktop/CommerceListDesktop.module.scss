@@ -14,6 +14,10 @@
         @include font-weight(lg);
     }
 
+    .Filter {
+        @include margin(bottom xs);
+    }
+
     .Commerces {
         @include flex;
         flex-grow: 1;
@@ -29,6 +33,11 @@
                     & > span {
                         flex-grow: 1;
                     }
+
+                    & > a {
+                        margin: 0 auto;
+                        overflow: hidden;
+                    }
                 }
             }
         }
@@ -37,7 +46,7 @@
             @include bg-color(400, primary);
             @include font-color(100);
             @include font-weight(lg);
-            @include padding(all xs);
+            @include padding(x xs);
             @include rounded(all xs);
 
             & > tr {

@@ -9,6 +9,10 @@ import { CommerceListItemDTO } from 'admin/commerces/types';
 export interface CommerceListContextProps {
     /* states */
     commerceList: CommerceListItemDTO[];
+    isDropFilter: boolean;
+    showDropFilter: () => void;
+    hideDropFilter: () => void;
+    isBreakPoint: boolean;
     /* functions */
     handleFilter: (event?: BaseSyntheticEvent) => Promise<void>;
     handleResetFilter: () => void;

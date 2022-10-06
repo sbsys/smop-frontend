@@ -1,0 +1,21 @@
+@import 'styles';
+
+.Section {
+    @include flex;
+    @include gap(all sm);
+
+    .Title {
+        @include border-color(bottom 400 bg);
+        @include border-width(bottom xs);
+        @include flex(row, center, space-between);
+        @include gap(all xs);
+        @include margin(x xs);
+        @include padding(bottom xs split);
+
+        & > h2 {
+            @include font-size(lg);
+            @include font-weight(xl);
+            overflow: hidden;
+        }
+    }
+}

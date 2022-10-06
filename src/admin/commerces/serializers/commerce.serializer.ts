@@ -1,4 +1,4 @@
-import { CommerceListItemDTO } from '../types';
+import { CommerceDetailDTO, CommerceListItemDTO } from '../types';
 
 export const commerceListItemSerializer = (data: any): CommerceListItemDTO => {
     return {
@@ -7,4 +7,8 @@ export const commerceListItemSerializer = (data: any): CommerceListItemDTO => {
         isActive: data.isActive ? 'active' : 'inactive',
         createdAt: new Date(data.createdAt),
     };
+};
+
+export const commerceDetailSerializer = (data: any): CommerceDetailDTO => {
+    return { ...data.commerce, createdAt: new Date(data.commerce.createdAt) } as CommerceDetailDTO;
 };

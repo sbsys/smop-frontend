@@ -17,7 +17,7 @@ import { AuthLayout, authStoreSignIn, PasswordRecoveryView, selectAuthStore, Sig
 /* tenants */
 import { CreateTenantView, TenantListView, TenantSettingsView, TenantsLayout } from './tenants';
 /* commerces */
-import { CommerceListView, CommercesLayout } from './commerces';
+import { CommerceDetailView, CommerceListView, CommercesLayout } from './commerces';
 /* clients */
 import { SchemaLayout } from './clients';
 
@@ -110,6 +110,9 @@ const AppRoutes: FC = () => {
                         <Route index element={<Navigate to="list" replace />} />
 
                         <Route path="list" element={<CommerceListView />} />
+
+                        <Route path=":commerceId/detail" element={<CommerceDetailView />} />
+                        <Route path=":commerceId/edit" element={<CommerceDetailView />} />
                     </Route>
                 </Route>
             </Route>

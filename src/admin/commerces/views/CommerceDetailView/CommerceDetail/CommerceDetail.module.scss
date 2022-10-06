@@ -1,0 +1,10 @@
+@import 'styles';
+
+.CommerceDetail {
+    @include gap(all md);
+
+    & > h1 {
+        @include font-size(xl);
+        @include font-weight(2xl);
+    }
+}

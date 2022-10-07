@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 /* props */
 import { CommerceDetailContextProps } from './CommerceDetail.props';
 /* hooks */
-import { useLoader } from 'shared/hooks';
+import { useActive, useLoader } from 'shared/hooks';
 import { useAdminNotify } from 'admin/core';
 /* assets */
 import { MdCheckCircle, MdDangerous } from 'react-icons/md';
@@ -20,6 +20,8 @@ export const useCommerceDetail = () => {
     const { showLoader, hideLoader } = useLoader();
 
     const { notify } = useAdminNotify();
+
+    const [isUpdateReference, showUpdateReference, hideUpdateReference] = useActive();
 
     /* functions */
     const getCommerceDetail = useCallback(async () => {
@@ -58,7 +60,11 @@ export const useCommerceDetail = () => {
     const context: CommerceDetailContextProps = {
         /* states */
         commerce,
+        isUpdateReference,
+        showUpdateReference,
+        hideUpdateReference,
         /* functions */
+        getCommerceDetail,
         /* props */
     };
 

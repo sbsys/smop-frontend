@@ -17,6 +17,7 @@ const CommerceReferenceSection = () => {
     const {
         /* states */
         commerce,
+        showUpdateReference,
     } = useCommerceDetailContext();
 
     const { t } = useTranslation();
@@ -28,7 +29,10 @@ const CommerceReferenceSection = () => {
                     <Legend hasDots>{t('views.commercedetail.referencesection.title')}</Legend>
                 </h2>
 
-                <Button className={ButtonStyles.OutlineNone} title={t('views.commercedetail.referencesection.edit')}>
+                <Button
+                    className={ButtonStyles.OutlineNone}
+                    onClick={showUpdateReference}
+                    title={t('views.commercedetail.referencesection.edit')}>
                     <i>
                         <MdEdit />
                     </i>

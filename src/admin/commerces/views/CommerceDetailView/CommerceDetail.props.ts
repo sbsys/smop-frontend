@@ -6,7 +6,11 @@ import { CommerceDetailDTO } from 'admin/commerces/types';
 export interface CommerceDetailContextProps {
     /* states */
     commerce: CommerceDetailDTO | null;
+    isUpdateReference: boolean;
+    showUpdateReference: () => void;
+    hideUpdateReference: () => void;
     /* functions */
+    getCommerceDetail: () => Promise<void>;
     /* props */
 }
 

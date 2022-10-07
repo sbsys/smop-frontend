@@ -6,7 +6,11 @@ import { CommerceDetailContextProps, CommerceDetailProviderProps } from './Comme
 const Context = createContext<CommerceDetailContextProps>({
     /* states */
     commerce: null,
+    isUpdateReference: false,
+    showUpdateReference: () => {},
+    hideUpdateReference: () => {},
     /* functions */
+    getCommerceDetail: () => new Promise(resolve => resolve()),
     /* props */
 });
 

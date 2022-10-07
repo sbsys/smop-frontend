@@ -6,6 +6,7 @@ import { ScrollLayout } from 'shared/layouts';
 /* components */
 import { Legend } from 'shared/components';
 import { CommerceReferenceSection } from '../CommerceReferenceSection';
+import { UpdateReferenceModal } from '../UpdateReferenceModal';
 import { CommerceSettingSection } from '../CommerceSettingSection';
 import { CommerceAttentionSection } from '../CommerceAttentionSection';
 import { CommerceDeliverySection } from '../CommerceDeliverySection';
@@ -22,6 +23,7 @@ const CommerceDetail = () => {
             </h1>
 
             <CommerceReferenceSection />
+            <UpdateReferenceModal />
 
             <CommerceSettingSection />
 

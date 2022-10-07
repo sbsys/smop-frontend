@@ -1,0 +1,68 @@
+@import 'styles';
+
+.Attention {
+    @include flex;
+    @include gap(all md);
+
+    .Title {
+        @include font-weight(lg);
+    }
+
+    .Times {
+        @include flex;
+        @include gap(all xs);
+    }
+
+    .Table {
+        @include max-width(2xl, component);
+        & > thead,
+        & > tbody {
+            & > tr {
+                & > th,
+                & > td {
+                    & > span {
+                        flex-grow: 1;
+                    }
+
+                    & > i {
+                        margin: 0 auto;
+                    }
+                }
+            }
+        }
+
+        & > thead {
+            @include bg-color(400, primary);
+            @include font-color(100);
+            @include font-weight(lg);
+            @include padding(x xs);
+            @include rounded(all xs);
+
+            & > tr {
+                @include gap(all xs);
+            }
+        }
+
+        & > tbody > tr {
+            @include gap(all xs);
+            @include padding(all xs);
+            @include shadow(bottom xs);
+
+            &:last-child {
+                @include margin(bottom xs);
+            }
+        }
+    }
+
+    .Icon {
+        @include font-size(lg);
+
+        &.Active {
+            @include font-color(400, success);
+        }
+
+        &.Inactive {
+            @include font-color(400, danger);
+        }
+    }
+}

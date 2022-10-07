@@ -1,4 +1,45 @@
 @import 'styles';
 
 .Reference {
+    @include flex;
+    @include gap(all md);
+    @include padding(x xs split);
+
+    .Title {
+        @include font-weight(lg);
+    }
+
+    .Phones {
+        @include flex(row, center);
+        @include gap(all xs);
+        flex-wrap: wrap;
+    }
+
+    .Geoinformation {
+        @include flex(row, center);
+        @include gap(all xs);
+        flex-wrap: wrap;
+
+        & > h3 {
+            @include font-size(lg);
+            @include font-weight(lg);
+            width: 100%;
+        }
+    }
+
+    .Map {
+        @include margin(all xs);
+        @include rounded(all xs);
+        @include shadow(all xs);
+        aspect-ratio: 1;
+        overflow: hidden;
+
+        @include screen-width(2xs) {
+            aspect-ratio: 2 / 1;
+        }
+
+        @include screen-width(md) {
+            aspect-ratio: 3 / 1;
+        }
+    }
 }

@@ -2,9 +2,14 @@
 
 .CommerceDetail {
     @include gap(all md);
+    @include margin(y md);
 
     & > h1 {
         @include font-size(xl);
         @include font-weight(2xl);
+    }
+
+    & > section:last-of-type {
+        @include margin(bottom md);
     }
 }

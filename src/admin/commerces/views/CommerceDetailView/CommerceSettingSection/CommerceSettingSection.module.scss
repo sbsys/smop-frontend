@@ -1,0 +1,37 @@
+@import 'styles';
+
+.Setting {
+    @include flex;
+    @include gap(all md);
+    @include padding(x xs split);
+
+    .Title {
+        @include font-weight(lg);
+    }
+
+    .TypeOrder {
+        @include flex(row, center);
+        @include gap(all xs);
+
+        & > i {
+            @include font-size(lg);
+        }
+
+        .Active {
+            @include font-color(400, success);
+        }
+
+        .Inactive {
+            @include font-color(400, danger);
+        }
+    }
+
+    .TypeCharge {
+        @include flex;
+        @include gap(all xs);
+
+        &Disabled {
+            display: none;
+        }
+    }
+}

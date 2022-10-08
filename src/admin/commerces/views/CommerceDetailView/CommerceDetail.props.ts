@@ -9,6 +9,9 @@ export interface CommerceDetailContextProps {
     isUpdateReference: boolean;
     showUpdateReference: () => void;
     hideUpdateReference: () => void;
+    isUpdateSetting: boolean;
+    showUpdateSetting: () => void;
+    hideUpdateSetting: () => void;
     /* functions */
     getCommerceDetail: () => Promise<void>;
     /* props */

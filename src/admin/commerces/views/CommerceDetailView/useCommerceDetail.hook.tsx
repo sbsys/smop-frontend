@@ -22,6 +22,7 @@ export const useCommerceDetail = () => {
     const { notify } = useAdminNotify();
 
     const [isUpdateReference, showUpdateReference, hideUpdateReference] = useActive();
+    const [isUpdateSetting, showUpdateSetting, hideUpdateSetting] = useActive();
 
     /* functions */
     const getCommerceDetail = useCallback(async () => {
@@ -63,6 +64,9 @@ export const useCommerceDetail = () => {
         isUpdateReference,
         showUpdateReference,
         hideUpdateReference,
+        isUpdateSetting,
+        showUpdateSetting,
+        hideUpdateSetting,
         /* functions */
         getCommerceDetail,
         /* props */

@@ -8,6 +8,7 @@ import { Legend } from 'shared/components';
 import { CommerceReferenceSection } from '../CommerceReferenceSection';
 import { UpdateReferenceModal } from '../UpdateReferenceModal';
 import { CommerceSettingSection } from '../CommerceSettingSection';
+import { UpdateSettingModal } from '../UpdateSettingModal';
 import { CommerceAttentionSection } from '../CommerceAttentionSection';
 import { CommerceDeliverySection } from '../CommerceDeliverySection';
 /* styles */
@@ -26,6 +27,7 @@ const CommerceDetail = () => {
             <UpdateReferenceModal />
 
             <CommerceSettingSection />
+            <UpdateSettingModal />
 
             <CommerceAttentionSection />
 

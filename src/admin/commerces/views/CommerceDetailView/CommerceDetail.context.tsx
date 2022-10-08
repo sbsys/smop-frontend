@@ -9,6 +9,9 @@ const Context = createContext<CommerceDetailContextProps>({
     isUpdateReference: false,
     showUpdateReference: () => {},
     hideUpdateReference: () => {},
+    isUpdateSetting: false,
+    showUpdateSetting: () => {},
+    hideUpdateSetting: () => {},
     /* functions */
     getCommerceDetail: () => new Promise(resolve => resolve()),
     /* props */

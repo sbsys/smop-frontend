@@ -1,5 +1,9 @@
 @import 'styles';
 
+.Plain {
+    @include interactable;
+}
+
 .FillPrimary {
     @include bg-color(400, primary);
     @include border-color(all 400 primary);

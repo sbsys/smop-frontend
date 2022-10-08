@@ -24,6 +24,18 @@
         @include padding(x xs split);
     }
 
+    .Map {
+        @include margin(all xs);
+        @include rounded(all xs);
+        @include shadow(all xs);
+        aspect-ratio: 1;
+        overflow: hidden;
+
+        @include screen-width(4xs) {
+            aspect-ratio: 2 / 1;
+        }
+    }
+
     .Actions {
         @include gap(all md);
         display: grid;

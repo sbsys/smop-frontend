@@ -12,6 +12,7 @@ import { UpdateSettingModal } from '../UpdateSettingModal';
 import { CommerceAttentionSection } from '../CommerceAttentionSection';
 import { UpdateAttentionModal } from '../UpdateAttentionModal';
 import { CommerceDeliverySection } from '../CommerceDeliverySection';
+import { UpdateDeliveryModal } from '../UpdateDeliveryModal';
 /* styles */
 import styles from './CommerceDetail.module.scss';
 
@@ -34,6 +35,7 @@ const CommerceDetail = () => {
             <UpdateAttentionModal />
 
             <CommerceDeliverySection />
+            <UpdateDeliveryModal />
         </ScrollLayout>
     );
 };

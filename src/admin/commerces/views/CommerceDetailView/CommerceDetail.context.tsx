@@ -15,6 +15,9 @@ const Context = createContext<CommerceDetailContextProps>({
     isUpdateAttention: false,
     showUpdateAttention: () => {},
     hideUpdateAttention: () => {},
+    isUpdateDelivery: false,
+    showUpdateDelivery: () => {},
+    hideUpdateDelivery: () => {},
     /* functions */
     getCommerceDetail: () => new Promise(resolve => resolve()),
     /* props */

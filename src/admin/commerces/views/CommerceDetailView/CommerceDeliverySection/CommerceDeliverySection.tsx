@@ -17,6 +17,7 @@ const CommerceDeliverySection = () => {
     const {
         /* states */
         commerce,
+        showUpdateDelivery,
     } = useCommerceDetailContext();
 
     const { t } = useTranslation();
@@ -28,7 +29,10 @@ const CommerceDeliverySection = () => {
                     <Legend hasDots>{t('views.commercedetail.deliverysection.title')}</Legend>
                 </h2>
 
-                <Button className={ButtonStyles.OutlineNone} title={t('views.commercedetail.deliverysection.edit')}>
+                <Button
+                    className={ButtonStyles.OutlineNone}
+                    onClick={showUpdateDelivery}
+                    title={t('views.commercedetail.deliverysection.edit')}>
                     <i>
                         <MdEdit />
                     </i>

@@ -15,6 +15,9 @@ export interface CommerceDetailContextProps {
     isUpdateAttention: boolean;
     showUpdateAttention: () => void;
     hideUpdateAttention: () => void;
+    isUpdateDelivery: boolean;
+    showUpdateDelivery: () => void;
+    hideUpdateDelivery: () => void;
     /* functions */
     getCommerceDetail: () => Promise<void>;
     /* props */

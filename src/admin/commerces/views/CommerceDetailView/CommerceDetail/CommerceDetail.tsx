@@ -10,6 +10,7 @@ import { UpdateReferenceModal } from '../UpdateReferenceModal';
 import { CommerceSettingSection } from '../CommerceSettingSection';
 import { UpdateSettingModal } from '../UpdateSettingModal';
 import { CommerceAttentionSection } from '../CommerceAttentionSection';
+import { UpdateAttentionModal } from '../UpdateAttentionModal';
 import { CommerceDeliverySection } from '../CommerceDeliverySection';
 /* styles */
 import styles from './CommerceDetail.module.scss';
@@ -30,6 +31,7 @@ const CommerceDetail = () => {
             <UpdateSettingModal />
 
             <CommerceAttentionSection />
+            <UpdateAttentionModal />
 
             <CommerceDeliverySection />
         </ScrollLayout>

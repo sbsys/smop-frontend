@@ -23,6 +23,7 @@ export const useCommerceDetail = () => {
 
     const [isUpdateReference, showUpdateReference, hideUpdateReference] = useActive();
     const [isUpdateSetting, showUpdateSetting, hideUpdateSetting] = useActive();
+    const [isUpdateAttention, showUpdateAttention, hideUpdateAttention] = useActive();
 
     /* functions */
     const getCommerceDetail = useCallback(async () => {
@@ -67,6 +68,9 @@ export const useCommerceDetail = () => {
         isUpdateSetting,
         showUpdateSetting,
         hideUpdateSetting,
+        isUpdateAttention,
+        showUpdateAttention,
+        hideUpdateAttention,
         /* functions */
         getCommerceDetail,
         /* props */

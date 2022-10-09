@@ -21,6 +21,7 @@ const CommerceAttentionSection = () => {
     const {
         /* states */
         commerce,
+        showUpdateAttention,
     } = useCommerceDetailContext();
 
     const { t } = useTranslation();
@@ -32,7 +33,10 @@ const CommerceAttentionSection = () => {
                     <Legend hasDots>{t('views.commercedetail.attentionsection.title')}</Legend>
                 </h2>
 
-                <Button className={ButtonStyles.OutlineNone} title={t('views.commercedetail.attentionsection.edit')}>
+                <Button
+                    className={ButtonStyles.OutlineNone}
+                    onClick={showUpdateAttention}
+                    title={t('views.commercedetail.attentionsection.edit')}>
                     <i>
                         <MdEdit />
                     </i>

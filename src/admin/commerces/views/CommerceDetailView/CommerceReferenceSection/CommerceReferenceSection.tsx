@@ -4,8 +4,10 @@ import { useTranslation } from 'react-i18next';
 /* context */
 import { useCommerceDetailContext } from '../CommerceDetail.context';
 /* components */
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import { Circle, MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import { Button, Legend } from 'shared/components';
+/* utils */
+import { milesToMeters } from 'shared/utils';
 /* assets */
 import { MdEdit } from 'react-icons/md';
 /* styles */
@@ -19,6 +21,8 @@ const CommerceReferenceSection = () => {
         commerce,
         showUpdateReference,
     } = useCommerceDetailContext();
+
+    const meters = milesToMeters(Number.parseFloat(commerce?.deliveryArea ?? '0'));
 
     const { t } = useTranslation();
 
@@ -121,7 +125,7 @@ const CommerceReferenceSection = () => {
                 {commerce?.geolocation.latitude && commerce?.geolocation.longitude && (
                     <MapContainer
                         center={[commerce?.geolocation.latitude ?? 0, commerce?.geolocation.longitude ?? 0]}
-                        zoom={15}
+                        zoom={12}
                         scrollWheelZoom={false}
                         className={styles.Map}>
                         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
@@ -133,6 +137,13 @@ const CommerceReferenceSection = () => {
                                 </Legend>
                             </Popup>
                         </Marker>
+
+                        {meters && (
+                            <Circle
+                                center={[commerce?.geolocation.latitude ?? 0, commerce?.geolocation.longitude ?? 0]}
+                                radius={meters}
+                            />
+                        )}
                     </MapContainer>
                 )}
             </div>

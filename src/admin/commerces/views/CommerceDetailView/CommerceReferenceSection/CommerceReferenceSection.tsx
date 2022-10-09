@@ -22,7 +22,7 @@ const CommerceReferenceSection = () => {
         showUpdateReference,
     } = useCommerceDetailContext();
 
-    const meters = milesToMeters(Number.parseFloat(commerce?.deliveryArea ?? '0'));
+    const meters = milesToMeters(Number.parseFloat(commerce?.deliveryArea || '0'));
 
     const { t } = useTranslation();
 

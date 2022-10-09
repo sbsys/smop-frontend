@@ -203,7 +203,7 @@ export const useUpdateDelivery = () => {
         },
     };
 
-    const meters = milesToMeters(Number.parseFloat(watch('deliveryArea') ?? '0'));
+    const meters = milesToMeters(Number.parseFloat(watch('deliveryArea') || '0'));
 
     const updateDeliveryFormFields: FieldSetProps[] = [
         thirdPartyDeliveryField,

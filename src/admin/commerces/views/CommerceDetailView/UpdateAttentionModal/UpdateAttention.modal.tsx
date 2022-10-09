@@ -23,7 +23,14 @@ const UpdateAttentionModal = () => {
         hideUpdateAttention,
     } = useCommerceDetailContext();
 
-    const { handleUpdateAttention, handleResetUpdateAttentionForm, updateAttentionFormFields } = useUpdateAttention();
+    const {
+        handleUpdateAttention,
+        handleResetUpdateAttentionForm,
+        updateAttentionServiceHoursOnsiteFormFields,
+        updateAttentionOnsitePreparationTimeFormFields,
+        updateAttentionServiceHoursDeliveryFormFields,
+        updateAttentionDeliveryPreparationTimeFormFields,
+    } = useUpdateAttention();
 
     const { t } = useTranslation();
 
@@ -40,9 +47,49 @@ const UpdateAttentionModal = () => {
                     </div>
 
                     <div className={styles.Content}>
-                        {updateAttentionFormFields.map((field, index) => (
-                            <FieldSet {...field} key={index} />
-                        ))}
+                        <h3 title={t('views.commercedetail.updateattention.servicehours.onsite')}>
+                            <Legend hasDots>{t('views.commercedetail.updateattention.servicehours.onsite')}</Legend>
+                        </h3>
+
+                        <div className={styles.ServiceHours}>
+                            {updateAttentionServiceHoursOnsiteFormFields.map((field, index) => (
+                                <FieldSet {...field} key={index} />
+                            ))}
+                        </div>
+
+                        <h3 title={t('views.commercedetail.updateattention.servicehours.onsitepreparationtime')}>
+                            <Legend hasDots>
+                                {t('views.commercedetail.updateattention.servicehours.onsitepreparationtime')}
+                            </Legend>
+                        </h3>
+
+                        <div className={styles.PreparationTime}>
+                            {updateAttentionOnsitePreparationTimeFormFields.map((field, index) => (
+                                <FieldSet {...field} key={index} />
+                            ))}
+                        </div>
+
+                        <h3 title={t('views.commercedetail.updateattention.servicehours.delivery')}>
+                            <Legend hasDots>{t('views.commercedetail.updateattention.servicehours.delivery')}</Legend>
+                        </h3>
+
+                        <div className={styles.ServiceHours}>
+                            {updateAttentionServiceHoursDeliveryFormFields.map((field, index) => (
+                                <FieldSet {...field} key={index} />
+                            ))}
+                        </div>
+
+                        <h3 title={t('views.commercedetail.updateattention.servicehours.deliverypreparationtime')}>
+                            <Legend hasDots>
+                                {t('views.commercedetail.updateattention.servicehours.deliverypreparationtime')}
+                            </Legend>
+                        </h3>
+
+                        <div className={styles.PreparationTime}>
+                            {updateAttentionDeliveryPreparationTimeFormFields.map((field, index) => (
+                                <FieldSet {...field} key={index} />
+                            ))}
+                        </div>
                     </div>
 
                     <div className={styles.Actions}>

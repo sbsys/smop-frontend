@@ -22,6 +22,34 @@
         @include flex;
         @include gap(all md);
         @include padding(x xs split);
+
+        & > h3 {
+            @include font-weight(lg);
+        }
+    }
+
+    .ServiceHours {
+        @include gap(all xs);
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+
+        @include screen-width(2xs) {
+            grid-template-columns: repeat(2, 1fr);
+
+            & > fieldset:nth-child(3n + 1) {
+                grid-column: span 2;
+            }
+        }
+    }
+
+    .PreparationTime {
+        @include gap(all xs);
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+
+        @include screen-width(2xs) {
+            grid-template-columns: repeat(2, 1fr);
+        }
     }
 
     .Actions {

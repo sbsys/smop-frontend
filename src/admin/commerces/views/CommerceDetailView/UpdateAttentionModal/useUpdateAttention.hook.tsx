@@ -37,7 +37,6 @@ export const useUpdateAttention = () => {
         formState: { errors },
         setValue,
         watch,
-        setFocus,
     } = useForm<UpdateAttentionForm>();
 
     const { t } = useTranslation();
@@ -129,7 +128,7 @@ export const useUpdateAttention = () => {
                             ? FieldStyles.OutlineDanger
                             : FieldStyles.OutlinePrimary,
                     placeholder: t(
-                        `views.commercedetail.updateattention.form.servicehours.onside.${dayService?.key.toLowerCase()}.opening.placeholder`
+                        `views.commercedetail.updateattention.form.servicehours.onsite.${dayService?.key.toLowerCase()}.opening.placeholder`
                     ),
                     defaultValue: dayService?.opening,
                     ...register(`serviceHours.onsite.${index}.opening`),
@@ -142,14 +141,14 @@ export const useUpdateAttention = () => {
                             errors.serviceHours.onsite[index] &&
                             errors.serviceHours.onsite[index]?.opening
                             ? (errors.serviceHours.onsite[index]?.opening?.message as string)
-                            : `views.commercedetail.updateattention.form.servicehours.onside.${dayService?.key.toLowerCase()}.opening.hint`
+                            : `views.commercedetail.updateattention.form.servicehours.onsite.${dayService?.key.toLowerCase()}.opening.hint`
                     ),
                     children: t(
                         errors.serviceHours?.onsite &&
                             errors.serviceHours.onsite[index] &&
                             errors.serviceHours.onsite[index]?.opening
                             ? (errors.serviceHours.onsite[index]?.opening?.message as string)
-                            : `views.commercedetail.updateattention.form.servicehours.onside.${dayService?.key.toLowerCase()}.opening.hint`
+                            : `views.commercedetail.updateattention.form.servicehours.onsite.${dayService?.key.toLowerCase()}.opening.hint`
                     ),
                 },
             },
@@ -163,7 +162,7 @@ export const useUpdateAttention = () => {
                             ? FieldStyles.OutlineDanger
                             : FieldStyles.OutlinePrimary,
                     placeholder: t(
-                        `views.commercedetail.updateattention.form.servicehours.onside.${dayService?.key.toLowerCase()}.closing.placeholder`
+                        `views.commercedetail.updateattention.form.servicehours.onsite.${dayService?.key.toLowerCase()}.closing.placeholder`
                     ),
                     defaultValue: dayService?.closing,
                     ...register(`serviceHours.onsite.${index}.closing`),
@@ -176,28 +175,276 @@ export const useUpdateAttention = () => {
                             errors.serviceHours.onsite[index] &&
                             errors.serviceHours.onsite[index]?.closing
                             ? (errors.serviceHours.onsite[index]?.closing?.message as string)
-                            : `views.commercedetail.updateattention.form.servicehours.onside.${dayService?.key.toLowerCase()}.closing.hint`
+                            : `views.commercedetail.updateattention.form.servicehours.onsite.${dayService?.key.toLowerCase()}.closing.hint`
                     ),
                     children: t(
                         errors.serviceHours?.onsite &&
                             errors.serviceHours.onsite[index] &&
                             errors.serviceHours.onsite[index]?.closing
                             ? (errors.serviceHours.onsite[index]?.closing?.message as string)
-                            : `views.commercedetail.updateattention.form.servicehours.onside.${dayService?.key.toLowerCase()}.closing.hint`
+                            : `views.commercedetail.updateattention.form.servicehours.onsite.${dayService?.key.toLowerCase()}.closing.hint`
                     ),
                 },
             },
         ];
     };
-    const onsitePreparationTimeField = (index: number): FieldSetProps[] => {
-        return [];
+    const onsitePreparationTimeField = (): FieldSetProps[] => {
+        return [
+            {
+                field: {
+                    className: errors.onsitePreparationTime?.hours
+                        ? FieldStyles.OutlineDanger
+                        : FieldStyles.OutlinePrimary,
+                    strategy: 'decimal',
+                    min: 0,
+                    step: 1,
+                    placeholder: t('views.commercedetail.updateattention.form.onsitepreparationtime.hours.placeholder'),
+                    defaultValue: commerce?.onsitePreparationTime.hours,
+                    ...register('onsitePreparationTime.hours'),
+                },
+                isHintReserved: true,
+                hint: {
+                    hasDots: true,
+                    title: t(
+                        errors.onsitePreparationTime?.hours
+                            ? (errors.onsitePreparationTime?.hours.message as string)
+                            : 'views.commercedetail.updateattention.form.onsitepreparationtime.hours.hint'
+                    ),
+                    children: t(
+                        errors.onsitePreparationTime?.hours
+                            ? (errors.onsitePreparationTime?.hours.message as string)
+                            : 'views.commercedetail.updateattention.form.onsitepreparationtime.hours.hint'
+                    ),
+                },
+            },
+            {
+                field: {
+                    className: errors.onsitePreparationTime?.minutes
+                        ? FieldStyles.OutlineDanger
+                        : FieldStyles.OutlinePrimary,
+                    strategy: 'decimal',
+                    min: 0,
+                    max: 59,
+                    step: 1,
+                    placeholder: t(
+                        'views.commercedetail.updateattention.form.onsitepreparationtime.minutes.placeholder'
+                    ),
+                    defaultValue: commerce?.onsitePreparationTime.minutes,
+                    ...register('onsitePreparationTime.minutes'),
+                },
+                isHintReserved: true,
+                hint: {
+                    hasDots: true,
+                    title: t(
+                        errors.onsitePreparationTime?.minutes
+                            ? (errors.onsitePreparationTime?.minutes.message as string)
+                            : 'views.commercedetail.updateattention.form.onsitepreparationtime.minutes.hint'
+                    ),
+                    children: t(
+                        errors.onsitePreparationTime?.minutes
+                            ? (errors.onsitePreparationTime?.minutes.message as string)
+                            : 'views.commercedetail.updateattention.form.onsitepreparationtime.minutes.hint'
+                    ),
+                },
+            },
+        ];
+    };
+    /*  */
+    const serviceHoursDeliveryField = (index: number): FieldSetProps[] => {
+        const dayService = commerce?.serviceHours.delivery[index] as DayService;
+
+        setValue(`serviceHours.delivery.${index}.dayId`, dayService?.dayId);
+        setValue(`serviceHours.delivery.${index}.key`, dayService?.key);
+
+        return [
+            {
+                className: styles.Checkbox,
+                field: {
+                    className:
+                        errors.serviceHours?.delivery &&
+                        errors.serviceHours.delivery[index] &&
+                        errors.serviceHours.delivery[index]?.enabled
+                            ? FieldStyles.OutlineDanger
+                            : FieldStyles.OutlinePrimary,
+                    strategy: 'checkbox',
+                    defaultChecked: dayService?.enabled,
+                    ...register(`serviceHours.delivery.${index}.enabled`),
+                },
+                isHintReserved: true,
+                hint: {
+                    hasDots: true,
+                    title: t(
+                        errors.serviceHours?.delivery &&
+                            errors.serviceHours.delivery[index] &&
+                            errors.serviceHours.delivery[index]?.enabled
+                            ? (errors.serviceHours.delivery[index]?.enabled?.message as string)
+                            : `weekday.${dayService?.key.toLowerCase()}`
+                    ),
+                    children: t(
+                        errors.serviceHours?.delivery &&
+                            errors.serviceHours.delivery[index] &&
+                            errors.serviceHours.delivery[index]?.enabled
+                            ? (errors.serviceHours.delivery[index]?.enabled?.message as string)
+                            : `weekday.${dayService?.key.toLowerCase()}`
+                    ),
+                },
+            },
+            {
+                disabled: !watch(`serviceHours.delivery.${index}.enabled`),
+                field: {
+                    className:
+                        errors.serviceHours?.delivery &&
+                        errors.serviceHours.delivery[index] &&
+                        errors.serviceHours.delivery[index]?.opening
+                            ? FieldStyles.OutlineDanger
+                            : FieldStyles.OutlinePrimary,
+                    placeholder: t(
+                        `views.commercedetail.updateattention.form.servicehours.delivery.${dayService?.key.toLowerCase()}.opening.placeholder`
+                    ),
+                    defaultValue: dayService?.opening,
+                    ...register(`serviceHours.delivery.${index}.opening`),
+                },
+                isHintReserved: true,
+                hint: {
+                    hasDots: true,
+                    title: t(
+                        errors.serviceHours?.delivery &&
+                            errors.serviceHours.delivery[index] &&
+                            errors.serviceHours.delivery[index]?.opening
+                            ? (errors.serviceHours.delivery[index]?.opening?.message as string)
+                            : `views.commercedetail.updateattention.form.servicehours.delivery.${dayService?.key.toLowerCase()}.opening.hint`
+                    ),
+                    children: t(
+                        errors.serviceHours?.delivery &&
+                            errors.serviceHours.delivery[index] &&
+                            errors.serviceHours.delivery[index]?.opening
+                            ? (errors.serviceHours.delivery[index]?.opening?.message as string)
+                            : `views.commercedetail.updateattention.form.servicehours.delivery.${dayService?.key.toLowerCase()}.opening.hint`
+                    ),
+                },
+            },
+            {
+                disabled: !watch(`serviceHours.delivery.${index}.enabled`),
+                field: {
+                    className:
+                        errors.serviceHours?.delivery &&
+                        errors.serviceHours.delivery[index] &&
+                        errors.serviceHours.delivery[index]?.closing
+                            ? FieldStyles.OutlineDanger
+                            : FieldStyles.OutlinePrimary,
+                    placeholder: t(
+                        `views.commercedetail.updateattention.form.servicehours.delivery.${dayService?.key.toLowerCase()}.closing.placeholder`
+                    ),
+                    defaultValue: dayService?.closing,
+                    ...register(`serviceHours.delivery.${index}.closing`),
+                },
+                isHintReserved: true,
+                hint: {
+                    hasDots: true,
+                    title: t(
+                        errors.serviceHours?.delivery &&
+                            errors.serviceHours.delivery[index] &&
+                            errors.serviceHours.delivery[index]?.closing
+                            ? (errors.serviceHours.delivery[index]?.closing?.message as string)
+                            : `views.commercedetail.updateattention.form.servicehours.delivery.${dayService?.key.toLowerCase()}.closing.hint`
+                    ),
+                    children: t(
+                        errors.serviceHours?.delivery &&
+                            errors.serviceHours.delivery[index] &&
+                            errors.serviceHours.delivery[index]?.closing
+                            ? (errors.serviceHours.delivery[index]?.closing?.message as string)
+                            : `views.commercedetail.updateattention.form.servicehours.delivery.${dayService?.key.toLowerCase()}.closing.hint`
+                    ),
+                },
+            },
+        ];
+    };
+    const deliveryPreparationTimeField = (): FieldSetProps[] => {
+        return [
+            {
+                field: {
+                    className: errors.deliveryPreparationTime?.hours
+                        ? FieldStyles.OutlineDanger
+                        : FieldStyles.OutlinePrimary,
+                    strategy: 'decimal',
+                    min: 0,
+                    step: 1,
+                    placeholder: t(
+                        'views.commercedetail.updateattention.form.deliverypreparationtime.hours.placeholder'
+                    ),
+                    defaultValue: commerce?.deliveryPreparationTime.hours,
+                    ...register('deliveryPreparationTime.hours'),
+                },
+                isHintReserved: true,
+                hint: {
+                    hasDots: true,
+                    title: t(
+                        errors.deliveryPreparationTime?.hours
+                            ? (errors.deliveryPreparationTime?.hours.message as string)
+                            : 'views.commercedetail.updateattention.form.deliverypreparationtime.hours.hint'
+                    ),
+                    children: t(
+                        errors.deliveryPreparationTime?.hours
+                            ? (errors.deliveryPreparationTime?.hours.message as string)
+                            : 'views.commercedetail.updateattention.form.deliverypreparationtime.hours.hint'
+                    ),
+                },
+            },
+            {
+                field: {
+                    className: errors.deliveryPreparationTime?.minutes
+                        ? FieldStyles.OutlineDanger
+                        : FieldStyles.OutlinePrimary,
+                    strategy: 'decimal',
+                    min: 0,
+                    max: 59,
+                    step: 1,
+                    placeholder: t(
+                        'views.commercedetail.updateattention.form.deliverypreparationtime.minutes.placeholder'
+                    ),
+                    defaultValue: commerce?.deliveryPreparationTime.minutes,
+                    ...register('deliveryPreparationTime.minutes'),
+                },
+                isHintReserved: true,
+                hint: {
+                    hasDots: true,
+                    title: t(
+                        errors.deliveryPreparationTime?.minutes
+                            ? (errors.deliveryPreparationTime?.minutes.message as string)
+                            : 'views.commercedetail.updateattention.form.deliverypreparationtime.minutes.hint'
+                    ),
+                    children: t(
+                        errors.deliveryPreparationTime?.minutes
+                            ? (errors.deliveryPreparationTime?.minutes.message as string)
+                            : 'views.commercedetail.updateattention.form.deliverypreparationtime.minutes.hint'
+                    ),
+                },
+            },
+        ];
     };
 
-    const updateAttentionFormFields: FieldSetProps[] = [
+    const updateAttentionServiceHoursOnsiteFormFields: FieldSetProps[] = [
         ...[...Array(commerce?.serviceHours.onsite.length)]
             .map((_, index) => serviceHoursOnsiteField(index))
             .reduce((prev, current) => [...prev, ...current]),
     ];
 
-    return { handleUpdateAttention, handleResetUpdateAttentionForm, updateAttentionFormFields };
+    const updateAttentionOnsitePreparationTimeFormFields: FieldSetProps[] = [...onsitePreparationTimeField()];
+
+    const updateAttentionServiceHoursDeliveryFormFields: FieldSetProps[] = [
+        ...[...Array(commerce?.serviceHours.delivery.length)]
+            .map((_, index) => serviceHoursDeliveryField(index))
+            .reduce((prev, current) => [...prev, ...current]),
+    ];
+
+    const updateAttentionDeliveryPreparationTimeFormFields: FieldSetProps[] = [...deliveryPreparationTimeField()];
+
+    return {
+        handleUpdateAttention,
+        handleResetUpdateAttentionForm,
+        updateAttentionServiceHoursOnsiteFormFields,
+        updateAttentionOnsitePreparationTimeFormFields,
+        updateAttentionServiceHoursDeliveryFormFields,
+        updateAttentionDeliveryPreparationTimeFormFields,
+    };
 };

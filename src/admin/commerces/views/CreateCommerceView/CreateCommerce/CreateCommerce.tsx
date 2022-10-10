@@ -57,9 +57,9 @@ const CreateCommerce = () => {
                     <Button
                         type="submit"
                         className={ButtonStyles.FillSecondary}
-                        title={t('views.createcommerce.actions.update')}>
+                        title={t('views.createcommerce.actions.save')}>
                         <Legend hasDots justify="center">
-                            {t('views.createcommerce.actions.update')}
+                            {t('views.createcommerce.actions.save')}
                         </Legend>
                     </Button>
                 </div>

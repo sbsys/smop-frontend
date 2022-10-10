@@ -4,6 +4,7 @@ import { BaseSyntheticEvent } from 'react';
 import { ChildrenProps } from 'shared/props';
 /* types */
 import {
+    CountryListItemDTO,
     Geoinformation,
     Geolocation,
     PreparationTime,
@@ -15,6 +16,7 @@ import {
 
 export interface CreateCommerceContextProps {
     /* states */
+    countryList: CountryListItemDTO[];
     /* functions */
     handleCreateCommerceSubmit: (e?: BaseSyntheticEvent) => Promise<void>;
     handleCancelCreateCommerce: () => void;
@@ -47,7 +49,7 @@ export interface CreateCommerceForm {
     /* delivery */
     thirdPartyDelivery: boolean;
     externalDeliveryUrl: string;
-    minAmountDelivery: string;
-    deliveryArea: string;
+    minAmountDelivery: number;
+    deliveryArea: number;
     deliveringZone: boolean;
 }

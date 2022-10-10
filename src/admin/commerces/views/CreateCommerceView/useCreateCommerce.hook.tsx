@@ -6,11 +6,18 @@ import { useLoader } from 'shared/hooks';
 import { useAdminNotify } from 'admin/core';
 /* props */
 import { CreateCommerceContextProps, CreateCommerceForm } from './CreateCommerce.props';
+/* services */
+import { countryListService, createCommerceService } from 'admin/commerces/services';
+/* types */
+import { CountryListItemDTO } from 'admin/commerces/types';
 /* assets */
 import { MdCheckCircle, MdError } from 'react-icons/md';
+import { useCallback, useEffect, useState } from 'react';
 
 export const useCreateCommerce = () => {
     /* states */
+    const [countryList, setCountryList] = useState<CountryListItemDTO[]>([]);
+
     const formMethods = useForm<CreateCommerceForm>();
 
     const navigate = useNavigate();
@@ -22,9 +29,8 @@ export const useCreateCommerce = () => {
     /* functions */
     const handleCreateCommerceSubmit = formMethods.handleSubmit(async data => {
         showLoader();
-        console.log(data);
 
-        const service = await { error: true, message: 'Create commerce', data: {} };
+        const service = await createCommerceService(data);
 
         hideLoader();
 
@@ -42,14 +48,40 @@ export const useCreateCommerce = () => {
             timestamp: new Date(),
             text: service.message,
         });
+
+        navigate(-1);
     });
 
     const handleCancelCreateCommerce = () => navigate(-1);
+
+    const getCountryList = useCallback(async () => {
+        showLoader();
+
+        const service = await countryListService({});
+
+        hideLoader();
+
+        if (service.error)
+            return notify('danger', {
+                title: 'Error',
+                icon: <MdError />,
+                timestamp: new Date(),
+                text: service.message,
+            });
+
+        setCountryList(service.data);
+    }, [hideLoader, notify, showLoader]);
+
     /* reactivity */
+    useEffect(() => {
+        getCountryList();
+    }, [getCountryList]);
+
     /* props */
     /* context */
     const context: CreateCommerceContextProps = {
         /* states */
+        countryList,
         /* functions */
         handleCreateCommerceSubmit,
         handleCancelCreateCommerce,

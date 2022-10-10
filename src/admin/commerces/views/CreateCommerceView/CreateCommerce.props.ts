@@ -3,7 +3,7 @@ import { BaseSyntheticEvent } from 'react';
 /* props */
 import { ChildrenProps } from 'shared/props';
 /* types */
-import { Geoinformation, Geolocation, ServicePhone } from 'admin/commerces/types';
+import { Geoinformation, Geolocation, ServicePhone, TypeCharge, TypeOrder } from 'admin/commerces/types';
 
 export interface CreateCommerceContextProps {
     /* states */
@@ -26,4 +26,10 @@ export interface CreateCommerceForm {
     geoinformation: Geoinformation;
     servicePhones: ServicePhone[];
     geolocation: Omit<Geolocation, 'error'>;
+    /* setting */
+    orderOnline: boolean;
+    typeOrder: TypeOrder[];
+    typeCharge: TypeCharge[];
+    applyCharge: number;
+    smsAlerts: boolean;
 }

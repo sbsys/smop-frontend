@@ -1,0 +1,25 @@
+@import 'styles';
+
+.Setting {
+    @include flex;
+    @include gap(all sm);
+    overflow: hidden;
+
+    .Content {
+        @include flex;
+        @include gap(all xs);
+    }
+
+    & > h2 {
+        @include font-weight(xl);
+    }
+}
+
+.Checkbox {
+    flex-direction: row;
+}
+
+.CheckboxInverse {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}

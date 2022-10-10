@@ -3,11 +3,11 @@
 .CreateCommerce {
     @include gap(all md);
     @include margin(y md);
+    @include padding(x xs);
 
     & > h1 {
         @include font-size(xl);
         @include font-weight(2xl);
-        overflow: hidden;
     }
 
     .Form {
@@ -26,7 +26,7 @@
             grid-template-columns: repeat(2, 1fr);
         }
 
-        @include screen-width(4xl) {
+        @include screen-width(5xl) {
             grid-template-columns: repeat(4, 1fr);
         }
     }

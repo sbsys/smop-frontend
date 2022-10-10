@@ -55,6 +55,25 @@ export interface TypeOrder {
     enabled: boolean;
 }
 
+export const TypeOrderValue: TypeOrder[] = [
+    {
+        type: 'pickup',
+        enabled: false,
+    },
+    {
+        type: 'curbside',
+        enabled: false,
+    },
+    {
+        type: 'delivery',
+        enabled: false,
+    },
+    {
+        type: 'dine-in',
+        enabled: false,
+    },
+];
+
 export type TypeChargeKey = 'percentage' | 'amount';
 
 export type TypeChargeSymbol = '%' | '$';
@@ -70,6 +89,21 @@ export interface TypeCharge {
     symbol: TypeChargeSymbol;
     enabled: boolean;
 }
+
+export const TypeChargeValue: TypeCharge[] = [
+    {
+        type: 'percentage',
+        value: 0,
+        symbol: '%',
+        enabled: true,
+    },
+    {
+        type: 'amount',
+        value: 0,
+        symbol: '$',
+        enabled: false,
+    },
+];
 
 export interface Geolocation {
     latitude: number;

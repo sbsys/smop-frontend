@@ -8,6 +8,7 @@ import { ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
 import { CreateCommerceReference } from '../CreateCommerceReference';
+import { CreateCommerceSetting } from '../CreateCommerceSetting';
 /* styles */
 import styles from './CreateCommerce.module.scss';
 import { ButtonStyles } from 'shared/styles';
@@ -29,7 +30,9 @@ const CreateCommerce = () => {
 
             <form onSubmit={handleCreateCommerceSubmit} className={styles.Form}>
                 <div className={styles.Content}>
-                    <CreateCommerceReference /> CreateCommerceSetting CreateCommerceAttention CreateCommerceDelivery
+                    <CreateCommerceReference />
+                    <CreateCommerceSetting />
+                    CreateCommerceAttention CreateCommerceDelivery
                 </div>
 
                 <div className={styles.Actions}>

@@ -38,6 +38,58 @@ export interface DayService {
     opening: string;
 }
 
+export const DayServiceValue: DayService[] = [
+    {
+        key: 'Sunday',
+        dayId: 1,
+        opening: '00:00',
+        closing: '00:00',
+        enabled: false,
+    },
+    {
+        key: 'Monday',
+        dayId: 2,
+        opening: '00:00',
+        closing: '00:00',
+        enabled: false,
+    },
+    {
+        key: 'Tuesday',
+        dayId: 3,
+        opening: '00:00',
+        closing: '00:00',
+        enabled: false,
+    },
+    {
+        key: 'Wenesday',
+        dayId: 4,
+        opening: '00:00',
+        closing: '00:00',
+        enabled: false,
+    },
+    {
+        key: 'Thursday',
+        dayId: 5,
+        opening: '00:00',
+        closing: '00:00',
+        enabled: false,
+    },
+    {
+        key: 'Friday',
+        dayId: 6,
+        opening: '00:00',
+        closing: '00:00',
+        enabled: false,
+    },
+    {
+        key: 'Saturday',
+        dayId: 7,
+        opening: '00:00',
+        closing: '00:00',
+        enabled: false,
+    },
+];
+
 export interface ServiceHours {
     onsite: DayService[];
     delivery: DayService[];

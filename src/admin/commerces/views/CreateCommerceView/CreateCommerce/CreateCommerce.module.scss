@@ -40,11 +40,13 @@
         overflow: hidden;
 
         @include screen-width(lg) {
-            grid-column: span 2;
+            grid-column-end: 4;
+            grid-column-start: 2;
         }
 
         @include screen-width(4xl) {
-            grid-column: span 1;
+            grid-column-end: 5;
+            grid-column-start: 3;
         }
 
         & > button {

@@ -3,7 +3,15 @@ import { BaseSyntheticEvent } from 'react';
 /* props */
 import { ChildrenProps } from 'shared/props';
 /* types */
-import { Geoinformation, Geolocation, ServicePhone, TypeCharge, TypeOrder } from 'admin/commerces/types';
+import {
+    Geoinformation,
+    Geolocation,
+    PreparationTime,
+    ServiceHours,
+    ServicePhone,
+    TypeCharge,
+    TypeOrder,
+} from 'admin/commerces/types';
 
 export interface CreateCommerceContextProps {
     /* states */
@@ -32,4 +40,8 @@ export interface CreateCommerceForm {
     typeCharge: TypeCharge[];
     applyCharge: number;
     smsAlerts: boolean;
+    /* attention */
+    serviceHours: ServiceHours;
+    onsitePreparationTime: PreparationTime;
+    deliveryPreparationTime: PreparationTime;
 }

@@ -9,6 +9,7 @@ import { ScrollLayout } from 'shared/layouts';
 import { Button, Legend } from 'shared/components';
 import { CreateCommerceReference } from '../CreateCommerceReference';
 import { CreateCommerceSetting } from '../CreateCommerceSetting';
+import { CreateCommerceAttention } from '../CreateCommerceAttention';
 /* styles */
 import styles from './CreateCommerce.module.scss';
 import { ButtonStyles } from 'shared/styles';
@@ -32,7 +33,7 @@ const CreateCommerce = () => {
                 <div className={styles.Content}>
                     <CreateCommerceReference />
                     <CreateCommerceSetting />
-                    CreateCommerceAttention CreateCommerceDelivery
+                    <CreateCommerceAttention /> CreateCommerceDelivery
                 </div>
 
                 <div className={styles.Actions}>

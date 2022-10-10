@@ -13,13 +13,13 @@
     .Form {
         @include gap(all md);
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(3, 1fr);
     }
 
     .Content {
         @include gap(all md);
         display: grid;
-        grid-column: span 4;
+        grid-column: span 3;
         grid-template-columns: repeat(1, 1fr);
 
         @include screen-width(lg) {
@@ -27,15 +27,21 @@
         }
 
         @include screen-width(5xl) {
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
         }
+    }
+
+    .Join {
+        @include flex;
+        @include gap(all md);
+        overflow: hidden;
     }
 
     .Actions {
         @include gap(all xs);
         @include padding(all xs);
         display: grid;
-        grid-column: span 4;
+        grid-column: span 3;
         grid-template-columns: repeat(2, 1fr);
         overflow: hidden;
 
@@ -44,9 +50,9 @@
             grid-column-start: 2;
         }
 
-        @include screen-width(4xl) {
-            grid-column-end: 5;
-            grid-column-start: 3;
+        @include screen-width(5xl) {
+            grid-column-end: 3;
+            grid-column-start: 2;
         }
 
         & > button {

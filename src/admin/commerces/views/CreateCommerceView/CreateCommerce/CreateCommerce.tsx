@@ -34,11 +34,13 @@ const CreateCommerce = () => {
                 <div className={styles.Content}>
                     <CreateCommerceReference />
 
-                    <CreateCommerceSetting />
+                    <div className={styles.Join}>
+                        <CreateCommerceSetting />
+
+                        <CreateCommerceDelivery />
+                    </div>
 
                     <CreateCommerceAttention />
-
-                    <CreateCommerceDelivery />
                 </div>
 
                 <div className={styles.Actions}>

@@ -1,6 +1,6 @@
 /* react */
 import { FC, memo, useEffect, useMemo, useRef, useState } from 'react';
-import { Marker } from 'react-leaflet';
+import { Marker, useMapEvents } from 'react-leaflet';
 /* props */
 import { ChildrenProps } from 'shared/props';
 /* types */
@@ -18,6 +18,8 @@ const DraggableMarker: FC<
 
     const markerRef = useRef<MarkerProps | null>(null);
 
+    const map = useMapEvents({});
+
     const eventHandlers = useMemo(
         () => ({
             dragend() {
@@ -34,6 +36,12 @@ const DraggableMarker: FC<
     useEffect(() => {
         getPosition(position.lat, position.lng);
     }, [getPosition, position.lat, position.lng]);
+
+    useEffect(() => {
+        setPosition({ lat, lng });
+
+        map.flyTo({ lat, lng }, map.getZoom());
+    }, [lat, lng, map]);
 
     return (
         <Marker draggable={true} eventHandlers={eventHandlers} position={position} ref={markerRef}>

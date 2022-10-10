@@ -1,0 +1,54 @@
+@import 'styles';
+
+.CreateCommerce {
+    @include gap(all md);
+    @include margin(y md);
+
+    & > h1 {
+        @include font-size(xl);
+        @include font-weight(2xl);
+        overflow: hidden;
+    }
+
+    .Form {
+        @include gap(all md);
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .Content {
+        @include gap(all md);
+        display: grid;
+        grid-column: span 4;
+        grid-template-columns: repeat(1, 1fr);
+
+        @include screen-width(lg) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include screen-width(4xl) {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    .Actions {
+        @include gap(all xs);
+        @include padding(all xs);
+        display: grid;
+        grid-column: span 4;
+        grid-template-columns: repeat(2, 1fr);
+        overflow: hidden;
+
+        @include screen-width(lg) {
+            grid-column: span 2;
+        }
+
+        @include screen-width(4xl) {
+            grid-column: span 1;
+        }
+
+        & > button {
+            overflow: hidden;
+        }
+    }
+}

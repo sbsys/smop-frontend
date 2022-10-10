@@ -44,4 +44,10 @@ export interface CreateCommerceForm {
     serviceHours: ServiceHours;
     onsitePreparationTime: PreparationTime;
     deliveryPreparationTime: PreparationTime;
+    /* delivery */
+    thirdPartyDelivery: boolean;
+    externalDeliveryUrl: string;
+    minAmountDelivery: string;
+    deliveryArea: string;
+    deliveringZone: boolean;
 }

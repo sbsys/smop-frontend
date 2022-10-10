@@ -10,6 +10,7 @@ import { Button, Legend } from 'shared/components';
 import { CreateCommerceReference } from '../CreateCommerceReference';
 import { CreateCommerceSetting } from '../CreateCommerceSetting';
 import { CreateCommerceAttention } from '../CreateCommerceAttention';
+import { CreateCommerceDelivery } from '../CreateCommerceDelivery';
 /* styles */
 import styles from './CreateCommerce.module.scss';
 import { ButtonStyles } from 'shared/styles';
@@ -32,8 +33,12 @@ const CreateCommerce = () => {
             <form onSubmit={handleCreateCommerceSubmit} className={styles.Form}>
                 <div className={styles.Content}>
                     <CreateCommerceReference />
+
                     <CreateCommerceSetting />
-                    <CreateCommerceAttention /> CreateCommerceDelivery
+
+                    <CreateCommerceAttention />
+
+                    <CreateCommerceDelivery />
                 </div>
 
                 <div className={styles.Actions}>

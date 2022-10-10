@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 /* props */
 import { CreateCommerceForm } from '../CreateCommerce.props';
 import { FieldSetProps } from 'admin/core';
+/* utils */
+import { milesToMeters } from 'shared/utils';
 /* assets */
 import { MdAddCircle, MdRemoveCircle } from 'react-icons/md';
 /* styles */
@@ -31,6 +33,8 @@ export const useCreateCommerceReference = () => {
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [watch('geolocation.latitude'), watch('geolocation.longitude')]);
+
+    const meters = milesToMeters(Number.parseFloat(watch('deliveryArea') || '0'));
 
     const { t } = useTranslation();
 
@@ -306,5 +310,5 @@ export const useCreateCommerceReference = () => {
         gtmOffsetField,
     ];
 
-    return { geolocation, handleSetGeolocation, createCommerceReferenceFields };
+    return { geolocation, meters, handleSetGeolocation, createCommerceReferenceFields };
 };

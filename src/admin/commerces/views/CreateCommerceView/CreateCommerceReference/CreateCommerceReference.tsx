@@ -1,7 +1,7 @@
 /* react */
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MapContainer, TileLayer } from 'react-leaflet';
+import { Circle, MapContainer, TileLayer } from 'react-leaflet';
 /* custom hook */
 import { useCreateCommerceReference } from './useCreateCommerceReference.hook';
 /* components */
@@ -11,7 +11,7 @@ import { FieldSet } from 'admin/core';
 import styles from './CreateCommerceReference.module.scss';
 
 const CreateCommerceReference = () => {
-    const { geolocation, handleSetGeolocation, createCommerceReferenceFields } = useCreateCommerceReference();
+    const { geolocation, meters, handleSetGeolocation, createCommerceReferenceFields } = useCreateCommerceReference();
 
     const { t } = useTranslation();
 
@@ -29,12 +29,14 @@ const CreateCommerceReference = () => {
 
             <MapContainer
                 center={[geolocation.lat, geolocation.lng]}
-                zoom={15}
+                zoom={11}
                 scrollWheelZoom={false}
                 className={styles.Map}>
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
                 <DraggableMarker lat={geolocation.lat} lng={geolocation.lng} getPosition={handleSetGeolocation} />
+
+                {meters && <Circle center={[geolocation.lat, geolocation.lng]} radius={meters} />}
             </MapContainer>
         </div>
     );

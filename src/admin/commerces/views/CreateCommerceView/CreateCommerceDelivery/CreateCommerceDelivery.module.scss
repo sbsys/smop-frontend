@@ -1,6 +1,6 @@
 @import 'styles';
 
-.Reference {
+.Delivery {
     @include flex;
     @include gap(all sm);
     overflow: hidden;
@@ -8,17 +8,22 @@
     .Content {
         @include flex;
         @include gap(all xs);
-    }
 
-    .Map {
-        @include margin(all xs);
-        @include rounded(all xs);
-        @include shadow(all xs);
-        aspect-ratio: 1;
-        overflow: hidden;
+        & > h3 {
+            @include font-weight(lg);
+        }
     }
 
     & > h2 {
         @include font-weight(xl);
     }
+}
+
+.Checkbox {
+    flex-direction: row;
+}
+
+.CheckboxInverse {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
 }

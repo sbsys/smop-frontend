@@ -11,7 +11,7 @@ import { useActive, useMinWidth } from 'shared/hooks';
 /* utils */
 import { matchBreakPoint } from 'shared/utils';
 /* assets */
-import { MdDashboard, MdDashboardCustomize, MdStore } from 'react-icons/md';
+import { MdDashboard, MdDashboardCustomize, MdStore, MdSupervisedUserCircle } from 'react-icons/md';
 import { IoMdCog } from 'react-icons/io';
 
 export const useDashboardLayout = () => {
@@ -80,6 +80,11 @@ export const useDashboardLayout = () => {
                     icon: <MdStore />,
                     text: t('dashboard.navigation.admin.items.commerces'),
                     to: 'commerces',
+                },
+                {
+                    icon: <MdSupervisedUserCircle />,
+                    text: t('dashboard.navigation.admin.items.users'),
+                    to: 'users',
                 },
             ],
         },

@@ -8,13 +8,15 @@ import { useLoader } from 'shared/hooks';
 import { FieldSetProps, useAdminNotify } from 'admin/core';
 /* types */
 import { DayService, PreparationTime, ServiceHours } from 'admin/commerces/types';
+/* services */
+import { updateAttentionService } from 'admin/commerces/services';
 /* assets */
 import { MdCheckCircle, MdError } from 'react-icons/md';
 /* styles */
 import { FieldStyles } from 'shared/styles';
 import styles from './UpdateAttention.module.scss';
 
-interface UpdateAttentionForm {
+export interface UpdateAttentionForm {
     serviceHours: ServiceHours;
     onsitePreparationTime: PreparationTime;
     deliveryPreparationTime: PreparationTime;
@@ -48,9 +50,8 @@ export const useUpdateAttention = () => {
     /* functions */
     const handleUpdateAttention = handleSubmit(async data => {
         showLoader();
-        console.log(data);
 
-        const service = await { error: true, message: 'Update attention', data: {} };
+        const service = await updateAttentionService(commerce?.commerceId ?? '', data);
 
         hideLoader();
 

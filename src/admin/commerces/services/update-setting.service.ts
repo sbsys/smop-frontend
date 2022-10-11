@@ -11,19 +11,17 @@ import {
 import { apiRequestHandler } from 'shared/handlers';
 /* utils */
 import { getCurrentUserToken, repeatRequestOnRefreshTokenService } from 'admin/auth';
-import { UpdateReferenceForm } from '../views/CommerceDetailView/UpdateReferenceModal';
+import { UpdateSettingForm } from '../views/CommerceDetailView/UpdateSettingModal';
 
-interface UpdateReferenceProps extends UpdateReferenceForm {}
+interface UpdateSettingProps extends UpdateSettingForm {}
 
-export const updateReferenceService = async (
-    commerceId: string,
-    props: UpdateReferenceProps
-): Promise<ApiResponse<{}>> => {
-    if (!props.optionalAddress) props.optionalAddress = '-';
+export const updateSettingService = async (commerceId: string, props: UpdateSettingProps): Promise<ApiResponse<{}>> => {
+    props.typeCharge[0].value = Number.parseInt(`${props.typeCharge[0].value}` || '0');
+    props.typeCharge[1].value = Number.parseInt(`${props.typeCharge[1].value}` || '0');
 
     return await apiRequestHandler<ApiResponse<{}>>({
         instance: AdminApiService,
-        endpoint: `/commerce/${commerceId}/references`,
+        endpoint: `/commerce/${commerceId}/global-settings`,
         token: getCurrentUserToken(),
         method: 'PUT',
         body: props,
@@ -34,7 +32,7 @@ export const updateReferenceService = async (
                 is403ErrorResponse,
                 async () =>
                     (await repeatRequestOnRefreshTokenService(() =>
-                        updateReferenceService(commerceId, props)
+                        updateSettingService(commerceId, props)
                     )) as ApiResponse<{}>,
                 error => apiErrorSerializer<{}>(error)
             ),

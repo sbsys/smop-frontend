@@ -1,4 +1,5 @@
 /* react */
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 /* context */
@@ -8,13 +9,15 @@ import { useLoader } from 'shared/hooks';
 import { FieldSetProps, useAdminNotify } from 'admin/core';
 /* types */
 import { TypeCharge, TypeOrder } from 'admin/commerces/types';
+/* services */
+import { updateSettingService } from 'admin/commerces/services';
 /* assets */
 import { MdCheckCircle, MdError } from 'react-icons/md';
+/* styles */
 import { FieldStyles } from 'shared/styles';
 import styles from './UpdateSetting.module.scss';
-import { useEffect } from 'react';
 
-interface UpdateSettingForm {
+export interface UpdateSettingForm {
     orderOnline: boolean;
     typeOrder: TypeOrder[];
     typeCharge: TypeCharge[];
@@ -51,9 +54,8 @@ export const useUpdateSetting = () => {
     /* functions */
     const handleUpdateSetting = handleSubmit(async data => {
         showLoader();
-        console.log(data);
 
-        const service = await { error: true, message: 'Update setting', data: {} };
+        const service = await updateSettingService(commerce?.commerceId ?? '', data);
 
         hideLoader();
 

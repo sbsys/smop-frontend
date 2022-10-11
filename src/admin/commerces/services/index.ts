@@ -5,3 +5,4 @@ export * from './create-commerce.service';
 export * from './country-list.service';
 export * from './department-list.service';
 export * from './update-reference.service';
+export * from './update-setting.service';

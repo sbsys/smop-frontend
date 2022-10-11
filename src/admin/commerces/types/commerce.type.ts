@@ -167,7 +167,7 @@ export interface Geolocation {
 }
 
 export interface CommerceDetailDTO {
-    commerceId: number;
+    commerceId: string;
     referenceName: string;
     address: string;
     optionalAddress: string;

@@ -1,5 +1,5 @@
 /* react */
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 /* context */
@@ -10,13 +10,15 @@ import { Button } from 'shared/components';
 import { useLoader } from 'shared/hooks';
 import { FieldSetProps, useAdminNotify } from 'admin/core';
 /* types */
-import { Geoinformation, Geolocation, ServicePhone } from 'admin/commerces/types';
+import { CountryListItemDTO, DepartmentDTO, Geoinformation, Geolocation, ServicePhone } from 'admin/commerces/types';
+/* services */
+import { countryListService, departmentListService, updateReferenceService } from 'admin/commerces/services';
 /* assets */
 import { MdAddCircle, MdCheckCircle, MdError, MdRemoveCircle } from 'react-icons/md';
 /* styles */
 import { ButtonStyles, FieldStyles } from 'shared/styles';
 
-interface UpdateReferenceForm {
+export interface UpdateReferenceForm {
     referenceName: string;
     address: string;
     optionalAddress: string;
@@ -50,7 +52,20 @@ export const useUpdateReference = () => {
         register,
         formState: { errors },
         setValue,
+        watch,
     } = useForm<UpdateReferenceForm>();
+
+    const [countryList, setCountryList] = useState<CountryListItemDTO[]>([]);
+
+    const [departmentList, setDepartmentList] = useState<DepartmentDTO>({
+        states: [],
+        timezones: [],
+    });
+
+    const cities = useMemo(() => {
+        return departmentList.states.find(current => current.name === watch('geoinformation.state'))?.cities ?? [];
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [departmentList.states, watch('geoinformation.state')]);
 
     const { t } = useTranslation();
 
@@ -61,9 +76,8 @@ export const useUpdateReference = () => {
     /* functions */
     const handleUpdateReference = handleSubmit(async data => {
         showLoader();
-        console.log(data);
 
-        const service = await { error: true, message: 'Update reference', data: {} };
+        const service = await updateReferenceService(commerce?.commerceId ?? '', data);
 
         hideLoader();
 
@@ -102,10 +116,69 @@ export const useUpdateReference = () => {
         [setValue]
     );
 
+    const getCountryList = useCallback(async () => {
+        showLoader();
+
+        const service = await countryListService({});
+
+        hideLoader();
+
+        if (service.error)
+            return notify('danger', {
+                title: 'Error',
+                icon: <MdError />,
+                timestamp: new Date(),
+                text: service.message,
+            });
+
+        setCountryList(service.data);
+    }, [hideLoader, notify, showLoader]);
+
+    const getDepartmentList = useCallback(async () => {
+        if (!watch('geoinformation.country')) return;
+
+        showLoader();
+
+        const cca3 = countryList.find(current => current.name === watch('geoinformation.country'))?.cca3 ?? '';
+
+        const service = await departmentListService({ cca3 });
+
+        hideLoader();
+
+        if (service.error)
+            return notify('danger', {
+                title: 'Error',
+                icon: <MdError />,
+                timestamp: new Date(),
+                text: service.message,
+            });
+
+        setDepartmentList(service.data);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [hideLoader, notify, showLoader, watch('geoinformation.country')]);
+
     /* reactivity */
     useEffect(() => {
         handleSetPhonesCount();
     }, [handleSetPhonesCount]);
+
+    useEffect(() => {
+        getCountryList();
+    }, [getCountryList]);
+
+    useEffect(() => {
+        getDepartmentList();
+    }, [getDepartmentList]);
+
+    useEffect(() => {
+        if (watch('geoinformation.timezone'))
+            setValue(
+                'geoinformation.gtmOffset',
+                departmentList.timezones.find(current => current.zoneName === watch('geoinformation.timezone'))
+                    ?.gmtOffsetName ?? ''
+            );
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [watch('geoinformation.timezone')]);
 
     /* props */
     const referenceNameField: FieldSetProps = {
@@ -186,6 +259,10 @@ export const useUpdateReference = () => {
             className: errors.geoinformation?.country ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             placeholder: t('views.commercedetail.updatereference.form.country.placeholder'),
             strategy: 'select',
+            options: countryList.map(item => ({
+                label: item.name,
+                value: item.name,
+            })),
             defaultValue: commerce?.geoinformation.country,
             ...register('geoinformation.country'),
         },
@@ -204,34 +281,15 @@ export const useUpdateReference = () => {
             ),
         },
     };
-    const cityField: FieldSetProps = {
-        field: {
-            className: errors.geoinformation?.city ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
-            placeholder: t('views.commercedetail.updatereference.form.city.placeholder'),
-            strategy: 'select',
-            defaultValue: commerce?.geoinformation.city,
-            ...register('geoinformation.city'),
-        },
-        isHintReserved: true,
-        hint: {
-            hasDots: true,
-            title: t(
-                errors.geoinformation?.city
-                    ? (errors.geoinformation?.city.message as string)
-                    : 'views.commercedetail.updatereference.form.city.hint'
-            ),
-            children: t(
-                errors.geoinformation?.city
-                    ? (errors.geoinformation?.city.message as string)
-                    : 'views.commercedetail.updatereference.form.city.hint'
-            ),
-        },
-    };
     const stateField: FieldSetProps = {
         field: {
             className: errors.geoinformation?.state ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             placeholder: t('views.commercedetail.updatereference.form.state.placeholder'),
             strategy: 'select',
+            options: departmentList.states.map(item => ({
+                label: item.name,
+                value: item.name,
+            })),
             defaultValue: commerce?.geoinformation.state,
             ...register('geoinformation.state'),
         },
@@ -247,6 +305,33 @@ export const useUpdateReference = () => {
                 errors.geoinformation?.state
                     ? (errors.geoinformation?.state.message as string)
                     : 'views.commercedetail.updatereference.form.state.hint'
+            ),
+        },
+    };
+    const cityField: FieldSetProps = {
+        field: {
+            className: errors.geoinformation?.city ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
+            placeholder: t('views.commercedetail.updatereference.form.city.placeholder'),
+            strategy: 'select',
+            options: cities.map(item => ({
+                label: item.name,
+                value: item.name,
+            })),
+            defaultValue: commerce?.geoinformation.city,
+            ...register('geoinformation.city'),
+        },
+        isHintReserved: true,
+        hint: {
+            hasDots: true,
+            title: t(
+                errors.geoinformation?.city
+                    ? (errors.geoinformation?.city.message as string)
+                    : 'views.commercedetail.updatereference.form.city.hint'
+            ),
+            children: t(
+                errors.geoinformation?.city
+                    ? (errors.geoinformation?.city.message as string)
+                    : 'views.commercedetail.updatereference.form.city.hint'
             ),
         },
     };
@@ -321,6 +406,10 @@ export const useUpdateReference = () => {
             className: errors.geoinformation?.timezone ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             placeholder: t('views.commercedetail.updatereference.form.timezone.placeholder'),
             strategy: 'select',
+            options: departmentList.timezones.map(item => ({
+                label: item.zoneName,
+                value: item.zoneName,
+            })),
             defaultValue: commerce?.geoinformation.timezone,
             ...register('geoinformation.timezone'),
         },
@@ -340,10 +429,10 @@ export const useUpdateReference = () => {
         },
     };
     const gtmOffsetField: FieldSetProps = {
+        disabled: true,
         field: {
             className: errors.geoinformation?.gtmOffset ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             placeholder: t('views.commercedetail.updatereference.form.gtmoffset.placeholder'),
-            strategy: 'select',
             defaultValue: commerce?.geoinformation.gtmOffset,
             ...register('geoinformation.gtmOffset'),
         },
@@ -367,8 +456,8 @@ export const useUpdateReference = () => {
         referenceNameField,
         ...[...Array(phonesCount)].map((_, index) => servicePhonesField(index)),
         countryField,
-        cityField,
         stateField,
+        cityField,
         addressField,
         optionalAddressField,
         zipcodeField,

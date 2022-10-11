@@ -24,7 +24,7 @@ const mock: ApiResponse<CommerceDetailDTO> = {
     error: false,
     message: 'Commerce detail',
     data: {
-        commerceId: 1,
+        commerceId: '1',
         referenceName: 'Nike Baja California',
         address: 'Cualquier Direccion Sera suficiente',
         optionalAddress: '-',

@@ -10,13 +10,15 @@ import { FieldSetProps, useAdminNotify } from 'admin/core';
 import { milesToMeters } from 'shared/utils';
 /* types */
 import { TypeChargeKeySymbol } from 'admin/commerces/types';
+/* services */
+import { updateDeliveryService } from 'admin/commerces/services';
 /* assets */
 import { MdCheckCircle, MdError } from 'react-icons/md';
 /* styles */
 import { FieldStyles } from 'shared/styles';
 import styles from './UpdateDelivery.module.scss';
 
-interface UpdateDeliveryForm {
+export interface UpdateDeliveryForm {
     thirdPartyDelivery: boolean;
     externalDeliveryUrl: string;
     minAmountDelivery: string;
@@ -51,9 +53,8 @@ export const useUpdateDelivery = () => {
     /* functions */
     const handleUpdateDelivery = handleSubmit(async data => {
         showLoader();
-        console.log(data);
 
-        const service = await { error: true, message: 'Update delivery', data: {} };
+        const service = await updateDeliveryService(commerce?.commerceId ?? '', data);
 
         hideLoader();
 

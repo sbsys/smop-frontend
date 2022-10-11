@@ -1,63 +1,93 @@
 /* react */
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
+/* context */
+import { useUserListContext } from '../UserList.context';
 /* layouts */
-import { PanelLayout } from 'shared/layouts';
+import { PanelLayout, TableLayout } from 'shared/layouts';
+/* components */
+import { Legend } from 'shared/components';
+import { UserListFilter } from '../UserListFilter';
+import { NewUserAction, UserListActions } from '../UserListActions';
+import { UserListState } from '../UserListState';
+/* utils */
+import { format } from 'date-fns';
 /* styles */
 import styles from './UserListDesktop.module.scss';
 
 const UserListDesktop = () => {
+    const {
+        /* states */
+        userList,
+        isBreakPoint,
+    } = useUserListContext();
+
     const { t } = useTranslation();
 
     return (
         <PanelLayout className={styles.UserList}>
-            {/* <h1 title={t('views.commercelist.title')}>
-                <Legend hasDots>{t('views.commercelist.title')}</Legend>
+            <h1 title={t('views.userlist.title')}>
+                <Legend hasDots>{t('views.userlist.title')}</Legend>
             </h1>
 
             {isBreakPoint && (
                 <section className={styles.Filter}>
-                    <CommerceListFilter />
+                    <UserListFilter />
                 </section>
             )}
 
-            <section className={styles.Commerces}>
+            <section className={styles.Users}>
                 <TableLayout
                     className={styles.List}
                     header={{
                         columns: [
                             {
                                 children: (
-                                    <Legend hasDots title={t('views.commercelist.list.name')}>
-                                        {t('views.commercelist.list.name')}
+                                    <Legend hasDots title={t('views.userlist.list.name')}>
+                                        {t('views.userlist.list.name')}
                                     </Legend>
                                 ),
                             },
                             {
                                 children: (
-                                    <Legend hasDots justify="center" title={t('views.commercelist.list.created')}>
-                                        {t('views.commercelist.list.created')}
+                                    <Legend hasDots justify="center" title={t('views.userlist.list.profile')}>
+                                        {t('views.userlist.list.profile')}
                                     </Legend>
                                 ),
                             },
                             {
                                 children: (
-                                    <Legend hasDots justify="center" title={t('views.commercelist.list.state')}>
-                                        {t('views.commercelist.list.state')}
+                                    <Legend hasDots justify="center" title={t('views.userlist.list.created')}>
+                                        {t('views.userlist.list.created')}
                                     </Legend>
                                 ),
                             },
                             {
-                                children: <NewCommerceAction />,
+                                children: (
+                                    <Legend hasDots justify="center" title={t('views.userlist.list.state')}>
+                                        {t('views.userlist.list.state')}
+                                    </Legend>
+                                ),
+                            },
+                            {
+                                span: 1,
+                                children: <NewUserAction />,
                             },
                         ],
                     }}
-                    body={commerceList.map(item => ({
+                    body={userList.map(item => ({
                         columns: [
                             {
                                 children: (
-                                    <Legend hasDots title={item.name}>
-                                        {item.name}
+                                    <Legend hasDots title={item.fullname}>
+                                        {item.fullname}
+                                    </Legend>
+                                ),
+                            },
+                            {
+                                children: (
+                                    <Legend hasDots justify="center" title={t(`profiles.${item.profileName}`)}>
+                                        {t(`profiles.${item.profileName}`)}
                                     </Legend>
                                 ),
                             },
@@ -69,15 +99,17 @@ const UserListDesktop = () => {
                                 ),
                             },
                             {
-                                children: <CommerceListState state={item.isActive} />,
+                                children: <UserListState state={item.isActive} />,
+                                span: 1,
                             },
                             {
-                                children: <CommerceListActions state={item.isActive} commerceId={item.id} />,
+                                children: <UserListActions state={item.isActive} userId={item.id} />,
+                                span: 1,
                             },
                         ],
                     }))}
                 />
-            </section> */}
+            </section>
         </PanelLayout>
     );
 };

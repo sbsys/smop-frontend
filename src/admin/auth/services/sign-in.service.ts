@@ -29,7 +29,7 @@ const mock: ApiResponse<SignInDTO> = {
             email: 'sb.sys@outlook.com',
             name: 'Steven Bustillo',
             phone: '+505-89687333',
-            profiles: ['superuser', 'admin'],
+            profiles: 'root',
             isActive: true,
         },
     },

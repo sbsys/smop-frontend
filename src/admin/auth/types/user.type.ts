@@ -1,4 +1,31 @@
-export type Profile = 'superuser' | 'admin';
+export type Profile = 'root' | 'admin' | 'manager' | 'auxiliar' | 'cashier' | 'waiter';
+
+export const ProfileValue: { id: number; profile: Profile }[] = [
+    {
+        id: 0,
+        profile: 'root',
+    },
+    {
+        id: 1,
+        profile: 'admin',
+    },
+    {
+        id: 2,
+        profile: 'manager',
+    },
+    {
+        id: 3,
+        profile: 'auxiliar',
+    },
+    {
+        id: 4,
+        profile: 'cashier',
+    },
+    {
+        id: 5,
+        profile: 'waiter',
+    },
+];
 
 export interface UserDTO {
     id: string;
@@ -6,7 +33,7 @@ export interface UserDTO {
     name: string;
     isActive: boolean;
     phone: string;
-    profiles: Profile[];
+    profiles: Profile;
 }
 
 export interface SignInDTO {

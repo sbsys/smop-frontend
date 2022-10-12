@@ -350,7 +350,7 @@
                     "0": "After",
                     "1": "Before"
                 },
-                "smsAlerts": "alerts by SMS?"
+                "smsAlerts": "Alerts by SMS?"
             },
             "attentionsection": {
                 "title": "Attention",

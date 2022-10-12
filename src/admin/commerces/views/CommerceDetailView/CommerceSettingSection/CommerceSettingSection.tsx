@@ -97,7 +97,6 @@ const CommerceSettingSection = () => {
                     <span>{t(`views.commercedetail.settingsection.applycharge.${commerce?.applyCharge}`)}</span>
                 </Legend>
 
-                {commerce?.smsAlerts}
                 <div className={styles.TypeOrder}>
                     <Legend className={styles.Title} hasDots>
                         {t('views.commercedetail.settingsection.smsAlerts')}

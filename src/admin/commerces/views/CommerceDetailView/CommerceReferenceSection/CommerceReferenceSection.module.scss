@@ -17,7 +17,7 @@
 
     .Geoinformation {
         @include flex(row, center);
-        @include gap(all xs);
+        @include gap(all sm);
         flex-wrap: wrap;
 
         & > h3 {

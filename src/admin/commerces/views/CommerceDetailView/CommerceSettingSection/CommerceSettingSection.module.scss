@@ -1,17 +1,19 @@
 @import 'styles';
 
 .Setting {
-    @include flex;
-    @include gap(all md);
+    @include flex(row, flex-start);
+    @include gap(all sm);
     @include padding(x xs split);
+    flex-wrap: wrap;
 
     .Title {
         @include font-weight(lg);
+        width: 100%;
     }
 
     .TypeOrder {
         @include flex(row, center);
-        @include gap(all xs);
+        @include gap(all xs split);
 
         & > i {
             @include font-size(lg);

@@ -1,7 +1,7 @@
 @import 'styles';
 
 .Delivery {
-    @include flex;
+    @include flex(row, center);
     @include gap(all md);
     @include padding(x xs split);
 

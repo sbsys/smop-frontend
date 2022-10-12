@@ -1,8 +1,17 @@
 @import 'styles';
 
 .Attention {
-    @include flex;
     @include gap(all md);
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+
+    @include screen-width(sm) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include screen-width(lg) {
+        @include gap(all xl);
+    }
 
     .Title {
         @include font-weight(lg);
@@ -11,10 +20,10 @@
     .Times {
         @include flex;
         @include gap(all xs);
+        overflow: hidden;
     }
 
     .Table {
-        @include max-width(2xl, component);
         & > thead,
         & > tbody {
             & > tr {

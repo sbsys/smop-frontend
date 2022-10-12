@@ -8,6 +8,7 @@
         "waiter": "Waiter"
     },
     "weekday": {
+        "weekday": "Weekday",
         "sunday": "Sunday",
         "monday": "Monday",
         "tuesday": "Tuesday",
@@ -307,6 +308,75 @@
                 "restore": "Restore commerce",
                 "edit": "Edit commerce",
                 "view": "View commerce detail"
+            }
+        },
+        "commercedetail": {
+            "header": "Commerce detail",
+            "referencesection": {
+                "title": "References",
+                "edit": "Edit references",
+                "name": "Commerce name",
+                "address": "Address",
+                "optaddress": "Optional address",
+                "zipcode": "Zip code",
+                "phones": "Phone numbers",
+                "geoinformation": {
+                    "title": "geographic information",
+                    "country": "Country",
+                    "state": "State",
+                    "city": "City",
+                    "timezone": "Time Zone",
+                    "gtmOffset": "GTM Offset"
+                }
+            },
+            "settingsection": {
+                "title": "Order settings",
+                "edit": "Edit settings",
+                "typeorder": {
+                    "title": "Allowed type order",
+                    "pickup": "Pick up",
+                    "curbside": "Curbside",
+                    "delivery": "Delivery",
+                    "dine-in": "Dine in"
+                },
+                "typecharge": {
+                    "title": "Type charge",
+                    "type": "Type",
+                    "percentage": "Percentage",
+                    "amount": "Amount"
+                },
+                "applycharge": {
+                    "title": "Apply charge",
+                    "0": "After",
+                    "1": "Before"
+                },
+                "smsAlerts": "alerts by SMS?"
+            },
+            "attentionsection": {
+                "title": "Attention",
+                "edit": "Edit attention",
+                "onsite": {
+                    "title": "On site attention",
+                    "opening": "Opening",
+                    "closing": "Closing",
+                    "preparation": "On site preparation time"
+                },
+                "delivery": {
+                    "title": "Delivery attention",
+                    "opening": "Opening",
+                    "closing": "Closing",
+                    "preparation": "Delivery preparation time"
+                }
+            },
+            "deliverysection": {
+                "title": "Delivery settings",
+                "edit": "Edit delivery settings",
+                "thirdpartydelivery": {
+                    "title": "Allowed third party delivery?",
+                    "site": "Third party delivery web site"
+                },
+                "minamountdelivery": "Min amount to delivery",
+                "deliveryarea": "Delivery area"
             }
         }
     }

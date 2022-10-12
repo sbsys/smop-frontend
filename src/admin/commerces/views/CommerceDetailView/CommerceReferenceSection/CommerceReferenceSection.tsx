@@ -83,8 +83,8 @@ const CommerceReferenceSection = () => {
                 </div>
 
                 <div className={styles.Geoinformation}>
-                    <h3 title={t('views.commercedetail.referencesection.geoinformation')}>
-                        <Legend hasDots>{t('views.commercedetail.referencesection.geoinformation')}</Legend>
+                    <h3 title={t('views.commercedetail.referencesection.geoinformation.title')}>
+                        <Legend hasDots>{t('views.commercedetail.referencesection.geoinformation.title')}</Legend>
                     </h3>
 
                     <Legend hasDots>
@@ -93,6 +93,14 @@ const CommerceReferenceSection = () => {
                         </span>
 
                         <span>{commerce?.geoinformation.country}</span>
+                    </Legend>
+
+                    <Legend hasDots>
+                        <span className={styles.Title}>
+                            {t('views.commercedetail.referencesection.geoinformation.state')}:{' '}
+                        </span>
+
+                        <span>{commerce?.geoinformation.state}</span>
                     </Legend>
 
                     <Legend hasDots>

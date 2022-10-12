@@ -71,11 +71,7 @@ const CommerceAttentionSection = () => {
                                     ),
                                 },
                                 {
-                                    children: (
-                                        <Legend hasDots>
-                                            {t('views.commercedetail.attentionsection.onsite.weekday')}
-                                        </Legend>
-                                    ),
+                                    children: <Legend hasDots>{t('weekday.weekday')}</Legend>,
                                 },
                                 {
                                     span: 1,
@@ -146,11 +142,7 @@ const CommerceAttentionSection = () => {
                                     ),
                                 },
                                 {
-                                    children: (
-                                        <Legend hasDots>
-                                            {t('views.commercedetail.attentionsection.delivery.weekday')}
-                                        </Legend>
-                                    ),
+                                    children: <Legend hasDots>{t('weekday.weekday')}</Legend>,
                                 },
                                 {
                                     span: 1,

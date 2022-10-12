@@ -67,13 +67,15 @@ const CommerceDeliverySection = () => {
                         {t('views.commercedetail.deliverysection.minamountdelivery')}:{' '}
                     </span>
 
-                    <span>{commerce?.minAmountDelivery}</span>
+                    <span>{commerce?.minAmountDelivery} $</span>
                 </Legend>
 
                 <Legend hasDots title={t('views.commercedetail.deliverysection.deliveryarea')}>
                     <span className={styles.Title}>{t('views.commercedetail.deliverysection.deliveryarea')}: </span>
 
-                    <span>{commerce?.deliveryArea}</span>
+                    <span>
+                        {commerce?.deliveryArea} <span>{t('longitude.miles')}</span>
+                    </span>
                 </Legend>
 
                 {/* {commerce?.deliveringZone} */}

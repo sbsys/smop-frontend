@@ -1,4 +1,28 @@
 {
+    "profiles": {
+        "root": "Root",
+        "admin": "Administrador",
+        "manager": "Gerente",
+        "auxiliar": "Auxiliar",
+        "cashier": "Cajero",
+        "waiter": "Camarero"
+    },
+    "weekday": {
+        "sunday": "Domingo",
+        "monday": "Lunes",
+        "tuesday": "Martes",
+        "wenesday": "Miércoles",
+        "thursday": "Jueves",
+        "friday": "Viernes",
+        "saturday": "Sábado"
+    },
+    "time": {
+        "hours": "Horas",
+        "minutes": "Minutos"
+    },
+    "longitude": {
+        "miles": "Millas"
+    },
     "dashboard": {
         "actions": {
             "back": "Cerrar menú lateral",
@@ -23,7 +47,8 @@
                 "name": "Administrador",
                 "items": {
                     "organization": "Organización",
-                    "commerces": "Comercios"
+                    "commerces": "Comercios",
+                    "users": "Usuarios"
                 }
             }
         }
@@ -238,6 +263,7 @@
                 "cancel": "Cancelar",
                 "update": "Actualizar"
             }
-        }
+        },
+        "": {}
     }
 }

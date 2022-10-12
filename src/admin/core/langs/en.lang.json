@@ -1,4 +1,28 @@
 {
+    "profiles": {
+        "root": "Root",
+        "admin": "Administrator",
+        "manager": "Manager",
+        "auxiliar": "Auxiliar",
+        "cashier": "Cashier",
+        "waiter": "Waiter"
+    },
+    "weekday": {
+        "sunday": "Sunday",
+        "monday": "Monday",
+        "tuesday": "Tuesday",
+        "wenesday": "Wenesday",
+        "thursday": "Thursday",
+        "friday": "Friday",
+        "saturday": "Saturday"
+    },
+    "time": {
+        "hours": "Hours",
+        "minutes": "Minutes"
+    },
+    "longitude": {
+        "miles": "Miles"
+    },
     "dashboard": {
         "actions": {
             "back": "Close side menu",
@@ -23,7 +47,8 @@
                 "name": "Admin",
                 "items": {
                     "organization": "Organization",
-                    "commerces": "Commerces"
+                    "commerces": "Commerces",
+                    "users": "Users"
                 }
             }
         }
@@ -237,6 +262,51 @@
             "actions": {
                 "cancel": "Cancel",
                 "update": "Update"
+            }
+        },
+        "commercelist": {
+            "title": "Commerce List",
+            "actions": {
+                "openfilter": "Open filter",
+                "closefilter": "Close filter"
+            },
+            "filter": {
+                "form": {
+                    "referencename": {
+                        "placeholder": "Commerce name",
+                        "hint": "filter commerce by name"
+                    },
+                    "state": {
+                        "placeholder": "Commerce state",
+                        "hint": "filter commerce by state",
+                        "active": "Active commerces",
+                        "inactive": "Inactive commerces"
+                    },
+                    "fromdate": {
+                        "hint": "commerce created after"
+                    },
+                    "todate": {
+                        "hint": "commerce created before"
+                    }
+                },
+                "actions": {
+                    "clean": "Clean up",
+                    "filter": "Filter"
+                }
+            },
+            "list": {
+                "name": "Commerce name",
+                "created": "Creation date",
+                "state": "State",
+                "states": {
+                    "active": "Active",
+                    "inactive": "Inactive"
+                },
+                "create": "New commerce",
+                "suspend": "Suspend commerce",
+                "restore": "Restore commerce",
+                "edit": "Edit commerce",
+                "view": "View commerce detail"
             }
         }
     }

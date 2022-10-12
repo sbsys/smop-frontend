@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useOutlet } from 'react-router-dom';
 /* props */
 import { UserListContextProps } from './UserList.props';
 /* hooks */
@@ -47,6 +48,8 @@ export const useUserList = () => {
     useKeyDownEvent(event => event.key === 'Escape' && hideDropFilter());
 
     const isBreakPoint = useMemo(() => matchBreakPoint('md', bp).on, [bp]);
+
+    const outlet = useOutlet();
 
     const { t } = useTranslation();
 
@@ -120,8 +123,8 @@ export const useUserList = () => {
 
     /* reactivity */
     useEffect(() => {
-        getUserList();
-    }, [getUserList]);
+        if (!outlet) getUserList();
+    }, [getUserList, outlet]);
 
     /* props */
     const nameField: FieldSetProps = {

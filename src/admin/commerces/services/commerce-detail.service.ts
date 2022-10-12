@@ -17,7 +17,7 @@ import { apiRequestHandler } from 'shared/handlers';
 import { CommerceDetailDTO } from '../types';
 
 interface CommerceDetailProps {
-    commerceId: number;
+    commerceId: string;
 }
 
 const mock: ApiResponse<CommerceDetailDTO> = {

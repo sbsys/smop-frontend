@@ -25,13 +25,13 @@ const mock: ApiResponse<CommerceListItemDTO[]> = {
     message: 'Commerce list',
     data: [
         {
-            id: 1,
+            id: '1',
             name: 'Commerce Active',
             createdAt: parse('2020-08-30', 'yyyy-MM-dd', Date.now()),
             isActive: 'active',
         },
         {
-            id: 2,
+            id: '2',
             name: 'Commerce Inactive',
             createdAt: parse('2021-08-28', 'yyyy-MM-dd', Date.now()),
             isActive: 'inactive',

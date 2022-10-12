@@ -10,7 +10,7 @@ import { MdDelete, MdEdit, MdRestoreFromTrash, MdVisibility } from 'react-icons/
 /* styles */
 import styles from './CommerceListActions.module.scss';
 
-const CommerceListActions: FC<{ state: CommerceState; commerceId: number }> = ({ state, commerceId }) => {
+const CommerceListActions: FC<{ state: CommerceState; commerceId: string }> = ({ state, commerceId }) => {
     const { t } = useTranslation();
 
     const navigate = useNavigate();

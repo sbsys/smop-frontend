@@ -19,7 +19,7 @@ import { CreateTenantView, TenantListView, TenantSettingsView, TenantsLayout } f
 /* commerces */
 import { CommerceDetailView, CommerceListView, CommercesLayout, CreateCommerceView } from './commerces';
 /* users */
-import { UserListView, UsersLayout } from './users';
+import { CreateUserView, UserListView, UsersLayout } from './users';
 /* clients */
 import { SchemaLayout } from './clients';
 
@@ -123,7 +123,9 @@ const AppRoutes: FC = () => {
                     <Route path="users" element={<UsersLayout />}>
                         <Route index element={<Navigate to="list" replace />} />
 
-                        <Route path="list" element={<UserListView />} />
+                        <Route path="list" element={<UserListView />}>
+                            <Route path="create" element={<CreateUserView />} />
+                        </Route>
                     </Route>
                 </Route>
             </Route>

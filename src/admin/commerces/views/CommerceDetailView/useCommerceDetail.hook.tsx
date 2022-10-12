@@ -30,7 +30,7 @@ export const useCommerceDetail = () => {
     const getCommerceDetail = useCallback(async () => {
         showLoader();
 
-        const service = await commerceDetailService({ commerceId: Number.parseInt(commerceId ?? '0') });
+        const service = await commerceDetailService({ commerceId: commerceId ?? '' });
 
         hideLoader();
 

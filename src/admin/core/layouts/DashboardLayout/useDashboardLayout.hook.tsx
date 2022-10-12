@@ -2,12 +2,16 @@
 import { useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+/* store */
+import { Profile, selectAuthStore } from 'admin/auth';
 /* props */
 import { ButtonProps } from 'shared/components';
 import { NavGroupProps } from 'admin/core/components';
 import { DashboardLayoutContextProps } from './DashboardLayout.props';
 /* hooks */
 import { useActive, useMinWidth } from 'shared/hooks';
+/* services */
+import { useAdminSelector } from 'admin/core/services';
 /* utils */
 import { matchBreakPoint } from 'shared/utils';
 /* assets */
@@ -16,6 +20,10 @@ import { IoMdCog } from 'react-icons/io';
 
 export const useDashboardLayout = () => {
     /* states */
+    const {
+        user: { profiles },
+    } = useAdminSelector(selectAuthStore);
+
     const [isSidebar, showSidebar, hideSidebar, toggleSidebar] = useActive();
 
     const { t } = useTranslation();
@@ -47,6 +55,47 @@ export const useDashboardLayout = () => {
         onClick: toggleSidebar,
     };
 
+    const navStrategy: Record<Profile, NavGroupProps[]> = {
+        root: [
+            {
+                title: t('dashboard.navigation.root.name'),
+                items: [
+                    {
+                        icon: <MdDashboardCustomize />,
+                        text: t('dashboard.navigation.root.items.tenants'),
+                        to: 'tenants',
+                    },
+                ],
+            },
+        ],
+        admin: [
+            {
+                title: t('dashboard.navigation.admin.name'),
+                items: [
+                    {
+                        icon: <IoMdCog />,
+                        text: t('dashboard.navigation.admin.items.organization'),
+                        to: 'organization',
+                    },
+                    {
+                        icon: <MdStore />,
+                        text: t('dashboard.navigation.admin.items.commerces'),
+                        to: 'commerces',
+                    },
+                    {
+                        icon: <MdSupervisedUserCircle />,
+                        text: t('dashboard.navigation.admin.items.users'),
+                        to: 'users',
+                    },
+                ],
+            },
+        ],
+        manager: [],
+        auxiliar: [],
+        cashier: [],
+        waiter: [],
+    };
+
     const groups: NavGroupProps[] = [
         {
             title: t('dashboard.navigation.dashboard.name'),
@@ -58,36 +107,7 @@ export const useDashboardLayout = () => {
                 },
             ],
         },
-        {
-            title: t('dashboard.navigation.root.name'),
-            items: [
-                {
-                    icon: <MdDashboardCustomize />,
-                    text: t('dashboard.navigation.root.items.tenants'),
-                    to: 'tenants',
-                },
-            ],
-        },
-        {
-            title: t('dashboard.navigation.admin.name'),
-            items: [
-                {
-                    icon: <IoMdCog />,
-                    text: t('dashboard.navigation.admin.items.organization'),
-                    to: 'organization',
-                },
-                {
-                    icon: <MdStore />,
-                    text: t('dashboard.navigation.admin.items.commerces'),
-                    to: 'commerces',
-                },
-                {
-                    icon: <MdSupervisedUserCircle />,
-                    text: t('dashboard.navigation.admin.items.users'),
-                    to: 'users',
-                },
-            ],
-        },
+        ...navStrategy[profiles],
     ];
 
     /* context */

@@ -25,7 +25,7 @@ const mock: ApiResponse<UserListItemDTO[]> = {
     message: 'User list',
     data: [
         {
-            id: '1',
+            userId: '1',
             fullname: 'User Active',
             createdAt: parse('2020-08-30', 'yyyy-MM-dd', Date.now()),
             isActive: 'active',
@@ -33,9 +33,10 @@ const mock: ApiResponse<UserListItemDTO[]> = {
             phoneNumber: '+505-88082020',
             profileName: 'admin',
             schemaName: 'primas',
+            commerceId: 'lorem',
         },
         {
-            id: '2',
+            userId: '2',
             fullname: 'User Inactive',
             createdAt: parse('2021-08-28', 'yyyy-MM-dd', Date.now()),
             isActive: 'inactive',
@@ -43,6 +44,7 @@ const mock: ApiResponse<UserListItemDTO[]> = {
             phoneNumber: '+505-88082020',
             profileName: 'admin',
             schemaName: 'primas',
+            commerceId: 'lorem',
         },
     ],
 };

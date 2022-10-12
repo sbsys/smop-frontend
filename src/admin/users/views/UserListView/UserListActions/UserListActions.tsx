@@ -1,5 +1,7 @@
 import { FC, memo } from 'react';
 import { useTranslation } from 'react-i18next';
+/* context */
+import { useUserListContext } from '../UserList.context';
 /* components */
 import { Button } from 'shared/components';
 /* types */
@@ -10,6 +12,11 @@ import { MdDelete, MdLink, MdRestoreFromTrash } from 'react-icons/md';
 import styles from './UserListActions.module.scss';
 
 const UserListActions: FC<{ state: UserState; userId: string }> = ({ state, userId }) => {
+    const {
+        /* functions */
+        handleSelectUserToLink,
+    } = useUserListContext();
+
     const { t } = useTranslation();
 
     return (
@@ -28,7 +35,11 @@ const UserListActions: FC<{ state: UserState; userId: string }> = ({ state, user
                 </Button>
             )}
 
-            <Button className={styles.Link} disabled={state === 'inactive'} title={t('views.userlist.list.link')}>
+            <Button
+                className={styles.Link}
+                onClick={() => handleSelectUserToLink(userId)}
+                disabled={state === 'inactive'}
+                title={t('views.userlist.list.link')}>
                 <i>
                     <MdLink />
                 </i>

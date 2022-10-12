@@ -10,6 +10,7 @@ import { ModalLayout, PanelLayout } from 'shared/layouts';
 /* components */
 import { UserListMobile } from './UserListMobile';
 import { UserListDesktop } from './UserListDesktop';
+import { UserListLinkModal } from './UserListLinkModal';
 /* styles */
 import styles from './UserList.module.scss';
 
@@ -23,6 +24,8 @@ const UserListView = () => {
             <UserListMobile />
 
             <UserListDesktop />
+
+            <UserListLinkModal />
 
             <ModalLayout isVisible={outlet !== null} rowAlignment="center" colAlignment="center" hasIndentation>
                 <PanelLayout className={styles.RouteModal} orientation="col">

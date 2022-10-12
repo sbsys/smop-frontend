@@ -4,7 +4,7 @@ import { Profile } from 'admin/auth';
 export type UserState = 'active' | 'inactive';
 
 export interface UserListItemDTO {
-    id: string;
+    userId: string;
     fullname: string;
     email: string;
     phoneNumber: string;
@@ -12,4 +12,5 @@ export interface UserListItemDTO {
     createdAt: Date;
     schemaName: string;
     profileName: Profile;
+    commerceId: string;
 }

@@ -13,9 +13,13 @@ export interface UserListContextProps {
     showDropFilter: () => void;
     hideDropFilter: () => void;
     isBreakPoint: boolean;
+    selectedUserToLink: UserListItemDTO | null;
     /* functions */
+    getUserList: () => Promise<void>;
     handleFilter: (event?: BaseSyntheticEvent) => Promise<void>;
     handleResetFilter: () => void;
+    handleSelectUserToLink: (id: string) => void;
+    handleUnselectUserToLink: () => void;
     /* props */
     filterFormFields: FieldSetProps[];
 }

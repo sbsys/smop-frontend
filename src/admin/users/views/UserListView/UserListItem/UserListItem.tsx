@@ -18,7 +18,7 @@ import { MdMoreVert } from 'react-icons/md';
 /* styles */
 import styles from './UserListItem.module.scss';
 
-const UserListItem: FC<UserListItemDTO> = ({ id, fullname, profileName, createdAt, isActive }) => {
+const UserListItem: FC<UserListItemDTO> = ({ userId, fullname, profileName, createdAt, isActive }) => {
     const { t } = useTranslation();
 
     const [isDropMore, showDropMore, hideDropMore] = useActive();
@@ -37,7 +37,12 @@ const UserListItem: FC<UserListItemDTO> = ({ id, fullname, profileName, createdA
                 </h4>
 
                 <Legend hasDots title={format(createdAt, 'MMM do, yyyy')}>
-                    <span>{t(`profiles.${profileName}`)}</span> - {format(createdAt, 'MMM do, yyyy')}
+                    {profileName && (
+                        <>
+                            <span>{t(`profiles.${profileName}`)}</span> -{' '}
+                        </>
+                    )}
+                    {format(createdAt, 'MMM do, yyyy')}
                 </Legend>
             </div>
 
@@ -51,7 +56,7 @@ const UserListItem: FC<UserListItemDTO> = ({ id, fullname, profileName, createdA
                 anchorRow="end"
                 drop={
                     <div className={styles.DropContainer} ref={ref}>
-                        <UserListActions state={isActive} userId={id} />
+                        <UserListActions state={isActive} userId={userId} />
                     </div>
                 }>
                 <Button className={styles.DropAction} onClick={showDropMore} title={t('views.userlist.list.more')}>

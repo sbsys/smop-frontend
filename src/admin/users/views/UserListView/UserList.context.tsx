@@ -1,4 +1,6 @@
+/* react */
 import { createContext, FC, useContext } from 'react';
+/* props */
 import { UserListContextProps, UserListProviderProps } from './UserList.props';
 
 const Context = createContext<UserListContextProps>({
@@ -8,9 +10,13 @@ const Context = createContext<UserListContextProps>({
     showDropFilter: () => {},
     hideDropFilter: () => {},
     isBreakPoint: false,
+    selectedUserToLink: null,
     /* functions */
+    getUserList: () => new Promise(resolve => resolve()),
     handleFilter: () => new Promise(resolve => resolve),
     handleResetFilter: () => {},
+    handleSelectUserToLink: (id: string) => {},
+    handleUnselectUserToLink: () => {},
     /* props */
     filterFormFields: [],
 });

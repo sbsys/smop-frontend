@@ -86,9 +86,13 @@ const UserListDesktop = () => {
                             },
                             {
                                 children: (
-                                    <Legend hasDots justify="center" title={t(`profiles.${item.profileName}`)}>
-                                        {t(`profiles.${item.profileName}`)}
-                                    </Legend>
+                                    <>
+                                        {item.profileName && (
+                                            <Legend hasDots justify="center" title={t(`profiles.${item.profileName}`)}>
+                                                {t(`profiles.${item.profileName}`)}
+                                            </Legend>
+                                        )}
+                                    </>
                                 ),
                             },
                             {
@@ -103,7 +107,7 @@ const UserListDesktop = () => {
                                 span: 1,
                             },
                             {
-                                children: <UserListActions state={item.isActive} userId={item.id} />,
+                                children: <UserListActions state={item.isActive} userId={item.userId} />,
                                 span: 1,
                             },
                         ],

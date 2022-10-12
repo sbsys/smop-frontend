@@ -189,7 +189,7 @@ const CommerceAttentionSection = () => {
                         <span>
                             {commerce?.deliveryPreparationTime.hours} {t('time.hours')}
                             {' & '}
-                            {commerce?.onsitePreparationTime.minutes} {t('time.minutes')}
+                            {commerce?.deliveryPreparationTime.minutes} {t('time.minutes')}
                         </span>
                     </Legend>
                 </div>

@@ -39,13 +39,11 @@
                 }
             },
             "root": {
-                "name": "System Root",
                 "items": {
                     "tenants": "Organizations"
                 }
             },
             "admin": {
-                "name": "Admin",
                 "items": {
                     "organization": "Organization",
                     "commerces": "Commerces",

@@ -38,13 +38,11 @@
                 }
             },
             "root": {
-                "name": "System Root",
                 "items": {
                     "tenants": "Organizaciones"
                 }
             },
             "admin": {
-                "name": "Administrador",
                 "items": {
                     "organization": "Organización",
                     "commerces": "Comercios",

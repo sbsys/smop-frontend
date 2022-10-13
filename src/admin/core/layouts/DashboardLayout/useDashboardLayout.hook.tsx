@@ -58,7 +58,7 @@ export const useDashboardLayout = () => {
     const navStrategy: Record<Profile, NavGroupProps[]> = {
         root: [
             {
-                title: t('dashboard.navigation.root.name'),
+                title: t('profiles.root'),
                 items: [
                     {
                         icon: <MdDashboardCustomize />,
@@ -70,7 +70,7 @@ export const useDashboardLayout = () => {
         ],
         admin: [
             {
-                title: t('dashboard.navigation.admin.name'),
+                title: t('profiles.admin'),
                 items: [
                     {
                         icon: <IoMdCog />,
@@ -90,8 +90,50 @@ export const useDashboardLayout = () => {
                 ],
             },
         ],
-        manager: [],
-        auxiliar: [],
+        manager: [
+            {
+                title: t('profiles.manager'),
+                items: [
+                    {
+                        icon: <IoMdCog />,
+                        text: t('dashboard.navigation.admin.items.organization'),
+                        to: 'organization',
+                    },
+                    {
+                        icon: <MdStore />,
+                        text: t('dashboard.navigation.admin.items.commerces'),
+                        to: 'commerces',
+                    },
+                    {
+                        icon: <MdSupervisedUserCircle />,
+                        text: t('dashboard.navigation.admin.items.users'),
+                        to: 'users',
+                    },
+                ],
+            },
+        ],
+        auxiliar: [
+            {
+                title: t('profiles.auxiliar'),
+                items: [
+                    {
+                        icon: <IoMdCog />,
+                        text: t('dashboard.navigation.admin.items.organization'),
+                        to: 'organization',
+                    },
+                    {
+                        icon: <MdStore />,
+                        text: t('dashboard.navigation.admin.items.commerces'),
+                        to: 'commerces',
+                    },
+                    {
+                        icon: <MdSupervisedUserCircle />,
+                        text: t('dashboard.navigation.admin.items.users'),
+                        to: 'users',
+                    },
+                ],
+            },
+        ],
         cashier: [],
         waiter: [],
     };

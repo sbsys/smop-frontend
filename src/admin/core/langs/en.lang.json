@@ -493,6 +493,187 @@
                         "hint": "update delivery area in miles"
                     }
                 }
+            },
+            "updateattention": {
+                "title": "Update attention",
+                "actions": {
+                    "cancel": "Cancel",
+                    "update": "Update"
+                },
+                "servicehours": {
+                    "onsite": "Update service hours on site",
+                    "onsitepreparationtime": "Update on site preparation time",
+                    "delivery": "Update service hours delivery",
+                    "deliverypreparationtime": "Update delivery preparation time"
+                },
+                "form": {
+                    "servicehours": {
+                        "onsite": {
+                            "sunday": {
+                                "opening": {
+                                    "placeholder": "Opening sunday",
+                                    "hint": "update on site opening sunday"
+                                },
+                                "closing": {
+                                    "placeholder": "Closing sunday",
+                                    "hint": "update on site closing sunday"
+                                }
+                            },
+                            "monday": {
+                                "opening": {
+                                    "placeholder": "Opening monday",
+                                    "hint": "update on site opening monday"
+                                },
+                                "closing": {
+                                    "placeholder": "Closing monday",
+                                    "hint": "update on site closing monday"
+                                }
+                            },
+                            "tuesday": {
+                                "opening": {
+                                    "placeholder": "Opening tuesday",
+                                    "hint": "update on site opening tuesday"
+                                },
+                                "closing": {
+                                    "placeholder": "Closing tuesday",
+                                    "hint": "update on site closing tuesday"
+                                }
+                            },
+                            "wenesday": {
+                                "opening": {
+                                    "placeholder": "Opening wenesday",
+                                    "hint": "update on site opening wenesday"
+                                },
+                                "closing": {
+                                    "placeholder": "Closing wenesday",
+                                    "hint": "update on site closing wenesday"
+                                }
+                            },
+                            "thursday": {
+                                "opening": {
+                                    "placeholder": "Opening thursday",
+                                    "hint": "update on site opening thursday"
+                                },
+                                "closing": {
+                                    "placeholder": "Closing thursday",
+                                    "hint": "update on site closing thursday"
+                                }
+                            },
+                            "friday": {
+                                "opening": {
+                                    "placeholder": "Opening friday",
+                                    "hint": "update on site opening friday"
+                                },
+                                "closing": {
+                                    "placeholder": "Closing friday",
+                                    "hint": "update on site closing friday"
+                                }
+                            },
+                            "saturday": {
+                                "opening": {
+                                    "placeholder": "Opening saturday",
+                                    "hint": "update on site opening saturday"
+                                },
+                                "closing": {
+                                    "placeholder": "Closing saturday",
+                                    "hint": "update on site closing saturday"
+                                }
+                            }
+                        },
+                        "delivery": {
+                            "sunday": {
+                                "opening": {
+                                    "placeholder": "Opening sunday",
+                                    "hint": "update delivery opening sunday"
+                                },
+                                "closing": {
+                                    "placeholder": "Closing sunday",
+                                    "hint": "update delivery closing sunday"
+                                }
+                            },
+                            "monday": {
+                                "opening": {
+                                    "placeholder": "Opening monday",
+                                    "hint": "update delivery opening monday"
+                                },
+                                "closing": {
+                                    "placeholder": "Closing monday",
+                                    "hint": "update delivery closing monday"
+                                }
+                            },
+                            "tuesday": {
+                                "opening": {
+                                    "placeholder": "Opening tuesday",
+                                    "hint": "update delivery opening tuesday"
+                                },
+                                "closing": {
+                                    "placeholder": "Closing tuesday",
+                                    "hint": "update delivery closing tuesday"
+                                }
+                            },
+                            "wenesday": {
+                                "opening": {
+                                    "placeholder": "Opening wenesday",
+                                    "hint": "update delivery opening wenesday"
+                                },
+                                "closing": {
+                                    "placeholder": "Closing wenesday",
+                                    "hint": "update delivery closing wenesday"
+                                }
+                            },
+                            "thursday": {
+                                "opening": {
+                                    "placeholder": "Opening thursday",
+                                    "hint": "update delivery opening thursday"
+                                },
+                                "closing": {
+                                    "placeholder": "Closing thursday",
+                                    "hint": "update delivery closing thursday"
+                                }
+                            },
+                            "friday": {
+                                "opening": {
+                                    "placeholder": "Opening friday",
+                                    "hint": "update delivery opening friday"
+                                },
+                                "closing": {
+                                    "placeholder": "Closing friday",
+                                    "hint": "update delivery closing friday"
+                                }
+                            },
+                            "saturday": {
+                                "opening": {
+                                    "placeholder": "Opening saturday",
+                                    "hint": "update delivery opening saturday"
+                                },
+                                "closing": {
+                                    "placeholder": "Closing saturday",
+                                    "hint": "update delivery closing saturday"
+                                }
+                            }
+                        }
+                    },
+                    "onsitepreparationtime": {
+                        "hours": {
+                            "placeholder": "Hours to prepare",
+                            "hint": "update on site preparation hours"
+                        },
+                        "minutes": {
+                            "placeholder": "Minutes to prepare",
+                            "hint": "update on site preparation minutes"
+                        }
+                    },
+                    "deliverypreparationtime": {
+                        "hours": {
+                            "placeholder": "Hours to prepare",
+                            "hint": "update delivery preparation hours"
+                        },
+                        "minutes": {
+                            "placeholder": "Minutes to prepare",
+                            "hint": "update delivery preparation minutes"
+                        }
+                    }
+                }
             }
         },
         "createcommerce": {

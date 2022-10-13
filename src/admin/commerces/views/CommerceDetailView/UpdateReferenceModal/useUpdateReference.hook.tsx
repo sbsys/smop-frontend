@@ -33,6 +33,7 @@ export const useUpdateReference = () => {
     const {
         /* states */
         commerce,
+        isUpdateReference,
         hideUpdateReference,
         /* functions */
         getCommerceDetail,
@@ -105,6 +106,11 @@ export const useUpdateReference = () => {
         handleSetPhonesCount();
 
         reset();
+
+        setDepartmentList({
+            states: [],
+            timezones: [],
+        });
     };
 
     const handleSetGeolocation = useCallback(
@@ -117,6 +123,8 @@ export const useUpdateReference = () => {
     );
 
     const getCountryList = useCallback(async () => {
+        if (!isUpdateReference) return;
+
         showLoader();
 
         const service = await countryListService({});
@@ -132,7 +140,7 @@ export const useUpdateReference = () => {
             });
 
         setCountryList(service.data);
-    }, [hideLoader, notify, showLoader]);
+    }, [hideLoader, isUpdateReference, notify, showLoader]);
 
     const getDepartmentList = useCallback(async () => {
         if (!watch('geoinformation.country')) return;
@@ -182,13 +190,18 @@ export const useUpdateReference = () => {
 
     useEffect(() => {
         if (departmentList.states.length > 0) setValue('geoinformation.state', commerce?.geoinformation.state ?? '');
-    }, [commerce?.geoinformation.state, departmentList.states.length, setValue]);
+    }, [commerce?.geoinformation.state, departmentList.states, setValue]);
 
     useEffect(() => {
         if (watch('geoinformation.state') === commerce?.geoinformation.state)
             setValue('geoinformation.city', commerce?.geoinformation.city ?? '');
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [commerce?.geoinformation.city, commerce?.geoinformation.state, setValue, watch('geoinformation.state')]);
+
+    useEffect(() => {
+        if (departmentList.timezones.length > 0)
+            setValue('geoinformation.timezone', commerce?.geoinformation.timezone ?? '');
+    }, [commerce?.geoinformation.timezone, departmentList.timezones, setValue]);
 
     /* props */
     const referenceNameField: FieldSetProps = {
@@ -420,7 +433,6 @@ export const useUpdateReference = () => {
                 label: item.zoneName,
                 value: item.zoneName,
             })),
-            defaultValue: commerce?.geoinformation.timezone,
             ...register('geoinformation.timezone'),
         },
         isHintReserved: true,

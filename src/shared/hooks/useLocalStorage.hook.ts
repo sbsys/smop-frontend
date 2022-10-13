@@ -1,11 +1,16 @@
 /* react */
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+/* utils */
+import { offCustomEvent, onCustomEvent, triggerCustomEvent } from 'shared/utils';
 
-export const useLocalStorage = <T = any>(key: string, initialValue: T): [T, (value: T) => void, () => void] => {
+export const useLocalStorage = <T = any>(
+    key: string,
+    initialValue: T
+): [T, (value: ((stored: T) => T) | T) => void, () => void] => {
     /* states */
 
     const [storedValue, setStoredValue] = useState<T>(() => {
-        if (typeof window === 'undefined') return initialValue;
+        if (!window) return initialValue;
 
         try {
             const item = window.localStorage.getItem(key);
@@ -19,7 +24,7 @@ export const useLocalStorage = <T = any>(key: string, initialValue: T): [T, (val
     /* functions */
 
     const setValue = useCallback(
-        (value: T) => {
+        (value: ((stored: T) => T) | T) => {
             try {
                 const valueToStore = value instanceof Function ? value(storedValue) : value;
 
@@ -36,11 +41,20 @@ export const useLocalStorage = <T = any>(key: string, initialValue: T): [T, (val
     const clear = useCallback(() => {
         try {
             window.localStorage.removeItem(key);
-            setValue(initialValue);
+            triggerCustomEvent(`localStorage.${key}`);
         } catch (error) {
             throw new Error('NO_LOCALSTORAGE');
         }
-    }, [initialValue, key, setValue]);
+    }, [key]);
+
+    useEffect(() => {
+        const onRemoveLocalStorageItem = () => setStoredValue(initialValue);
+        const eventName = `localStorage.${key}`;
+
+        onCustomEvent(eventName, onRemoveLocalStorageItem);
+
+        return () => offCustomEvent(eventName, onRemoveLocalStorageItem);
+    }, [initialValue, key]);
 
     return [storedValue, setValue, clear];
 };

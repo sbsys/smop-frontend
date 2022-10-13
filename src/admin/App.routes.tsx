@@ -30,13 +30,13 @@ const AppRoutes: FC = () => {
         'auth',
         {} as SignInDTO
     );
-
+console.log(authLocalStorage);
     const dispatch = useAdminDispatch();
 
     const { notify } = useAdminNotify();
 
     useEffect(() => {
-        if (!authLocalStorage.token) return;
+        if (!authLocalStorage?.token) return;
 
         dispatch(authStoreSignIn(authLocalStorage));
     }, [authLocalStorage, dispatch]);
@@ -61,9 +61,12 @@ const AppRoutes: FC = () => {
     }, [clearAuthLocalStorage, notify]);
 
     useEffect(() => {
-        if (authLocalStorage.token && token && authLocalStorage.token !== token)
-            setAuthLocalStorage({ ...authLocalStorage, token });
-    }, [authLocalStorage, setAuthLocalStorage, token]);
+        if (authLocalStorage?.token && token && authLocalStorage.token !== token) {
+            setAuthLocalStorage(prev => {
+                return { ...prev, token };
+            });
+        }
+    }, [authLocalStorage?.token, setAuthLocalStorage, token]);
 
     return (
         <Routes>

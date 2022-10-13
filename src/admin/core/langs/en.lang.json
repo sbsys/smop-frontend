@@ -427,6 +427,45 @@
                         "hint": "update commerce location GTM offset"
                     }
                 }
+            },
+            "updatesetting": {
+                "title": "Update order settings",
+                "actions": {
+                    "cancel": "Cancel",
+                    "update": "Update"
+                },
+                "form": {
+                    "orderonline": {
+                        "hint": "do you accept order online right now?"
+                    },
+                    "typeorder": {
+                        "pickup": "Allow order to Pick up",
+                        "curbside": "Allow order to Curbside",
+                        "delivery": "Allow order to Delivery",
+                        "dine-in": "Allow order to Dine in"
+                    },
+                    "typecharge": {
+                        "percentage": {
+                            "title": "Order online charge by percentage?",
+                            "placeholder": "Order online percentage charge",
+                            "hint": "update order online percentage charge"
+                        },
+                        "amount": {
+                            "title": "Order online charge by amount?",
+                            "placeholder": "Order online amount charge",
+                            "hint": "update order online amount charge"
+                        }
+                    },
+                    "applycharge": {
+                        "placeholder": "Apply charge to order",
+                        "hint": "update apply charge to order",
+                        "before": "Before discount",
+                        "after": "After discount"
+                    },
+                    "smsalerts": {
+                        "hint": "Allow order alerts by SMS?"
+                    }
+                }
             }
         },
         "createcommerce": {

@@ -36,11 +36,11 @@ export const useLocalStorage = <T = any>(key: string, initialValue: T): [T, (val
     const clear = useCallback(() => {
         try {
             window.localStorage.removeItem(key);
-            setStoredValue(initialValue);
+            setValue(initialValue);
         } catch (error) {
             throw new Error('NO_LOCALSTORAGE');
         }
-    }, [initialValue, key]);
+    }, [initialValue, key, setValue]);
 
     return [storedValue, setValue, clear];
 };

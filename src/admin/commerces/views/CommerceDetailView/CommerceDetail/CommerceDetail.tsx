@@ -31,11 +31,11 @@ const CommerceDetail = () => {
             <CommerceSettingSection />
             <UpdateSettingModal />
 
-            <CommerceAttentionSection />
-            <UpdateAttentionModal />
-
             <CommerceDeliverySection />
             <UpdateDeliveryModal />
+
+            <CommerceAttentionSection />
+            <UpdateAttentionModal />
         </ScrollLayout>
     );
 };

@@ -42,7 +42,14 @@ const CommerceSettingSection = () => {
             </div>
 
             <div className={styles.Setting}>
-                {commerce?.orderOnline}
+                <div className={styles.TypeOrder}>
+                    <Legend hasDots>{t(`views.commercedetail.settingsection.orderOnline`)}</Legend>
+
+                    <i className={commerce?.orderOnline ? styles.Active : styles.Inactive}>
+                        {commerce?.orderOnline ? <MdCheckCircle /> : <IoMdCloseCircle />}
+                    </i>
+                </div>
+
                 <Legend
                     className={styles.Title}
                     hasDots

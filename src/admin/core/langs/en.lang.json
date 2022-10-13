@@ -332,6 +332,7 @@
             "settingsection": {
                 "title": "Order settings",
                 "edit": "Edit settings",
+                "orderOnline": "do you accept order online right now?",
                 "typeorder": {
                     "title": "Allowed type order",
                     "pickup": "Pick up",
@@ -340,17 +341,17 @@
                     "dine-in": "Dine in"
                 },
                 "typecharge": {
-                    "title": "Type charge",
+                    "title": "Order online charge",
                     "type": "Type",
                     "percentage": "Percentage",
                     "amount": "Amount"
                 },
                 "applycharge": {
                     "title": "Apply charge",
-                    "0": "After",
-                    "1": "Before"
+                    "0": "After discount",
+                    "1": "Before discount"
                 },
-                "smsAlerts": "Alerts by SMS?"
+                "smsAlerts": "Order alerts by SMS?"
             },
             "attentionsection": {
                 "title": "Attention",

@@ -17,7 +17,7 @@
     }
 
     .Content {
-        @include gap(all md);
+        @include gap(all xl);
         display: grid;
         grid-column: span 3;
         grid-template-columns: repeat(1, 1fr);

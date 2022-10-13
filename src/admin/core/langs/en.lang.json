@@ -466,6 +466,33 @@
                         "hint": "Allow order alerts by SMS?"
                     }
                 }
+            },
+            "updatedelivery": {
+                "title": "Update delivery settings",
+                "actions": {
+                    "cancel": "Cancel",
+                    "update": "Update"
+                },
+                "form": {
+                    "thirdpartydelivery": {
+                        "hint": "Allow third party delivery?"
+                    },
+                    "externaldeliveryurl": {
+                        "placeholder": "External delivery url",
+                        "hint": "update external delivery url"
+                    },
+                    "minamountdelivery": {
+                        "placeholder": "Min amount to delivery",
+                        "hint": "update min amount to delivery"
+                    },
+                    "deliveringzone": {
+                        "hint": "Allow delivery zone?"
+                    },
+                    "deliveryarea": {
+                        "placeholder": "Delivery area",
+                        "hint": "update delivery area in miles"
+                    }
+                }
             }
         },
         "createcommerce": {

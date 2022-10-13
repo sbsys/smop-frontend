@@ -282,10 +282,10 @@
                         "inactive": "Inactive commerces"
                     },
                     "fromdate": {
-                        "hint": "commerce created after"
+                        "hint": "commerce created from date"
                     },
                     "todate": {
-                        "hint": "commerce created before"
+                        "hint": "commerce created to date"
                     }
                 },
                 "actions": {
@@ -986,10 +986,10 @@
                         "inactive": "Inactive user"
                     },
                     "fromdate": {
-                        "hint": "user created after"
+                        "hint": "user created from date"
                     },
                     "todate": {
-                        "hint": "user created before"
+                        "hint": "user created to date"
                     }
                 },
                 "actions": {

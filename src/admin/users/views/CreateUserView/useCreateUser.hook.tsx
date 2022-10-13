@@ -267,7 +267,6 @@ export const useCreateUser = () => {
                 label: t(`profiles.${ProfileValue[index + 2].profile}`),
                 value: ProfileValue[index + 2].id,
             })),
-            defaultValue: 2,
             ...register('profile'),
         },
         isHintReserved: true,

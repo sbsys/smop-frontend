@@ -1035,6 +1035,53 @@
                     "update": "Update"
                 }
             }
+        },
+        "createuser": {
+            "form": {
+                "title": "Create linked user",
+                "name": {
+                    "placeholder": "User name",
+                    "hint": "user name",
+                    "required": "user name is required"
+                },
+                "phone": {
+                    "placeholder": "User phone number",
+                    "hint": "user phone number",
+                    "required": "user phone number is required",
+                    "format": "format: +000-00000000"
+                },
+                "email": {
+                    "placeholder": "User email",
+                    "hint": "user email",
+                    "required": "user email is required",
+                    "format": "invalid email format"
+                },
+                "password": {
+                    "placeholder": "User password",
+                    "hint": "at least one uppercase, one lowercase & one special character @$!%*?&",
+                    "required": "user password is required",
+                    "format": "min:8 max:15. One special character @$!%*?&, one uppercase & one lowercase"
+                },
+                "repeatpassword": {
+                    "placeholder": "Confirm password",
+                    "required": "password confirmation is required",
+                    "equal": "user password and confirmation must match"
+                },
+                "profile": {
+                    "placeholder": "User profile",
+                    "hint": "user profile",
+                    "required": "user profile is required"
+                },
+                "commerce": {
+                    "placeholder": "User linked commerce",
+                    "hint": "user linked commerce",
+                    "required": "user linked commerce is required"
+                },
+                "actions": {
+                    "cancel": "Cancel",
+                    "create": "Create"
+                }
+            }
         }
     }
 }

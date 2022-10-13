@@ -305,7 +305,8 @@
                 "suspend": "Suspend commerce",
                 "restore": "Restore commerce",
                 "edit": "Edit commerce",
-                "view": "View commerce detail"
+                "view": "View commerce detail",
+                "more": "Commerce actions"
             }
         },
         "commercedetail": {
@@ -959,6 +960,79 @@
                             "hint": "delivery preparation minutes"
                         }
                     }
+                }
+            }
+        },
+        "userlist": {
+            "title": "User list",
+            "actions": {
+                "openfilter": "Open filter",
+                "closefilter": "Close filter"
+            },
+            "filter": {
+                "form": {
+                    "name": {
+                        "placeholder": "Filter by user name",
+                        "hint": "filter user by name"
+                    },
+                    "profile": {
+                        "placeholder": "Filter by user profile",
+                        "hint": "filter by user profile"
+                    },
+                    "state": {
+                        "placeholder": "Filter by user state",
+                        "hint": "filter by user state",
+                        "active": "Active user",
+                        "inactive": "Inactive user"
+                    },
+                    "fromdate": {
+                        "hint": "user created after"
+                    },
+                    "todate": {
+                        "hint": "user created before"
+                    }
+                },
+                "actions": {
+                    "clean": "Clean up",
+                    "filter": "Filter"
+                }
+            },
+            "list": {
+                "name": "User name",
+                "profile": "Profile",
+                "created": "Creation date",
+                "state": "State",
+                "create": "New user",
+                "states": {
+                    "active": "Active",
+                    "inactive": "Inactive"
+                },
+                "suspend": "Suspend user",
+                "restore": "Restore user",
+                "link": "Link user to commerce",
+                "more": "User actions"
+            },
+            "link": {
+                "title": "Link user to commerce",
+                "name": "User name",
+                "email": "User email",
+                "phone": "User phone number",
+                "created": "Creation date",
+                "form": {
+                    "profile": {
+                        "placeholder": "User profile",
+                        "hint": "update user profile",
+                        "required": "user profile is required"
+                    },
+                    "commerce": {
+                        "placeholder": "User linked commerce",
+                        "hint": "update user linked commerce",
+                        "required": "commer to link is required"
+                    }
+                },
+                "actions": {
+                    "cancel": "Cancel",
+                    "update": "Update"
                 }
             }
         }

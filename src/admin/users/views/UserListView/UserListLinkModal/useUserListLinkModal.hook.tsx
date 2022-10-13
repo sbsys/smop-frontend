@@ -46,6 +46,7 @@ export const useUserListLinkModal = () => {
         handleSubmit,
         register,
         reset,
+        setValue,
     } = useForm<UpdateUserLinkForm>({
         mode: 'all',
         resolver: yupResolver(UpdateUserLinkSchema),
@@ -129,6 +130,10 @@ export const useUserListLinkModal = () => {
         getCommerceList();
     }, [getCommerceList]);
 
+    useEffect(() => {
+        if (commerces.length > 0) setValue('commerce', selectedUserToLink?.commerceId ?? '');
+    }, [commerces, selectedUserToLink?.commerceId, setValue]);
+
     /* props */
     const profileField: FieldSetProps = {
         field: {
@@ -164,7 +169,6 @@ export const useUserListLinkModal = () => {
                 label: commerce.name,
                 value: commerce.id,
             })),
-            defaultValue: selectedUserToLink?.commerceId,
             ...register('commerce'),
         },
         isHintReserved: true,

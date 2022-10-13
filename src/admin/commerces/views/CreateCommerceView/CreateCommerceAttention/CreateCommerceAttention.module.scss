@@ -12,7 +12,7 @@
         & > h3 {
             @include font-weight(lg);
 
-            &:nth-child(n + 1) {
+            &:nth-child(n + 2) {
                 @include margin(top md);
             }
         }

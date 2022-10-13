@@ -180,6 +180,16 @@ export const useUpdateReference = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [watch('geoinformation.timezone')]);
 
+    useEffect(() => {
+        if (departmentList.states.length > 0) setValue('geoinformation.state', commerce?.geoinformation.state ?? '');
+    }, [commerce?.geoinformation.state, departmentList.states.length, setValue]);
+
+    useEffect(() => {
+        if (watch('geoinformation.state') === commerce?.geoinformation.state)
+            setValue('geoinformation.city', commerce?.geoinformation.city ?? '');
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [commerce?.geoinformation.city, commerce?.geoinformation.state, setValue, watch('geoinformation.state')]);
+
     /* props */
     const referenceNameField: FieldSetProps = {
         field: {

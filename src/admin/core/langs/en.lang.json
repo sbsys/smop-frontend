@@ -378,6 +378,55 @@
                 },
                 "minamountdelivery": "Min amount to delivery",
                 "deliveryarea": "Delivery area"
+            },
+            "updatereference": {
+                "title": "Update references",
+                "actions": {
+                    "cancel": "Cancel",
+                    "update": "Update"
+                },
+                "form": {
+                    "name": {
+                        "placeholder": "Commerce name",
+                        "hint": "update commerce name"
+                    },
+                    "servicephones": {
+                        "placeholder": "Commerce service phone number",
+                        "hint": "update commerce service phone number"
+                    },
+                    "country": {
+                        "placeholder": "Select commerce country location",
+                        "hint": "update commerce country location"
+                    },
+                    "state": {
+                        "placeholder": "Select commerce state location",
+                        "hint": "update commerce state location"
+                    },
+                    "city": {
+                        "placeholder": "Select commerce city location",
+                        "hint": "update commerce city location"
+                    },
+                    "address": {
+                        "placeholder": "Commerce address",
+                        "hint": "update commerce address"
+                    },
+                    "optionaladdress": {
+                        "placeholder": "Commerce optional address",
+                        "hint": "update commerce optional address"
+                    },
+                    "zipcode": {
+                        "placeholder": "Commerce location zipcode",
+                        "hint": "update commerce location zipcode"
+                    },
+                    "timezone": {
+                        "placeholder": "Commerce location timezone",
+                        "hint": "update commerce location timezone"
+                    },
+                    "gtmoffset": {
+                        "placeholder": "Commerce location GTM Offset",
+                        "hint": "update commerce location GTM offset"
+                    }
+                }
             }
         },
         "createcommerce": {

@@ -147,7 +147,7 @@ export const TypeChargeValue: TypeCharge[] = [
         type: 'percentage',
         value: 0,
         symbol: '%',
-        enabled: true,
+        enabled: false,
     },
     {
         type: 'amount',

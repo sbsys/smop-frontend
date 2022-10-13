@@ -43,25 +43,31 @@ const CreateCommerce = () => {
                     <CreateCommerceAttention />
                 </div>
 
-                <div className={styles.Actions}>
-                    <Button
-                        type="button"
-                        className={ButtonStyles.OutlineNone}
-                        title={t('views.createcommerce.actions.cancel')}
-                        onClick={handleCancelCreateCommerce}>
-                        <Legend hasDots justify="center">
-                            {t('views.createcommerce.actions.cancel')}
-                        </Legend>
-                    </Button>
+                <Legend className={styles.Legend} hasDots>
+                    {t('views.createcommerce.complete')}
+                </Legend>
 
-                    <Button
-                        type="submit"
-                        className={ButtonStyles.FillSecondary}
-                        title={t('views.createcommerce.actions.save')}>
-                        <Legend hasDots justify="center">
-                            {t('views.createcommerce.actions.save')}
-                        </Legend>
-                    </Button>
+                <div className={styles.Actions}>
+                    <div>
+                        <Button
+                            type="button"
+                            className={ButtonStyles.OutlineNone}
+                            title={t('views.createcommerce.actions.cancel')}
+                            onClick={handleCancelCreateCommerce}>
+                            <Legend hasDots justify="center">
+                                {t('views.createcommerce.actions.cancel')}
+                            </Legend>
+                        </Button>
+
+                        <Button
+                            type="submit"
+                            className={ButtonStyles.FillSecondary}
+                            title={t('views.createcommerce.actions.save')}>
+                            <Legend hasDots justify="center">
+                                {t('views.createcommerce.actions.save')}
+                            </Legend>
+                        </Button>
+                    </div>
                 </div>
             </form>
         </ScrollLayout>

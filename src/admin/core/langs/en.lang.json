@@ -382,6 +382,7 @@
         },
         "createcommerce": {
             "header": "Create commerce",
+            "complete": "Please complete the form before save",
             "actions": {
                 "cancel": "Cancel",
                 "save": "Save"

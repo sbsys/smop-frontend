@@ -1,3 +1,4 @@
+import { getCurrentAppLanguage } from 'admin/auth';
 import { AxiosError, AxiosInstance } from 'axios';
 
 type ApiMethods = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
@@ -24,7 +25,7 @@ export const apiRequestHandler = async <R, B = any, P extends KeyValue = {}>({
     instance,
     headers,
     token = '',
-    lang = 'en',
+    lang = getCurrentAppLanguage(),
     method = 'GET',
     endpoint,
     body,

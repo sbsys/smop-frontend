@@ -1018,6 +1018,7 @@
                 "email": "User email",
                 "phone": "User phone number",
                 "created": "Creation date",
+                "unlink": "Unlink user from commerce",
                 "form": {
                     "profile": {
                         "placeholder": "User profile",

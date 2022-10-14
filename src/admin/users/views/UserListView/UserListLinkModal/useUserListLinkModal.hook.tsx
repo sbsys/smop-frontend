@@ -17,7 +17,7 @@ import { ProfileValue } from 'admin/auth';
 /* assets */
 import { MdCheckCircle, MdDangerous } from 'react-icons/md';
 import { FieldStyles } from 'shared/styles';
-import { linkUserService } from 'admin/users/services';
+import { linkUserService, unlinkUserService } from 'admin/users/services';
 
 interface UpdateUserLinkForm {
     profile: number;
@@ -97,6 +97,36 @@ export const useUserListLinkModal = () => {
 
         getUserList();
     });
+
+    const handleUnlink = async () => {
+        showLoader();
+
+        const service = await unlinkUserService({
+            commerceId: selectedUserToLink?.commerceId ?? '',
+            userId: selectedUserToLink?.userId ?? '',
+        });
+
+        hideLoader();
+
+        if (service.error)
+            return notify('danger', {
+                title: 'Error',
+                icon: <MdDangerous />,
+                text: service.message,
+                timestamp: new Date(),
+            });
+
+        notify('success', {
+            title: 'Success',
+            icon: <MdCheckCircle />,
+            text: service.message,
+            timestamp: new Date(),
+        });
+
+        handleCancelUpdateLink();
+
+        getUserList();
+    };
 
     const getCommerceList = useCallback(async () => {
         if (selectedUserToLink === null) return;
@@ -187,5 +217,5 @@ export const useUserListLinkModal = () => {
 
     const updateUserLinkFieldProps: FieldSetProps[] = [profileField, commerceField];
 
-    return { handleUpdateLink, handleCancelUpdateLink, updateUserLinkFieldProps };
+    return { handleUpdateLink, handleCancelUpdateLink, handleUnlink, updateUserLinkFieldProps };
 };

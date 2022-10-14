@@ -28,6 +28,16 @@
         @include font-weight(lg);
     }
 
+    .Unlink {
+        @include flex(row, center);
+        @include gap(all md);
+        margin-left: auto;
+
+        &:disabled {
+            @include opacity(60);
+        }
+    }
+
     .Actions {
         @include gap(all md);
         display: grid;

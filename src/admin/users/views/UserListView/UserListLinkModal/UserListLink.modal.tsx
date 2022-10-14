@@ -12,8 +12,9 @@ import { Button, Legend } from 'shared/components';
 import { FieldSet } from 'admin/core';
 /* utils */
 import { format, isDate } from 'date-fns';
+import { classNames } from 'shared/utils';
 /* assets */
-import { MdWarning } from 'react-icons/md';
+import { MdLinkOff, MdWarning } from 'react-icons/md';
 /* styles */
 import { ButtonStyles } from 'shared/styles';
 import styles from './UserListLinkModal.module.scss';
@@ -24,7 +25,7 @@ const UserListLinkModal = () => {
         selectedUserToLink,
     } = useUserListContext();
 
-    const { handleUpdateLink, handleCancelUpdateLink, updateUserLinkFieldProps } = useUserListLinkModal();
+    const { handleUpdateLink, handleCancelUpdateLink, handleUnlink, updateUserLinkFieldProps } = useUserListLinkModal();
 
     const { t } = useTranslation();
 
@@ -67,6 +68,19 @@ const UserListLinkModal = () => {
                                     format(selectedUserToLink?.createdAt as Date, 'MMM do, yyyy')}
                             </span>
                         </Legend>
+
+                        <Button
+                            className={classNames(ButtonStyles.FillWarning, styles.Unlink)}
+                            type="button"
+                            onClick={handleUnlink}
+                            disabled={!selectedUserToLink?.commerceId && !selectedUserToLink?.profileName}
+                            title={t('views.userlist.link.unlink')}>
+                            <Legend hasDots>{t('views.userlist.link.unlink')}</Legend>
+
+                            <i>
+                                <MdLinkOff />
+                            </i>
+                        </Button>
 
                         {updateUserLinkFieldProps.map((field, index) => (
                             <FieldSet {...field} key={index} />

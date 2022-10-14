@@ -30,7 +30,7 @@ const AppRoutes: FC = () => {
         'auth',
         {} as SignInDTO
     );
-console.log(authLocalStorage);
+
     const dispatch = useAdminDispatch();
 
     const { notify } = useAdminNotify();

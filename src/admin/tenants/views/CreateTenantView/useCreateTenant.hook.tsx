@@ -89,7 +89,7 @@ export const useCreateTenant = () => {
         showLoader();
 
         const service = await createTenantService({
-            schema: data.schema,
+            schemaName: data.schema,
             fullname: data.name,
             phoneNumber: data.phone,
             email: data.email,

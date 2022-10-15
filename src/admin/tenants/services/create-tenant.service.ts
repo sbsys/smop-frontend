@@ -14,7 +14,7 @@ import { createTenantSerializer } from '../serializers';
 import { apiRequestHandler } from 'shared/handlers';
 
 interface CreateTenantProps {
-    schema: string;
+    schemaName: string;
     fullname: string;
     phoneNumber: string;
     email: string;

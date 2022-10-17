@@ -11,8 +11,11 @@
     }
 
     .Form {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        /* display: grid; */
+        /* grid-template-columns: repeat(3, 1fr); */
+        @include flex;
+        flex-grow: 1;
+        overflow: hidden;
     }
 
     .Content {

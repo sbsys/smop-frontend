@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 /* context */
 import { useCreateCommerceContext } from '../CreateCommerce.context';
 /* layouts */
-import { ScrollLayout } from 'shared/layouts';
+import { ScrollLayout, TabsLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
 import { CreateCommerceReference } from '../CreateCommerceReference';
@@ -31,7 +31,19 @@ const CreateCommerce = () => {
             </h1>
 
             <form onSubmit={handleCreateCommerceSubmit} className={styles.Form}>
-                <div className={styles.Content}>
+                <TabsLayout
+                    tabs={[
+                        {
+                            header: () => <Button><Legend>Header 1</Legend></Button>,
+                            body: <div>Body 1</div>
+                        },
+                        {
+                            header: () => <Button><Legend>Header 2</Legend></Button>,
+                            body: <div>Body 2</div>
+                        },
+                    ]}
+                />
+                {/* <div className={styles.Content}>
                     <CreateCommerceReference />
 
                     <div className={styles.Join}>
@@ -68,7 +80,7 @@ const CreateCommerce = () => {
                             </Legend>
                         </Button>
                     </div>
-                </div>
+                </div> */}
             </form>
         </ScrollLayout>
     );

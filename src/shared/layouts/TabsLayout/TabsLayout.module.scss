@@ -1,0 +1,11 @@
+@import 'styles';
+
+.TabsLayout {
+    .Tab {
+        display: none;
+
+        &Active {
+            @include flex;
+        }
+    }
+}

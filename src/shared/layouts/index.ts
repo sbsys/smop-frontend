@@ -5,3 +5,4 @@ export * from './ModalLayout';
 export * from './DropLayout';
 export * from './AccordionLayout';
 export * from './TableLayout';
+export * from './TabsLayout';

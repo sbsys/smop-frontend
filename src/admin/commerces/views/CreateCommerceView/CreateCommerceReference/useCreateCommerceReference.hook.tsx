@@ -182,7 +182,7 @@ export const useCreateCommerceReference = () => {
                             </i>
                         </Button>
                     ) : undefined,
-                ...register(`servicePhones.${index}.phone`),
+                ...register(`servicePhones.${index}.phoneNumber`),
             },
             isHintReserved: true,
             hint: {

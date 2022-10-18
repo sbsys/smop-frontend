@@ -13,12 +13,13 @@ export interface Tab {
 
 export interface TabsLayoutProps {
     tabs: Tab[];
+    className?: string;
     classNameHeader?: string;
 }
 
 export interface TabsLayoutRef {
     currentTabIndex: number;
     setTabIndex: (index: number) => void;
-    nexTab: () => void;
+    nextTab: () => void;
     prevTab: () => void;
 }

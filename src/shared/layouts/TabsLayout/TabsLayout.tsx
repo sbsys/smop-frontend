@@ -10,14 +10,14 @@ import { classNames } from 'shared/utils';
 /* styles */
 import styles from './TabsLayout.module.scss';
 
-const TabsLayout = forwardRef<TabsLayoutRef | null, TabsLayoutProps>(({ classNameHeader, tabs }, ref) => {
+const TabsLayout = forwardRef<TabsLayoutRef | null, TabsLayoutProps>(({ className, classNameHeader, tabs }, ref) => {
     /* states */
     const [tabIndex, setTabIndex] = useState<number>(0);
 
     const hasHeader = useMemo((): boolean => tabs.find(tab => tab.header !== undefined) !== undefined, [tabs]);
 
     /* functions */
-    const nexTab = useCallback(
+    const nextTab = useCallback(
         () => setTabIndex(index => (index + 1 <= tabs.length ? index + 1 : index)),
         [tabs.length]
     );
@@ -29,17 +29,17 @@ const TabsLayout = forwardRef<TabsLayoutRef | null, TabsLayoutProps>(({ classNam
         () => ({
             currentTabIndex: tabIndex,
             setTabIndex: setTabIndex,
-            nexTab: nexTab,
+            nextTab: nextTab,
             prevTab: prevTab,
         }),
-        [nexTab, prevTab, tabIndex]
+        [nextTab, prevTab, tabIndex]
     );
 
     return (
-        <PanelLayout orientation="col" className={classNames(styles.TabsLayout)}>
+        <PanelLayout orientation="col" className={classNames(styles.TabsLayout, className)}>
             {hasHeader && (
                 <div className={styles.Header}>
-                    <ScrollLayout orientation="row" className={classNameHeader}>
+                    <ScrollLayout orientation="row" classNameContent={classNameHeader}>
                         {tabs.map((tab, index) => (
                             <Fragment key={index}>
                                 {typeof tab.header === 'function'

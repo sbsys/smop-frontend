@@ -1,5 +1,5 @@
 /* react */
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 /* hooks */
@@ -7,6 +7,7 @@ import { useLoader } from 'shared/hooks';
 import { useAdminNotify } from 'admin/core';
 /* props */
 import { CreateCommerceContextProps, CreateCommerceForm } from './CreateCommerce.props';
+import { TabsLayoutRef } from 'shared/layouts';
 /* services */
 import { countryListService, createCommerceService } from 'admin/commerces/services';
 /* types */
@@ -25,6 +26,8 @@ export const useCreateCommerce = () => {
     const { notify } = useAdminNotify();
 
     const { showLoader, hideLoader } = useLoader();
+
+    const tabRef = useRef<TabsLayoutRef | null>(null);
 
     /* functions */
     const handleCreateCommerceSubmit = formMethods.handleSubmit(async data => {
@@ -72,6 +75,9 @@ export const useCreateCommerce = () => {
         setCountryList(service.data);
     }, [hideLoader, notify, showLoader]);
 
+    const handleNextTab = useCallback(() => tabRef.current?.nextTab(), []);
+    const handlePrevTab = useCallback(() => tabRef.current?.prevTab(), []);
+
     /* reactivity */
     useEffect(() => {
         getCountryList();
@@ -82,9 +88,12 @@ export const useCreateCommerce = () => {
     const context: CreateCommerceContextProps = {
         /* states */
         countryList,
+        tabRef,
         /* functions */
         handleCreateCommerceSubmit,
         handleCancelCreateCommerce,
+        handleNextTab,
+        handlePrevTab,
         /* props */
     };
 

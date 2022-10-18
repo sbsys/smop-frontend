@@ -1,5 +1,5 @@
 /* react */
-import { BaseSyntheticEvent } from 'react';
+import { BaseSyntheticEvent, MutableRefObject } from 'react';
 /* props */
 import { ChildrenProps } from 'shared/props';
 /* types */
@@ -13,13 +13,17 @@ import {
     TypeCharge,
     TypeOrder,
 } from 'admin/commerces/types';
+import { TabsLayoutRef } from 'shared/layouts';
 
 export interface CreateCommerceContextProps {
     /* states */
     countryList: CountryListItemDTO[];
+    tabRef: MutableRefObject<TabsLayoutRef | null>;
     /* functions */
     handleCreateCommerceSubmit: (e?: BaseSyntheticEvent) => Promise<void>;
     handleCancelCreateCommerce: () => void;
+    handleNextTab: () => void;
+    handlePrevTab: () => void;
     /* props */
 }
 

@@ -2,18 +2,35 @@
 
 .Attention {
     @include flex;
-    @include gap(all sm);
-    overflow: hidden;
+    @include gap(all md);
+    @include margin(x xs, bottom xs);
 
     .Content {
-        @include flex;
-        @include gap(all xs);
+        @include gap(y md, x md);
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
 
-        & > h3 {
-            @include font-weight(lg);
+        @include screen-width(sm) {
+            grid-template-columns: repeat(2, 1fr);
+        }
 
-            &:nth-child(n + 2) {
-                @include margin(top md);
+        @include screen-width(md) {
+            @include gap(x lg);
+        }
+
+        @include screen-width(xl) {
+            @include gap(x xl);
+        }
+
+        & > div {
+            @include flex;
+
+            & > h3 {
+                @include font-weight(lg);
+
+                &:nth-child(n + 2) {
+                    @include margin(top md);
+                }
             }
         }
     }
@@ -43,6 +60,21 @@
 
         @include screen-width(2xs) {
             grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    .Actions {
+        @include flex(row, center, flex-end);
+        @include gap(all xs);
+        @include margin(top sm);
+
+        & > button {
+            overflow: hidden;
+            width: 100%;
+
+            @include screen-width(2xs) {
+                @include max-width(md, component);
+            }
         }
     }
 }

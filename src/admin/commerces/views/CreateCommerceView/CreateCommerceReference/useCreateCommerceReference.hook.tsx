@@ -26,6 +26,8 @@ export const useCreateCommerceReference = () => {
     const {
         /* states */
         countryList,
+        /* functions */
+        handleNextTab,
     } = useCreateCommerceContext();
 
     const {
@@ -80,6 +82,8 @@ export const useCreateCommerceReference = () => {
             handleSetGeolocation(coords.latitude, coords.longitude);
         });
     }, [handleSetGeolocation]);
+
+    const handleToNextTab = () => handleNextTab();
 
     /* reactivity */
     useEffect(() => {
@@ -391,5 +395,5 @@ export const useCreateCommerceReference = () => {
         gtmOffsetField,
     ];
 
-    return { geolocation, meters, handleSetGeolocation, createCommerceReferenceFields };
+    return { geolocation, meters, handleSetGeolocation, handleToNextTab, createCommerceReferenceFields };
 };

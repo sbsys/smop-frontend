@@ -6,9 +6,12 @@ import { CreateCommerceContextProps, CreateCommerceProviderProps } from './Creat
 const Context = createContext<CreateCommerceContextProps>({
     /* states */
     countryList: [],
+    tabRef: { current: null },
     /* functions */
     handleCreateCommerceSubmit: () => new Promise(resolve => resolve()),
     handleCancelCreateCommerce: () => {},
+    handleNextTab: () => {},
+    handlePrevTab: () => {},
     /* props */
 });
 

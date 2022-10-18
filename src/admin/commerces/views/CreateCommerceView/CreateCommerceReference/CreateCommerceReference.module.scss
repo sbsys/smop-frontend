@@ -1,9 +1,22 @@
 @import 'styles';
 
 .Reference {
-    @include flex;
-    @include gap(all sm);
-    overflow: hidden;
+    @include gap(y md, x md);
+    @include margin(x xs, bottom xs);
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+
+    @include screen-width(sm) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include screen-width(md) {
+        @include gap(x lg);
+    }
+
+    @include screen-width(xl) {
+        @include gap(x xl);
+    }
 
     .Content {
         @include flex;
@@ -11,14 +24,38 @@
     }
 
     .Map {
-        @include margin(all xs);
         @include rounded(all xs);
         @include shadow(all xs);
         aspect-ratio: 1;
         overflow: hidden;
+
+        @include screen-width(sm) {
+            aspect-ratio: unset;
+        }
     }
 
     & > h2 {
         @include font-weight(xl);
+
+        @include screen-width(sm) {
+            grid-column: span 2;
+        }
+    }
+
+    .Actions {
+        @include flex(row, center, flex-end);
+        @include margin(top sm);
+
+        @include screen-width(sm) {
+            grid-column: span 2;
+        }
+
+        & > button {
+            width: 100%;
+
+            @include screen-width(2xs) {
+                @include max-width(md, component);
+            }
+        }
     }
 }

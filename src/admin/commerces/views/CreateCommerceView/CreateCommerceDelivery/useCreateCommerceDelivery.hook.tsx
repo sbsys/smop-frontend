@@ -1,9 +1,12 @@
 /* react */
+import { useMemo } from 'react';
 import { FieldSetProps } from 'admin/core';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 /* props */
 import { CreateCommerceForm } from '../CreateCommerce.props';
+/* utils */
+import { milesToMeters } from 'shared/utils';
 /* types */
 import { TypeChargeKeySymbol } from 'admin/commerces/types';
 /* styles */
@@ -15,7 +18,18 @@ export const useCreateCommerceDelivery = () => {
     const {
         register,
         formState: { errors },
+        watch,
     } = useFormContext<CreateCommerceForm>();
+
+    const geolocation = useMemo(() => {
+        return {
+            lat: watch('geolocation.latitude') || 0,
+            lng: watch('geolocation.longitude') || 0,
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [watch('geolocation.latitude'), watch('geolocation.longitude')]);
+
+    const meters = milesToMeters(watch('deliveryArea') || 0);
 
     const { t } = useTranslation();
 
@@ -144,5 +158,5 @@ export const useCreateCommerceDelivery = () => {
         deliveryAreaField,
     ];
 
-    return { createCommerceDeliveryFields };
+    return { createCommerceDeliveryFields, geolocation, meters };
 };

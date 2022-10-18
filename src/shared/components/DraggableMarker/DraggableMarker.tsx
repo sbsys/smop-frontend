@@ -12,8 +12,8 @@ type Position = {
 };
 
 const DraggableMarker: FC<
-    Position & { getPosition: (latitude: number, longitude: number) => void } & ChildrenProps
-> = ({ lat, lng, getPosition, children }) => {
+    Position & { getPosition: (latitude: number, longitude: number) => void; isDraggable?: boolean } & ChildrenProps
+> = ({ lat, lng, getPosition, isDraggable = true, children }) => {
     const [position, setPosition] = useState<Position>({ lat, lng });
 
     const markerRef = useRef<MarkerProps | null>(null);
@@ -44,7 +44,7 @@ const DraggableMarker: FC<
     }, [lat, lng, map]);
 
     return (
-        <Marker draggable={true} eventHandlers={eventHandlers} position={position} ref={markerRef}>
+        <Marker draggable={isDraggable} eventHandlers={eventHandlers} position={position} ref={markerRef}>
             {typeof children === 'function' ? children() : children}
         </Marker>
     );

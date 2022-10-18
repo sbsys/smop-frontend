@@ -3,11 +3,16 @@
 .CreateCommerce {
     @include gap(all md);
     @include margin(y md);
-    @include padding(x xs);
 
-    & > h1 {
-        @include font-size(xl);
-        @include font-weight(2xl);
+    .Header {
+        @include flex(row, center, space-between);
+        @include gap(all xs);
+
+        & > h1 {
+            @include font-size(xl);
+            @include font-weight(2xl);
+            overflow: hidden;
+        }
     }
 
     .Form {
@@ -16,6 +21,33 @@
         @include flex;
         flex-grow: 1;
         overflow: hidden;
+    }
+
+    .Tab {
+        @include gap(all md);
+    }
+
+    .TabHeader {
+        @include gap(all xs);
+        @include padding(bottom sm);
+
+        @include screen-width(sm) {
+            justify-content: center;
+        }
+    }
+
+    .TabItem {
+        @include border-color(bottom 400 secondary);
+        @include border-opacity(bottom 0);
+        @include border-width(bottom sm);
+        @include font-weight(lg);
+        @include min-width(sm, component);
+        overflow: hidden;
+
+        &Active {
+            @include border-opacity(bottom 100);
+            @include font-color(400, secondary);
+        }
     }
 
     .Content {
@@ -34,9 +66,40 @@
     }
 
     .Join {
-        @include flex;
-        @include gap(all md);
-        overflow: hidden;
+        @include gap(y md, x md);
+        @include margin(x xs, bottom xs);
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+
+        @include screen-width(sm) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include screen-width(md) {
+            @include gap(x lg);
+        }
+
+        @include screen-width(xl) {
+            @include gap(x xl);
+        }
+
+        .JoinActions {
+            @include flex(row, center, flex-end);
+            @include gap(all xs);
+            @include margin(top sm);
+
+            @include screen-width(sm) {
+                grid-column: span 2;
+            }
+
+            & > button {
+                flex-grow: 1;
+
+                @include screen-width(2xs) {
+                    @include max-width(md, component);
+                }
+            }
+        }
     }
 
     .Legend {

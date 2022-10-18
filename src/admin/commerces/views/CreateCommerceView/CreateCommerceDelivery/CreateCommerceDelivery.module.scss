@@ -17,6 +17,14 @@
     & > h2 {
         @include font-weight(xl);
     }
+
+    .Map {
+        @include margin(all xs split);
+        @include min-height(md, component);
+        @include rounded(all xs);
+        @include shadow(all xs);
+        overflow: hidden;
+    }
 }
 
 .Checkbox {

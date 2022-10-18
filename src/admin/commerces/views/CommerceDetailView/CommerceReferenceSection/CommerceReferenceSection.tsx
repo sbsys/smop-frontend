@@ -77,7 +77,7 @@ const CommerceReferenceSection = () => {
                 <div className={styles.Phones}>
                     {commerce?.servicePhones.map((phone, index) => (
                         <Legend key={index} hasDots>
-                            {phone.phone}
+                            {phone.phoneNumber}
                         </Legend>
                     ))}
                 </div>

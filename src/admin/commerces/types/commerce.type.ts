@@ -16,7 +16,7 @@ export interface Geoinformation {
 }
 
 export interface ServicePhone {
-    phone: string;
+    phoneNumber: string;
 }
 
 export type DayKey = 'Sunday' | 'Monday' | 'Tuesday' | 'Wenesday' | 'Thursday' | 'Friday' | 'Saturday';

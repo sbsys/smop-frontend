@@ -38,10 +38,10 @@ const mock: ApiResponse<CommerceDetailDTO> = {
         },
         servicePhones: [
             {
-                phone: '+505-78561289',
+                phoneNumber: '+505-78561289',
             },
             {
-                phone: '+505-45785623',
+                phoneNumber: '+505-45785623',
             },
         ],
         geohash: 'd44nz01xf',

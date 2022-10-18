@@ -234,7 +234,7 @@ export const useUpdateReference = () => {
                         ? FieldStyles.OutlineDanger
                         : FieldStyles.OutlinePrimary,
                 placeholder: t('views.commercedetail.updatereference.form.servicephones.placeholder'),
-                defaultValue: commerce?.servicePhones[index]?.phone,
+                defaultValue: commerce?.servicePhones[index]?.phoneNumber,
                 beforeContent:
                     index > 0 && index + 1 === phonesCount ? (
                         <Button

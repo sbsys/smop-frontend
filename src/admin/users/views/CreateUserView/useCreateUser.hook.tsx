@@ -14,12 +14,13 @@ import * as yup from 'yup';
 /* types */
 import { ProfileValue } from 'admin/auth';
 import { CommerceListItemDTO, commerceListService } from 'admin/commerces';
+/* services */
+import { createLinkedUserService, createUnlinkedUserService } from 'admin/users/services';
 /* assets */
 import { MdBookmarkAdded, MdCheckCircle, MdDangerous } from 'react-icons/md';
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 /* styles */
 import { FieldStyles } from 'shared/styles';
-import { createLinkedUserService } from 'admin/users/services';
 
 interface CreateUserForm {
     name: string;
@@ -27,6 +28,7 @@ interface CreateUserForm {
     email: string;
     password: string;
     repeat_password: string;
+    linked: boolean;
     profile: number;
     commerce: string;
 }
@@ -53,8 +55,23 @@ const CreateUserSchema = yup
             .string()
             .required('views.createuser.form.repeatpassword.required')
             .oneOf([yup.ref('password')], 'views.createuser.form.repeatpassword.equal'),
-        profile: yup.number().required('views.createuser.form.profile.required'),
-        commerce: yup.string().required('views.createuser.form.commerce.required'),
+        linked: yup.boolean(),
+        profile: yup.mixed().when(['linked'], {
+            is: (linked: boolean) => linked,
+            then: yup
+                .number()
+                .typeError('views.createuser.form.profile.required')
+                .required('views.createuser.form.profile.required'),
+            otherwise: yup.string(),
+        }),
+        commerce: yup.mixed().when(['linked'], {
+            is: (linked: boolean) => linked,
+            then: yup
+                .number()
+                .typeError('views.createuser.form.commerce.required')
+                .required('views.createuser.form.commerce.required'),
+            otherwise: yup.string(),
+        }),
     })
     .required();
 
@@ -64,6 +81,7 @@ export const useCreateUser = () => {
         formState: { errors },
         handleSubmit,
         register,
+        watch,
     } = useForm<CreateUserForm>({
         mode: 'all',
         resolver: yupResolver(CreateUserSchema),
@@ -85,14 +103,21 @@ export const useCreateUser = () => {
     const handleCreateUser = handleSubmit(async data => {
         showLoader();
 
-        const service = await createLinkedUserService({
-            fullname: data.name,
-            phoneNumber: data.phone,
-            email: data.email,
-            password: data.password,
-            profileId: data.profile,
-            commerceId: data.commerce,
-        });
+        const service = await (watch('linked')
+            ? createLinkedUserService({
+                  fullname: data.name,
+                  phoneNumber: data.phone,
+                  email: data.email,
+                  password: data.password,
+                  profileId: data.profile,
+                  commerceId: data.commerce,
+              })
+            : createUnlinkedUserService({
+                  fullname: data.name,
+                  phoneNumber: data.phone,
+                  email: data.email,
+                  password: data.password,
+              }));
 
         hideLoader();
 
@@ -258,6 +283,20 @@ export const useCreateUser = () => {
                   title: t('views.createuser.form.repeatpassword.hint'),
               },
     };
+    const linkedField: FieldSetProps = {
+        field: {
+            className: FieldStyles.OutlinePrimary,
+            strategy: 'checkbox',
+            defaultChecked: false,
+            ...register('linked'),
+        },
+        isHintReserved: true,
+        hint: {
+            children: t('views.createuser.form.linked.hint'),
+            hasDots: true,
+            title: t('views.createuser.form.linked.hint'),
+        },
+    };
     const profileField: FieldSetProps = {
         field: {
             className: errors.profile ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
@@ -313,8 +352,8 @@ export const useCreateUser = () => {
         emailField,
         passwordField,
         repeatPasswordField,
-        profileField,
-        commerceField,
+        linkedField,
+        ...(watch('linked') ? [profileField, commerceField] : []),
     ];
 
     /* context */

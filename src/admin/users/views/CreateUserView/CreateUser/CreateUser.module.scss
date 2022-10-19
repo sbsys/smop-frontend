@@ -23,6 +23,12 @@
             }
         }
 
+        & > fieldset:nth-child(7) {
+            @include gap(all md);
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+        }
+
         & > div {
             @include gap(all md);
             display: grid;

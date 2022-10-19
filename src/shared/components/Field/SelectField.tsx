@@ -25,7 +25,7 @@ const SelectField = forwardRef<HTMLSelectElement | null, SelectFieldProps>(
         return (
             <FieldLayout {...layoutProps}>
                 <select {...selectProps}>
-                    <option hidden value="">
+                    <option hidden value={undefined}>
                         {placeholder}
                     </option>
 

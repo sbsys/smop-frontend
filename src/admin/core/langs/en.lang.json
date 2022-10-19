@@ -1065,8 +1065,12 @@
                 },
                 "repeatpassword": {
                     "placeholder": "Confirm password",
+                    "hint": "password confirmation",
                     "required": "password confirmation is required",
                     "equal": "user password and confirmation must match"
+                },
+                "linked": {
+                    "hint": "is linked to a commerce?"
                 },
                 "profile": {
                     "placeholder": "User profile",

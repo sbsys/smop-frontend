@@ -14,6 +14,8 @@ import {
     TypeOrder,
 } from 'admin/commerces/types';
 import { TabsLayoutRef } from 'shared/layouts';
+/* utils */
+import * as yup from 'yup';
 
 export interface CreateCommerceContextProps {
     /* states */
@@ -57,3 +59,32 @@ export interface CreateCommerceForm {
     deliveryArea: number;
     deliveringZone: boolean;
 }
+
+export const CreateCommerceSchema = yup
+    .object({
+        /* references */
+        referenceName: yup.string().required('views.createcommerce.reference.form.name.required'),
+        servicePhones: yup.array(
+            yup
+                .object({
+                    phoneNumber: yup
+                        .string()
+                        .required('views.createcommerce.reference.form.phone.required')
+                        .matches(/^\+\d{3}-\d{7,8}$/, 'views.createcommerce.reference.form.phone.format'),
+                })
+                .required()
+        ),
+        geoinformation: yup
+            .object({
+                country: yup.string().required('views.createcommerce.reference.form.country.required'),
+                state: yup.string().required('views.createcommerce.reference.form.state.required'),
+                city: yup.string().required('views.createcommerce.reference.form.city.required'),
+                timezone: yup.string().required('views.createcommerce.reference.form.timezone.required'),
+                gtmOffset: yup.string().required('views.createcommerce.reference.form.gtmoffset.required'),
+            })
+            .required(),
+        address: yup.string().required('views.createcommerce.reference.form.address.required'),
+        zipcode: yup.string().required('views.createcommerce.reference.form.zipcode.required'),
+        /* order settings */
+    })
+    .required();

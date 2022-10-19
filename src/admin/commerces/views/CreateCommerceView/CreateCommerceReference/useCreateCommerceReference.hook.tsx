@@ -35,6 +35,8 @@ export const useCreateCommerceReference = () => {
         setValue,
         formState: { errors },
         watch,
+        unregister,
+        trigger,
     } = useFormContext<CreateCommerceForm>();
 
     const [departmentList, setDepartmentList] = useState<DepartmentDTO>({
@@ -49,7 +51,11 @@ export const useCreateCommerceReference = () => {
 
     const [phonesCount, setPhonesCount] = useState(1);
     const addPhone = useCallback(() => setPhonesCount(count => count + 1), []);
-    const removePhone = useCallback(() => setPhonesCount(count => (count > 0 ? count - 1 : count)), []);
+    const removePhone = useCallback(() => {
+        unregister('servicePhones');
+
+        setPhonesCount(count => (count > 0 ? count - 1 : count));
+    }, [unregister]);
 
     const geolocation = useMemo(() => {
         return {
@@ -83,7 +89,14 @@ export const useCreateCommerceReference = () => {
         });
     }, [handleSetGeolocation]);
 
-    const handleToNextTab = () => handleNextTab();
+    const handleToNextTab = async () => {
+        if (
+            await trigger(['referenceName', 'servicePhones', 'geoinformation', 'address', 'zipcode'], {
+                shouldFocus: true,
+            })
+        )
+            handleNextTab();
+    };
 
     /* reactivity */
     useEffect(() => {
@@ -123,7 +136,7 @@ export const useCreateCommerceReference = () => {
             setValue(
                 'geoinformation.gtmOffset',
                 departmentList.timezones.find(current => current.zoneName === watch('geoinformation.timezone'))
-                    ?.gmtOffsetName ?? ''
+                    ?.gmtOffsetName ?? '+00:00'
             );
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [watch('geoinformation.timezone')]);
@@ -188,13 +201,13 @@ export const useCreateCommerceReference = () => {
             hint: {
                 hasDots: true,
                 title: t(
-                    errors.servicePhones && errors.servicePhones[index]
-                        ? (errors.servicePhones[index]?.message as string)
+                    errors.servicePhones && errors.servicePhones[index]?.phoneNumber
+                        ? (errors.servicePhones[index]?.phoneNumber?.message as string)
                         : 'views.createcommerce.reference.form.servicephones.hint'
                 ),
                 children: t(
-                    errors.servicePhones && errors.servicePhones[index]
-                        ? (errors.servicePhones[index]?.message as string)
+                    errors.servicePhones && errors.servicePhones[index]?.phoneNumber
+                        ? (errors.servicePhones[index]?.phoneNumber?.message as string)
                         : 'views.createcommerce.reference.form.servicephones.hint'
                 ),
             },

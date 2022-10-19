@@ -6,10 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import { useLoader } from 'shared/hooks';
 import { useAdminNotify } from 'admin/core';
 /* props */
-import { CreateCommerceContextProps, CreateCommerceForm } from './CreateCommerce.props';
+import { CreateCommerceContextProps, CreateCommerceForm, CreateCommerceSchema } from './CreateCommerce.props';
 import { TabsLayoutRef } from 'shared/layouts';
 /* services */
 import { countryListService, createCommerceService } from 'admin/commerces/services';
+/* utils */
+import { yupResolver } from '@hookform/resolvers/yup';
 /* types */
 import { CountryListItemDTO } from 'admin/commerces/types';
 /* assets */
@@ -19,7 +21,10 @@ export const useCreateCommerce = () => {
     /* states */
     const [countryList, setCountryList] = useState<CountryListItemDTO[]>([]);
 
-    const formMethods = useForm<CreateCommerceForm>();
+    const formMethods = useForm<CreateCommerceForm>({
+        mode: 'all',
+        resolver: yupResolver(CreateCommerceSchema),
+    });
 
     const navigate = useNavigate();
 

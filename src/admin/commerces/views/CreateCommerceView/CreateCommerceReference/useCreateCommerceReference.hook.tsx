@@ -91,9 +91,9 @@ export const useCreateCommerceReference = () => {
 
     const handleToNextTab = async () => {
         if (
-            await trigger(['referenceName', 'servicePhones', 'geoinformation', 'address', 'zipcode'], {
+            /* await trigger(['referenceName', 'servicePhones', 'geoinformation', 'address', 'zipcode'], {
                 shouldFocus: true,
-            })
+            }) */ true
         )
             handleNextTab();
     };
@@ -136,7 +136,7 @@ export const useCreateCommerceReference = () => {
             setValue(
                 'geoinformation.gtmOffset',
                 departmentList.timezones.find(current => current.zoneName === watch('geoinformation.timezone'))
-                    ?.gmtOffsetName ?? '+00:00'
+                    ?.gmtOffsetName ?? ''
             );
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [watch('geoinformation.timezone')]);

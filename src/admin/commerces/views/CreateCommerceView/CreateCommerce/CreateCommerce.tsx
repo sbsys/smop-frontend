@@ -1,6 +1,7 @@
 /* react */
 import { memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useFormContext } from 'react-hook-form';
 /* context */
 import { useCreateCommerceContext } from '../CreateCommerce.context';
 /* layouts */
@@ -13,6 +14,8 @@ import { CreateCommerceAttention } from '../CreateCommerceAttention';
 import { CreateCommerceDelivery } from '../CreateCommerceDelivery';
 /* utils */
 import { classNames } from 'shared/utils';
+/* props */
+import { CreateCommerceForm } from '../CreateCommerce.props';
 /* styles */
 import { ButtonStyles } from 'shared/styles';
 import styles from './CreateCommerce.module.scss';
@@ -28,8 +31,12 @@ const CreateCommerce = () => {
         handleNextTab,
     } = useCreateCommerceContext();
 
+    const { trigger } = useFormContext<CreateCommerceForm>();
+
     const handleToPrevTab = useCallback(() => handlePrevTab(), [handlePrevTab]);
-    const handleToNextTab = useCallback(() => handleNextTab(), [handleNextTab]);
+    const handleToNextTab = useCallback(async () => {
+        if (await trigger(['typeCharge', 'applyCharge'])) handleNextTab();
+    }, [handleNextTab, trigger]);
 
     const { t } = useTranslation();
 

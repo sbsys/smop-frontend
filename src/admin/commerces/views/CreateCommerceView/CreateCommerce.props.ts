@@ -86,5 +86,16 @@ export const CreateCommerceSchema = yup
         address: yup.string().required('views.createcommerce.reference.form.address.required'),
         zipcode: yup.string().required('views.createcommerce.reference.form.zipcode.required'),
         /* order settings */
+        typeCharge: yup.array(
+            yup
+                .object({
+                    value: yup.number().typeError('views.createcommerce.setting.form.typecharge.cero'),
+                })
+                .required()
+        ),
+        applyCharge: yup
+            .number()
+            .typeError('views.createcommerce.setting.form.applycharge.required')
+            .required('views.createcommerce.setting.form.applycharge.required'),
     })
     .required();

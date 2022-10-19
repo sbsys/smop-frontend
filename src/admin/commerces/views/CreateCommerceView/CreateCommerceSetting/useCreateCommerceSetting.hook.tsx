@@ -30,6 +30,8 @@ export const useCreateCommerceSetting = () => {
             setValue('typeCharge.1.value', 0);
 
             setFocus('typeCharge.0.value');
+        } else {
+            setValue('typeCharge.0.value', 0);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [setValue, watch('typeCharge.0.enabled')]);
@@ -40,6 +42,8 @@ export const useCreateCommerceSetting = () => {
             setValue('typeCharge.0.value', 0);
 
             setFocus('typeCharge.1.value');
+        } else {
+            setValue('typeCharge.1.value', 0);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [setValue, watch('typeCharge.1.enabled')]);
@@ -122,13 +126,13 @@ export const useCreateCommerceSetting = () => {
                 hint: {
                     hasDots: true,
                     title: t(
-                        errors.typeCharge && errors.typeCharge[index]
-                            ? (errors.typeCharge[index]?.message as string)
+                        errors.typeCharge && errors.typeCharge[index]?.enabled
+                            ? (errors.typeCharge[index]?.enabled?.message as string)
                             : `views.createcommerce.setting.form.typecharge.${typeCharge?.type}.title`
                     ),
                     children: t(
-                        errors.typeCharge && errors.typeCharge[index]
-                            ? (errors.typeCharge[index]?.message as string)
+                        errors.typeCharge && errors.typeCharge[index]?.enabled
+                            ? (errors.typeCharge[index]?.enabled?.message as string)
                             : `views.createcommerce.setting.form.typecharge.${typeCharge?.type}.title`
                     ),
                 },
@@ -152,13 +156,13 @@ export const useCreateCommerceSetting = () => {
                 hint: {
                     hasDots: true,
                     title: t(
-                        errors.typeCharge && errors.typeCharge[index]
-                            ? (errors.typeCharge[index]?.message as string)
+                        errors.typeCharge && errors.typeCharge[index]?.value
+                            ? (errors.typeCharge[index]?.value?.message as string)
                             : `views.createcommerce.setting.form.typecharge.${typeCharge?.type}.hint`
                     ),
                     children: t(
                         errors.typeCharge && errors.typeCharge[index]
-                            ? (errors.typeCharge[index]?.message as string)
+                            ? (errors.typeCharge[index]?.value?.message as string)
                             : `views.createcommerce.setting.form.typecharge.${typeCharge?.type}.hint`
                     ),
                 },

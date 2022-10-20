@@ -19,6 +19,7 @@ export const useCreateCommerceSetting = () => {
         formState: { errors },
         watch,
         setFocus,
+        trigger,
     } = useFormContext<CreateCommerceForm>();
 
     const { t } = useTranslation();
@@ -33,6 +34,8 @@ export const useCreateCommerceSetting = () => {
         } else {
             setValue('typeCharge.0.value', 0);
         }
+
+        trigger(['typeCharge.0.value', 'typeCharge.1.value']);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [setValue, watch('typeCharge.0.enabled')]);
 
@@ -45,6 +48,8 @@ export const useCreateCommerceSetting = () => {
         } else {
             setValue('typeCharge.1.value', 0);
         }
+
+        trigger(['typeCharge.0.value', 'typeCharge.1.value']);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [setValue, watch('typeCharge.1.enabled')]);
 

@@ -69,8 +69,8 @@ export const CreateCommerceSchema = yup
                 .object({
                     phoneNumber: yup
                         .string()
-                        .required('views.createcommerce.reference.form.phone.required')
-                        .matches(/^\+\d{3}-\d{7,8}$/, 'views.createcommerce.reference.form.phone.format'),
+                        .required('views.createcommerce.reference.form.servicephones.required')
+                        .matches(/^\+\d{3}-\d{7,8}$/, 'views.createcommerce.reference.form.servicephones.format'),
                 })
                 .required()
         ),
@@ -89,7 +89,10 @@ export const CreateCommerceSchema = yup
         typeCharge: yup.array(
             yup
                 .object({
-                    value: yup.number().typeError('views.createcommerce.setting.form.typecharge.cero'),
+                    value: yup
+                        .number()
+                        .typeError('views.createcommerce.setting.form.typecharge.cero')
+                        .min(0, 'views.createcommerce.setting.form.typecharge.cero'),
                 })
                 .required()
         ),
@@ -97,5 +100,80 @@ export const CreateCommerceSchema = yup
             .number()
             .typeError('views.createcommerce.setting.form.applycharge.required')
             .required('views.createcommerce.setting.form.applycharge.required'),
+        /* attention */
+        serviceHours: yup
+            .object({
+                onsite: yup.array(
+                    yup
+                        .object({
+                            opening: yup
+                                .string()
+                                .matches(
+                                    /^(\d{2}):([0-5])([0-9])$/,
+                                    'views.createcommerce.attention.form.servicehours.onsite.opening.format'
+                                ),
+                            closing: yup
+                                .string()
+                                .matches(
+                                    /^(\d{2}):([0-5])([0-9])$/,
+                                    'views.createcommerce.attention.form.servicehours.onsite.closing.format'
+                                ),
+                        })
+                        .required()
+                ),
+                delivery: yup.array(
+                    yup
+                        .object({
+                            opening: yup
+                                .string()
+                                .matches(
+                                    /^(\d{2}):([0-5])([0-9])$/,
+                                    'views.createcommerce.attention.form.servicehours.delivery.opening.format'
+                                ),
+                            closing: yup
+                                .string()
+                                .matches(
+                                    /^(\d{2}):([0-5])([0-9])$/,
+                                    'views.createcommerce.attention.form.servicehours.delivery.closing.format'
+                                ),
+                        })
+                        .required()
+                ),
+            })
+            .required(),
+        onsitePreparationTime: yup
+            .object({
+                hours: yup
+                    .number()
+                    .typeError('views.createcommerce.attention.form.onsitepreparationtime.hours.min')
+                    .integer('views.createcommerce.attention.form.onsitepreparationtime.hours.min')
+                    .min(0, 'views.createcommerce.attention.form.onsitepreparationtime.hours.min')
+                    .optional(),
+                minutes: yup
+                    .number()
+                    .typeError('views.createcommerce.attention.form.onsitepreparationtime.minutes.min')
+                    .integer('views.createcommerce.attention.form.onsitepreparationtime.minutes.min')
+                    .min(0, 'views.createcommerce.attention.form.onsitepreparationtime.minutes.min')
+                    .max(59, 'views.createcommerce.attention.form.onsitepreparationtime.minutes.max')
+                    .optional(),
+            })
+            .required(),
+        deliveryPreparationTime: yup
+            .object({
+                hours: yup
+                    .number()
+                    .typeError('views.createcommerce.attention.form.deliverypreparationtime.hours.min')
+                    .integer('views.createcommerce.attention.form.deliverypreparationtime.hours.min')
+                    .min(0, 'views.createcommerce.attention.form.deliverypreparationtime.hours.min')
+                    .optional(),
+                minutes: yup
+                    .number()
+                    .typeError('views.createcommerce.attention.form.deliverypreparationtime.minutes.min')
+                    .integer('views.createcommerce.attention.form.deliverypreparationtime.minutes.min')
+                    .min(0, 'views.createcommerce.attention.form.deliverypreparationtime.minutes.min')
+                    .max(59, 'views.createcommerce.attention.form.deliverypreparationtime.minutes.max')
+                    .optional(),
+            })
+            .required(),
     })
     .required();

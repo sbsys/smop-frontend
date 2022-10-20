@@ -1,4 +1,8 @@
 {
+    "actions": {
+        "prevstep": "Previous step",
+        "nextstep": "Next step"
+    },
     "profiles": {
         "root": "Root",
         "admin": "Administrator",
@@ -687,27 +691,34 @@
                 "form": {
                     "name": {
                         "placeholder": "Commerce name",
-                        "hint": "commerce name"
+                        "hint": "commerce name",
+                        "required": "commerce name is required"
                     },
                     "servicephones": {
                         "placeholder": "Commerce phone number",
-                        "hint": "Commerce phone number"
+                        "hint": "Commerce phone number",
+                        "required": "commerce phone number is required",
+                        "format": "format: +000-00000000"
                     },
                     "country": {
                         "placeholder": "Select commerce country location",
-                        "hint": "commerce country location"
+                        "hint": "commerce country location",
+                        "required": "country location is required"
                     },
                     "state": {
                         "placeholder": "Select commerce state location",
-                        "hint": "commerce state location"
+                        "hint": "commerce state location",
+                        "required": "state location is required"
                     },
                     "city": {
                         "placeholder": "Select commerce city location",
-                        "hint": "commerce city location"
+                        "hint": "commerce city location",
+                        "required": "city location is required"
                     },
                     "address": {
                         "placeholder": "Commerce address",
-                        "hint": "commerce address"
+                        "hint": "commerce address",
+                        "required": "commerce address is required"
                     },
                     "optionaladdress": {
                         "placeholder": "Commerce optional address",
@@ -715,15 +726,18 @@
                     },
                     "zipcode": {
                         "placeholder": "Commerce location zipcode",
-                        "hint": "commerce location zipcode"
+                        "hint": "commerce location zipcode",
+                        "required": "location zipcode is required"
                     },
                     "timezone": {
                         "placeholder": "Commerce location timezone",
-                        "hint": "commerce location timezone"
+                        "hint": "commerce location timezone",
+                        "required": "location timezone is required"
                     },
                     "gtmoffset": {
                         "placeholder": "Commerce location GTM Offset",
-                        "hint": "commerce location GTM offset"
+                        "hint": "commerce location GTM offset",
+                        "required": "location GTM offset is required"
                     }
                 }
             },
@@ -749,13 +763,15 @@
                             "title": "Order online charge by amount?",
                             "placeholder": "Order online amount charge",
                             "hint": "order online amount charge"
-                        }
+                        },
+                        "cero": "min value must be '0'"
                     },
                     "applycharge": {
                         "placeholder": "Apply charge to order",
                         "hint": "apply charge to order",
                         "after": "After discount",
-                        "before": "Before discount"
+                        "before": "Before discount",
+                        "required": "apply charge to order is required"
                     },
                     "smsalerts": {
                         "hint": "Allow order alerts by SMS?"
@@ -865,6 +881,12 @@
                                     "placeholder": "Closing saturday",
                                     "hint": "on site closing saturday"
                                 }
+                            },
+                            "opening": {
+                                "format": "format: 23:59"
+                            },
+                            "closing": {
+                                "format": "format: 23:59"
                             }
                         },
                         "delivery": {
@@ -937,27 +959,39 @@
                                     "placeholder": "Closing saturday",
                                     "hint": "delivery closing saturday"
                                 }
+                            },
+                            "opening": {
+                                "format": "format: 23:59"
+                            },
+                            "closing": {
+                                "format": "format: 23:59"
                             }
                         }
                     },
                     "onsitepreparationtime": {
                         "hours": {
                             "placeholder": "Hours to prepare",
-                            "hint": "on site preparation hours"
+                            "hint": "on site preparation hours",
+                            "min": "min hours amount: 0"
                         },
                         "minutes": {
                             "placeholder": "Minutes to prepare",
-                            "hint": "on site preparation minutes"
+                            "hint": "on site preparation minutes",
+                            "min": "min minutes amount: 0",
+                            "max": "max minutes amount: 59"
                         }
                     },
                     "deliverypreparationtime": {
                         "hours": {
                             "placeholder": "Hours to prepare",
-                            "hint": "delivery preparation hours"
+                            "hint": "delivery preparation hours",
+                            "min": "min hours amount: 0"
                         },
                         "minutes": {
                             "placeholder": "Minutes to prepare",
-                            "hint": "delivery preparation minutes"
+                            "hint": "delivery preparation minutes",
+                            "min": "min minutes amount: 0",
+                            "max": "max minutes amount: 59"
                         }
                     }
                 }

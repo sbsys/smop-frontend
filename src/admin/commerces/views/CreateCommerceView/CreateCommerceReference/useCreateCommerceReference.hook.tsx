@@ -15,11 +15,12 @@ import { FieldSetProps, useAdminNotify } from 'admin/core';
 import { milesToMeters } from 'shared/utils';
 /* services */
 import { departmentListService } from 'admin/commerces/services';
+/* types */
+import { DepartmentDTO } from 'admin/commerces/types';
 /* assets */
 import { MdAddCircle, MdError, MdRemoveCircle } from 'react-icons/md';
 /* styles */
 import { ButtonStyles, FieldStyles } from 'shared/styles';
-import { DepartmentDTO } from 'admin/commerces/types';
 
 export const useCreateCommerceReference = () => {
     /* states */
@@ -91,9 +92,9 @@ export const useCreateCommerceReference = () => {
 
     const handleToNextTab = async () => {
         if (
-            /* await trigger(['referenceName', 'servicePhones', 'geoinformation', 'address', 'zipcode'], {
+            await trigger(['referenceName', 'servicePhones', 'geoinformation', 'address', 'zipcode'], {
                 shouldFocus: true,
-            }) */ true
+            })
         )
             handleNextTab();
     };

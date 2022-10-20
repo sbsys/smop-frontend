@@ -196,19 +196,19 @@ export const useCreateCommerceReference = () => {
                             </i>
                         </Button>
                     ) : undefined,
-                ...register(`servicePhones.${index}.phoneNumber`),
+                ...register(`servicePhones.${index}.phone`),
             },
             isHintReserved: true,
             hint: {
                 hasDots: true,
                 title: t(
-                    errors.servicePhones && errors.servicePhones[index]?.phoneNumber
-                        ? (errors.servicePhones[index]?.phoneNumber?.message as string)
+                    errors.servicePhones && errors.servicePhones[index]?.phone
+                        ? (errors.servicePhones[index]?.phone?.message as string)
                         : 'views.createcommerce.reference.form.servicephones.hint'
                 ),
                 children: t(
-                    errors.servicePhones && errors.servicePhones[index]?.phoneNumber
-                        ? (errors.servicePhones[index]?.phoneNumber?.message as string)
+                    errors.servicePhones && errors.servicePhones[index]?.phone
+                        ? (errors.servicePhones[index]?.phone?.message as string)
                         : 'views.createcommerce.reference.form.servicephones.hint'
                 ),
             },

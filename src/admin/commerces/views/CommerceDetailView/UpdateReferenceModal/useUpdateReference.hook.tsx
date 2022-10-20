@@ -234,7 +234,7 @@ export const useUpdateReference = () => {
                         ? FieldStyles.OutlineDanger
                         : FieldStyles.OutlinePrimary,
                 placeholder: t('views.commercedetail.updatereference.form.servicephones.placeholder'),
-                defaultValue: commerce?.servicePhones[index]?.phoneNumber,
+                defaultValue: commerce?.servicePhones[index]?.phone,
                 beforeContent:
                     index > 0 && index + 1 === phonesCount ? (
                         <Button
@@ -259,7 +259,7 @@ export const useUpdateReference = () => {
                             </i>
                         </Button>
                     ) : undefined,
-                ...register(`servicePhones.${index}.phoneNumber`),
+                ...register(`servicePhones.${index}.phone`),
             },
             isHintReserved: true,
             hint: {

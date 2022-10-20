@@ -8,7 +8,7 @@ import { triggerCustomEvent } from 'shared/utils';
 
 export const repeatRequestOnRefreshTokenService = async <T>(sideEffect: () => Promise<T>) => {
     const response = await refreshTokenService();
-console.log("RefreshToken", response);
+
     if (response.error) {
         adminStore.dispatch(authStoreSignOut());
 

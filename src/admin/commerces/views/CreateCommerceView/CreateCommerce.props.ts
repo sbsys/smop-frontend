@@ -67,7 +67,7 @@ export const CreateCommerceSchema = yup
         servicePhones: yup.array(
             yup
                 .object({
-                    phoneNumber: yup
+                    phone: yup
                         .string()
                         .required('views.createcommerce.reference.form.servicephones.required')
                         .matches(/^\+\d{3}-\d{7,8}$/, 'views.createcommerce.reference.form.servicephones.format'),

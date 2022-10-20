@@ -883,10 +883,10 @@
                                 }
                             },
                             "opening": {
-                                "format": "format: 23:59"
+                                "format": "format: 00:00"
                             },
                             "closing": {
-                                "format": "format: 23:59"
+                                "format": "format: 00:00"
                             }
                         },
                         "delivery": {
@@ -961,10 +961,10 @@
                                 }
                             },
                             "opening": {
-                                "format": "format: 23:59"
+                                "format": "format: 00:00"
                             },
                             "closing": {
-                                "format": "format: 23:59"
+                                "format": "format: 00:00"
                             }
                         }
                     },

@@ -7,6 +7,10 @@
     @include width(2xl, component);
     max-width: 100%;
 
+    @include screen-width(lg) {
+        @include width(md, view);
+    }
+
     & > form {
         @include flex;
         @include gap(all md);
@@ -19,15 +23,24 @@
     }
 
     .Content {
-        @include flex;
-        @include gap(all md);
+        @include gap(x md, y md);
         @include padding(x xs split);
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
 
-        & > h3 {
-            @include font-weight(lg);
+        @include screen-width(lg) {
+            @include gap(x xl);
+            grid-template-columns: repeat(2, 1fr);
+        }
 
-            &:nth-child(n + 2) {
-                @include margin(top md);
+        & > div {
+            & > h3 {
+                @include font-weight(lg);
+                @include margin(bottom sm);
+
+                &:nth-child(n + 2) {
+                    @include margin(top md);
+                }
             }
         }
     }

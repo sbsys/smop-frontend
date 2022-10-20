@@ -593,6 +593,12 @@
                                     "placeholder": "Closing saturday",
                                     "hint": "update on site closing saturday"
                                 }
+                            },
+                            "opening": {
+                                "format": "format: 00:00"
+                            },
+                            "closing": {
+                                "format": "format: 00:00"
                             }
                         },
                         "delivery": {
@@ -665,27 +671,39 @@
                                     "placeholder": "Closing saturday",
                                     "hint": "update delivery closing saturday"
                                 }
+                            },
+                            "opening": {
+                                "format": "format: 00:00"
+                            },
+                            "closing": {
+                                "format": "format: 00:00"
                             }
                         }
                     },
                     "onsitepreparationtime": {
                         "hours": {
                             "placeholder": "Hours to prepare",
-                            "hint": "update on site preparation hours"
+                            "hint": "update on site preparation hours",
+                            "min": "min hours amount: 0"
                         },
                         "minutes": {
                             "placeholder": "Minutes to prepare",
-                            "hint": "update on site preparation minutes"
+                            "hint": "update on site preparation minutes",
+                            "min": "min minutes amount: 0",
+                            "max": "max minutes amount: 59"
                         }
                     },
                     "deliverypreparationtime": {
                         "hours": {
                             "placeholder": "Hours to prepare",
-                            "hint": "update delivery preparation hours"
+                            "hint": "update delivery preparation hours",
+                            "min": "min hours amount: 0"
                         },
                         "minutes": {
                             "placeholder": "Minutes to prepare",
-                            "hint": "update delivery preparation minutes"
+                            "hint": "update delivery preparation minutes",
+                            "min": "min minutes amount: 0",
+                            "max": "max minutes amount: 59"
                         }
                     }
                 }

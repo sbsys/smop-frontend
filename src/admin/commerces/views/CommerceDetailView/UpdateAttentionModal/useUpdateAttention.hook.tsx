@@ -10,6 +10,9 @@ import { FieldSetProps, useAdminNotify } from 'admin/core';
 import { DayService, PreparationTime, ServiceHours } from 'admin/commerces/types';
 /* services */
 import { updateAttentionService } from 'admin/commerces/services';
+/* utils */
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 /* assets */
 import { MdCheckCircle, MdError } from 'react-icons/md';
 /* styles */
@@ -21,6 +24,85 @@ export interface UpdateAttentionForm {
     onsitePreparationTime: PreparationTime;
     deliveryPreparationTime: PreparationTime;
 }
+
+export const UpdateAttentionSchema = yup
+    .object({
+        serviceHours: yup
+            .object({
+                onsite: yup.array(
+                    yup
+                        .object({
+                            opening: yup
+                                .string()
+                                .matches(
+                                    /^(\d{2}):([0-5])([0-9])$/,
+                                    'views.commercedetail.updateattention.form.servicehours.onsite.opening.format'
+                                ),
+                            closing: yup
+                                .string()
+                                .matches(
+                                    /^(\d{2}):([0-5])([0-9])$/,
+                                    'views.commercedetail.updateattention.form.servicehours.onsite.closing.format'
+                                ),
+                        })
+                        .required()
+                ),
+                delivery: yup.array(
+                    yup
+                        .object({
+                            opening: yup
+                                .string()
+                                .matches(
+                                    /^(\d{2}):([0-5])([0-9])$/,
+                                    'views.commercedetail.updateattention.form.servicehours.delivery.opening.format'
+                                ),
+                            closing: yup
+                                .string()
+                                .matches(
+                                    /^(\d{2}):([0-5])([0-9])$/,
+                                    'views.commercedetail.updateattention.form.servicehours.delivery.closing.format'
+                                ),
+                        })
+                        .required()
+                ),
+            })
+            .required(),
+        onsitePreparationTime: yup
+            .object({
+                hours: yup
+                    .number()
+                    .typeError('views.commercedetail.updateattention.form.onsitepreparationtime.hours.min')
+                    .integer('views.commercedetail.updateattention.form.onsitepreparationtime.hours.min')
+                    .min(0, 'views.commercedetail.updateattention.form.onsitepreparationtime.hours.min')
+                    .optional(),
+                minutes: yup
+                    .number()
+                    .typeError('views.commercedetail.updateattention.form.onsitepreparationtime.minutes.min')
+                    .integer('views.commercedetail.updateattention.form.onsitepreparationtime.minutes.min')
+                    .min(0, 'views.commercedetail.updateattention.form.onsitepreparationtime.minutes.min')
+                    .max(59, 'views.commercedetail.updateattention.form.onsitepreparationtime.minutes.max')
+                    .optional(),
+            })
+            .required(),
+        deliveryPreparationTime: yup
+            .object({
+                hours: yup
+                    .number()
+                    .typeError('views.commercedetail.updateattention.form.deliverypreparationtime.hours.min')
+                    .integer('views.commercedetail.updateattention.form.deliverypreparationtime.hours.min')
+                    .min(0, 'views.commercedetail.updateattention.form.deliverypreparationtime.hours.min')
+                    .optional(),
+                minutes: yup
+                    .number()
+                    .typeError('views.commercedetail.updateattention.form.deliverypreparationtime.minutes.min')
+                    .integer('views.commercedetail.updateattention.form.deliverypreparationtime.minutes.min')
+                    .min(0, 'views.commercedetail.updateattention.form.deliverypreparationtime.minutes.min')
+                    .max(59, 'views.commercedetail.updateattention.form.deliverypreparationtime.minutes.max')
+                    .optional(),
+            })
+            .required(),
+    })
+    .required();
 
 export const useUpdateAttention = () => {
     /* states */
@@ -39,7 +121,10 @@ export const useUpdateAttention = () => {
         formState: { errors },
         setValue,
         watch,
-    } = useForm<UpdateAttentionForm>();
+    } = useForm<UpdateAttentionForm>({
+        mode: 'all',
+        resolver: yupResolver(UpdateAttentionSchema),
+    });
 
     const { t } = useTranslation();
 

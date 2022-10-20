@@ -179,6 +179,10 @@ export const useUpdateReference = () => {
     }, [getDepartmentList]);
 
     useEffect(() => {
+        if (countryList.length > 0) setValue('geoinformation.country', commerce?.geoinformation.country ?? '');
+    }, [commerce?.geoinformation.country, countryList, setValue]);
+
+    useEffect(() => {
         if (watch('geoinformation.timezone'))
             setValue(
                 'geoinformation.gtmOffset',

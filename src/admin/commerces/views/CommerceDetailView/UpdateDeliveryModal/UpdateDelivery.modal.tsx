@@ -59,10 +59,12 @@ const UpdateDeliveryModal = () => {
                             position={[commerce?.geolocation.latitude ?? 0, commerce?.geolocation.longitude ?? 0]}
                         />
 
-                        <Circle
-                            center={[commerce?.geolocation.latitude ?? 0, commerce?.geolocation.longitude ?? 0]}
-                            radius={meters}
-                        />
+                        {meters && (
+                            <Circle
+                                center={[commerce?.geolocation.latitude ?? 0, commerce?.geolocation.longitude ?? 0]}
+                                radius={meters}
+                            />
+                        )}
                     </MapContainer>
 
                     <div className={styles.Actions}>

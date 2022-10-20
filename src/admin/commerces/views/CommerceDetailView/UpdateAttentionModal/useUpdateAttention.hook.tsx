@@ -1,4 +1,5 @@
 /* react */
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 /* context */
@@ -109,6 +110,7 @@ export const useUpdateAttention = () => {
     const {
         /* states */
         commerce,
+        isUpdateAttention,
         hideUpdateAttention,
         /* functions */
         getCommerceDetail,
@@ -163,6 +165,19 @@ export const useUpdateAttention = () => {
     const handleResetUpdateAttentionForm = () => {
         reset();
     };
+
+    /* reactivity */
+    useEffect(() => {
+        if (isUpdateAttention) {
+            commerce?.serviceHours.onsite.forEach((onsite, index) => {
+                setValue(`serviceHours.onsite.${index}.enabled`, onsite.enabled);
+            });
+
+            commerce?.serviceHours.delivery.forEach((delivery, index) => {
+                setValue(`serviceHours.delivery.${index}.enabled`, delivery.enabled);
+            });
+        }
+    }, [commerce?.serviceHours.delivery, commerce?.serviceHours.onsite, isUpdateAttention, setValue]);
 
     /* props */
     const serviceHoursOnsiteField = (index: number): FieldSetProps[] => {

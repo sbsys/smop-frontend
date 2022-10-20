@@ -21,6 +21,9 @@ export const updateDeliveryService = async (
 ): Promise<ApiResponse<{}>> => {
     if (!props.externalDeliveryUrl) props.externalDeliveryUrl = '-';
 
+    props.deliveryArea = props.deliveryArea || '0';
+    props.minAmountDelivery = props.minAmountDelivery || '0';
+
     return await apiRequestHandler<ApiResponse<{}>>({
         instance: AdminApiService,
         endpoint: `/commerce/${commerceId}/delivery-settings`,

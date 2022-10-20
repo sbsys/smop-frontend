@@ -17,6 +17,7 @@ import { MdCheckCircle, MdError } from 'react-icons/md';
 /* styles */
 import { FieldStyles } from 'shared/styles';
 import styles from './UpdateDelivery.module.scss';
+import { useEffect } from 'react';
 
 export interface UpdateDeliveryForm {
     thirdPartyDelivery: boolean;
@@ -31,6 +32,7 @@ export const useUpdateDelivery = () => {
     const {
         /* states */
         commerce,
+        isUpdateDelivery,
         hideUpdateDelivery,
         /* functions */
         getCommerceDetail,
@@ -42,6 +44,7 @@ export const useUpdateDelivery = () => {
         register,
         formState: { errors },
         watch,
+        setValue,
     } = useForm<UpdateDeliveryForm>();
 
     const { t } = useTranslation();
@@ -81,6 +84,11 @@ export const useUpdateDelivery = () => {
     const handleResetUpdateDeliveryForm = () => {
         reset();
     };
+
+    /* reactivity */
+    useEffect(() => {
+        if (isUpdateDelivery) setValue('deliveryArea', commerce?.deliveryArea ?? '0');
+    }, [commerce?.deliveryArea, isUpdateDelivery, setValue]);
 
     /* props */
     const thirdPartyDeliveryField: FieldSetProps = {
@@ -185,7 +193,6 @@ export const useUpdateDelivery = () => {
             step: 0.0001,
             afterContent: t('longitude.miles'),
             placeholder: t('views.commercedetail.updatedelivery.form.deliveryarea.placeholder'),
-            defaultValue: commerce?.deliveryArea,
             ...register('deliveryArea'),
         },
         isHintReserved: true,

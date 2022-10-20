@@ -1078,7 +1078,7 @@
             },
             "link": {
                 "title": "Link user to commerce",
-                "name": "User name",
+                "name": "Full name",
                 "email": "User email",
                 "phone": "User phone number",
                 "created": "Creation date",

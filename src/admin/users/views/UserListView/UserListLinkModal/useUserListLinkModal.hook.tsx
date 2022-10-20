@@ -161,8 +161,9 @@ export const useUserListLinkModal = () => {
     }, [getCommerceList]);
 
     useEffect(() => {
-        if (commerces.length > 0) setValue('commerce', selectedUserToLink?.commerceId ?? '');
-    }, [commerces, selectedUserToLink?.commerceId, setValue]);
+        if (commerces.length > 0 && selectedUserToLink !== null)
+            setValue('commerce', selectedUserToLink?.commerceId ?? '');
+    }, [commerces, selectedUserToLink, selectedUserToLink?.commerceId, setValue]);
 
     /* props */
     const profileField: FieldSetProps = {

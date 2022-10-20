@@ -21,7 +21,7 @@ export const unlinkUserService = async (props: UnlinkUserProps): Promise<ApiResp
         instance: AdminApiService,
         endpoint: '/account/unlinked',
         token: getCurrentUserToken(),
-        method: 'PUT',
+        method: 'DELETE',
         body: props,
         responseSerializer: async data => apiSerializer<{}>(data),
         errorSerializer: error =>

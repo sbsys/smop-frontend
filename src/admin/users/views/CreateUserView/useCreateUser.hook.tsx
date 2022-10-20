@@ -17,7 +17,7 @@ import { CommerceListItemDTO, commerceListService } from 'admin/commerces';
 /* services */
 import { createLinkedUserService, createUnlinkedUserService } from 'admin/users/services';
 /* assets */
-import { MdBookmarkAdded, MdCheckCircle, MdDangerous } from 'react-icons/md';
+import { MdBookmarkAdded, MdDangerous } from 'react-icons/md';
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 /* styles */
 import { FieldStyles } from 'shared/styles';
@@ -155,13 +155,6 @@ export const useCreateUser = () => {
                 text: service.message,
                 timestamp: new Date(),
             });
-
-        notify('success', {
-            title: 'Success',
-            icon: <MdCheckCircle />,
-            text: service.message,
-            timestamp: new Date(),
-        });
 
         setCommerces(service.data);
     }, [hideLoader, notify, showLoader]);

@@ -17,7 +17,7 @@ import { isAfterOrEqual, isBeforeOrEqual, matchBreakPoint } from 'shared/utils';
 import { Profile, ProfileValue } from 'admin/auth';
 import { UserListItemDTO, UserState } from 'admin/users/types';
 /* assets */
-import { MdCheckCircle, MdDangerous } from 'react-icons/md';
+import { MdDangerous } from 'react-icons/md';
 /* styles */
 import { FieldStyles } from 'shared/styles';
 
@@ -111,13 +111,6 @@ export const useUserList = () => {
                 text: service.message,
                 timestamp: new Date(),
             });
-
-        notify('success', {
-            title: 'Success',
-            icon: <MdCheckCircle />,
-            text: service.message,
-            timestamp: new Date(),
-        });
 
         setUsers(service.data);
     }, [hideLoader, notify, showLoader]);

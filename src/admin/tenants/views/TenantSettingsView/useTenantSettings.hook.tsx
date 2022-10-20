@@ -11,7 +11,7 @@ import { getOrganizationSettingsService } from 'admin/tenants/services';
 /* types */
 import { OrganizationSettingsDTO } from 'admin/tenants/types';
 /* assets */
-import { MdCheckCircle, MdDangerous } from 'react-icons/md';
+import { MdDangerous } from 'react-icons/md';
 
 export const useTenantSettings = () => {
     /* states */
@@ -40,13 +40,6 @@ export const useTenantSettings = () => {
                 text: service.message,
                 timestamp: new Date(),
             });
-
-        notify('success', {
-            title: 'Success',
-            icon: <MdCheckCircle />,
-            text: service.message,
-            timestamp: new Date(),
-        });
 
         setSettings(service.data);
     }, [hideLoader, notify, showLoader]);

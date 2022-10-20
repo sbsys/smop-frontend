@@ -9,6 +9,7 @@ import { useLoader } from 'shared/hooks';
 import { FieldSetProps, useAdminNotify } from 'admin/core';
 /* services */
 import { CommerceListItemDTO, commerceListService } from 'admin/commerces';
+import { linkUserService, unlinkUserService } from 'admin/users/services';
 /* utils */
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -16,8 +17,8 @@ import * as yup from 'yup';
 import { ProfileValue } from 'admin/auth';
 /* assets */
 import { MdCheckCircle, MdDangerous } from 'react-icons/md';
+/* styles */
 import { FieldStyles } from 'shared/styles';
-import { linkUserService, unlinkUserService } from 'admin/users/services';
 
 interface UpdateUserLinkForm {
     profile: number;
@@ -144,13 +145,6 @@ export const useUserListLinkModal = () => {
                 text: service.message,
                 timestamp: new Date(),
             });
-
-        notify('success', {
-            title: 'Success',
-            icon: <MdCheckCircle />,
-            text: service.message,
-            timestamp: new Date(),
-        });
 
         setCommerces(service.data);
     }, [hideLoader, notify, selectedUserToLink, showLoader]);

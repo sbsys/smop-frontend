@@ -15,7 +15,7 @@ import { isAfterOrEqual, isBeforeOrEqual, matchBreakPoint } from 'shared/utils';
 /* types */
 import { CommerceListItemDTO, CommerceState } from 'admin/commerces/types';
 /* assets */
-import { MdCheckCircle, MdDangerous } from 'react-icons/md';
+import { MdDangerous } from 'react-icons/md';
 /* styles */
 import { FieldStyles } from 'shared/styles';
 
@@ -99,13 +99,6 @@ export const useCommerceList = () => {
                 text: service.message,
                 timestamp: new Date(),
             });
-
-        notify('success', {
-            title: 'Success',
-            icon: <MdCheckCircle />,
-            text: service.message,
-            timestamp: new Date(),
-        });
 
         setCommerces(service.data);
     }, [hideLoader, notify, showLoader]);

@@ -15,9 +15,10 @@ import { isAfterOrEqual, isBeforeOrEqual, matchBreakPoint } from 'shared/utils';
 import { tenantListService } from 'admin/tenants/services';
 /* types */
 import { TenantItemDTO, TenantState } from 'admin/tenants/types';
+/* assets */
+import { MdDangerous } from 'react-icons/md';
 /* styles */
 import { FieldStyles } from 'shared/styles';
-import { MdCheckCircle, MdDangerous } from 'react-icons/md';
 
 interface FilterForm {
     schema: string;
@@ -96,13 +97,6 @@ export const useTenantList = () => {
                 text: service.message,
                 timestamp: new Date(),
             });
-
-        notify('success', {
-            title: 'Success',
-            icon: <MdCheckCircle />,
-            text: service.message,
-            timestamp: new Date(),
-        });
 
         setTenants(service.data);
     }, [hideLoader, notify, showLoader]);

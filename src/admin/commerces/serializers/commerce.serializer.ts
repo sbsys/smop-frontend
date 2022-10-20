@@ -10,5 +10,9 @@ export const commerceListItemSerializer = (data: any): CommerceListItemDTO => {
 };
 
 export const commerceDetailSerializer = (data: any): CommerceDetailDTO => {
-    return { ...data.commerce, createdAt: new Date(data.commerce.createdAt) } as CommerceDetailDTO;
+    return {
+        ...data.commerce,
+        optionalAddress: data.commerce.optionalAddress !== '-' ? data.commerce.optionalAddress : '',
+        createdAt: new Date(data.commerce.createdAt),
+    } as CommerceDetailDTO;
 };

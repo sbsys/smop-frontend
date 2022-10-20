@@ -13,10 +13,13 @@ import { FieldSetProps, useAdminNotify } from 'admin/core';
 import { CountryListItemDTO, DepartmentDTO, Geoinformation, Geolocation, ServicePhone } from 'admin/commerces/types';
 /* services */
 import { countryListService, departmentListService, updateReferenceService } from 'admin/commerces/services';
+/* utils */
+import * as yup from 'yup';
 /* assets */
 import { MdAddCircle, MdCheckCircle, MdError, MdRemoveCircle } from 'react-icons/md';
 /* styles */
 import { ButtonStyles, FieldStyles } from 'shared/styles';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 export interface UpdateReferenceForm {
     referenceName: string;
@@ -27,6 +30,33 @@ export interface UpdateReferenceForm {
     servicePhones: ServicePhone[];
     geolocation: Omit<Geolocation, 'error'>;
 }
+
+const UpdateReferenceSchema = yup
+    .object({
+        referenceName: yup.string().required('views.commercedetail.updatereference.form.name.required'),
+        servicePhones: yup.array(
+            yup
+                .object({
+                    phone: yup
+                        .string()
+                        .required('views.commercedetail.updatereference.form.servicephones.required')
+                        .matches(/^\+\d{3}-\d{7,8}$/, 'views.commercedetail.updatereference.form.servicephones.format'),
+                })
+                .required()
+        ),
+        geoinformation: yup
+            .object({
+                country: yup.string().required('views.commercedetail.updatereference.form.country.required'),
+                state: yup.string().required('views.commercedetail.updatereference.form.state.required'),
+                city: yup.string().required('views.commercedetail.updatereference.form.city.required'),
+                timezone: yup.string().required('views.commercedetail.updatereference.form.timezone.required'),
+                gtmOffset: yup.string().required('views.commercedetail.updatereference.form.gtmoffset.required'),
+            })
+            .required(),
+        address: yup.string().required('views.commercedetail.updatereference.form.address.required'),
+        zipcode: yup.string().required('views.commercedetail.updatereference.form.zipcode.required'),
+    })
+    .required();
 
 export const useUpdateReference = () => {
     /* states */
@@ -54,7 +84,10 @@ export const useUpdateReference = () => {
         formState: { errors },
         setValue,
         watch,
-    } = useForm<UpdateReferenceForm>();
+    } = useForm<UpdateReferenceForm>({
+        mode: 'all',
+        resolver: yupResolver(UpdateReferenceSchema),
+    });
 
     const [countryList, setCountryList] = useState<CountryListItemDTO[]>([]);
 

@@ -391,27 +391,34 @@
                 "form": {
                     "name": {
                         "placeholder": "Commerce name",
-                        "hint": "update commerce name"
+                        "hint": "update commerce name",
+                        "required": "commerce name is required"
                     },
                     "servicephones": {
                         "placeholder": "Commerce service phone number",
-                        "hint": "update commerce service phone number"
+                        "hint": "update commerce service phone number",
+                        "required": "commerce phone number is required",
+                        "format": "format: +000-00000000"
                     },
                     "country": {
                         "placeholder": "Select commerce country location",
-                        "hint": "update commerce country location"
+                        "hint": "update commerce country location",
+                        "required": "country location is required"
                     },
                     "state": {
                         "placeholder": "Select commerce state location",
-                        "hint": "update commerce state location"
+                        "hint": "update commerce state location",
+                        "required": "state location is required"
                     },
                     "city": {
                         "placeholder": "Select commerce city location",
-                        "hint": "update commerce city location"
+                        "hint": "update commerce city location",
+                        "required": "city location is required"
                     },
                     "address": {
                         "placeholder": "Commerce address",
-                        "hint": "update commerce address"
+                        "hint": "update commerce address",
+                        "required": "commerce address is required"
                     },
                     "optionaladdress": {
                         "placeholder": "Commerce optional address",
@@ -419,15 +426,18 @@
                     },
                     "zipcode": {
                         "placeholder": "Commerce location zipcode",
-                        "hint": "update commerce location zipcode"
+                        "hint": "update commerce location zipcode",
+                        "required": "location zipcode is required"
                     },
                     "timezone": {
                         "placeholder": "Commerce location timezone",
-                        "hint": "update commerce location timezone"
+                        "hint": "update commerce location timezone",
+                        "required": "location timezone is required"
                     },
                     "gtmoffset": {
                         "placeholder": "Commerce location GTM Offset",
-                        "hint": "update commerce location GTM offset"
+                        "hint": "update commerce location GTM offset",
+                        "required": "location GTM offset is required"
                     }
                 }
             },

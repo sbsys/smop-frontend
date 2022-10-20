@@ -11,6 +11,9 @@ import { FieldSetProps, useAdminNotify } from 'admin/core';
 import { TypeCharge, TypeOrder } from 'admin/commerces/types';
 /* services */
 import { updateSettingService } from 'admin/commerces/services';
+/* utils */
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 /* assets */
 import { MdCheckCircle, MdError } from 'react-icons/md';
 /* styles */
@@ -25,11 +28,31 @@ export interface UpdateSettingForm {
     smsAlerts: boolean;
 }
 
+export const UpdateSettingSchema = yup
+    .object({
+        typeCharge: yup.array(
+            yup
+                .object({
+                    value: yup
+                        .number()
+                        .typeError('views.commercedetail.updatesetting.form.typecharge.cero')
+                        .min(0, 'views.commercedetail.updatesetting.form.typecharge.cero'),
+                })
+                .required()
+        ),
+        applyCharge: yup
+            .number()
+            .typeError('views.commercedetail.updatesetting.form.applycharge.required')
+            .required('views.commercedetail.updatesetting.form.applycharge.required'),
+    })
+    .required();
+
 export const useUpdateSetting = () => {
     /* states */
     const {
         /* states */
         commerce,
+        isUpdateSetting,
         hideUpdateSetting,
         /* functions */
         getCommerceDetail,
@@ -43,7 +66,11 @@ export const useUpdateSetting = () => {
         setValue,
         watch,
         setFocus,
-    } = useForm<UpdateSettingForm>();
+        trigger,
+    } = useForm<UpdateSettingForm>({
+        mode: 'all',
+        resolver: yupResolver(UpdateSettingSchema),
+    });
 
     const { t } = useTranslation();
 
@@ -90,7 +117,11 @@ export const useUpdateSetting = () => {
             setValue('typeCharge.1.value', 0);
 
             setFocus('typeCharge.0.value');
+        } else {
+            setValue('typeCharge.0.value', 0);
         }
+
+        trigger();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [setValue, watch('typeCharge.0.enabled')]);
 
@@ -100,9 +131,21 @@ export const useUpdateSetting = () => {
             setValue('typeCharge.0.value', 0);
 
             setFocus('typeCharge.1.value');
+        } else {
+            setValue('typeCharge.1.value', 0);
         }
+
+        trigger();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [setValue, watch('typeCharge.1.enabled')]);
+
+    useEffect(() => {
+        if (isUpdateSetting) {
+            setValue('typeOrder.0.enabled', commerce?.typeOrder[0].enabled ?? false);
+            setValue('typeOrder.1.enabled', commerce?.typeOrder[1].enabled ?? false);
+            trigger();
+        }
+    }, [commerce?.typeOrder, isUpdateSetting, setValue, trigger]);
 
     /* props */
     const orderOnlineField: FieldSetProps = {
@@ -141,7 +184,6 @@ export const useUpdateSetting = () => {
                         ? FieldStyles.OutlineDanger
                         : FieldStyles.OutlinePrimary,
                 strategy: 'checkbox',
-                defaultChecked: typeOrder?.enabled,
                 ...register(`typeOrder.${index}.enabled`),
             },
             isHintReserved: true,
@@ -172,7 +214,7 @@ export const useUpdateSetting = () => {
                 className: styles.CheckboxInverse,
                 field: {
                     className:
-                        errors.typeCharge && errors.typeCharge[index]
+                        errors.typeCharge && errors.typeCharge[index]?.enabled
                             ? FieldStyles.OutlineDanger
                             : FieldStyles.OutlinePrimary,
                     strategy: 'checkbox',
@@ -183,13 +225,13 @@ export const useUpdateSetting = () => {
                 hint: {
                     hasDots: true,
                     title: t(
-                        errors.typeCharge && errors.typeCharge[index]
-                            ? (errors.typeCharge[index]?.message as string)
+                        errors.typeCharge && errors.typeCharge[index]?.enabled
+                            ? (errors.typeCharge[index]?.enabled?.message as string)
                             : `views.commercedetail.updatesetting.form.typecharge.${typeCharge?.type}.title`
                     ),
                     children: t(
-                        errors.typeCharge && errors.typeCharge[index]
-                            ? (errors.typeCharge[index]?.message as string)
+                        errors.typeCharge && errors.typeCharge[index]?.enabled
+                            ? (errors.typeCharge[index]?.enabled?.message as string)
                             : `views.commercedetail.updatesetting.form.typecharge.${typeCharge?.type}.title`
                     ),
                 },
@@ -198,7 +240,7 @@ export const useUpdateSetting = () => {
                 disabled: !watch(`typeCharge.${index}.enabled`),
                 field: {
                     className:
-                        errors.typeCharge && errors.typeCharge[index]
+                        errors.typeCharge && errors.typeCharge[index]?.value
                             ? FieldStyles.OutlineDanger
                             : FieldStyles.OutlinePrimary,
                     placeholder: t(
@@ -215,13 +257,13 @@ export const useUpdateSetting = () => {
                 hint: {
                     hasDots: true,
                     title: t(
-                        errors.typeCharge && errors.typeCharge[index]
-                            ? (errors.typeCharge[index]?.message as string)
+                        errors.typeCharge && errors.typeCharge[index]?.value
+                            ? (errors.typeCharge[index]?.value?.message as string)
                             : `views.commercedetail.updatesetting.form.typecharge.${typeCharge?.type}.hint`
                     ),
                     children: t(
                         errors.typeCharge && errors.typeCharge[index]
-                            ? (errors.typeCharge[index]?.message as string)
+                            ? (errors.typeCharge[index]?.value?.message as string)
                             : `views.commercedetail.updatesetting.form.typecharge.${typeCharge?.type}.hint`
                     ),
                 },

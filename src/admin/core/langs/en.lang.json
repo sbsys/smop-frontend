@@ -467,13 +467,15 @@
                             "title": "Order online charge by amount?",
                             "placeholder": "Order online amount charge",
                             "hint": "update order online amount charge"
-                        }
+                        },
+                        "cero": "min value must be: 0"
                     },
                     "applycharge": {
                         "placeholder": "Apply charge to order",
                         "hint": "update apply charge to order",
                         "before": "Before discount",
-                        "after": "After discount"
+                        "after": "After discount",
+                        "required": "apply charge to order is required"
                     },
                     "smsalerts": {
                         "hint": "Allow order alerts by SMS?"

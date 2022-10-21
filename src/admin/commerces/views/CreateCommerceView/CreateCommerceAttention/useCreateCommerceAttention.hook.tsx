@@ -17,9 +17,25 @@ export const useCreateCommerceAttention = () => {
         setValue,
         formState: { errors },
         watch,
+        trigger,
     } = useFormContext<CreateCommerceForm>();
 
     const { t } = useTranslation();
+
+    const handleRepeatSunday = async (attention: 'onsite' | 'delivery') => {
+        if (
+            !(await trigger([`serviceHours.${attention}.0.opening`, `serviceHours.${attention}.0.closing`], {
+                shouldFocus: true,
+            }))
+        )
+            return;
+
+        [...Array(DayServiceValue.length - 1)].forEach((_, index) => {
+            setValue(`serviceHours.${attention}.${index + 1}.enabled`, watch(`serviceHours.${attention}.0.enabled`));
+            setValue(`serviceHours.${attention}.${index + 1}.opening`, watch(`serviceHours.${attention}.0.opening`));
+            setValue(`serviceHours.${attention}.${index + 1}.closing`, watch(`serviceHours.${attention}.0.closing`));
+        });
+    };
 
     /* props */
     const serviceHoursOnsiteField = (index: number): FieldSetProps[] => {
@@ -383,5 +399,6 @@ export const useCreateCommerceAttention = () => {
         createCommerceAttentionOnsitePreparationTimeFormFields,
         createCommerceAttentionServiceHoursDeliveryFormFields,
         createCommerceAttentionDeliveryPreparationTimeFormFields,
+        handleRepeatSunday,
     };
 };

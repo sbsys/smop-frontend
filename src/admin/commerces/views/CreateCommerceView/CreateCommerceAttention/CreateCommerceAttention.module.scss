@@ -9,6 +9,7 @@
         @include gap(y md, x md);
         display: grid;
         grid-template-columns: repeat(1, 1fr);
+        overflow-x: hidden;
 
         @include screen-width(sm) {
             grid-template-columns: repeat(2, 1fr);
@@ -22,8 +23,10 @@
             @include gap(x xl);
         }
 
+        .AttentionHeader,
         & > div {
             @include flex;
+            overflow: hidden;
 
             & > h3 {
                 @include font-weight(lg);
@@ -31,6 +34,20 @@
                 &:nth-child(n + 2) {
                     @include margin(top md);
                 }
+            }
+        }
+
+        .AttentionHeader {
+            @include gap(all xs);
+            @include margin(bottom sm);
+
+            @include screen-width(2xs) {
+                @include flex(row, center, space-between);
+            }
+
+            & > button {
+                @include margin(x xs);
+                overflow: hidden;
             }
         }
     }

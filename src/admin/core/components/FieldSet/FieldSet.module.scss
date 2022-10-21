@@ -15,4 +15,8 @@
     &.HintReserved {
         margin-bottom: calc((size(sm, font) * var(--#{$prefix}-line-md)) + size(xs, split));
     }
+
+    &:disabled {
+        @include opacity(50);
+    }
 }

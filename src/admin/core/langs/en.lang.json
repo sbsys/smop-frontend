@@ -728,7 +728,9 @@
                         "placeholder": "Commerce phone number",
                         "hint": "Commerce phone number",
                         "required": "commerce phone number is required",
-                        "format": "format: +000-00000000"
+                        "format": "format: +000-00000000",
+                        "add": "add new phone number",
+                        "remove": "remove last phone number"
                     },
                     "country": {
                         "placeholder": "Select commerce country location",
@@ -832,11 +834,12 @@
                 }
             },
             "attention": {
-                "header": "Attention settings",
                 "servicehours": {
                     "onsite": "Service hours on site",
+                    "onsiterepeat": "Repeat on site sunday",
                     "onsitepreparationtime": "On site preparation time",
                     "delivery": "Service hours delivery",
+                    "deliveryrepeat": "Repeat delivery sunday",
                     "deliverypreparationtime": "Delivery preparation time"
                 },
                 "form": {

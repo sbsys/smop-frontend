@@ -1,1 +1,1 @@
-export const offline: boolean = false;
+export const offline: boolean = true;

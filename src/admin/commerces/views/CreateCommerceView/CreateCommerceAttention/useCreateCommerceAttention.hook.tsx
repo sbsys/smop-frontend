@@ -22,6 +22,7 @@ export const useCreateCommerceAttention = () => {
 
     const { t } = useTranslation();
 
+    /* functions */
     const handleRepeatSunday = async (attention: 'onsite' | 'delivery') => {
         if (
             !(await trigger([`serviceHours.${attention}.0.opening`, `serviceHours.${attention}.0.closing`], {

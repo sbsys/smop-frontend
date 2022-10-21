@@ -33,14 +33,31 @@
             grid-template-columns: repeat(2, 1fr);
         }
 
+        .ContentHeader,
         & > div {
+            @include flex;
+            overflow: hidden;
+
             & > h3 {
                 @include font-weight(lg);
-                @include margin(bottom sm);
 
                 &:nth-child(n + 2) {
                     @include margin(top md);
                 }
+            }
+        }
+
+        .ContentHeader {
+            @include gap(all xs);
+            @include margin(bottom sm);
+
+            @include screen-width(2xs) {
+                @include flex(row, center, space-between);
+            }
+
+            & > button {
+                @include margin(x xs);
+                overflow: hidden;
             }
         }
     }

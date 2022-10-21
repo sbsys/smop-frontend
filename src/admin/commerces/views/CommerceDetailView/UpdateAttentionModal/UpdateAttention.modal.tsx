@@ -26,6 +26,7 @@ const UpdateAttentionModal = () => {
     const {
         handleUpdateAttention,
         handleResetUpdateAttentionForm,
+        handleRepeatSunday,
         updateAttentionServiceHoursOnsiteFormFields,
         updateAttentionOnsitePreparationTimeFormFields,
         updateAttentionServiceHoursDeliveryFormFields,
@@ -48,9 +49,22 @@ const UpdateAttentionModal = () => {
 
                     <div className={styles.Content}>
                         <div>
-                            <h3 title={t('views.commercedetail.updateattention.servicehours.onsite')}>
-                                <Legend hasDots>{t('views.commercedetail.updateattention.servicehours.onsite')}</Legend>
-                            </h3>
+                            <div className={styles.ContentHeader}>
+                                <h3 title={t('views.commercedetail.updateattention.servicehours.onsite')}>
+                                    <Legend hasDots>
+                                        {t('views.commercedetail.updateattention.servicehours.onsite')}
+                                    </Legend>
+                                </h3>
+
+                                <Button
+                                    type="button"
+                                    className={ButtonStyles.FillSecondary}
+                                    onClick={() => handleRepeatSunday('onsite')}>
+                                    <Legend hasDots justify="center">
+                                        {t('views.createcommerce.attention.servicehours.onsiterepeat')}
+                                    </Legend>
+                                </Button>
+                            </div>
 
                             <div className={styles.ServiceHours}>
                                 {updateAttentionServiceHoursOnsiteFormFields.map((field, index) => (
@@ -72,11 +86,22 @@ const UpdateAttentionModal = () => {
                         </div>
 
                         <div>
-                            <h3 title={t('views.commercedetail.updateattention.servicehours.delivery')}>
-                                <Legend hasDots>
-                                    {t('views.commercedetail.updateattention.servicehours.delivery')}
-                                </Legend>
-                            </h3>
+                            <div className={styles.ContentHeader}>
+                                <h3 title={t('views.commercedetail.updateattention.servicehours.delivery')}>
+                                    <Legend hasDots>
+                                        {t('views.commercedetail.updateattention.servicehours.delivery')}
+                                    </Legend>
+                                </h3>
+
+                                <Button
+                                    type="button"
+                                    className={ButtonStyles.FillSecondary}
+                                    onClick={() => handleRepeatSunday('delivery')}>
+                                    <Legend hasDots justify="center">
+                                        {t('views.createcommerce.attention.servicehours.deliveryrepeat')}
+                                    </Legend>
+                                </Button>
+                            </div>
 
                             <div className={styles.ServiceHours}>
                                 {updateAttentionServiceHoursDeliveryFormFields.map((field, index) => (

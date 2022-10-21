@@ -7,13 +7,13 @@ import { useCommerceDetailContext } from '../CommerceDetail.context';
 /* hooks */
 import { useLoader } from 'shared/hooks';
 import { FieldSetProps, useAdminNotify } from 'admin/core';
-/* types */
-import { DayService, PreparationTime, ServiceHours } from 'admin/commerces/types';
 /* services */
 import { updateAttentionService } from 'admin/commerces/services';
 /* utils */
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+/* types */
+import { DayService, DayServiceValue, PreparationTime, ServiceHours } from 'admin/commerces/types';
 /* assets */
 import { MdCheckCircle, MdError } from 'react-icons/md';
 /* styles */
@@ -123,6 +123,7 @@ export const useUpdateAttention = () => {
         formState: { errors },
         setValue,
         watch,
+        trigger,
     } = useForm<UpdateAttentionForm>({
         mode: 'all',
         resolver: yupResolver(UpdateAttentionSchema),
@@ -164,6 +165,21 @@ export const useUpdateAttention = () => {
 
     const handleResetUpdateAttentionForm = () => {
         reset();
+    };
+
+    const handleRepeatSunday = async (attention: 'onsite' | 'delivery') => {
+        if (
+            !(await trigger([`serviceHours.${attention}.0.opening`, `serviceHours.${attention}.0.closing`], {
+                shouldFocus: true,
+            }))
+        )
+            return;
+
+        [...Array(DayServiceValue.length - 1)].forEach((_, index) => {
+            setValue(`serviceHours.${attention}.${index + 1}.enabled`, watch(`serviceHours.${attention}.0.enabled`));
+            setValue(`serviceHours.${attention}.${index + 1}.opening`, watch(`serviceHours.${attention}.0.opening`));
+            setValue(`serviceHours.${attention}.${index + 1}.closing`, watch(`serviceHours.${attention}.0.closing`));
+        });
     };
 
     /* reactivity */
@@ -543,6 +559,7 @@ export const useUpdateAttention = () => {
     return {
         handleUpdateAttention,
         handleResetUpdateAttentionForm,
+        handleRepeatSunday,
         updateAttentionServiceHoursOnsiteFormFields,
         updateAttentionOnsitePreparationTimeFormFields,
         updateAttentionServiceHoursDeliveryFormFields,

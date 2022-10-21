@@ -8,7 +8,6 @@
 
     & > span {
         @include font-size(sm);
-        @include font-weight(sm);
         @include margin(x sm split);
     }
 

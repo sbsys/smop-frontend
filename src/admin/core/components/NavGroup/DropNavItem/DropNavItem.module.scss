@@ -1,0 +1,27 @@
+@import 'styles';
+
+.DropNavItem {
+    @include bg-color(600, secondary);
+    @include bg-opacity(0);
+    @include flex(row, center, flex-start);
+    @include font-weight(lg);
+    @include gap(all md);
+    @include interactable;
+    @include padding(x md, y xs);
+
+    &:hover {
+        @include bg-opacity(20);
+    }
+
+    &:active {
+        @include bg-opacity(30);
+    }
+
+    & > i {
+        @include font-size(2xl);
+    }
+
+    & > span {
+        flex-grow: 1;
+    }
+}

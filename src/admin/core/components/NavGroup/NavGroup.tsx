@@ -4,7 +4,8 @@ import { FC, memo } from 'react';
 import { NavGroupProps } from './NavGroup.props';
 /* components */
 import { Legend } from 'shared/components';
-import { NavItem } from './NavItem';
+import { NavItem, NavItemProps } from './NavItem';
+import { DropNavItem, DropNavItemProps } from './DropNavItem';
 /* utils */
 import { classNames } from 'shared/utils';
 /* styles */
@@ -20,7 +21,11 @@ const NavGroup: FC<NavGroupProps> = ({ title, items }) => {
             <ul>
                 {items.map((item, index) => (
                     <li key={index}>
-                        <NavItem {...item} />
+                        {(item as DropNavItemProps).items !== undefined ? (
+                            <DropNavItem {...(item as DropNavItemProps)} />
+                        ) : (
+                            <NavItem {...(item as NavItemProps)} />
+                        )}
                     </li>
                 ))}
             </ul>

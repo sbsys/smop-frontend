@@ -8,6 +8,10 @@
     flex-grow: 0;
     width: 100%;
 
+    @include screen-width(4xl) {
+        @include max-width(lg, component);
+    }
+
     & > fieldset {
         @include margin(x md, bottom xs);
         margin-left: auto;

@@ -6,9 +6,9 @@ import { Context } from '../DashboardLayout.context';
 import { PanelLayout, ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
-import { DropNavItem, NavGroup } from 'admin/core/components';
+import { NavGroup } from 'admin/core/components';
 /* assets */
-import { MdArrowBack, MdGroup } from 'react-icons/md';
+import { MdArrowBack } from 'react-icons/md';
 /* styles */
 import styles from './DashboardSidebar.module.scss';
 
@@ -43,9 +43,6 @@ const DashboardSidebar = () => {
                                 <NavGroup {...group} />
                             </li>
                         ))}
-                        <li>
-                            <DropNavItem icon={<MdGroup />} text="Collections" items={groups[1].items} />
-                        </li>
                     </ul>
                 </nav>
             </ScrollLayout>

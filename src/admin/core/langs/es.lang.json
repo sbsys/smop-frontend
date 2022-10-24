@@ -51,7 +51,10 @@
                 "items": {
                     "organization": "Organización",
                     "commerces": "Comercios",
-                    "users": "Usuarios"
+                    "users": "Usuarios",
+                    "collections": "Colecciones",
+                    "menu": "Títules de menu",
+                    "addons": "Complementos de menu"
                 }
             }
         }

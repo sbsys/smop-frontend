@@ -15,7 +15,16 @@ import { useAdminSelector } from 'admin/core/services';
 /* utils */
 import { matchBreakPoint } from 'shared/utils';
 /* assets */
-import { MdDashboard, MdDashboardCustomize, MdStore, MdSupervisedUserCircle } from 'react-icons/md';
+import {
+    MdBook,
+    MdDashboard,
+    MdDashboardCustomize,
+    MdLibraryBooks,
+    MdMenuBook,
+    MdStore,
+    MdSupervisedUserCircle,
+} from 'react-icons/md';
+import { HiOfficeBuilding } from 'react-icons/hi';
 import { IoMdCog } from 'react-icons/io';
 
 export const useDashboardLayout = () => {
@@ -73,7 +82,7 @@ export const useDashboardLayout = () => {
                 title: t('profiles.admin'),
                 items: [
                     {
-                        icon: <IoMdCog />,
+                        icon: <HiOfficeBuilding />,
                         text: t('dashboard.navigation.admin.items.organization'),
                         to: 'organization',
                     },
@@ -86,6 +95,22 @@ export const useDashboardLayout = () => {
                         icon: <MdSupervisedUserCircle />,
                         text: t('dashboard.navigation.admin.items.users'),
                         to: 'users',
+                    },
+                    {
+                        icon: <MdLibraryBooks />,
+                        text: t('dashboard.navigation.admin.items.collections'),
+                        items: [
+                            {
+                                icon: <MdMenuBook />,
+                                text: t('dashboard.navigation.admin.items.menu'),
+                                to: 'menu',
+                            },
+                            {
+                                icon: <MdBook />,
+                                text: t('dashboard.navigation.admin.items.addons'),
+                                to: 'addons',
+                            },
+                        ],
                     },
                 ],
             },

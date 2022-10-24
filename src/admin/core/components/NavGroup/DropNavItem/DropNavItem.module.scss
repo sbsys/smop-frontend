@@ -24,4 +24,17 @@
     & > span {
         flex-grow: 1;
     }
+
+    &.Open {
+        @include shadow(top xs inset);
+        @include shadow-color(top 200 secondary);
+    }
+}
+
+.List {
+    list-style: none;
+
+    & > li > a {
+        @include padding(left lg);
+    }
 }

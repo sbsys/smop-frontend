@@ -23,7 +23,7 @@ const DropNavItem: FC<DropNavItemProps> = ({ className, icon, text, items }) => 
         <AccordionLayout
             isAccordion={isDrop}
             accordion={
-                <ul>
+                <ul className={styles.List}>
                     {items.map((item, index) => (
                         <li key={index}>
                             <NavItem {...item} />
@@ -31,7 +31,7 @@ const DropNavItem: FC<DropNavItemProps> = ({ className, icon, text, items }) => 
                     ))}
                 </ul>
             }>
-            <Button className={classNames(styles.DropNavItem, className)} onClick={toggleDrop}>
+            <Button className={classNames(styles.DropNavItem, isDrop && styles.Open, className)} onClick={toggleDrop}>
                 <i>{typeof icon === 'function' ? icon() : icon}</i>
 
                 <Legend hasDots>{text}</Legend>

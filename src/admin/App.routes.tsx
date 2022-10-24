@@ -22,6 +22,8 @@ import { CommerceDetailView, CommerceListView, CommercesLayout, CreateCommerceVi
 import { CreateUserView, UserListView, UsersLayout } from './users';
 /* clients */
 import { SchemaLayout } from './clients';
+/* collections */
+import { CollectionsLayout } from './collections';
 
 const AppRoutes: FC = () => {
     const { isAuth, token } = useAdminSelector(selectAuthStore);
@@ -129,6 +131,13 @@ const AppRoutes: FC = () => {
                         <Route path="list" element={<UserListView />}>
                             <Route path="create" element={<CreateUserView />} />
                         </Route>
+                    </Route>
+
+                    {/* collections module */}
+                    <Route path="collections" element={<CollectionsLayout />}>
+                        <Route path="menu" element={null} />
+
+                        <Route path="addons" element={null} />
                     </Route>
                 </Route>
             </Route>

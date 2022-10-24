@@ -103,12 +103,12 @@ export const useDashboardLayout = () => {
                             {
                                 icon: <MdMenuBook />,
                                 text: t('dashboard.navigation.admin.items.menu'),
-                                to: 'menu',
+                                to: 'collections/menu',
                             },
                             {
                                 icon: <MdBook />,
                                 text: t('dashboard.navigation.admin.items.addons'),
-                                to: 'addons',
+                                to: 'collections/addons',
                             },
                         ],
                     },

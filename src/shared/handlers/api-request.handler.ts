@@ -47,6 +47,7 @@ export const apiRequestHandler = async <R, B = any, P extends KeyValue = {}>({
             params,
             data: body,
             signal: abort?.signal,
+            timeout: 5000,
         });
 
         return await responseSerializer(response.data);

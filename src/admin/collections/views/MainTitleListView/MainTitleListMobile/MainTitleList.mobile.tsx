@@ -48,7 +48,7 @@ const MainTitleListMobile = () => {
                                 </i>
                             </Button>
 
-                            <MainTitleListFilter />
+                            {!isBreakPoint && <MainTitleListFilter />}
                         </PanelLayout>
                     }>
                     <Button

@@ -53,8 +53,8 @@
                     "commerces": "Comercios",
                     "users": "Usuarios",
                     "collections": "Colecciones",
-                    "menu": "Títules de menu",
-                    "addons": "Complementos de menu"
+                    "menu": "Títulos de menú",
+                    "addons": "Complementos de menú"
                 }
             }
         }
@@ -1157,6 +1157,52 @@
                     "cancel": "Cancelar",
                     "create": "Crear"
                 }
+            }
+        },
+        "maintitlelist": {
+            "title": "Listado de títulos de menú",
+            "actions": {
+                "openfilter": "Abrir filtro",
+                "closefilter": "Cerrar filtro"
+            },
+            "filter": {
+                "form": {
+                    "referencename": {
+                        "placeholder": "Título de menú",
+                        "hint": "filter título de menú"
+                    },
+                    "state": {
+                        "placeholder": "Filtrar por estado de título de menú",
+                        "hint": "filter menu title by state",
+                        "active": "Active menu title",
+                        "inactive": "Inactive menu title"
+                    },
+                    "fromdate": {
+                        "hint": "menu title created from date"
+                    },
+                    "todate": {
+                        "hint": "menu title created to date"
+                    }
+                },
+                "actions": {
+                    "clean": "Clean up",
+                    "filter": "Filter"
+                }
+            },
+            "list": {
+                "name": "Menu title",
+                "created": "Creation date",
+                "state": "State",
+                "states": {
+                    "active": "Active",
+                    "inactive": "Inactive"
+                },
+                "create": "New menu title",
+                "suspend": "Suspend menu title",
+                "restore": "Restore menu title",
+                "edit": "Edit menu title",
+                "view": "View menu title detail",
+                "more": "menu title actions"
             }
         }
     }

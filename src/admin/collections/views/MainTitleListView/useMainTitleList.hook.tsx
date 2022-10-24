@@ -20,13 +20,13 @@ import { FieldStyles } from 'shared/styles';
 interface MainTitleListFilterForm {
     name: string;
     state: TitleState | '';
-    fromDate: Date;
-    toDate: Date;
+    fromDate: Date | null;
+    toDate: Date | null;
 }
 
 export const useMainTitleList = () => {
     /* states */
-    const { handleSubmit, reset, register } = useForm<MainTitleListFilterForm>();
+    const { handleSubmit, register, setValue } = useForm<MainTitleListFilterForm>();
 
     const [titles, setTitles] = useState<MainTitleListItemDTO[]>([]);
 
@@ -77,13 +77,17 @@ export const useMainTitleList = () => {
         if (data.fromDate) values.fromDate = parse(data.fromDate.toString(), 'yyyy-MM-dd', Date.now());
         if (data.toDate) values.toDate = parse(data.toDate.toString(), 'yyyy-MM-dd', Date.now());
 
+        console.log(values);
         setFilter(values);
 
         hideDropFilter();
     });
 
     const handleResetFilter = () => {
-        reset();
+        setValue('name', '');
+        setValue('state', '');
+        setValue('fromDate', null);
+        setValue('toDate', null);
 
         setFilter(null);
 

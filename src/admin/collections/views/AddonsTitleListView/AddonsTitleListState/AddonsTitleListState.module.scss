@@ -1,0 +1,24 @@
+@import 'styles';
+
+.State {
+    @include bg-opacity(20);
+    @include border-width(all sm);
+    @include font-size(sm);
+    @include font-weight(lg);
+    @include max-width(xs, component);
+    @include padding(all xs split);
+    @include rounded(all lg);
+    margin: 0 auto;
+
+    &Active {
+        @include bg-color(100, success);
+        @include border-color(all 400 success);
+        @include font-color(600, success);
+    }
+
+    &Inactive {
+        @include bg-color(100, danger);
+        @include border-color(all 400 danger);
+        @include font-color(600, danger);
+    }
+}

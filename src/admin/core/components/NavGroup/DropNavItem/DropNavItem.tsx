@@ -17,7 +17,7 @@ import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 import styles from './DropNavItem.module.scss';
 
 const DropNavItem: FC<DropNavItemProps> = ({ className, icon, text, items }) => {
-    const [isDrop, , , toggleDrop] = useActive();
+    const [isDrop, , , toggleDrop] = useActive(true);
 
     return (
         <AccordionLayout

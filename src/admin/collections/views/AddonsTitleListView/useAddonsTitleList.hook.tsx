@@ -3,34 +3,34 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 /* props */
-import { MainTitleListContextProps } from './MainTitleList.props';
+import { AddonsTitleListContextProps } from './AddonsTitleList.props';
 /* hooks */
 import { useActive, useKeyDownEvent, useLoader, useMinWidth } from 'shared/hooks';
 import { FieldSetProps, useAdminNotify } from 'admin/core';
 /* services */
-import { mainTitleListService } from 'admin/collections/services';
+import { addonsTitleListService } from 'admin/collections/services';
 /* utils */
 import { isDate, parse } from 'date-fns';
 import { isAfterOrEqual, isBeforeOrEqual, matchBreakPoint } from 'shared/utils';
 import { MdDangerous } from 'react-icons/md';
 /* types */
-import { MainTitleListItemDTO, TitleState } from 'admin/collections/types';
+import { TitleListItemDTO, TitleState } from 'admin/collections/types';
 import { FieldStyles } from 'shared/styles';
 
-interface MainTitleListFilterForm {
+interface AddonsTitleListFilterForm {
     name: string;
     state: TitleState | '';
     fromDate: Date | null;
     toDate: Date | null;
 }
 
-export const useMainTitleList = () => {
+export const useAddonsTitleList = () => {
     /* states */
-    const { handleSubmit, register, setValue } = useForm<MainTitleListFilterForm>();
+    const { handleSubmit, register, setValue } = useForm<AddonsTitleListFilterForm>();
 
-    const [titles, setTitles] = useState<MainTitleListItemDTO[]>([]);
+    const [titles, setTitles] = useState<TitleListItemDTO[]>([]);
 
-    const [filter, setFilter] = useState<MainTitleListFilterForm | null>(null);
+    const [filter, setFilter] = useState<AddonsTitleListFilterForm | null>(null);
 
     const { showLoader, hideLoader } = useLoader();
 
@@ -46,7 +46,7 @@ export const useMainTitleList = () => {
 
     const { t } = useTranslation();
 
-    const mainTitleList = useMemo(() => {
+    const addonsTitleList = useMemo(() => {
         let list = titles.slice();
 
         if (filter?.name)
@@ -96,7 +96,7 @@ export const useMainTitleList = () => {
     const getTitleList = useCallback(async () => {
         showLoader();
 
-        const service = await mainTitleListService();
+        const service = await addonsTitleListService();
 
         hideLoader();
 
@@ -120,13 +120,13 @@ export const useMainTitleList = () => {
     const referenceNameField: FieldSetProps = {
         field: {
             className: FieldStyles.OutlinePrimary,
-            placeholder: t('views.maintitlelist.filter.form.referencename.placeholder'),
+            placeholder: t('views.addonstitlelist.filter.form.referencename.placeholder'),
             ...register('name'),
         },
         isHintReserved: true,
         hint: {
             hasDots: true,
-            children: t('views.maintitlelist.filter.form.referencename.hint'),
+            children: t('views.addonstitlelist.filter.form.referencename.hint'),
         },
     };
 
@@ -134,14 +134,14 @@ export const useMainTitleList = () => {
         field: {
             className: FieldStyles.OutlinePrimary,
             strategy: 'select',
-            placeholder: t('views.maintitlelist.filter.form.state.placeholder'),
+            placeholder: t('views.addonstitlelist.filter.form.state.placeholder'),
             options: [
                 {
-                    label: t('views.maintitlelist.filter.form.state.active'),
+                    label: t('views.addonstitlelist.filter.form.state.active'),
                     value: 'active',
                 },
                 {
-                    label: t('views.maintitlelist.filter.form.state.inactive'),
+                    label: t('views.addonstitlelist.filter.form.state.inactive'),
                     value: 'inactive',
                 },
             ],
@@ -149,46 +149,46 @@ export const useMainTitleList = () => {
         },
         isHintReserved: true,
         hint: {
-            children: t('views.maintitlelist.filter.form.state.hint'),
+            children: t('views.addonstitlelist.filter.form.state.hint'),
             hasDots: true,
-            title: t('views.maintitlelist.filter.form.state.hint'),
+            title: t('views.addonstitlelist.filter.form.state.hint'),
         },
     };
 
     const fromDateField: FieldSetProps = {
         field: {
             className: FieldStyles.OutlinePrimary,
-            placeholder: t('views.maintitlelist.filter.form.fromdate.placeholder'),
+            placeholder: t('views.addonstitlelist.filter.form.fromdate.placeholder'),
             strategy: 'date',
             ...register('fromDate'),
         },
         isHintReserved: true,
         hint: {
             hasDots: true,
-            children: t('views.maintitlelist.filter.form.fromdate.hint'),
+            children: t('views.addonstitlelist.filter.form.fromdate.hint'),
         },
     };
 
     const toDateField: FieldSetProps = {
         field: {
             className: FieldStyles.OutlinePrimary,
-            placeholder: t('views.maintitlelist.filter.form.todate.placeholder'),
+            placeholder: t('views.addonstitlelist.filter.form.todate.placeholder'),
             strategy: 'date',
             ...register('toDate'),
         },
         isHintReserved: true,
         hint: {
             hasDots: true,
-            children: t('views.maintitlelist.filter.form.todate.hint'),
+            children: t('views.addonstitlelist.filter.form.todate.hint'),
         },
     };
 
     const filterFormFields: FieldSetProps[] = [referenceNameField, stateProps, fromDateField, toDateField];
 
     /* context */
-    const context: MainTitleListContextProps = {
+    const context: AddonsTitleListContextProps = {
         /* states */
-        mainTitleList,
+        addonsTitleList,
         isDropFilter,
         showDropFilter,
         hideDropFilter,

@@ -1169,40 +1169,86 @@
                 "form": {
                     "referencename": {
                         "placeholder": "Título de menú",
-                        "hint": "filter título de menú"
+                        "hint": "filtrar título de menú"
                     },
                     "state": {
                         "placeholder": "Filtrar por estado de título de menú",
-                        "hint": "filter menu title by state",
-                        "active": "Active menu title",
-                        "inactive": "Inactive menu title"
+                        "hint": "filtrar por estado de título de menú",
+                        "active": "Título de menú activo",
+                        "inactive": "Título de menú inactivo"
                     },
                     "fromdate": {
-                        "hint": "menu title created from date"
+                        "hint": "títulos de menú creados desde"
                     },
                     "todate": {
-                        "hint": "menu title created to date"
+                        "hint": "títulos de menú creados hasta"
                     }
                 },
                 "actions": {
-                    "clean": "Clean up",
-                    "filter": "Filter"
+                    "clean": "Limpiar",
+                    "filter": "Filtrar"
                 }
             },
             "list": {
-                "name": "Menu title",
-                "created": "Creation date",
-                "state": "State",
+                "name": "Título de menú",
+                "created": "Fecha de creación",
+                "state": "Estado",
                 "states": {
-                    "active": "Active",
-                    "inactive": "Inactive"
+                    "active": "Activo",
+                    "inactive": "Inactivo"
                 },
-                "create": "New menu title",
-                "suspend": "Suspend menu title",
-                "restore": "Restore menu title",
-                "edit": "Edit menu title",
-                "view": "View menu title detail",
-                "more": "menu title actions"
+                "create": "Nuevo título de menú",
+                "suspend": "Suspender título de menú",
+                "restore": "Restablecer título de menú",
+                "edit": "Editar título de menú",
+                "view": "Ver detalles de título de menú",
+                "more": "Acciones"
+            }
+        },
+        "addonstitlelist": {
+            "title": "Listado de complementos de menú",
+            "actions": {
+                "openfilter": "Abrir filtro",
+                "closefilter": "Cerrar filtro"
+            },
+            "filter": {
+                "form": {
+                    "referencename": {
+                        "placeholder": "Complemento de menú",
+                        "hint": "filtrar complemento de menú"
+                    },
+                    "state": {
+                        "placeholder": "Filtrar por estado de complemento de menú",
+                        "hint": "filtrar por estado de complemento de menú",
+                        "active": "Complemento de menú activo",
+                        "inactive": "Complemento de menú inactivo"
+                    },
+                    "fromdate": {
+                        "hint": "complemento de menú creado desde"
+                    },
+                    "todate": {
+                        "hint": "complemento de menú creado hasta"
+                    }
+                },
+                "actions": {
+                    "clean": "Limpiar",
+                    "filter": "Filtrar"
+                }
+            },
+            "list": {
+                "name": "Complemento de menú",
+                "created": "Fecha de creación",
+                "state": "Estado",
+                "states": {
+                    "active": "Activo",
+                    "inactive": "Inactivo"
+                },
+                "create": "Nuevo complemento de menú",
+                "suspend": "Suspender complemento de menú",
+                "restore": "Restablecer complemento de menú",
+                "edit": "Editar complemento de menú",
+                "view": "Ver detalles de complemento de menú",
+                "more": "Acciones"
             }
         }
     }

@@ -1204,6 +1204,52 @@
                 "view": "View menu title detail",
                 "more": "menu title actions"
             }
+        },
+        "addonstitlelist": {
+            "title": "Addon title list",
+            "actions": {
+                "openfilter": "Open filter",
+                "closefilter": "Close filter"
+            },
+            "filter": {
+                "form": {
+                    "referencename": {
+                        "placeholder": "Addon title",
+                        "hint": "filter addon title"
+                    },
+                    "state": {
+                        "placeholder": "addon title state",
+                        "hint": "filter addon title by state",
+                        "active": "Active addon title",
+                        "inactive": "Inactive addon title"
+                    },
+                    "fromdate": {
+                        "hint": "addon title created from date"
+                    },
+                    "todate": {
+                        "hint": "addon title created to date"
+                    }
+                },
+                "actions": {
+                    "clean": "Clean up",
+                    "filter": "Filter"
+                }
+            },
+            "list": {
+                "name": "Addon title",
+                "created": "Creation date",
+                "state": "State",
+                "states": {
+                    "active": "Active",
+                    "inactive": "Inactive"
+                },
+                "create": "New addon title",
+                "suspend": "Suspend addon title",
+                "restore": "Restore addon title",
+                "edit": "Edit addon title",
+                "view": "View addon title detail",
+                "more": "addon title actions"
+            }
         }
     }
 }

@@ -46,8 +46,8 @@ const MainTitleListItem: FC<MainTitleListItemDTO> = ({
                     </Legend>
                 </h4>
 
-                <Legend hasDots title={format(createdAt, 'MMM do, yyyy')}>
-                    {format(createdAt, 'MMM do, yyyy')}
+                <Legend hasDots title={!createdAt ? '' : format(createdAt, 'MMM do, yyyy')}>
+                    {!createdAt ? '' : format(createdAt, 'MMM do, yyyy')}
                 </Legend>
             </div>
 

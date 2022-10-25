@@ -8,7 +8,7 @@ export interface LangProps {
     language: string;
 }
 
-const availableLangs: Record<Lang, LangProps> = {
+export const availableLangs: Record<Lang, LangProps> = {
     en: {
         lang: 'en',
         language: 'English',

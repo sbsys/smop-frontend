@@ -4,13 +4,14 @@ export const titleListItemSerializer = (data: any): TitleListItemDTO => {
     return {
         ...data,
         isActive: data.isActive ? 'active' : 'inactive',
-        createdAt: new Date(data.createdAt),
+        createdAt: !data.createdAt ? null : new Date(data.createdAt),
+        updatedAt: !data.updatedAt ? null : new Date(data.updatedAt),
     };
 };
 
 export const mainTitleListItemSerializer = (data: any): MainTitleListItemDTO => {
     return {
-        ...titleListItemSerializer(data),
         ...data,
+        ...titleListItemSerializer(data),
     };
 };

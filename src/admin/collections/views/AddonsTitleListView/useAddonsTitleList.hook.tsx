@@ -62,10 +62,14 @@ export const useAddonsTitleList = () => {
         if (filter?.state) list = list.filter(mainTitle => mainTitle.isActive === filter.state);
 
         if (isDate(filter?.fromDate))
-            list = list.filter(mainTitle => isAfterOrEqual(mainTitle.createdAt, filter?.fromDate as Date));
+            list = list.filter(mainTitle =>
+                !mainTitle.createdAt ? true : isAfterOrEqual(mainTitle.createdAt, filter?.fromDate as Date)
+            );
 
         if (isDate(filter?.toDate))
-            list = list.filter(mainTitle => isBeforeOrEqual(mainTitle.createdAt, filter?.toDate as Date));
+            list = list.filter(mainTitle =>
+                !mainTitle.createdAt ? true : isBeforeOrEqual(mainTitle.createdAt, filter?.toDate as Date)
+            );
 
         return list;
     }, [titles, filter]);

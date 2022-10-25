@@ -85,8 +85,11 @@ const MainTitleListDesktop = () => {
                             },
                             {
                                 children: (
-                                    <Legend hasDots justify="center" title={format(item.createdAt, 'MMM do, yyyy')}>
-                                        {format(item.createdAt, 'MMM do, yyyy')}
+                                    <Legend
+                                        hasDots
+                                        justify="center"
+                                        title={!item.createdAt ? '' : format(item.createdAt, 'MMM do, yyyy')}>
+                                        {!item.createdAt ? '' : format(item.createdAt, 'MMM do, yyyy')}
                                     </Legend>
                                 ),
                             },

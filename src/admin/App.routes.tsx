@@ -23,7 +23,7 @@ import { CreateUserView, UserListView, UsersLayout } from './users';
 /* clients */
 import { SchemaLayout } from './clients';
 /* collections */
-import { AddonsTitleListView, CollectionsLayout, MainTitleListView } from './collections';
+import { AddonsTitleListView, CollectionsLayout, CreateMainTitleView, MainTitleListView } from './collections';
 
 const AppRoutes: FC = () => {
     const { isAuth, token } = useAdminSelector(selectAuthStore);
@@ -135,7 +135,9 @@ const AppRoutes: FC = () => {
 
                     {/* collections module */}
                     <Route path="collections" element={<CollectionsLayout />}>
-                        <Route path="menu" element={<MainTitleListView />} />
+                        <Route path="menu" element={<MainTitleListView />}>
+                            <Route path="create" element={<CreateMainTitleView />} />
+                        </Route>
 
                         <Route path="addons" element={<AddonsTitleListView />} />
                     </Route>

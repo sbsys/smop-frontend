@@ -11,8 +11,8 @@ export interface TitleListItemDTO {
     defaultTitle: string;
     multiLanguage: boolean;
     isActive: TitleState;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt: Date | null;
+    updatedAt: Date | null;
 }
 
 export interface MainTitleListItemDTO extends TitleListItemDTO {

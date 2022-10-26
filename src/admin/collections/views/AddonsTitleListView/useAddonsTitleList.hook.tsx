@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useOutlet } from 'react-router-dom';
 /* props */
 import { AddonsTitleListContextProps } from './AddonsTitleList.props';
 /* hooks */
@@ -74,6 +75,8 @@ export const useAddonsTitleList = () => {
         return list;
     }, [titles, filter]);
 
+    const outlet = useOutlet();
+
     /* functions */
     const handleFilter = handleSubmit(data => {
         const values = { ...data };
@@ -117,8 +120,8 @@ export const useAddonsTitleList = () => {
 
     /* reactivity */
     useEffect(() => {
-        getTitleList();
-    }, [getTitleList]);
+        if (outlet === null) getTitleList();
+    }, [getTitleList, outlet]);
 
     /* props */
     const referenceNameField: FieldSetProps = {

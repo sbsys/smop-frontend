@@ -1,0 +1,10 @@
+@import 'styles';
+
+.Checkbox {
+    flex-direction: row;
+}
+
+.CheckboxInverse {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}

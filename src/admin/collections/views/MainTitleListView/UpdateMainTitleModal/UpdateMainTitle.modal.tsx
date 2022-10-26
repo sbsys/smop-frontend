@@ -22,7 +22,7 @@ const UpdateMainTitleModal = () => {
         selectedTitleToUpdate,
     } = useMainTitleListContext();
 
-    const {} = useUpdateMainTitle();
+    const { handleCancelUpdateMainTitle, handleUpdateMainTitle, UpdateMainTitleFieldProps } = useUpdateMainTitle();
 
     const { t } = useTranslation();
 
@@ -33,7 +33,7 @@ const UpdateMainTitleModal = () => {
             colAlignment="center"
             hasIndentation>
             <ScrollLayout orientation="col" classNameContent={styles.UpdateMainTitle}>
-                <form onSubmit={event => event.preventDefault()}>
+                <form onSubmit={handleUpdateMainTitle}>
                     <div className={styles.Header} title={t('views.maintitlelist.update.title')}>
                         <i>
                             <MdWarning />
@@ -43,8 +43,8 @@ const UpdateMainTitleModal = () => {
                     </div>
 
                     <div className={styles.Content}>
-                        {[].map((_, index) => (
-                            <FieldSet {...{ field: {} }} key={index} />
+                        {UpdateMainTitleFieldProps.map((field, index) => (
+                            <FieldSet {...field} key={index} />
                         ))}
                     </div>
 
@@ -53,7 +53,7 @@ const UpdateMainTitleModal = () => {
                             type="button"
                             className={ButtonStyles.OutlineNone}
                             title={t('views.maintitlelist.update.actions.cancel')}
-                            onClick={() => {}}>
+                            onClick={handleCancelUpdateMainTitle}>
                             <Legend hasDots justify="center">
                                 {t('views.maintitlelist.update.actions.cancel')}
                             </Legend>

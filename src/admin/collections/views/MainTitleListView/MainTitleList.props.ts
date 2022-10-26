@@ -3,7 +3,7 @@ import { BaseSyntheticEvent } from 'react';
 /* props */
 import { ChildrenProps } from 'shared/props';
 /* types */
-import { MainTitleListItemDTO } from 'admin/collections/types';
+import { MainTitleListItemDTO, TitleCollection } from 'admin/collections/types';
 import { FieldSetProps } from 'admin/core';
 
 export interface MainTitleListContextProps {
@@ -26,4 +26,10 @@ export interface MainTitleListContextProps {
 
 export interface MainTitleListProviderProps extends ChildrenProps {
     context: MainTitleListContextProps;
+}
+
+export interface UpdateMainTitleFormData {
+    defaultTitle: string;
+    titleCollection: TitleCollection[];
+    multiLanguage: boolean;
 }

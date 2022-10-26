@@ -10,6 +10,7 @@ import { ModalLayout, PanelLayout } from 'shared/layouts';
 /* components */
 import { MainTitleListMobile } from './MainTitleListMobile';
 import { MainTitleListDesktop } from './MainTitleListDesktop';
+import { UpdateMainTitleModal } from './UpdateMainTitleModal';
 /* styles */
 import styles from './MainTitleList.module.scss';
 
@@ -23,6 +24,8 @@ const MainTitleListView = () => {
             <MainTitleListMobile />
 
             <MainTitleListDesktop />
+
+            <UpdateMainTitleModal />
 
             <ModalLayout isVisible={outlet !== null} rowAlignment="center" colAlignment="center" hasIndentation>
                 <PanelLayout className={styles.RouteModal} orientation="col">

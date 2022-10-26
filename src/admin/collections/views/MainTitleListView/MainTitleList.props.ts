@@ -9,6 +9,7 @@ import { FieldSetProps } from 'admin/core';
 export interface MainTitleListContextProps {
     /* states */
     mainTitleList: MainTitleListItemDTO[];
+    selectedTitleToUpdate: MainTitleListItemDTO | null;
     isDropFilter: boolean;
     showDropFilter: () => void;
     hideDropFilter: () => void;
@@ -16,6 +17,9 @@ export interface MainTitleListContextProps {
     /* functions */
     handleFilter: (event?: BaseSyntheticEvent) => Promise<void>;
     handleResetFilter: () => void;
+    getTitleList: () => Promise<void>;
+    handleSelectTitleToUpdate: (id: number) => void;
+    handleUnselectTitleToUpdate: () => void;
     /* props */
     filterFormFields: FieldSetProps[];
 }

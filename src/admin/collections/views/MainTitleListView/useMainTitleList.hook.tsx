@@ -31,6 +31,7 @@ export const useMainTitleList = () => {
     const { handleSubmit, register, setValue } = useForm<MainTitleListFilterForm>();
 
     const [titles, setTitles] = useState<MainTitleListItemDTO[]>([]);
+    const [selectedTitleToUpdate, setSelectedTitleToUpdate] = useState<MainTitleListItemDTO | null>(null);
 
     const [filter, setFilter] = useState<MainTitleListFilterForm | null>(null);
 
@@ -119,6 +120,15 @@ export const useMainTitleList = () => {
         setTitles(service.data);
     }, [hideLoader, notify, showLoader]);
 
+    const handleSelectTitleToUpdate = useCallback(
+        (id: number) => {
+            setSelectedTitleToUpdate(titles.find(title => title.titleId === id) ?? null);
+        },
+        [titles]
+    );
+
+    const handleUnselectTitleToUpdate = useCallback(() => setSelectedTitleToUpdate(null), []);
+
     /* reactivity */
     useEffect(() => {
         if (outlet === null) getTitleList();
@@ -197,6 +207,7 @@ export const useMainTitleList = () => {
     const context: MainTitleListContextProps = {
         /* states */
         mainTitleList,
+        selectedTitleToUpdate,
         isDropFilter,
         showDropFilter,
         hideDropFilter,
@@ -204,6 +215,9 @@ export const useMainTitleList = () => {
         /* functions */
         handleFilter,
         handleResetFilter,
+        getTitleList,
+        handleSelectTitleToUpdate,
+        handleUnselectTitleToUpdate,
         /* props */
         filterFormFields,
     };

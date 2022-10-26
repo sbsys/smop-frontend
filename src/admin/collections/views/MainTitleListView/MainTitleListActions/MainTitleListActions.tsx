@@ -1,6 +1,7 @@
 import { FC, memo } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+/* context */
+import { useMainTitleListContext } from '../MainTitleList.context';
 /* components */
 import { Button } from 'shared/components';
 /* types */
@@ -11,9 +12,12 @@ import { MdDelete, MdEdit, MdRestoreFromTrash, MdVisibility } from 'react-icons/
 import styles from './MainTitleListActions.module.scss';
 
 const MainTitleListActions: FC<{ state: TitleState; titleId: number }> = ({ state, titleId }) => {
-    const { t } = useTranslation();
+    const {
+        /* functions */
+        handleSelectTitleToUpdate,
+    } = useMainTitleListContext();
 
-    const navigate = useNavigate();
+    const { t } = useTranslation();
 
     return (
         <div className={styles.Actions}>
@@ -33,7 +37,7 @@ const MainTitleListActions: FC<{ state: TitleState; titleId: number }> = ({ stat
 
             <Button
                 className={styles.Edit}
-                onClick={() => navigate(`${titleId}/edit`)}
+                onClick={() => handleSelectTitleToUpdate(titleId)}
                 disabled={state === 'inactive'}
                 title={t('views.maintitlelist.list.edit')}>
                 <i>
@@ -43,7 +47,7 @@ const MainTitleListActions: FC<{ state: TitleState; titleId: number }> = ({ stat
 
             <Button
                 className={styles.View}
-                onClick={() => navigate(`${titleId}/detail`)}
+                onClick={() => {}}
                 disabled={state === 'inactive'}
                 title={t('views.maintitlelist.list.view')}>
                 <i>

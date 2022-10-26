@@ -1,4 +1,5 @@
 /* react */
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -7,11 +8,14 @@ import { CreateMainTitleContextProps, CreateMainTitleFormData } from './CreateMa
 /* hooks */
 import { useLoader } from 'shared/hooks';
 import { FieldSetProps, Lang, useAdminNotify } from 'admin/core';
+/* services */
+import { createMainTitleService } from 'admin/collections/services';
 /* utils */
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 /* assets */
 import { MdBookmarkAdded, MdDangerous } from 'react-icons/md';
+/* styles */
 import { FieldStyles } from 'shared/styles';
 import styles from './CreateMainTitle.module.scss';
 
@@ -23,9 +27,8 @@ export const useCreateMainTitle = () => {
         formState: { errors },
         handleSubmit,
         register,
-        setFocus,
         setValue,
-        trigger,
+        unregister,
         watch,
     } = useForm<CreateMainTitleFormData>({
         mode: 'all',
@@ -44,7 +47,10 @@ export const useCreateMainTitle = () => {
     const handleCreateMainTitle = handleSubmit(async data => {
         showLoader();
 
-        const service = await { error: true, message: 'Create main title message' };
+        if (data.multiLanguage) data.defaultTitle = data.titleCollection[0].ref;
+        else data.titleCollection = [];
+
+        const service = await createMainTitleService({ ...data, serviceMode: 0, servedOn: '-' });
 
         hideLoader();
 
@@ -69,6 +75,18 @@ export const useCreateMainTitle = () => {
     const handleCalcelCreateMainTitle = () => navigate(-1);
 
     /* reactivity */
+    useEffect(() => {
+        if (watch('multiLanguage')) {
+            setValue('titleCollection.0.ref', watch('defaultTitle'));
+
+            unregister('defaultTitle');
+        } else {
+            setValue('defaultTitle', watch('titleCollection.0.ref'));
+
+            unregister('titleCollection');
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [setValue, unregister, watch('multiLanguage')]);
 
     /* props */
     const defaultTitleProps: FieldSetProps = {

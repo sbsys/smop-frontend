@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useOutlet } from 'react-router-dom';
 /* props */
 import { MainTitleListContextProps } from './MainTitleList.props';
 /* hooks */
@@ -15,6 +16,7 @@ import { isAfterOrEqual, isBeforeOrEqual, matchBreakPoint } from 'shared/utils';
 import { MdDangerous } from 'react-icons/md';
 /* types */
 import { MainTitleListItemDTO, TitleState } from 'admin/collections/types';
+/* styles */
 import { FieldStyles } from 'shared/styles';
 
 interface MainTitleListFilterForm {
@@ -74,6 +76,8 @@ export const useMainTitleList = () => {
         return list;
     }, [titles, filter]);
 
+    const outlet = useOutlet();
+
     /* functions */
     const handleFilter = handleSubmit(data => {
         const values = { ...data };
@@ -117,8 +121,8 @@ export const useMainTitleList = () => {
 
     /* reactivity */
     useEffect(() => {
-        getTitleList();
-    }, [getTitleList]);
+        if (outlet === null) getTitleList();
+    }, [getTitleList, outlet]);
 
     /* props */
     const referenceNameField: FieldSetProps = {

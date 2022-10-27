@@ -3,21 +3,21 @@ import { useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 /* props */
-import { UpdateMainTitleFormData } from '../MainTitleList.props';
+import { UpdateAddonTitleFormData } from '../AddonsTitleList.props';
 /* context */
-import { useMainTitleListContext } from '../MainTitleList.context';
+import { useAddonsTitleListContext } from '../AddonsTitleList.context';
 /* hooks */
 import { useLoader } from 'shared/hooks';
 import { FieldSetProps, Lang, useAdminNotify } from 'admin/core';
 /* services */
-import { updateMainTitleService } from 'admin/collections/services';
+import { updateAddonTitleService } from 'admin/collections/services';
 /* assets */
 import { MdCheckCircle, MdDangerous } from 'react-icons/md';
 /* styles */
 import { FieldStyles } from 'shared/styles';
-import styles from './UpdateMainTitle.module.scss';
+import styles from './UpdateAddonTitle.module.scss';
 
-export const useUpdateMainTitle = () => {
+export const useUpdateAddonTitle = () => {
     /* states */
     const {
         /* states */
@@ -25,7 +25,7 @@ export const useUpdateMainTitle = () => {
         /* functions */
         getTitleList,
         handleUnselectTitleToUpdate,
-    } = useMainTitleListContext();
+    } = useAddonsTitleListContext();
 
     const {
         formState: { errors },
@@ -34,7 +34,7 @@ export const useUpdateMainTitle = () => {
         reset,
         setValue,
         watch,
-    } = useForm<UpdateMainTitleFormData>();
+    } = useForm<UpdateAddonTitleFormData>();
 
     const { showLoader, hideLoader } = useLoader();
 
@@ -43,22 +43,20 @@ export const useUpdateMainTitle = () => {
     const { t } = useTranslation();
 
     /* functions */
-    const handleCancelUpdateMainTitle = () => {
+    const handleCancelUpdateAddonTitle = () => {
         reset();
 
         handleUnselectTitleToUpdate();
     };
 
-    const handleUpdateMainTitle = handleSubmit(async data => {
+    const handleUpdateAddonTitle = handleSubmit(async data => {
         showLoader();
 
         if (data.multiLanguage) data.defaultTitle = data.titleCollection[0].ref;
         else data.titleCollection = [];
 
-        const service = await updateMainTitleService(selectedTitleToUpdate?.titleId ?? 0, {
+        const service = await updateAddonTitleService(selectedTitleToUpdate?.titleId ?? 0, {
             ...data,
-            serviceMode: selectedTitleToUpdate?.serviceMode ?? 1,
-            servedOn: selectedTitleToUpdate?.servedOn ?? '-',
             isActive: selectedTitleToUpdate?.isActive === 'active',
         });
 
@@ -79,12 +77,12 @@ export const useUpdateMainTitle = () => {
             timestamp: new Date(),
         });
 
-        handleCancelUpdateMainTitle();
+        handleCancelUpdateAddonTitle();
 
         getTitleList();
     });
 
-    const setMainTitleDefaults = useCallback(() => {
+    const setAddonTitleDefaults = useCallback(() => {
         if (selectedTitleToUpdate === null) return;
 
         setValue('defaultTitle', selectedTitleToUpdate.defaultTitle);
@@ -101,15 +99,15 @@ export const useUpdateMainTitle = () => {
 
     /* reactivity */
     useEffect(() => {
-        setMainTitleDefaults();
-    }, [setMainTitleDefaults]);
+        setAddonTitleDefaults();
+    }, [setAddonTitleDefaults]);
 
     /* props */
     const defaultTitleProps: FieldSetProps = {
         field: {
             className: errors.defaultTitle ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'text',
-            placeholder: t('views.maintitlelist.update.defaulttitle.placeholder'),
+            placeholder: t('views.addontitlelist.update.defaulttitle.placeholder'),
             ...register('defaultTitle'),
         },
         isHintReserved: true,
@@ -120,9 +118,9 @@ export const useUpdateMainTitle = () => {
                   title: t(errors.defaultTitle.message as string),
               }
             : {
-                  children: t('views.maintitlelist.update.defaulttitle.hint'),
+                  children: t('views.addontitlelist.update.defaulttitle.hint'),
                   hasDots: true,
-                  title: t('views.maintitlelist.update.defaulttitle.hint'),
+                  title: t('views.addontitlelist.update.defaulttitle.hint'),
               },
     };
     const multiLanguageProps: FieldSetProps = {
@@ -130,7 +128,7 @@ export const useUpdateMainTitle = () => {
         field: {
             className: errors.multiLanguage ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'checkbox',
-            placeholder: t('views.maintitlelist.update.multilanguage.placeholder'),
+            placeholder: t('views.addontitlelist.update.multilanguage.placeholder'),
             ...register('multiLanguage'),
         },
         isHintReserved: true,
@@ -141,9 +139,9 @@ export const useUpdateMainTitle = () => {
                   title: t(errors.multiLanguage.message as string),
               }
             : {
-                  children: t('views.maintitlelist.update.multilanguage.hint'),
+                  children: t('views.addontitlelist.update.multilanguage.hint'),
                   hasDots: true,
-                  title: t('views.maintitlelist.update.multilanguage.hint'),
+                  title: t('views.addontitlelist.update.multilanguage.hint'),
               },
     };
     const titleCollectionProps = (index: number, lang: Lang): FieldSetProps => {
@@ -153,7 +151,7 @@ export const useUpdateMainTitle = () => {
             field: {
                 className: errors.titleCollection ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
                 strategy: 'text',
-                placeholder: t('views.maintitlelist.update.titlecollection.placeholder'),
+                placeholder: t('views.addontitlelist.update.titlecollection.placeholder'),
                 afterContent: lang.toUpperCase(),
                 ...register(`titleCollection.${index}.ref`),
             },
@@ -165,14 +163,14 @@ export const useUpdateMainTitle = () => {
                       title: t(errors.titleCollection.message as string),
                   }
                 : {
-                      children: t('views.maintitlelist.update.titlecollection.hint'),
+                      children: t('views.addontitlelist.update.titlecollection.hint'),
                       hasDots: true,
-                      title: t('views.maintitlelist.update.titlecollection.hint'),
+                      title: t('views.addontitlelist.update.titlecollection.hint'),
                   },
         };
     };
 
-    const UpdateMainTitleFieldProps: FieldSetProps[] = [
+    const UpdateAddonTitleFieldProps: FieldSetProps[] = [
         ...(watch('multiLanguage')
             ? [
                   multiLanguageProps,
@@ -185,5 +183,5 @@ export const useUpdateMainTitle = () => {
             : [defaultTitleProps, multiLanguageProps]),
     ];
 
-    return { handleCancelUpdateMainTitle, handleUpdateMainTitle, UpdateMainTitleFieldProps };
+    return { handleCancelUpdateAddonTitle, handleUpdateAddonTitle, UpdateAddonTitleFieldProps };
 };

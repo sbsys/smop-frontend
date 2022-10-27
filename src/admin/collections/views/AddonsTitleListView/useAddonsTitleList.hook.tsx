@@ -30,6 +30,7 @@ export const useAddonsTitleList = () => {
     const { handleSubmit, register, setValue } = useForm<AddonsTitleListFilterForm>();
 
     const [titles, setTitles] = useState<TitleListItemDTO[]>([]);
+    const [selectedTitleToUpdate, setSelectedTitleToUpdate] = useState<TitleListItemDTO | null>(null);
 
     const [filter, setFilter] = useState<AddonsTitleListFilterForm | null>(null);
 
@@ -118,6 +119,15 @@ export const useAddonsTitleList = () => {
         setTitles(service.data);
     }, [hideLoader, notify, showLoader]);
 
+    const handleSelectTitleToUpdate = useCallback(
+        (id: number) => {
+            setSelectedTitleToUpdate(titles.find(title => title.titleId === id) ?? null);
+        },
+        [titles]
+    );
+
+    const handleUnselectTitleToUpdate = useCallback(() => setSelectedTitleToUpdate(null), []);
+
     /* reactivity */
     useEffect(() => {
         if (outlet === null) getTitleList();
@@ -196,6 +206,7 @@ export const useAddonsTitleList = () => {
     const context: AddonsTitleListContextProps = {
         /* states */
         addonsTitleList,
+        selectedTitleToUpdate,
         isDropFilter,
         showDropFilter,
         hideDropFilter,
@@ -203,6 +214,9 @@ export const useAddonsTitleList = () => {
         /* functions */
         handleFilter,
         handleResetFilter,
+        getTitleList,
+        handleSelectTitleToUpdate,
+        handleUnselectTitleToUpdate,
         /* props */
         filterFormFields,
     };

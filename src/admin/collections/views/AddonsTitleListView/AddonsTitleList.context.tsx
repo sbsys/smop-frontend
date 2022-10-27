@@ -6,6 +6,7 @@ import { AddonsTitleListContextProps, AddonsTitleListProviderProps } from './Add
 const Context = createContext<AddonsTitleListContextProps>({
     /* states */
     addonsTitleList: [],
+    selectedTitleToUpdate: null,
     isDropFilter: false,
     showDropFilter: () => {},
     hideDropFilter: () => {},
@@ -13,6 +14,9 @@ const Context = createContext<AddonsTitleListContextProps>({
     /* functions */
     handleFilter: () => new Promise(resolve => resolve),
     handleResetFilter: () => {},
+    getTitleList: () => new Promise(resolve => resolve()),
+    handleSelectTitleToUpdate: (id: number) => {},
+    handleUnselectTitleToUpdate: () => {},
     /* props */
     filterFormFields: [],
 });

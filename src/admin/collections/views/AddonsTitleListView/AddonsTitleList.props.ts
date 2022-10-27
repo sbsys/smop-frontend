@@ -10,6 +10,7 @@ export interface AddonsTitleListContextProps {
     /* states */
     addonsTitleList: TitleListItemDTO[];
     selectedTitleToUpdate: TitleListItemDTO | null;
+    selectedTitleToUpdateState: TitleListItemDTO | null;
     isDropFilter: boolean;
     showDropFilter: () => void;
     hideDropFilter: () => void;
@@ -20,6 +21,8 @@ export interface AddonsTitleListContextProps {
     getTitleList: () => Promise<void>;
     handleSelectTitleToUpdate: (id: number) => void;
     handleUnselectTitleToUpdate: () => void;
+    handleSelectTitleToUpdateState: (id: number) => void;
+    handleUnselectTitleToUpdateState: () => void;
     /* props */
     filterFormFields: FieldSetProps[];
 }

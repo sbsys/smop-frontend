@@ -11,6 +11,7 @@ import { ModalLayout, PanelLayout } from 'shared/layouts';
 import { AddonsTitleListMobile } from './AddonsTitleListMobile';
 import { AddonsTitleListDesktop } from './AddonsTitleListDesktop';
 import { UpdateAddonTitleModal } from './UpdateAddonTitleModal';
+import { UpdateAddonTitleStateModal } from './UpdateAddonTitleStateModal';
 /* styles */
 import styles from './AddonsTitleList.module.scss';
 
@@ -26,6 +27,8 @@ const AddonsTitleListView = () => {
             <AddonsTitleListDesktop />
 
             <UpdateAddonTitleModal />
+
+            <UpdateAddonTitleStateModal />
 
             <ModalLayout isVisible={outlet !== null} rowAlignment="center" colAlignment="center" hasIndentation>
                 <PanelLayout className={styles.RouteModal} orientation="col">

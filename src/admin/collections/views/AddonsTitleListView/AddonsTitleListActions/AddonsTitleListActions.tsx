@@ -7,7 +7,7 @@ import { Button } from 'shared/components';
 /* types */
 import { TitleState } from 'admin/collections/types';
 /* assets */
-import { MdDelete, MdEdit, MdRestoreFromTrash, MdVisibility } from 'react-icons/md';
+import { MdEdit, MdThumbDown, MdThumbUp, MdVisibility } from 'react-icons/md';
 /* styles */
 import styles from './AddonsTitleList.module.scss';
 
@@ -15,6 +15,7 @@ const AddonsTitleListActions: FC<{ state: TitleState; titleId: number }> = ({ st
     const {
         /* functions */
         handleSelectTitleToUpdate,
+        handleSelectTitleToUpdateState,
     } = useAddonsTitleListContext();
 
     const { t } = useTranslation();
@@ -22,15 +23,21 @@ const AddonsTitleListActions: FC<{ state: TitleState; titleId: number }> = ({ st
     return (
         <div className={styles.Actions}>
             {state === 'active' ? (
-                <Button className={styles.Delete} title={t('views.addonstitlelist.list.suspend')}>
+                <Button
+                    className={styles.Delete}
+                    onClick={() => handleSelectTitleToUpdateState(titleId)}
+                    title={t('views.addonstitlelist.list.suspend')}>
                     <i>
-                        <MdDelete />
+                        <MdThumbDown />
                     </i>
                 </Button>
             ) : (
-                <Button className={styles.Restore} title={t('views.addonstitlelist.list.restore')}>
+                <Button
+                    className={styles.Restore}
+                    onClick={() => handleSelectTitleToUpdateState(titleId)}
+                    title={t('views.addonstitlelist.list.restore')}>
                     <i>
-                        <MdRestoreFromTrash />
+                        <MdThumbUp />
                     </i>
                 </Button>
             )}

@@ -10,6 +10,7 @@ export interface MainTitleListContextProps {
     /* states */
     mainTitleList: MainTitleListItemDTO[];
     selectedTitleToUpdate: MainTitleListItemDTO | null;
+    selectedTitleToUpdateState: MainTitleListItemDTO | null;
     isDropFilter: boolean;
     showDropFilter: () => void;
     hideDropFilter: () => void;
@@ -20,6 +21,8 @@ export interface MainTitleListContextProps {
     getTitleList: () => Promise<void>;
     handleSelectTitleToUpdate: (id: number) => void;
     handleUnselectTitleToUpdate: () => void;
+    handleSelectTitleToUpdateState: (id: number) => void;
+    handleUnselectTitleToUpdateState: () => void;
     /* props */
     filterFormFields: FieldSetProps[];
 }

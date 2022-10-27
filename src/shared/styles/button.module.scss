@@ -48,6 +48,28 @@
     }
 }
 
+.FillSuccess {
+    @include bg-color(400, success);
+    @include border-color(all 400 success);
+    @include border-width(all sm);
+    @include font-color(100);
+    @include interactable;
+    @include padding(all sm split);
+    @include rounded(all xs);
+
+    &:hover {
+        @include bg-color(300, success);
+        @include border-color(all 300 success);
+        @include font-color(50);
+    }
+
+    &:active {
+        @include bg-color(500, success);
+        @include border-color(all 500 success);
+        @include font-color(200);
+    }
+}
+
 .FillWarning {
     @include bg-color(400, warning);
     @include border-color(all 400 warning);
@@ -66,6 +88,28 @@
     &:active {
         @include bg-color(500, warning);
         @include border-color(all 500 warning);
+        @include font-color(200);
+    }
+}
+
+.FillDanger {
+    @include bg-color(400, danger);
+    @include border-color(all 400 danger);
+    @include border-width(all sm);
+    @include font-color(100);
+    @include interactable;
+    @include padding(all sm split);
+    @include rounded(all xs);
+
+    &:hover {
+        @include bg-color(300, danger);
+        @include border-color(all 300 danger);
+        @include font-color(50);
+    }
+
+    &:active {
+        @include bg-color(500, danger);
+        @include border-color(all 500 danger);
         @include font-color(200);
     }
 }

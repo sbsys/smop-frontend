@@ -52,9 +52,10 @@
                     "organization": "Organization",
                     "commerces": "Commerces",
                     "users": "Users",
-                    "collections": "Collections",
+                    "collections": "Product shelf",
                     "menu": "Menu titles",
-                    "addons": "Menu addons"
+                    "addons": "Menu addons",
+                    "products": "Products"
                 }
             }
         }

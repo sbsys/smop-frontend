@@ -29,6 +29,7 @@ import {
     CreateAddonTitleView,
     CreateMainTitleView,
     MainTitleListView,
+    ProductListView,
 } from './collections';
 
 const AppRoutes: FC = () => {
@@ -148,6 +149,8 @@ const AppRoutes: FC = () => {
                         <Route path="addons" element={<AddonsTitleListView />}>
                             <Route path="create" element={<CreateAddonTitleView />} />
                         </Route>
+
+                        <Route path="products" element={<ProductListView />} />
                     </Route>
                 </Route>
             </Route>

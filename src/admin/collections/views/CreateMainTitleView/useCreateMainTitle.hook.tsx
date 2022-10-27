@@ -50,7 +50,7 @@ export const useCreateMainTitle = () => {
         if (data.multiLanguage) data.defaultTitle = data.titleCollection[0].ref;
         else data.titleCollection = [];
 
-        const service = await createMainTitleService({ ...data, serviceMode: 0, servedOn: '-' });
+        const service = await createMainTitleService({ ...data, serviceMode: 1, servedOn: '-' });
 
         hideLoader();
 

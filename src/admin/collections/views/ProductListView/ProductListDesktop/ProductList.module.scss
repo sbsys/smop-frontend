@@ -38,6 +38,15 @@
                         margin: 0 auto;
                         overflow: hidden;
                     }
+
+                    & > img {
+                        @include height(lg, element);
+                        @include rounded(all xs);
+                        @include width(lg, element);
+                        margin: auto;
+                        object-fit: cover;
+                        overflow: hidden;
+                    }
                 }
             }
         }

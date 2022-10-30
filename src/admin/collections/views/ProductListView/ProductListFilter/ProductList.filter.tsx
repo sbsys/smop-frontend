@@ -13,22 +13,19 @@ import styles from './ProductList.module.scss';
 const ProductListFilter = () => {
     const {
         /* functions */
-        /* handleFilter,
-        handleResetFilter, */
+        handleFilter,
+        handleResetFilter,
         /* props */
-        /* filterFormFields, */
+        filterFormFields,
     } = useProductListContext();
 
     const { t } = useTranslation();
 
     return (
-        <form
-            className={styles.Filter}
-            onSubmit={/* handleFilter */ event => event.preventDefault()}
-            onReset={/* handleResetFilter */ () => {}}>
+        <form className={styles.Filter} onSubmit={handleFilter} onReset={handleResetFilter}>
             <div className={styles.Fields}>
-                {[].map((_, index) => (
-                    <FieldSet {...{ field: {} }} key={index} />
+                {filterFormFields.map((field, index) => (
+                    <FieldSet {...field} key={index} />
                 ))}
             </div>
 

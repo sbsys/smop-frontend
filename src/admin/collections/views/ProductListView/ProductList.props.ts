@@ -3,10 +3,12 @@ import { BaseSyntheticEvent } from 'react';
 /* props */
 import { ChildrenProps } from 'shared/props';
 import { FieldSetProps } from 'admin/core';
+/* types */
+import { ProductListItemDTO } from 'admin/collections/types';
 
 export interface ProductListContextProps {
     /* states */
-    productList: {}[];
+    productList: ProductListItemDTO[];
     isDropFilter: boolean;
     showDropFilter: () => void;
     hideDropFilter: () => void;

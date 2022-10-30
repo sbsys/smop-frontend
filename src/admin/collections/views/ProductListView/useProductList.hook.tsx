@@ -8,15 +8,20 @@ import { ProductListContextProps } from './ProductList.props';
 import { useActive, useKeyDownEvent, useLoader, useMinWidth } from 'shared/hooks';
 import { FieldSetProps, useAdminNotify } from 'admin/core';
 /* utils */
-import { parse } from 'date-fns';
-import { matchBreakPoint } from 'shared/utils';
+import { isDate, parse } from 'date-fns';
+import { isAfterOrEqual, isBeforeOrEqual, matchBreakPoint } from 'shared/utils';
+/* services */
+import { productListService } from 'admin/collections/services';
+/* types */
+import { ProductListItemDTO, ProductState } from 'admin/collections/types';
 /* assets */
 import { MdDangerous } from 'react-icons/md';
 import { FieldStyles } from 'shared/styles';
 
 interface ProductListFilterForm {
     name: string;
-    /* state: TitleState | ''; */
+    state: ProductState | '';
+    markAsAddon: 'addon' | '';
     fromDate: Date | null;
     toDate: Date | null;
 }
@@ -25,7 +30,7 @@ export const useProductList = () => {
     /* states */
     const { handleSubmit, register, setValue } = useForm<ProductListFilterForm>();
 
-    const [products, setProducts] = useState<[]>([]);
+    const [products, setProducts] = useState<ProductListItemDTO[]>([]);
 
     const [filter, setFilter] = useState<ProductListFilterForm | null>(null);
 
@@ -46,27 +51,22 @@ export const useProductList = () => {
     const productList = useMemo(() => {
         let list = products.slice();
 
-        /* if (filter?.name)
-            list = list.filter(
-                mainTitle =>
-                    mainTitle.defaultTitle.toLowerCase().includes(filter.name.toLowerCase()) ||
-                    mainTitle.titleCollection.reduce(
-                        (prev, current) => prev || current.ref.toLowerCase().includes(filter.name.toLowerCase()),
-                        false
-                    )
-            );
+        if (filter?.name)
+            list = list.filter(product => product.defaultReference.toLowerCase().includes(filter.name.toLowerCase()));
 
-        if (filter?.state) list = list.filter(mainTitle => mainTitle.isActive === filter.state);
+        if (filter?.state) list = list.filter(product => product.isActive === filter.state);
+
+        if (filter?.markAsAddon) list = list.filter(product => filter.markAsAddon === 'addon' && product.markAsAddon);
 
         if (isDate(filter?.fromDate))
-            list = list.filter(mainTitle =>
-                !mainTitle.createdAt ? true : isAfterOrEqual(mainTitle.createdAt, filter?.fromDate as Date)
+            list = list.filter(product =>
+                !product.createdAt ? true : isAfterOrEqual(product.createdAt, filter?.fromDate as Date)
             );
 
         if (isDate(filter?.toDate))
-            list = list.filter(mainTitle =>
-                !mainTitle.createdAt ? true : isBeforeOrEqual(mainTitle.createdAt, filter?.toDate as Date)
-            ); */
+            list = list.filter(product =>
+                !product.createdAt ? true : isBeforeOrEqual(product.createdAt, filter?.toDate as Date)
+            );
 
         return list;
     }, [products, filter]);
@@ -85,6 +85,8 @@ export const useProductList = () => {
 
     const handleResetFilter = () => {
         setValue('name', '');
+        setValue('state', '');
+        setValue('markAsAddon', '');
         setValue('fromDate', null);
         setValue('toDate', null);
 
@@ -96,7 +98,7 @@ export const useProductList = () => {
     const getProductList = useCallback(async () => {
         showLoader();
 
-        const service = await { error: true, message: 'Product list', data: [] };
+        const service = await productListService();
 
         hideLoader();
 
@@ -125,8 +127,53 @@ export const useProductList = () => {
         },
         isHintReserved: true,
         hint: {
+            title: t('views.productlist.filter.form.name.hint'),
             hasDots: true,
             children: t('views.productlist.filter.form.name.hint'),
+        },
+    };
+    const stateProps: FieldSetProps = {
+        field: {
+            className: FieldStyles.OutlinePrimary,
+            strategy: 'select',
+            placeholder: t('views.productlist.filter.form.state.placeholder'),
+            options: [
+                {
+                    label: t('views.productlist.filter.form.state.active'),
+                    value: 'active',
+                },
+                {
+                    label: t('views.productlist.filter.form.state.inactive'),
+                    value: 'inactive',
+                },
+            ],
+            ...register('state'),
+        },
+        isHintReserved: true,
+        hint: {
+            children: t('views.productlist.filter.form.state.hint'),
+            hasDots: true,
+            title: t('views.productlist.filter.form.state.hint'),
+        },
+    };
+    const markAsAddonProps: FieldSetProps = {
+        field: {
+            className: FieldStyles.OutlinePrimary,
+            strategy: 'select',
+            placeholder: t('views.productlist.filter.form.markasaddon.placeholder'),
+            options: [
+                {
+                    label: t('views.productlist.filter.form.markasaddon.addon'),
+                    value: 'addon',
+                },
+            ],
+            ...register('markAsAddon'),
+        },
+        isHintReserved: true,
+        hint: {
+            children: t('views.productlist.filter.form.markasaddon.hint'),
+            hasDots: true,
+            title: t('views.productlist.filter.form.markasaddon.hint'),
         },
     };
     const fromDateField: FieldSetProps = {
@@ -138,6 +185,7 @@ export const useProductList = () => {
         },
         isHintReserved: true,
         hint: {
+            title: t('views.productlist.filter.form.fromdate.hint'),
             hasDots: true,
             children: t('views.productlist.filter.form.fromdate.hint'),
         },
@@ -151,12 +199,13 @@ export const useProductList = () => {
         },
         isHintReserved: true,
         hint: {
+            title: t('views.productlist.filter.form.todate.hint'),
             hasDots: true,
             children: t('views.productlist.filter.form.todate.hint'),
         },
     };
 
-    const filterFormFields: FieldSetProps[] = [nameField, fromDateField, toDateField];
+    const filterFormFields: FieldSetProps[] = [nameField, stateProps, markAsAddonProps, fromDateField, toDateField];
 
     /* context */
     const context: ProductListContextProps = {

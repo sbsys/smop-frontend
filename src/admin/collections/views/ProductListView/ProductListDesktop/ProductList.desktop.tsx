@@ -8,14 +8,18 @@ import { PanelLayout, TableLayout } from 'shared/layouts';
 /* components */
 import { Legend } from 'shared/components';
 import { ProductListFilter } from '../ProductListFilter';
+import { NewProductAction, ProductListActions } from '../ProductListActions';
+import { ProductListState } from '../ProductListState';
+/* utils */
+import { format } from 'date-fns';
 /* styles */
 import styles from './ProductList.module.scss';
 
 const ProductListDesktop = () => {
     const {
         /* states */
-        /* isBreakPoint,
-        addonsTitleList, */
+        isBreakPoint,
+        productList,
     } = useProductListContext();
 
     const { t } = useTranslation();
@@ -26,13 +30,11 @@ const ProductListDesktop = () => {
                 <Legend hasDots>{t('views.productlist.title')}</Legend>
             </h1>
 
-            {
-                /* isBreakPoint */ true && (
-                    <section className={styles.Filter}>
-                        <ProductListFilter />
-                    </section>
-                )
-            }
+            {isBreakPoint && (
+                <section className={styles.Filter}>
+                    <ProductListFilter />
+                </section>
+            )}
 
             <section className={styles.Titles}>
                 <TableLayout
@@ -45,6 +47,9 @@ const ProductListDesktop = () => {
                                         {t('views.productlist.list.name')}
                                     </Legend>
                                 ),
+                            },
+                            {
+                                span: 1,
                             },
                             {
                                 children: (
@@ -61,25 +66,24 @@ const ProductListDesktop = () => {
                                 ),
                             },
                             {
-                                /* children: <NewAddonsTitleAction />, */
-                                span: 1,
+                                children: <NewProductAction />,
                             },
                         ],
                     }}
-                    body={[].map(_ => ({
+                    body={productList.map(item => ({
                         columns: [
-                            /* {
+                            {
                                 children: (
                                     <Legend
                                         hasDots
-                                        title={
-                                            item.titleCollection.find(collection => collection.lang === i18n.language)
-                                                ?.ref ?? item.defaultTitle
-                                        }>
-                                        {item.titleCollection.find(collection => collection.lang === i18n.language)
-                                            ?.ref ?? item.defaultTitle}
+                                        title={`${item.markAsAddon ? '(addon) ' : ''}${item.defaultReference}`}>
+                                        <>{item.markAsAddon && '(addon) '}</>
+                                        <>{item.defaultReference}</>
                                     </Legend>
                                 ),
+                            },
+                            {
+                                children: <img src={item.url} alt={item.defaultReference} />,
                             },
                             {
                                 children: (
@@ -92,11 +96,11 @@ const ProductListDesktop = () => {
                                 ),
                             },
                             {
-                                children: <AddonsTitleListState state={item.isActive} />,
+                                children: <ProductListState state={item.isActive} />,
                             },
                             {
-                                children: <AddonsTitleListActions state={item.isActive} titleId={item.titleId} />,
-                            }, */
+                                children: <ProductListActions state={item.isActive} productId={item.productId} />,
+                            },
                         ],
                     }))}
                 />

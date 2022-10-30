@@ -7,3 +7,5 @@ export * from './update-main-title.service';
 export * from './addons-title-list.service';
 export * from './create-addon-title.service';
 export * from './update-addon-title.service';
+/* products */
+export * from './product-list.service';

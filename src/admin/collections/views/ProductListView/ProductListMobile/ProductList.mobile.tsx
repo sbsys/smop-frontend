@@ -8,6 +8,8 @@ import { DropLayout, PanelLayout, ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
 import { ProductListFilter } from '../ProductListFilter';
+import { NewProductAction } from '../ProductListActions';
+import { ProductListItem } from '../ProductListItem';
 /* assets */
 import { MdClose, MdFilterList } from 'react-icons/md';
 /* styles */
@@ -16,11 +18,11 @@ import styles from './ProductList.module.scss';
 const ProductListMobile = () => {
     const {
         /* states */
-        /* isDropFilter,
+        isDropFilter,
         isBreakPoint,
-        addonsTitleList,
+        productList,
         showDropFilter,
-        hideDropFilter, */
+        hideDropFilter,
     } = useProductListContext();
 
     const { t } = useTranslation();
@@ -33,28 +35,26 @@ const ProductListMobile = () => {
                 </h1>
 
                 <DropLayout
-                    isDrop={/* isDropFilter && !isBreakPoint */ true}
+                    isDrop={isDropFilter && !isBreakPoint}
                     dropCol="start"
                     dropRow="end"
                     anchorCol="start"
                     anchorRow="end"
                     drop={
                         <PanelLayout className={styles.FilterContent} orientation="col">
-                            <Button
-                                title={t('views.productlist.actions.closefilter')}
-                                onClick={/* hideDropFilter */ () => {}}>
+                            <Button title={t('views.productlist.actions.closefilter')} onClick={hideDropFilter}>
                                 <i>
                                     <MdClose />
                                 </i>
                             </Button>
 
-                            {/* !isBreakPoint */ true && <ProductListFilter />}
+                            {!isBreakPoint && <ProductListFilter />}
                         </PanelLayout>
                     }>
                     <Button
                         className={styles.Filter}
                         title={t('views.productlist.actions.openfilter')}
-                        onClick={/* showDropFilter */ () => {}}>
+                        onClick={showDropFilter}>
                         <i>
                             <MdFilterList />
                         </i>
@@ -62,12 +62,14 @@ const ProductListMobile = () => {
                 </DropLayout>
             </div>
 
-            <span>{/* <NewAddonsTitleAction /> */}</span>
+            <span>
+                <NewProductAction />
+            </span>
 
             <ScrollLayout classNameContent={styles.List} orientation="col">
                 <ul>
-                    {[].map((_, index) => (
-                        <li key={index}>{/* {<AddonsTitleListItem {...title} />} */}</li>
+                    {productList.map((product, index) => (
+                        <li key={index}>{<ProductListItem {...product} />}</li>
                     ))}
                 </ul>
             </ScrollLayout>

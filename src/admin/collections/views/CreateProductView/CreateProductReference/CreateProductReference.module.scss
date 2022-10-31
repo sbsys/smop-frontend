@@ -1,0 +1,101 @@
+@import 'styles';
+
+.Reference {
+    @include flex;
+    @include gap(all md);
+    flex-grow: 1;
+
+    .Content {
+        @include flex;
+        @include gap(all md);
+        @include margin(x xs, bottom xs);
+        flex-grow: 1;
+
+        @include screen-width(sm) {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include screen-width(md) {
+            @include gap(x lg);
+        }
+
+        @include screen-width(xl) {
+            @include gap(x xl);
+        }
+
+        & > div > h2 {
+            @include font-weight(xl);
+            @include margin(bottom xs);
+        }
+
+        .Fields {
+            @include flex;
+            @include gap(all xs);
+            overflow: hidden;
+        }
+    }
+
+    .Actions {
+        @include flex(row, center, flex-end);
+        @include margin(all sm);
+
+        @include screen-width(sm) {
+            grid-column: span 2;
+        }
+
+        & > button {
+            width: 100%;
+
+            @include screen-width(2xs) {
+                @include max-width(md, component);
+            }
+        }
+    }
+}
+
+.CheckboxInverse {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.TitleProps {
+    & > label {
+        display: none;
+    }
+
+    & > span {
+        @include font-weight(lg);
+    }
+}
+
+.Preview {
+    aspect-ratio: 1 / 1;
+
+    @include screen-width(4xs) {
+        aspect-ratio: 3 / 2;
+    }
+}
+
+.DraggingBorder {
+    @include border-color(all 200 secondary);
+    @include border-width(all sm);
+    border-style: dashed;
+}
+
+.CloseImg {
+    & > span {
+        @include flex(row, center, space-between);
+        flex-grow: 1;
+        overflow: hidden;
+
+        & > button {
+            @include margin(all xs split);
+            @include padding(all xs split);
+        }
+    }
+}
+
+.NoPhotoHint {
+    @include font-color(300, danger);
+}

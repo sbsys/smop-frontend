@@ -1,0 +1,50 @@
+@import 'styles';
+
+.CreateProduct {
+    @include gap(all md);
+    @include margin(y md);
+
+    .Header {
+        @include flex(row, center, space-between);
+        @include gap(all xs);
+
+        & > h1 {
+            @include font-size(xl);
+            @include font-weight(2xl);
+            overflow: hidden;
+        }
+    }
+
+    .Form {
+        @include flex;
+        flex-grow: 1;
+        overflow: hidden;
+    }
+
+    .Tab {
+        @include gap(all md);
+    }
+
+    .TabHeader {
+        @include gap(all xs);
+        @include padding(bottom sm);
+
+        @include screen-width(sm) {
+            justify-content: center;
+        }
+    }
+
+    .TabItem {
+        @include border-color(bottom 400 secondary);
+        @include border-opacity(bottom 0);
+        @include border-width(bottom sm);
+        @include font-weight(lg);
+        @include min-width(sm, component);
+        overflow: hidden;
+
+        &Active {
+            @include border-opacity(bottom 100);
+            @include font-color(400, secondary);
+        }
+    }
+}

@@ -36,6 +36,10 @@ const ProductListDesktop = () => {
                 </section>
             )}
 
+            <span>
+                <NewProductAction />
+            </span>
+
             <section className={styles.Titles}>
                 <TableLayout
                     className={styles.List}
@@ -66,7 +70,11 @@ const ProductListDesktop = () => {
                                 ),
                             },
                             {
-                                children: <NewProductAction />,
+                                children: (
+                                    <Legend hasDots justify="center" title={t('views.productlist.list.actions')}>
+                                        {t('views.productlist.list.actions')}
+                                    </Legend>
+                                ),
                             },
                         ],
                     }}
@@ -83,7 +91,7 @@ const ProductListDesktop = () => {
                                 ),
                             },
                             {
-                                children: <img src={item.url} alt={item.defaultReference} />,
+                                children: <img src={item.url} alt={item.defaultReference} crossOrigin="anonymous" />,
                             },
                             {
                                 children: (

@@ -3,6 +3,10 @@ export interface TitleCollection {
     lang: string;
 }
 
+export interface TitleRefCollection {
+    titleId: number;
+}
+
 export type TitleState = 'active' | 'inactive';
 
 export interface TitleListItemDTO {

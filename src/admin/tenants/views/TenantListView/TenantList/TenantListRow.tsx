@@ -14,7 +14,7 @@ import { classNames } from 'shared/utils';
 /* types */
 import { TenantState, TenantItemDTO } from 'admin/tenants';
 /* assets */
-import { MdDelete, MdEdit, MdMoreVert, MdRestoreFromTrash, MdVisibility } from 'react-icons/md';
+import { MdEdit, MdMoreVert, MdThumbDown, MdThumbUp, MdVisibility } from 'react-icons/md';
 /* styles */
 import styles from './TenantList.module.scss';
 
@@ -75,13 +75,13 @@ const TenantListActions = ({ state }: { state: TenantState }) => {
             {state === 'active' ? (
                 <Button className={styles.Delete} title={t('views.tenants.list.suspend')}>
                     <i>
-                        <MdDelete />
+                        <MdThumbDown />
                     </i>
                 </Button>
             ) : (
                 <Button className={styles.Restore} title={t('views.tenants.list.restore')}>
                     <i>
-                        <MdRestoreFromTrash />
+                        <MdThumbUp />
                     </i>
                 </Button>
             )}

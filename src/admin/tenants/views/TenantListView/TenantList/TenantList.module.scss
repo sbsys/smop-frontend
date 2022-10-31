@@ -38,6 +38,10 @@
     overflow: hidden;
 }
 
+.Column {
+    @include margin(y xs);
+}
+
 .TitleHint,
 .Contacts {
     @include flex;

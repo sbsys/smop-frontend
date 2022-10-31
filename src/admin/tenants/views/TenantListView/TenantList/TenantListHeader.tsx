@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { TableRow } from 'shared/layouts';
 /* components */
 import { Legend } from 'shared/components';
-import NewTenantAction from './NewTenantAction';
 /* styles */
 import styles from './TenantList.module.scss';
 
@@ -35,7 +34,11 @@ export const TenantListHeader = (): TableRow => {
                 ),
             },
             {
-                children: <NewTenantAction />,
+                children: (
+                    <Legend className={styles.Column} hasDots justify="center" title={t('views.tenants.list.actions')}>
+                        {t('views.tenants.list.actions')}
+                    </Legend>
+                ),
             },
         ],
     };

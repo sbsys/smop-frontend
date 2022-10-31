@@ -8,7 +8,7 @@ import { PanelLayout } from 'shared/layouts';
 /* components */
 import { Legend } from 'shared/components';
 import { TenantListFilter } from '../TenantListFilter';
-import { TenantList } from '../TenantList';
+import { TenantList, NewTenantAction } from '../TenantList';
 /* styles */
 import styles from './TenantListDesktop.module.scss';
 
@@ -31,6 +31,10 @@ const TenantListDesktop = () => {
                     <TenantListFilter />
                 </section>
             )}
+
+            <span>
+                <NewTenantAction />
+            </span>
 
             <PanelLayout orientation="row" className={styles.Container}>
                 <section className={styles.List}>

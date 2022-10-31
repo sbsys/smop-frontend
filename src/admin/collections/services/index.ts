@@ -9,3 +9,4 @@ export * from './create-addon-title.service';
 export * from './update-addon-title.service';
 /* products */
 export * from './product-list.service';
+export * from './create-product.service';

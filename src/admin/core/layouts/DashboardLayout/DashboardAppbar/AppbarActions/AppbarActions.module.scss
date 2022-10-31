@@ -5,7 +5,7 @@
     @include font-weight(lg);
     @include gap(all xs split);
     @include interactable;
-    @include max-width(sm, component);
+    @include max-width(md, component);
     @include padding(y xs split, left xs);
     @include rounded(all xs);
 

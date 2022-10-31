@@ -28,6 +28,7 @@ import {
     CollectionsLayout,
     CreateAddonTitleView,
     CreateMainTitleView,
+    CreateProductView,
     MainTitleListView,
     ProductListView,
 } from './collections';
@@ -151,6 +152,8 @@ const AppRoutes: FC = () => {
                         </Route>
 
                         <Route path="products" element={<ProductListView />} />
+
+                        <Route path="products/create" element={<CreateProductView />} />
                     </Route>
                 </Route>
             </Route>

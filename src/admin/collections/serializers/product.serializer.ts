@@ -1,4 +1,4 @@
-import { ProductListItemDTO } from '../types';
+import { ProductDetailDTO, ProductListItemDTO } from '../types';
 
 export const productListItemSerializer = (data: any): ProductListItemDTO => {
     return {
@@ -11,4 +11,9 @@ export const productListItemSerializer = (data: any): ProductListItemDTO => {
 
 export const productListSerializer = (data: any): ProductListItemDTO[] => {
     return (data.products as any[]).map(item => productListItemSerializer(item));
+};
+
+export const productDetailSerializer = (data: any): ProductDetailDTO => {
+    console.log(data);
+    return {};
 };

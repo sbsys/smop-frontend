@@ -1,5 +1,6 @@
 import { FC, memo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 /* context */
 import { useProductListContext } from '../ProductList.context';
 /* components */
@@ -7,7 +8,7 @@ import { Button } from 'shared/components';
 /* types */
 import { ProductState } from 'admin/collections/types';
 /* assets */
-import { MdEdit, MdThumbDown, MdThumbUp, MdVisibility } from 'react-icons/md';
+import { MdThumbDown, MdThumbUp, MdVisibility } from 'react-icons/md';
 /* styles */
 import styles from './ProductList.module.scss';
 
@@ -17,6 +18,8 @@ const ProductListActions: FC<{ state: ProductState; productId: string }> = ({ st
         /* handleSelectTitleToUpdate,
         handleSelectTitleToUpdateState, */
     } = useProductListContext();
+
+    const navigate = useNavigate();
 
     const { t } = useTranslation();
 
@@ -47,20 +50,8 @@ const ProductListActions: FC<{ state: ProductState; productId: string }> = ({ st
             )}
 
             <Button
-                className={styles.Edit}
-                onClick={() => {
-                    /* handleSelectTitleToUpdate(titleId) */
-                }}
-                disabled={state === 'inactive'}
-                title={t('views.productlist.list.edit')}>
-                <i>
-                    <MdEdit />
-                </i>
-            </Button>
-
-            <Button
                 className={styles.View}
-                onClick={() => {}}
+                onClick={() => navigate(productId)}
                 disabled={state === 'inactive'}
                 title={t('views.productlist.list.view')}>
                 <i>

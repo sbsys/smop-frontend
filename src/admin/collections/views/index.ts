@@ -8,3 +8,4 @@ export * from './CreateAddonTitleView';
 /* products */
 export * from './ProductListView';
 export * from './CreateProductView';
+export * from './ProductDetailView';

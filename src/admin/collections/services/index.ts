@@ -10,3 +10,4 @@ export * from './update-addon-title.service';
 /* products */
 export * from './product-list.service';
 export * from './create-product.service';
+export * from './product-detail.service';

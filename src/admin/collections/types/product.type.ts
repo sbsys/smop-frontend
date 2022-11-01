@@ -8,3 +8,5 @@ export interface ProductListItemDTO {
     createdAt: Date;
     url: string;
 }
+
+export interface ProductDetailDTO {}

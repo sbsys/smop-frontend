@@ -1,6 +1,7 @@
 @import 'styles';
 
 .Plain {
+    @include font-size(xl);
     @include interactable;
 }
 

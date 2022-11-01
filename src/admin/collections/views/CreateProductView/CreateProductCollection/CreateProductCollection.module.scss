@@ -36,6 +36,18 @@
         }
     }
 
+    .TitleCollection {
+        @include flex(row, center);
+        @include gap(all xs);
+        @include margin(top sm, bottom md);
+        flex-wrap: wrap;
+
+        & > span {
+            @include bg-color(500, primary);
+            @include font-color(100);
+        }
+    }
+
     .Actions {
         @include flex(row, center, flex-end);
         @include gap(all xs);

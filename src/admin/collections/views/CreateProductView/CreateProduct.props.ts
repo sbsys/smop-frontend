@@ -37,6 +37,7 @@ export interface CreateProductFormData {
     image: FileList;
     /* collections */
     mainCollection: TitleRefCollection[];
+    markAsAddon: boolean;
     accesoryCollection: TitleRefCollection[];
     multipleChoice: TitleRefCollection[];
     singleChoice: TitleRefCollection[];

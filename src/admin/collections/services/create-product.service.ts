@@ -26,6 +26,7 @@ interface CreateProductProps {
     image?: File;
     /* collections */
     mainCollection: TitleRefCollection[];
+    markAsAddon: boolean;
     accesoryCollection: TitleRefCollection[];
     multipleChoice: TitleRefCollection[];
     singleChoice: TitleRefCollection[];
@@ -34,11 +35,40 @@ interface CreateProductProps {
 export const createProductService = async (props: CreateProductProps): Promise<ApiResponse<{}>> => {
     const body = new FormData();
 
-    (Object.keys(props) as (keyof Omit<CreateProductProps, 'image'>)[]).forEach(key =>
-        body.append(key, JSON.stringify(props[key]))
-    );
+    body.append('defaultReference', props.defaultReference);
+    body.append('defaultDescription', props.defaultDescription);
+    body.append('multiLanguage', JSON.stringify(props.multiLanguage));
 
-    if (props.image) body.append('image', props.image, 'image');
+    if (props.multiLanguage) {
+        body.append('referenceCollection', JSON.stringify(props.referenceCollection));
+        body.append('descriptionCollection', JSON.stringify(props.descriptionCollection));
+    }
+
+    body.append('allowPrompts', JSON.stringify(props.allowPrompts));
+
+    body.append('includePicture', JSON.stringify(props.includePicture));
+
+    if (props.image && props.includePicture) {
+        body.append('image', props.image, 'image');
+    }
+
+    if (props.mainCollection.length > 0) {
+        body.append('mainCollection', JSON.stringify(props.mainCollection));
+    }
+
+    body.append('markAsAddon', JSON.stringify(props.markAsAddon));
+
+    if (props.markAsAddon && props.accesoryCollection.length > 0) {
+        body.append('accesoryCollection', JSON.stringify(props.accesoryCollection));
+    }
+
+    if (props.multipleChoice.length > 0) {
+        body.append('multipleChoice', JSON.stringify(props.multipleChoice));
+    }
+
+    if (props.singleChoice.length > 0) {
+        body.append('singleChoice', JSON.stringify(props.singleChoice));
+    }
 
     return await apiRequestHandler<ApiResponse<{}>, FormData>({
         instance: AdminApiService,

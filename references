@@ -1,0 +1,69 @@
+const mainCollectionProps = (index: number): FieldSetProps => {
+        return {
+            field: {
+                className:
+                    errors.mainCollection && errors.mainCollection[index]
+                        ? FieldStyles.OutlineDanger
+                        : FieldStyles.OutlinePrimary,
+                placeholder: t('views.createproduct.form.maincollection.placeholder'),
+                afterContent:
+                    index + 1 === mainCollectionCount ? (
+                        <Button
+                            onClick={removeMainCollection}
+                            className={ButtonStyles.Plain}
+                            type="button"
+                            title={t('views.createproduct.form.maincollection.remove')}>
+                            <i>
+                                <MdRemoveCircle />
+                            </i>
+                        </Button>
+                    ) : undefined,
+                strategy: 'select',
+                options: mainTitleList.reduce((prev, current) => {
+                    if (
+                        watch('mainCollection')?.find(
+                            selected =>
+                                `${selected.titleId}` === `${current.titleId}` &&
+                                `${selected.titleId}` !== `${watch(`mainCollection.${index}.titleId`)}`
+                        )
+                    )
+                        return prev;
+
+                    return [
+                        ...prev,
+                        {
+                            label:
+                                current.titleCollection.find(collection => collection.lang === i18n.language)?.ref ??
+                                current.defaultTitle,
+                            value: current.titleId,
+                        },
+                    ];
+                }, [] as SelectFieldOptionProps[]),
+                /* .filter(title =>
+                        watch('mainCollection')?.find(main => main.titleId === title.titleId) === undefined
+                            ? true
+                            : false
+                    )
+                    .map(title => ({
+                        label:
+                            title.titleCollection.find(collection => collection.lang === i18n.language)?.ref ??
+                            title.defaultTitle,
+                        value: title.titleId,
+                    })) */ ...register(`mainCollection.${index}.titleId`),
+            },
+            isHintReserved: true,
+            hint: {
+                hasDots: true,
+                title: t(
+                    errors.mainCollection && errors.mainCollection[index]?.titleId
+                        ? (errors.mainCollection[index]?.titleId?.message as string)
+                        : 'views.createproduct.form.maincollection.hint'
+                ),
+                children: t(
+                    errors.mainCollection && errors.mainCollection[index]?.titleId
+                        ? (errors.mainCollection[index]?.titleId?.message as string)
+                        : 'views.createproduct.form.maincollection.hint'
+                ),
+            },
+        };
+    };

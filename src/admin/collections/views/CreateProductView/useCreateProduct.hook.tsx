@@ -38,6 +38,11 @@ export const useCreateProduct = () => {
     const handleCreateProductSubmit = formMethods.handleSubmit(async data => {
         showLoader();
 
+        if (data.multiLanguage) {
+            data.defaultReference = data.referenceCollection[0].ref;
+            data.defaultDescription = data.descriptionCollection[0].ref;
+        }
+
         const service = await createProductService({ ...data, image: data.image[0] });
 
         hideLoader();

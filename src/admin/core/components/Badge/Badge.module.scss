@@ -1,0 +1,18 @@
+@import 'styles';
+
+.Badge {
+    @include flex(row, center);
+    @include gap(all xs);
+    @include padding(y sm split, x xs);
+    @include rounded(all lg);
+
+    & > span {
+        @include flex;
+        flex-grow: 1;
+        overflow: hidden;
+    }
+
+    & > button {
+        @include interactable;
+    }
+}

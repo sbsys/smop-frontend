@@ -1,0 +1,39 @@
+@import 'styles';
+
+.Collection {
+    @include flex;
+    @include gap(all sm);
+    overflow: hidden;
+
+    .Header {
+        @include flex(row, center, space-between);
+        @include gap(all xs);
+
+        & > h2 {
+            @include font-weight(lg);
+            overflow: hidden;
+        }
+    }
+
+    .Content {
+        @include flex(col, none, center);
+        @include gap(all sm);
+        flex-grow: 1;
+
+        .Title {
+            @include font-weight(lg);
+        }
+
+        .TitleCollection {
+            @include flex(row, center);
+            @include gap(all xs);
+            @include margin(top sm, bottom md);
+            flex-wrap: wrap;
+
+            & > span {
+                @include bg-color(500, primary);
+                @include font-color(100);
+            }
+        }
+    }
+}

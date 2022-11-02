@@ -1,0 +1,32 @@
+@import 'styles';
+
+.Picture {
+    @include flex;
+    @include gap(all sm);
+    overflow: hidden;
+
+    .Header {
+        @include flex(row, center, space-between);
+        @include gap(all xs);
+
+        & > h2 {
+            @include font-weight(lg);
+            overflow: hidden;
+        }
+    }
+
+    .Content {
+        @include flex(row, center, center);
+        @include padding(all xs split);
+        flex-grow: 1;
+
+        & > img {
+            @include max-width(md, component);
+            @include rounded(all xs);
+            aspect-ratio: 1;
+            max-height: 100%;
+            object-fit: cover;
+            overflow: hidden;
+        }
+    }
+}

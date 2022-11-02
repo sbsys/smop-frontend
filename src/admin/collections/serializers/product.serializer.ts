@@ -14,6 +14,31 @@ export const productListSerializer = (data: any): ProductListItemDTO[] => {
 };
 
 export const productDetailSerializer = (data: any): ProductDetailDTO => {
-    console.log(data);
-    return {};
+    const product = data.product[0];
+
+    return {
+        productId: product.productId,
+        /* references */
+        defaultReference: product.defaultReference,
+        defaultDescription: product.defaultDescription,
+        multiLanguage: product.multiLanguage,
+        referenceCollection: product.referenceCollection,
+        descriptionCollection: product.descriptionCollection,
+        allowPrompts: product.allowPrompts,
+        /* file */
+        /* includePicture: boolean; */
+        /* image: FileList; */
+        url: product.url,
+        /* collections */
+        mainCollection: product.menu.map((main: any) => ({ titleId: main.titleId })),
+        markAsAddon: product.markAsAddon,
+        accesoryCollection: product.accesories.map((accesory: any) => ({ titleId: accesory.titleId })),
+        multipleChoice: product.multiples.map((multiple: any) => ({ titleId: multiple.titleId })),
+        singleChoice: product.singles.map((single: any) => ({ titleId: single.titleId })),
+        /* others */
+        feature: product.feature[0],
+        createdAt: new Date(product.createdAt),
+        isActive: product.isActive ? 'active' : 'inactive',
+        isAvailable: product.isAvailable,
+    };
 };

@@ -7,15 +7,20 @@ import { ProductDetailContextProps } from './ProductDetail.props';
 import { useLoader } from 'shared/hooks';
 import { useAdminNotify } from 'admin/core';
 /* services */
-import { productDetailService } from 'admin/collections/services';
+import { addonsTitleListService, mainTitleListService, productDetailService } from 'admin/collections/services';
+/* types */
+import { MainTitleListItemDTO, ProductDetailDTO, TitleListItemDTO } from 'admin/collections/types';
 /* assets */
-import { MdDangerous } from 'react-icons/md';
+import { MdDangerous, MdError } from 'react-icons/md';
 
 export const useProductDetail = () => {
     /* states */
     const { productId } = useParams<{ productId: string }>();
 
-    const [product, setProduct] = useState<{} | null>(null);
+    const [product, setProduct] = useState<ProductDetailDTO | null>(null);
+
+    const [mainTitleList, setMainTitleList] = useState<MainTitleListItemDTO[]>([]);
+    const [addonTitleList, setAddonTitleList] = useState<TitleListItemDTO[]>([]);
 
     const { showLoader, hideLoader } = useLoader();
 
@@ -40,15 +45,68 @@ export const useProductDetail = () => {
         setProduct(service.data);
     }, [productId, hideLoader, notify, showLoader]);
 
+    const getMainTitleList = useCallback(async () => {
+        showLoader();
+
+        const service = await mainTitleListService();
+
+        hideLoader();
+
+        if (service.error)
+            return notify('danger', {
+                title: 'Error',
+                icon: <MdError />,
+                timestamp: new Date(),
+                text: service.message,
+            });
+
+        setMainTitleList(service.data);
+    }, [hideLoader, notify, showLoader]);
+
+    const getAddonTitleList = useCallback(async () => {
+        showLoader();
+
+        const service = await addonsTitleListService();
+
+        hideLoader();
+
+        if (service.error)
+            return notify('danger', {
+                title: 'Error',
+                icon: <MdError />,
+                timestamp: new Date(),
+                text: service.message,
+            });
+
+        setAddonTitleList(service.data);
+    }, [hideLoader, notify, showLoader]);
+
     /* reactivity */
     useEffect(() => {
         getProductDetail();
     }, [getProductDetail]);
 
+    useEffect(() => {
+        getMainTitleList();
+    }, [getMainTitleList]);
+
+    useEffect(() => {
+        getAddonTitleList();
+    }, [getAddonTitleList]);
+
     /* props */
 
     /* context */
-    const context: ProductDetailContextProps = {};
+    const context: ProductDetailContextProps = {
+        /* states */
+        product,
+        mainTitleList,
+        addonTitleList,
+        /* functions */
+        getProductDetail,
+        getMainTitleList,
+        getAddonTitleList,
+    };
 
     return { context };
 };

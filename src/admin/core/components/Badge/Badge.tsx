@@ -16,11 +16,13 @@ const Badge: FC<BadgeProps> = ({ className, onRemove, children }) => {
         <span className={classNames(styles.Badge, className)}>
             <span>{typeof children === 'function' ? children() : children}</span>
 
-            <Button type="button" onClick={onRemove}>
-                <i>
-                    <MdClose />
-                </i>
-            </Button>
+            {typeof onRemove === 'function' && (
+                <Button type="button" onClick={onRemove}>
+                    <i>
+                        <MdClose />
+                    </i>
+                </Button>
+            )}
         </span>
     );
 };

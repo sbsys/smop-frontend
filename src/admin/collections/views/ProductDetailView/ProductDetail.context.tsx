@@ -3,7 +3,16 @@ import { createContext, FC, useContext } from 'react';
 /* props */
 import { ProductDetailContextProps, ProductDetailProviderProps } from './ProductDetail.props';
 
-const Context = createContext<ProductDetailContextProps>({});
+const Context = createContext<ProductDetailContextProps>({
+    /* states */
+    product: null,
+    mainTitleList: [],
+    addonTitleList: [],
+    /* functions */
+    getProductDetail: () => {},
+    getMainTitleList: () => {},
+    getAddonTitleList: () => {},
+});
 
 export const ProductDetailProvider: FC<ProductDetailProviderProps> = ({ context, children }) => {
     return (

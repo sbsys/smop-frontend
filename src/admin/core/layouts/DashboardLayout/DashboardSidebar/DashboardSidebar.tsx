@@ -8,7 +8,7 @@ import { PanelLayout, ScrollLayout } from 'shared/layouts';
 import { Button, Legend } from 'shared/components';
 import { NavGroup } from 'admin/core/components';
 /* assets */
-import { MdArrowBack } from 'react-icons/md';
+import { MdClose } from 'react-icons/md';
 /* styles */
 import styles from './DashboardSidebar.module.scss';
 
@@ -30,7 +30,7 @@ const DashboardSidebar = () => {
 
                 <Button {...backProps}>
                     <i>
-                        <MdArrowBack />
+                        <MdClose />
                     </i>
                 </Button>
             </div>

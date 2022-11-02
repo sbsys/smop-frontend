@@ -1,0 +1,47 @@
+@import 'styles';
+
+.General {
+    @include flex;
+    @include gap(all sm);
+    overflow: hidden;
+
+    .Header {
+        @include flex(row, center, space-between);
+        @include gap(all xs);
+
+        & > h2 {
+            @include font-weight(lg);
+            overflow: hidden;
+        }
+    }
+
+    .Content {
+        @include flex;
+        @include gap(all sm);
+        @include padding(all xs split);
+
+        .Title {
+            @include font-weight(lg);
+        }
+
+        .Boolean {
+            @include flex(row, center);
+            @include gap(all xs);
+        }
+
+        .Icon {
+            @include font-color(100);
+            @include font-size(xl);
+            @include padding(all xs split);
+            @include rounded(all md);
+
+            &Active {
+                @include bg-color(400, success);
+            }
+
+            &Inactive {
+                @include bg-color(400, danger);
+            }
+        }
+    }
+}

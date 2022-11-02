@@ -1,4 +1,45 @@
 @import 'styles';
 
 .ProductDetail {
+    @include gap(all sm);
+    @include margin(y md);
+
+    .Header {
+        @include flex(row, center);
+        @include gap(all sm);
+
+        & > button {
+            @include font-size(xl);
+            @include padding(all xs split);
+            @include rounded(all lg);
+        }
+
+        & > h1 {
+            @include font-size(xl);
+            @include font-weight(2xl);
+            overflow: hidden;
+        }
+    }
+
+    .Content {
+        @include flex;
+        @include gap(all md);
+        @include margin(all xs);
+
+        @include screen-width(lg) {
+            @include gap(all lg);
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include screen-width(xl) {
+            @include gap(all xl);
+        }
+
+        & > section {
+            @include bg-color(300);
+            @include padding(all xs split);
+            @include rounded(all xs);
+        }
+    }
 }

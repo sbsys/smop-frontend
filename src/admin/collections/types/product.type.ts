@@ -1,3 +1,5 @@
+import { TitleCollection, TitleRefCollection } from './title.type';
+
 export type ProductState = 'active' | 'inactive';
 
 export interface ProductListItemDTO {
@@ -9,4 +11,44 @@ export interface ProductListItemDTO {
     url: string;
 }
 
-export interface ProductDetailDTO {}
+export interface Measure {
+    measureId: number;
+    measure: string;
+    unit: string;
+}
+
+export interface Presentation {
+    presentationId: number;
+    defaultDescription: string;
+}
+
+export interface ProductFeature {
+    measure: Measure;
+    presentation: Presentation;
+}
+
+export interface ProductDetailDTO {
+    productId: string;
+    /* references */
+    defaultReference: string;
+    defaultDescription: string;
+    multiLanguage: boolean;
+    referenceCollection: TitleCollection[];
+    descriptionCollection: TitleCollection[];
+    allowPrompts: boolean;
+    /* file */
+    /* includePicture: boolean;
+    image: FileList; */
+    url: string;
+    /* collections */
+    mainCollection: TitleRefCollection[];
+    markAsAddon: boolean;
+    accesoryCollection: TitleRefCollection[];
+    multipleChoice: TitleRefCollection[];
+    singleChoice: TitleRefCollection[];
+    /* others */
+    feature: ProductFeature;
+    createdAt: Date;
+    isActive: ProductState;
+    isAvailable: boolean;
+}

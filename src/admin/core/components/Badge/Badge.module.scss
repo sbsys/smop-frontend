@@ -5,6 +5,7 @@
     @include gap(all xs);
     @include padding(y sm split, x xs);
     @include rounded(all lg);
+    overflow: hidden;
 
     & > span {
         @include flex;

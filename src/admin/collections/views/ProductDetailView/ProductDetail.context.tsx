@@ -8,10 +8,23 @@ const Context = createContext<ProductDetailContextProps>({
     product: null,
     mainTitleList: [],
     addonTitleList: [],
+    isUpdateGeneral: false,
+    showUpdateGeneral: () => {},
+    hideUpdateGeneral: () => {},
+    isUpdatePicture: false,
+    showUpdatePicture: () => {},
+    hideUpdatePicture: () => {},
+    isUpdateCollection: false,
+    showUpdateCollection: () => {},
+    hideUpdateCollection: () => {},
+    isUpdateAddon: false,
+    showUpdateAddon: () => {},
+    hideUpdateAddon: () => {},
     /* functions */
     getProductDetail: () => {},
     getMainTitleList: () => {},
     getAddonTitleList: () => {},
+    handleGoBack: () => {},
 });
 
 export const ProductDetailProvider: FC<ProductDetailProviderProps> = ({ context, children }) => {

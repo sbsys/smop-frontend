@@ -17,6 +17,7 @@ const ProductDetailGeneralSection = () => {
     const {
         /* states */
         product,
+        showUpdateGeneral,
     } = useProductDetailContext();
 
     const { t } = useTranslation();
@@ -28,7 +29,10 @@ const ProductDetailGeneralSection = () => {
                     <Legend hasDots>{t('views.productdetail.general.header')}</Legend>
                 </h2>
 
-                <Button className={ButtonStyles.OutlineNone} title={t('views.productdetail.general.edit')}>
+                <Button
+                    className={ButtonStyles.OutlineNone}
+                    onClick={showUpdateGeneral}
+                    title={t('views.productdetail.general.edit')}>
                     <i>
                         <MdEdit />
                     </i>

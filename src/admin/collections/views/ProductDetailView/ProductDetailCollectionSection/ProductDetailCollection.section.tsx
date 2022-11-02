@@ -19,6 +19,7 @@ const ProductDetailCollectionSection = () => {
         product,
         mainTitleList,
         addonTitleList,
+        showUpdateCollection,
     } = useProductDetailContext();
 
     const { t, i18n } = useTranslation();
@@ -30,7 +31,10 @@ const ProductDetailCollectionSection = () => {
                     <Legend hasDots>{t('views.productdetail.collection.header')}</Legend>
                 </h2>
 
-                <Button className={ButtonStyles.OutlineNone} title={t('views.productdetail.collection.edit')}>
+                <Button
+                    className={ButtonStyles.OutlineNone}
+                    onClick={showUpdateCollection}
+                    title={t('views.productdetail.collection.edit')}>
                     <i>
                         <MdEdit />
                     </i>

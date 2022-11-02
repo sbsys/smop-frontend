@@ -15,6 +15,7 @@ const ProductDetailPictureSection = () => {
     const {
         /* states */
         product,
+        showUpdatePicture,
     } = useProductDetailContext();
 
     const { t } = useTranslation();
@@ -26,7 +27,10 @@ const ProductDetailPictureSection = () => {
                     <Legend hasDots>{t('views.productdetail.picture.header')}</Legend>
                 </h2>
 
-                <Button className={ButtonStyles.OutlineNone} title={t('views.productdetail.picture.edit')}>
+                <Button
+                    className={ButtonStyles.OutlineNone}
+                    onClick={showUpdatePicture}
+                    title={t('views.productdetail.picture.edit')}>
                     <i>
                         <MdEdit />
                     </i>

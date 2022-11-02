@@ -19,6 +19,7 @@ const ProductDetailAddonSection = () => {
         /* states */
         product,
         addonTitleList,
+        showUpdateAddon,
     } = useProductDetailContext();
 
     const { t, i18n } = useTranslation();
@@ -30,7 +31,10 @@ const ProductDetailAddonSection = () => {
                     <Legend hasDots>{t('views.productdetail.addon.header')}</Legend>
                 </h2>
 
-                <Button className={ButtonStyles.OutlineNone} title={t('views.productdetail.addon.edit')}>
+                <Button
+                    className={ButtonStyles.OutlineNone}
+                    onClick={showUpdateAddon}
+                    title={t('views.productdetail.addon.edit')}>
                     <i>
                         <MdEdit />
                     </i>

@@ -1,10 +1,10 @@
 /* react */
 import { useCallback, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 /* props */
 import { ProductDetailContextProps } from './ProductDetail.props';
 /* hooks */
-import { useLoader } from 'shared/hooks';
+import { useActive, useLoader } from 'shared/hooks';
 import { useAdminNotify } from 'admin/core';
 /* services */
 import { addonsTitleListService, mainTitleListService, productDetailService } from 'admin/collections/services';
@@ -16,11 +16,17 @@ import { MdDangerous, MdError } from 'react-icons/md';
 export const useProductDetail = () => {
     /* states */
     const { productId } = useParams<{ productId: string }>();
+    const navigate = useNavigate();
 
     const [product, setProduct] = useState<ProductDetailDTO | null>(null);
 
     const [mainTitleList, setMainTitleList] = useState<MainTitleListItemDTO[]>([]);
     const [addonTitleList, setAddonTitleList] = useState<TitleListItemDTO[]>([]);
+
+    const [isUpdateGeneral, showUpdateGeneral, hideUpdateGeneral] = useActive();
+    const [isUpdatePicture, showUpdatePicture, hideUpdatePicture] = useActive();
+    const [isUpdateCollection, showUpdateCollection, hideUpdateCollection] = useActive();
+    const [isUpdateAddon, showUpdateAddon, hideUpdateAddon] = useActive();
 
     const { showLoader, hideLoader } = useLoader();
 
@@ -81,6 +87,8 @@ export const useProductDetail = () => {
         setAddonTitleList(service.data);
     }, [hideLoader, notify, showLoader]);
 
+    const handleGoBack = () => navigate(-1);
+
     /* reactivity */
     useEffect(() => {
         getProductDetail();
@@ -102,10 +110,23 @@ export const useProductDetail = () => {
         product,
         mainTitleList,
         addonTitleList,
+        isUpdateGeneral,
+        showUpdateGeneral,
+        hideUpdateGeneral,
+        isUpdatePicture,
+        showUpdatePicture,
+        hideUpdatePicture,
+        isUpdateCollection,
+        showUpdateCollection,
+        hideUpdateCollection,
+        isUpdateAddon,
+        showUpdateAddon,
+        hideUpdateAddon,
         /* functions */
         getProductDetail,
         getMainTitleList,
         getAddonTitleList,
+        handleGoBack,
     };
 
     return { context };

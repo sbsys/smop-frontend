@@ -8,10 +8,23 @@ export interface ProductDetailContextProps {
     product: ProductDetailDTO | null;
     mainTitleList: MainTitleListItemDTO[];
     addonTitleList: TitleListItemDTO[];
+    isUpdateGeneral: boolean;
+    showUpdateGeneral: () => void;
+    hideUpdateGeneral: () => void;
+    isUpdatePicture: boolean;
+    showUpdatePicture: () => void;
+    hideUpdatePicture: () => void;
+    isUpdateCollection: boolean;
+    showUpdateCollection: () => void;
+    hideUpdateCollection: () => void;
+    isUpdateAddon: boolean;
+    showUpdateAddon: () => void;
+    hideUpdateAddon: () => void;
     /* functions */
     getProductDetail: () => void;
     getMainTitleList: () => void;
     getAddonTitleList: () => void;
+    handleGoBack: () => void;
 }
 
 export interface ProductDetailProviderProps extends ChildrenProps {

@@ -34,3 +34,18 @@
         }
     }
 }
+
+.CheckboxInverse {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.TitleProps {
+    & > label {
+        display: none;
+    }
+
+    & > span {
+        @include font-weight(lg);
+    }
+}

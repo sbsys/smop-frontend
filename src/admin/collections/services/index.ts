@@ -11,3 +11,4 @@ export * from './update-addon-title.service';
 export * from './product-list.service';
 export * from './create-product.service';
 export * from './product-detail.service';
+export * from './update-general.service';

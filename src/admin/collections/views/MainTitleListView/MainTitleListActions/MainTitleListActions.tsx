@@ -14,6 +14,7 @@ import styles from './MainTitleListActions.module.scss';
 const MainTitleListActions: FC<{ state: TitleState; titleId: number }> = ({ state, titleId }) => {
     const {
         /* functions */
+        handleSelectTitle,
         handleSelectTitleToUpdate,
         handleSelectTitleToUpdateState,
     } = useMainTitleListContext();
@@ -54,7 +55,7 @@ const MainTitleListActions: FC<{ state: TitleState; titleId: number }> = ({ stat
 
             <Button
                 className={styles.View}
-                onClick={() => {}}
+                onClick={() => handleSelectTitle(titleId)}
                 disabled={state === 'inactive'}
                 title={t('views.maintitlelist.list.view')}>
                 <i>

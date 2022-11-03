@@ -6,6 +6,7 @@ import { MainTitleListContextProps, MainTitleListProviderProps } from './MainTit
 const Context = createContext<MainTitleListContextProps>({
     /* states */
     mainTitleList: [],
+    selectedTitle: null,
     selectedTitleToUpdate: null,
     selectedTitleToUpdateState: null,
     isDropFilter: false,
@@ -16,9 +17,11 @@ const Context = createContext<MainTitleListContextProps>({
     handleFilter: () => new Promise(resolve => resolve),
     handleResetFilter: () => {},
     getTitleList: () => new Promise(resolve => resolve()),
-    handleSelectTitleToUpdate: (id: number) => {},
+    handleSelectTitle: _ => {},
+    handleUnselectTitle: () => {},
+    handleSelectTitleToUpdate: _ => {},
     handleUnselectTitleToUpdate: () => {},
-    handleSelectTitleToUpdateState: (id: number) => {},
+    handleSelectTitleToUpdateState: _ => {},
     handleUnselectTitleToUpdateState: () => {},
     /* props */
     filterFormFields: [],

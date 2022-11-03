@@ -11,6 +11,13 @@ export interface ProductListItemDTO {
     url: string;
 }
 
+export interface TitleProductListItemDTO {
+    productId: string;
+    defaultReference: string;
+    markAsAddon: boolean;
+    isActive: ProductState;
+}
+
 export interface Measure {
     measureId: number;
     measure: string;

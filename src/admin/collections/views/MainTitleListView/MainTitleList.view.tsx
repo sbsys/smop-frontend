@@ -12,6 +12,7 @@ import { MainTitleListMobile } from './MainTitleListMobile';
 import { MainTitleListDesktop } from './MainTitleListDesktop';
 import { UpdateMainTitleModal } from './UpdateMainTitleModal';
 import { UpdateMainTitleStateModal } from './UpdateMainTitleStateModal';
+import { MainTitleModal } from './MainTitleModal';
 /* styles */
 import styles from './MainTitleList.module.scss';
 
@@ -29,6 +30,8 @@ const MainTitleListView = () => {
             <UpdateMainTitleModal />
 
             <UpdateMainTitleStateModal />
+
+            <MainTitleModal />
 
             <ModalLayout isVisible={outlet !== null} rowAlignment="center" colAlignment="center" hasIndentation>
                 <PanelLayout className={styles.RouteModal} orientation="col">

@@ -1,4 +1,4 @@
-import { ProductDetailDTO, ProductListItemDTO } from '../types';
+import { ProductDetailDTO, ProductListItemDTO, TitleProductListItemDTO } from '../types';
 
 export const productListItemSerializer = (data: any): ProductListItemDTO => {
     return {
@@ -41,4 +41,15 @@ export const productDetailSerializer = (data: any): ProductDetailDTO => {
         isActive: product.isActive ? 'active' : 'inactive',
         isAvailable: product.isAvailable,
     };
+};
+
+export const titleProductListItemSerializer = (data: any): TitleProductListItemDTO => {
+    return {
+        ...data.product,
+        isActive: data.product.isActive ? 'active' : 'inactive',
+    };
+};
+
+export const titleProductListSerializer = (data: any): TitleProductListItemDTO[] => {
+    return (data.items as any[]).map(item => titleProductListItemSerializer(item));
 };

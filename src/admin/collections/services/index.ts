@@ -3,6 +3,7 @@
 export * from './main-title-list.service';
 export * from './create-main-title.service';
 export * from './update-main-title.service';
+export * from './main-title-product-list.service';
 /* addon title */
 export * from './addons-title-list.service';
 export * from './create-addon-title.service';

@@ -9,6 +9,7 @@ import { FieldSetProps } from 'admin/core';
 export interface MainTitleListContextProps {
     /* states */
     mainTitleList: MainTitleListItemDTO[];
+    selectedTitle: MainTitleListItemDTO | null;
     selectedTitleToUpdate: MainTitleListItemDTO | null;
     selectedTitleToUpdateState: MainTitleListItemDTO | null;
     isDropFilter: boolean;
@@ -19,6 +20,8 @@ export interface MainTitleListContextProps {
     handleFilter: (event?: BaseSyntheticEvent) => Promise<void>;
     handleResetFilter: () => void;
     getTitleList: () => Promise<void>;
+    handleSelectTitle: (id: number) => void;
+    handleUnselectTitle: () => void;
     handleSelectTitleToUpdate: (id: number) => void;
     handleUnselectTitleToUpdate: () => void;
     handleSelectTitleToUpdateState: (id: number) => void;

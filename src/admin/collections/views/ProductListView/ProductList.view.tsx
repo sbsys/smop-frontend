@@ -7,6 +7,7 @@ import { ProductListProvider } from './ProductList.context';
 /* components */
 import { ProductListMobile } from './ProductListMobile';
 import { ProductListDesktop } from './ProductListDesktop';
+import { UpdateProductStateModal } from './UpdateProductStateModal';
 
 const ProductListView = () => {
     const { context } = useProductList();
@@ -16,6 +17,8 @@ const ProductListView = () => {
             <ProductListMobile />
 
             <ProductListDesktop />
+
+            <UpdateProductStateModal />
         </ProductListProvider>
     );
 };

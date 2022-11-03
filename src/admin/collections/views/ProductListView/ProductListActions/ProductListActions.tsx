@@ -15,8 +15,7 @@ import styles from './ProductList.module.scss';
 const ProductListActions: FC<{ state: ProductState; productId: string }> = ({ state, productId }) => {
     const {
         /* functions */
-        /* handleSelectTitleToUpdate,
-        handleSelectTitleToUpdateState, */
+        handleSelectProductToUpdateState,
     } = useProductListContext();
 
     const navigate = useNavigate();
@@ -29,7 +28,7 @@ const ProductListActions: FC<{ state: ProductState; productId: string }> = ({ st
                 <Button
                     className={styles.Delete}
                     onClick={() => {
-                        /* handleSelectTitleToUpdateState(titleId) */
+                        handleSelectProductToUpdateState(productId);
                     }}
                     title={t('views.productlist.list.suspend')}>
                     <i>
@@ -40,7 +39,7 @@ const ProductListActions: FC<{ state: ProductState; productId: string }> = ({ st
                 <Button
                     className={styles.Restore}
                     onClick={() => {
-                        /* handleSelectTitleToUpdateState(titleId) */
+                        handleSelectProductToUpdateState(productId);
                     }}
                     title={t('views.productlist.list.restore')}>
                     <i>

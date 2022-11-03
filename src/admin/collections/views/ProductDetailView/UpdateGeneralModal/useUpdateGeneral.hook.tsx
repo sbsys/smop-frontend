@@ -73,7 +73,7 @@ export const useUpdateGeneral = () => {
 
         const service = await updateGeneralService(product?.productId ?? '', {
             ...data,
-            isAvailable: product?.isAvailable ?? false,
+            isActive: product?.isActive === 'active',
         });
 
         hideLoader();

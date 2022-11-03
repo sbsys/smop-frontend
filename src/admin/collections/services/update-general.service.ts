@@ -21,7 +21,7 @@ interface UpdateGeneralServiceProps {
     referenceCollection: TitleCollection[];
     descriptionCollection: TitleCollection[];
     allowPrompts: boolean;
-    isAvailable: boolean;
+    isActive: boolean;
     /* feature */
     feature?: ProductFeature[];
 }

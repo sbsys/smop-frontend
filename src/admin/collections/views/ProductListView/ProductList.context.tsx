@@ -4,13 +4,17 @@ import { ProductListContextProps, ProductListProviderProps } from './ProductList
 const Context = createContext<ProductListContextProps>({
     /* states */
     productList: [],
+    selectedProductToUpdateState: null,
     isDropFilter: false,
+    getProductList: () => new Promise(resolve => resolve()),
     showDropFilter: () => {},
     hideDropFilter: () => {},
     isBreakPoint: false,
     /* functions */
     handleFilter: () => new Promise(resolve => resolve),
     handleResetFilter: () => {},
+    handleSelectProductToUpdateState: _ => {},
+    handleUnselectProductToUpdateState: () => {},
     /* props */
     filterFormFields: [],
 });

@@ -31,6 +31,7 @@ export const useProductList = () => {
     const { handleSubmit, register, setValue } = useForm<ProductListFilterForm>();
 
     const [products, setProducts] = useState<ProductListItemDTO[]>([]);
+    const [selectedProductToUpdateState, setSelectedProductToUpdateState] = useState<ProductListItemDTO | null>(null);
 
     const [filter, setFilter] = useState<ProductListFilterForm | null>(null);
 
@@ -112,6 +113,15 @@ export const useProductList = () => {
 
         setProducts(service.data as []);
     }, [hideLoader, notify, showLoader]);
+
+    const handleSelectProductToUpdateState = useCallback(
+        (id: string) => {
+            setSelectedProductToUpdateState(products.find(product => product.productId === id) ?? null);
+        },
+        [products]
+    );
+
+    const handleUnselectProductToUpdateState = useCallback(() => setSelectedProductToUpdateState(null), []);
 
     /* reactivity */
     useEffect(() => {
@@ -211,13 +221,17 @@ export const useProductList = () => {
     const context: ProductListContextProps = {
         /* states */
         productList,
+        selectedProductToUpdateState,
         isDropFilter,
+        getProductList,
         showDropFilter,
         hideDropFilter,
         isBreakPoint,
         /* functions */
         handleFilter,
         handleResetFilter,
+        handleSelectProductToUpdateState,
+        handleUnselectProductToUpdateState,
         /* props */
         filterFormFields,
     };

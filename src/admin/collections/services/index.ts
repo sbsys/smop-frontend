@@ -12,3 +12,4 @@ export * from './product-list.service';
 export * from './create-product.service';
 export * from './product-detail.service';
 export * from './update-general.service';
+export * from './update-picture.service';

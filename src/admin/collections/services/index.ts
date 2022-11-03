@@ -8,6 +8,7 @@ export * from './main-title-product-list.service';
 export * from './addons-title-list.service';
 export * from './create-addon-title.service';
 export * from './update-addon-title.service';
+export * from './addons-title-product-list.service';
 /* products */
 export * from './product-list.service';
 export * from './create-product.service';

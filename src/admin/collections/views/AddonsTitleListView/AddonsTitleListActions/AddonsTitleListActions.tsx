@@ -14,6 +14,7 @@ import styles from './AddonsTitleList.module.scss';
 const AddonsTitleListActions: FC<{ state: TitleState; titleId: number }> = ({ state, titleId }) => {
     const {
         /* functions */
+        handleSelectTitle,
         handleSelectTitleToUpdate,
         handleSelectTitleToUpdateState,
     } = useAddonsTitleListContext();
@@ -54,7 +55,7 @@ const AddonsTitleListActions: FC<{ state: TitleState; titleId: number }> = ({ st
 
             <Button
                 className={styles.View}
-                onClick={() => {}}
+                onClick={() => handleSelectTitle(titleId)}
                 disabled={state === 'inactive'}
                 title={t('views.addonstitlelist.list.view')}>
                 <i>

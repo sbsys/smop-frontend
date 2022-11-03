@@ -9,6 +9,7 @@ import { FieldSetProps } from 'admin/core';
 export interface AddonsTitleListContextProps {
     /* states */
     addonsTitleList: TitleListItemDTO[];
+    selectedTitle: TitleListItemDTO | null;
     selectedTitleToUpdate: TitleListItemDTO | null;
     selectedTitleToUpdateState: TitleListItemDTO | null;
     isDropFilter: boolean;
@@ -19,6 +20,8 @@ export interface AddonsTitleListContextProps {
     handleFilter: (event?: BaseSyntheticEvent) => Promise<void>;
     handleResetFilter: () => void;
     getTitleList: () => Promise<void>;
+    handleSelectTitle: (id: number) => void;
+    handleUnselectTitle: () => void;
     handleSelectTitleToUpdate: (id: number) => void;
     handleUnselectTitleToUpdate: () => void;
     handleSelectTitleToUpdateState: (id: number) => void;

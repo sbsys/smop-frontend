@@ -30,7 +30,7 @@
     @include padding(all xs);
     @include rounded(all xs);
     @include shadow(all xs);
-    @include width(sm, component);
+    @include width(md, component);
 
     .Action {
         @include flex(row, center);

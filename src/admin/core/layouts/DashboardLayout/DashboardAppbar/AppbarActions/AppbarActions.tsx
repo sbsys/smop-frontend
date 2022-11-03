@@ -1,5 +1,6 @@
 /* react */
 import { memo, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 /* store */
 import { authStoreSignOut, selectAuthStore, SignInDTO } from 'admin/auth';
@@ -16,6 +17,7 @@ import { useAdminDispatch, useAdminSelector } from 'admin/core/services';
 import { classNames } from 'shared/utils';
 /* assets */
 import { MdArrowDropDown, MdArrowDropUp, MdCheck, MdLanguage, MdLogout } from 'react-icons/md';
+import { RiRotateLockFill } from 'react-icons/ri';
 /* atyles */
 import styles from './AppbarActions.module.scss';
 
@@ -42,9 +44,11 @@ const AppbarActions = () => {
 
     const [, , clearAuthLocalStorage] = useLocalStorage<SignInDTO>('auth', {} as SignInDTO);
 
-    const { t } = useTranslation();
-
     const { notify } = useAdminNotify();
+
+    const navigate = useNavigate();
+
+    const { t } = useTranslation();
 
     /* functions */
 
@@ -62,6 +66,8 @@ const AppbarActions = () => {
         onClick: () => changeLang(langProps.lang),
         disabled: langProps.lang === lang,
     });
+
+    const handlePasswordRecovery = () => navigate('/admin/security/password-recovery');
 
     const handleSignOut = () => {
         clearAuthLocalStorage();
@@ -107,6 +113,18 @@ const AppbarActions = () => {
                             <Legend hasDots>{t('dashboard.actions.lang')}</Legend>
                         </Button>
                     </AccordionLayout>
+
+                    <Button
+                        className={styles.Action}
+                        title={t('views.signin.form.passwordrecovery')}
+                        onClick={handlePasswordRecovery}>
+                        <i>
+                            <RiRotateLockFill />
+                        </i>
+
+                        <Legend hasDots>{t('views.signin.form.passwordrecovery')}</Legend>
+                    </Button>
+
                     <Button className={styles.Action} title={t('dashboard.actions.logout')} onClick={handleSignOut}>
                         <i>
                             <MdLogout />

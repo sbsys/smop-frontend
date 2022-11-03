@@ -18,7 +18,7 @@ const SignIn = () => {
     const {
         /* functions */
         handleSignIn,
-        navigateToPasswordRecovery,
+        /* navigateToPasswordRecovery, */
         /* props */
         emailProps,
         passwordProps,
@@ -54,7 +54,7 @@ const SignIn = () => {
                         </Legend>
                     </Button>
 
-                    <Button
+                    {/* <Button
                         className={ButtonStyles.OutlineSecondary}
                         type="button"
                         title={t('views.signin.form.passwordrecovery')}
@@ -62,7 +62,7 @@ const SignIn = () => {
                         <Legend hasDots justify="center">
                             {t('views.signin.form.passwordrecovery')}
                         </Legend>
-                    </Button>
+                    </Button> */}
 
                     <LanguageChanger />
                 </form>

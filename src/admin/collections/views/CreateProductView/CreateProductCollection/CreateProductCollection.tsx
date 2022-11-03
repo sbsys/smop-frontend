@@ -26,6 +26,7 @@ const CreateProductCollection = () => {
         mainCollection,
         handleRemoveFromMainCollection,
         /* accesory */
+        markAsAddon,
         createProductAccesoryCollectionFields,
         addonCollection,
         handleRemoveFromAddonCollection,
@@ -71,19 +72,21 @@ const CreateProductCollection = () => {
                             <FieldSet {...field} key={index} />
                         ))}
 
-                        <div className={styles.TitleCollection}>
-                            {addonCollection.map((accesory, index) => (
-                                <Fragment key={index}>
-                                    <Badge onRemove={handleRemoveFromAddonCollection(accesory.titleId)}>
-                                        <Legend hasDots>
-                                            {accesory.titleCollection.find(
-                                                collection => collection.lang === i18n.language
-                                            )?.ref ?? accesory.defaultTitle}
-                                        </Legend>
-                                    </Badge>
-                                </Fragment>
-                            ))}
-                        </div>
+                        {markAsAddon && (
+                            <div className={styles.TitleCollection}>
+                                {addonCollection.map((accesory, index) => (
+                                    <Fragment key={index}>
+                                        <Badge onRemove={handleRemoveFromAddonCollection(accesory.titleId)}>
+                                            <Legend hasDots>
+                                                {accesory.titleCollection.find(
+                                                    collection => collection.lang === i18n.language
+                                                )?.ref ?? accesory.defaultTitle}
+                                            </Legend>
+                                        </Badge>
+                                    </Fragment>
+                                ))}
+                            </div>
+                        )}
                     </div>
 
                     <div className={styles.Fields}>

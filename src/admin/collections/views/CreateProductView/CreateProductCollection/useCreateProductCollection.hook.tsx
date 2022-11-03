@@ -111,6 +111,13 @@ export const useCreateProductCollection = () => {
 
     /* reactivity */
     useEffect(() => {
+        if (watch('markAsAddon')) return;
+
+        setAddonCollection([]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [watch('markAsAddon')]);
+
+    useEffect(() => {
         setValue(
             'mainCollection',
             mainCollection.map(main => ({ titleId: main.titleId }))
@@ -388,6 +395,7 @@ export const useCreateProductCollection = () => {
         createProductMainCollectionFields,
         mainCollection,
         handleRemoveFromMainCollection,
+        markAsAddon: watch('markAsAddon'),
         createProductAccesoryCollectionFields,
         addonCollection,
         handleRemoveFromAddonCollection,

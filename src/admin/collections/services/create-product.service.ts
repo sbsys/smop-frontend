@@ -39,10 +39,8 @@ export const createProductService = async (props: CreateProductProps): Promise<A
     body.append('defaultDescription', props.defaultDescription);
     body.append('multiLanguage', JSON.stringify(props.multiLanguage));
 
-    if (props.multiLanguage) {
-        body.append('referenceCollection', JSON.stringify(props.referenceCollection));
-        body.append('descriptionCollection', JSON.stringify(props.descriptionCollection));
-    }
+    body.append('referenceCollection', JSON.stringify(props.referenceCollection));
+    body.append('descriptionCollection', JSON.stringify(props.descriptionCollection));
 
     body.append('allowPrompts', JSON.stringify(props.allowPrompts));
 

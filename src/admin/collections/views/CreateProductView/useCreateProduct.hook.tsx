@@ -41,9 +41,15 @@ export const useCreateProduct = () => {
         if (data.multiLanguage) {
             data.defaultReference = data.referenceCollection[0].ref;
             data.defaultDescription = data.descriptionCollection[0].ref;
+        } else {
+            data.referenceCollection = [];
+            data.descriptionCollection = [];
         }
 
-        const service = await createProductService({ ...data, image: data.image[0] });
+        const service = await createProductService({
+            ...data,
+            image: (data.image?.length ?? 0) > 0 ? data.image[0] : undefined,
+        });
 
         hideLoader();
 

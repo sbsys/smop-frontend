@@ -24,6 +24,18 @@
         @include padding(x xs split);
     }
 
+    .TitleCollection {
+        @include flex(row, center);
+        @include gap(all xs);
+        @include margin(top sm, bottom md);
+        flex-wrap: wrap;
+
+        & > span {
+            @include bg-color(500, primary);
+            @include font-color(100);
+        }
+    }
+
     .Actions {
         @include gap(all md);
         display: grid;
@@ -32,5 +44,15 @@
         & > button {
             overflow: hidden;
         }
+    }
+}
+
+.TitleProps {
+    & > label {
+        display: none;
+    }
+
+    & > span {
+        @include font-weight(lg);
     }
 }

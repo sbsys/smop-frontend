@@ -6,6 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { FieldSetProps, useAdminNotify } from 'admin/core';
 /* context */
 import { useProductDetailContext } from '../ProductDetail.context';
+/* components */
+import { Button, SelectFieldOptionProps } from 'shared/components';
 /* hooks */
 import { useLoader } from 'shared/hooks';
 /* services */
@@ -15,9 +17,8 @@ import { MainTitleListItemDTO, TitleListItemDTO, TitleRefCollection } from 'admi
 /* assets */
 import { MdAddCircle, MdCheckCircle, MdError } from 'react-icons/md';
 /* styles */
-import styles from './UpdateCollection.module.scss';
 import { ButtonStyles, FieldStyles } from 'shared/styles';
-import { Button, SelectFieldOptionProps } from 'shared/components';
+import styles from './UpdateCollection.module.scss';
 
 export interface UpdateCollectionFormData {
     mainCollection: TitleRefCollection[];

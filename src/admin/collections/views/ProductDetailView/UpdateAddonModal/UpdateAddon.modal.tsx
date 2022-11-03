@@ -1,5 +1,5 @@
 /* react */
-import { memo } from 'react';
+import { Fragment, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 /* context */
 import { useProductDetailContext } from '../ProductDetail.context';
@@ -9,7 +9,7 @@ import { useUpdateAddon } from './useUpdateAddon.hook';
 import { ModalLayout, ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
-import { FieldSet } from 'admin/core';
+import { Badge, FieldSet } from 'admin/core';
 /* assets */
 import { MdWarning } from 'react-icons/md';
 /* styles */
@@ -22,9 +22,18 @@ const UpdateAddonModal = () => {
         isUpdateAddon,
     } = useProductDetailContext();
 
-    const { handleUpdateAddon, handleResetUpdateAddon, updateAddonFields } = useUpdateAddon();
+    const {
+        handleUpdateAddon,
+        handleResetUpdateAddon,
+        updateAddonMultipleChoiceCollectionFields,
+        multipleChoiceCollection,
+        handleRemoveFromMultipleChoiceCollection,
+        updateAddonSingleChoiceCollectionFields,
+        singleChoiceCollection,
+        handleRemoveFromSingleChoiceCollection,
+    } = useUpdateAddon();
 
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
 
     return (
         <ModalLayout isVisible={isUpdateAddon} rowAlignment="center" colAlignment="center" hasIndentation>
@@ -39,9 +48,41 @@ const UpdateAddonModal = () => {
                     </div>
 
                     <div className={styles.Content}>
-                        {updateAddonFields.map((field, index) => (
+                        {updateAddonMultipleChoiceCollectionFields.map((field, index) => (
                             <FieldSet {...field} key={index} />
                         ))}
+
+                        <div className={styles.TitleCollection}>
+                            {multipleChoiceCollection.map((multipleChoice, index) => (
+                                <Fragment key={index}>
+                                    <Badge onRemove={handleRemoveFromMultipleChoiceCollection(multipleChoice.titleId)}>
+                                        <Legend hasDots>
+                                            {multipleChoice.titleCollection.find(
+                                                collection => collection.lang === i18n.language
+                                            )?.ref ?? multipleChoice.defaultTitle}
+                                        </Legend>
+                                    </Badge>
+                                </Fragment>
+                            ))}
+                        </div>
+
+                        {updateAddonSingleChoiceCollectionFields.map((field, index) => (
+                            <FieldSet {...field} key={index} />
+                        ))}
+
+                        <div className={styles.TitleCollection}>
+                            {singleChoiceCollection.map((singleChoice, index) => (
+                                <Fragment key={index}>
+                                    <Badge onRemove={handleRemoveFromSingleChoiceCollection(singleChoice.titleId)}>
+                                        <Legend hasDots>
+                                            {singleChoice.titleCollection.find(
+                                                collection => collection.lang === i18n.language
+                                            )?.ref ?? singleChoice.defaultTitle}
+                                        </Legend>
+                                    </Badge>
+                                </Fragment>
+                            ))}
+                        </div>
                     </div>
 
                     <div className={styles.Actions}>

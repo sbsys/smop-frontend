@@ -14,3 +14,4 @@ export * from './product-detail.service';
 export * from './update-general.service';
 export * from './update-picture.service';
 export * from './update-collection.service';
+export * from './update-addon.service';

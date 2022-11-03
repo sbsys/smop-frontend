@@ -34,6 +34,7 @@ export const useUserList = () => {
     const { handleSubmit, reset, register } = useForm<UserListFilterForm>();
 
     const [users, setUsers] = useState<UserListItemDTO[]>([]);
+    const [selectedUserToUpdateState, setSelectedUserToUpdateState] = useState<UserListItemDTO | null>(null);
     const [selectedUserToLink, setSelectedUserToLink] = useState<UserListItemDTO | null>(null);
 
     const [filter, setFilter] = useState<UserListFilterForm | null>(null);
@@ -114,6 +115,15 @@ export const useUserList = () => {
 
         setUsers(service.data);
     }, [hideLoader, notify, showLoader]);
+
+    const handleSelectUserToUpdateState = useCallback(
+        (id: string) => {
+            setSelectedUserToUpdateState(users.find(user => user.userId === id) ?? null);
+        },
+        [users]
+    );
+
+    const handleUnselectUserToUpdateState = useCallback(() => setSelectedUserToUpdateState(null), []);
 
     const handleSelectUserToLink = useCallback(
         (id: string) => {
@@ -221,11 +231,14 @@ export const useUserList = () => {
         showDropFilter,
         hideDropFilter,
         isBreakPoint,
+        selectedUserToUpdateState,
         selectedUserToLink,
         /* functions */
         getUserList,
         handleFilter,
         handleResetFilter,
+        handleSelectUserToUpdateState,
+        handleUnselectUserToUpdateState,
         handleSelectUserToLink,
         handleUnselectUserToLink,
         /* props */

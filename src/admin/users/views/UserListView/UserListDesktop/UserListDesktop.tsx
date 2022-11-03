@@ -36,6 +36,10 @@ const UserListDesktop = () => {
                 </section>
             )}
 
+            <span>
+                <NewUserAction />
+            </span>
+
             <section className={styles.Users}>
                 <TableLayout
                     className={styles.List}
@@ -70,8 +74,11 @@ const UserListDesktop = () => {
                                 ),
                             },
                             {
-                                span: 1,
-                                children: <NewUserAction />,
+                                children: (
+                                    <Legend hasDots justify="center" title={t('views.userlist.list.actions')}>
+                                        {t('views.userlist.list.actions')}
+                                    </Legend>
+                                ),
                             },
                         ],
                     }}

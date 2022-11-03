@@ -10,5 +10,6 @@ export const userListItemSerializer = (data: any): UserListItemDTO => {
     };
 };
 
-export const userListSerializer = (data: any): UserListItemDTO[] =>
-    data.accounts.map((item: any) => userListItemSerializer(item));
+export const userListSerializer = (data: any): UserListItemDTO[] => {
+    return data.accounts.map((item: any) => userListItemSerializer(item));
+};

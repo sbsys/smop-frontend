@@ -13,11 +13,14 @@ export interface UserListContextProps {
     showDropFilter: () => void;
     hideDropFilter: () => void;
     isBreakPoint: boolean;
+    selectedUserToUpdateState: UserListItemDTO | null;
     selectedUserToLink: UserListItemDTO | null;
     /* functions */
     getUserList: () => Promise<void>;
     handleFilter: (event?: BaseSyntheticEvent) => Promise<void>;
     handleResetFilter: () => void;
+    handleSelectUserToUpdateState: (id: string) => void;
+    handleUnselectUserToUpdateState: () => void;
     handleSelectUserToLink: (id: string) => void;
     handleUnselectUserToLink: () => void;
     /* props */

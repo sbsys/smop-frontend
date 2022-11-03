@@ -7,13 +7,14 @@ import { Button } from 'shared/components';
 /* types */
 import { UserState } from 'admin/users/types';
 /* assets */
-import { MdDelete, MdLink, MdRestoreFromTrash } from 'react-icons/md';
+import { MdLink, MdThumbDown, MdThumbUp } from 'react-icons/md';
 /* styles */
 import styles from './UserListActions.module.scss';
 
 const UserListActions: FC<{ state: UserState; userId: string }> = ({ state, userId }) => {
     const {
         /* functions */
+        handleSelectUserToUpdateState,
         handleSelectUserToLink,
     } = useUserListContext();
 
@@ -22,15 +23,21 @@ const UserListActions: FC<{ state: UserState; userId: string }> = ({ state, user
     return (
         <div className={styles.Actions}>
             {state === 'active' ? (
-                <Button className={styles.Delete} title={t('views.userlist.list.suspend')}>
+                <Button
+                    className={styles.Delete}
+                    onClick={() => handleSelectUserToUpdateState(userId)}
+                    title={t('views.userlist.list.suspend')}>
                     <i>
-                        <MdDelete />
+                        <MdThumbDown />
                     </i>
                 </Button>
             ) : (
-                <Button className={styles.Restore} title={t('views.userlist.list.restore')}>
+                <Button
+                    className={styles.Restore}
+                    onClick={() => handleSelectUserToUpdateState(userId)}
+                    title={t('views.userlist.list.restore')}>
                     <i>
-                        <MdRestoreFromTrash />
+                        <MdThumbUp />
                     </i>
                 </Button>
             )}

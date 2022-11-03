@@ -10,12 +10,15 @@ const Context = createContext<UserListContextProps>({
     showDropFilter: () => {},
     hideDropFilter: () => {},
     isBreakPoint: false,
+    selectedUserToUpdateState: null,
     selectedUserToLink: null,
     /* functions */
     getUserList: () => new Promise(resolve => resolve()),
     handleFilter: () => new Promise(resolve => resolve),
     handleResetFilter: () => {},
-    handleSelectUserToLink: (id: string) => {},
+    handleSelectUserToUpdateState: _ => {},
+    handleUnselectUserToUpdateState: () => {},
+    handleSelectUserToLink: _ => {},
     handleUnselectUserToLink: () => {},
     /* props */
     filterFormFields: [],

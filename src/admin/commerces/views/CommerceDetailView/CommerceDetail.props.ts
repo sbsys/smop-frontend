@@ -20,6 +20,7 @@ export interface CommerceDetailContextProps {
     hideUpdateDelivery: () => void;
     /* functions */
     getCommerceDetail: () => Promise<void>;
+    handleGoBack: () => void;
     /* props */
 }
 

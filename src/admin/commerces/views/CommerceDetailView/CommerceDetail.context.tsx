@@ -20,6 +20,7 @@ const Context = createContext<CommerceDetailContextProps>({
     hideUpdateDelivery: () => {},
     /* functions */
     getCommerceDetail: () => new Promise(resolve => resolve()),
+    handleGoBack: () => {},
     /* props */
 });
 

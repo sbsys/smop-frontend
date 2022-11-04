@@ -1,6 +1,6 @@
 /* react */
 import { useCallback, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 /* props */
 import { CommerceDetailContextProps } from './CommerceDetail.props';
 /* hooks */
@@ -20,6 +20,8 @@ export const useCommerceDetail = () => {
     const { showLoader, hideLoader } = useLoader();
 
     const { notify } = useAdminNotify();
+
+    const navigate = useNavigate();
 
     const [isUpdateReference, showUpdateReference, hideUpdateReference] = useActive();
     const [isUpdateSetting, showUpdateSetting, hideUpdateSetting] = useActive();
@@ -44,6 +46,8 @@ export const useCommerceDetail = () => {
 
         setCommerce(service.data);
     }, [commerceId, hideLoader, notify, showLoader]);
+
+    const handleGoBack = () => navigate(-1);
 
     /* reactivity */
     useEffect(() => {
@@ -70,6 +74,7 @@ export const useCommerceDetail = () => {
         hideUpdateDelivery,
         /* functions */
         getCommerceDetail,
+        handleGoBack,
         /* props */
     };
 

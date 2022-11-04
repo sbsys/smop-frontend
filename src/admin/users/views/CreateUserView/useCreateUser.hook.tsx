@@ -320,7 +320,7 @@ export const useCreateUser = () => {
             strategy: 'select',
             placeholder: t('views.createuser.form.commerce.placeholder'),
             options: commerces.map(commerce => ({
-                label: commerce.name,
+                label: `${commerce.isActive === 'inactive' ? '(inactive) ' : ''}${commerce.name}`,
                 value: commerce.id,
             })),
             ...register('commerce'),

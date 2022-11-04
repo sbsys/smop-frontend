@@ -191,7 +191,7 @@ export const useUserListLinkModal = () => {
             strategy: 'select',
             placeholder: t('views.userlist.link.form.commerce.placeholder'),
             options: commerces.map(commerce => ({
-                label: commerce.name,
+                label: `${commerce.isActive === 'inactive' ? '(inactive) ' : ''}${commerce.name}`,
                 value: commerce.id,
             })),
             ...register('commerce'),

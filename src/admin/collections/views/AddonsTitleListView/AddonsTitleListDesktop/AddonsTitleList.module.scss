@@ -75,3 +75,15 @@
         }
     }
 }
+
+.Badge {
+    @include bg-color(400, primary);
+    @include flex(col, center, center);
+    @include font-color(100);
+    @include font-size(lg);
+    @include font-weight(lg);
+    @include height(xl, space);
+    @include padding(all xs split);
+    @include rounded(all xl);
+    @include width(xl, space);
+}

@@ -55,7 +55,10 @@ const AddonsTitleListDesktop = () => {
                             },
                             {
                                 children: (
-                                    <Legend hasDots title={t('views.addonstitlelist.list.productamount')}>
+                                    <Legend
+                                        hasDots
+                                        justify="center"
+                                        title={t('views.addonstitlelist.list.productamount')}>
                                         {t('views.addonstitlelist.list.productamount')}
                                     </Legend>
                                 ),
@@ -103,7 +106,11 @@ const AddonsTitleListDesktop = () => {
                             },
                             {
                                 children: (
-                                    <Legend hasDots justify="center" title={`${item.totalProducts}`}>
+                                    <Legend
+                                        hasDots
+                                        classNameContent={styles.Badge}
+                                        justify="center"
+                                        title={`${item.totalProducts}`}>
                                         {item.totalProducts}
                                     </Legend>
                                 ),

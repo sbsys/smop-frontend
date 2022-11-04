@@ -55,7 +55,7 @@ const MainTitleListDesktop = () => {
                             },
                             {
                                 children: (
-                                    <Legend hasDots title={t('views.maintitlelist.list.productamout')}>
+                                    <Legend hasDots justify="center" title={t('views.maintitlelist.list.productamout')}>
                                         {t('views.maintitlelist.list.productamout')}
                                     </Legend>
                                 ),
@@ -103,7 +103,11 @@ const MainTitleListDesktop = () => {
                             },
                             {
                                 children: (
-                                    <Legend hasDots justify="center" title={`${item.totalProducts}`}>
+                                    <Legend
+                                        hasDots
+                                        classNameContent={styles.Badge}
+                                        justify="center"
+                                        title={`${item.totalProducts}`}>
                                         {item.totalProducts}
                                     </Legend>
                                 ),

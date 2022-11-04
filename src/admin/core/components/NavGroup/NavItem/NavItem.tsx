@@ -10,10 +10,10 @@ import { classNames } from 'shared/utils';
 /* styles */
 import styles from './NavItem.module.scss';
 
-const NavItem: FC<NavItemProps> = ({ to, icon, text, ...rest }) => {
+const NavItem: FC<NavItemProps> = ({ to, icon, text, isDisabled = false, ...rest }) => {
     return (
         <NavLink
-            className={({ isActive }) => classNames(styles.NavItem, isActive && styles.NavItemActive)}
+            className={({ isActive }) => classNames(styles.NavItem, (isDisabled || isActive) && styles.NavItemActive)}
             to={to}
             title={text}
             {...rest}>

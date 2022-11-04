@@ -25,13 +25,13 @@ interface UserListFilterForm {
     name: string;
     profile: Profile | '';
     state: UserState | '';
-    fromDate: Date;
-    toDate: Date;
+    fromDate: Date | null;
+    toDate: Date | null;
 }
 
 export const useUserList = () => {
     /* states */
-    const { handleSubmit, reset, register } = useForm<UserListFilterForm>();
+    const { handleSubmit, setValue, register } = useForm<UserListFilterForm>();
 
     const [users, setUsers] = useState<UserListItemDTO[]>([]);
     const [selectedUserToUpdateState, setSelectedUserToUpdateState] = useState<UserListItemDTO | null>(null);
@@ -91,7 +91,11 @@ export const useUserList = () => {
     });
 
     const handleResetFilter = () => {
-        reset();
+        setValue('name', '');
+        setValue('profile', '');
+        setValue('state', '');
+        setValue('fromDate', null);
+        setValue('toDate', null);
 
         setFilter(null);
 

@@ -67,7 +67,7 @@ const CreateUserSchema = yup
         commerce: yup.mixed().when(['linked'], {
             is: (linked: boolean) => linked,
             then: yup
-                .number()
+                .string()
                 .typeError('views.createuser.form.commerce.required')
                 .required('views.createuser.form.commerce.required'),
             otherwise: yup.string(),

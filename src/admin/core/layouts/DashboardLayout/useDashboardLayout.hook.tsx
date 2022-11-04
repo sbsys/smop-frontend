@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Profile, selectAuthStore } from 'admin/auth';
 /* props */
 import { ButtonProps } from 'shared/components';
-import { NavGroupProps } from 'admin/core/components';
+import { DropNavItemProps, NavGroupProps, NavItemProps } from 'admin/core/components';
 import { DashboardLayoutContextProps } from './DashboardLayout.props';
 /* hooks */
 import { useActive, useMinWidth } from 'shared/hooks';
@@ -26,7 +26,6 @@ import {
     MdSupervisedUserCircle,
 } from 'react-icons/md';
 import { HiOfficeBuilding } from 'react-icons/hi';
-import { IoMdCog } from 'react-icons/io';
 
 export const useDashboardLayout = () => {
     /* states */
@@ -65,104 +64,76 @@ export const useDashboardLayout = () => {
         onClick: toggleSidebar,
     };
 
+    /* nav items */
+    const tenantsNavItem: NavItemProps = {
+        icon: <MdDashboardCustomize />,
+        text: t('dashboard.navigation.root.items.tenants'),
+        to: 'tenants',
+    };
+
+    const organizationNavItem: NavItemProps = {
+        icon: <HiOfficeBuilding />,
+        text: t('dashboard.navigation.admin.items.organization'),
+        to: 'organization',
+    };
+
+    const commercesNavItem: NavItemProps = {
+        icon: <MdStore />,
+        text: t('dashboard.navigation.admin.items.commerces'),
+        to: 'commerces',
+    };
+
+    const usersNavItem: NavItemProps = {
+        icon: <MdSupervisedUserCircle />,
+        text: t('dashboard.navigation.admin.items.users'),
+        to: 'users',
+    };
+
+    const collectionsNavItem: DropNavItemProps = {
+        icon: <MdLibraryBooks />,
+        text: t('dashboard.navigation.admin.items.collections'),
+        items: [
+            {
+                icon: <MdMenuBook />,
+                text: t('dashboard.navigation.admin.items.menu'),
+                to: 'collections/menu',
+            },
+            {
+                icon: <MdBook />,
+                text: t('dashboard.navigation.admin.items.addons'),
+                to: 'collections/addons',
+            },
+            {
+                icon: <MdFormatListNumbered />,
+                text: t('dashboard.navigation.admin.items.products'),
+                to: 'collections/products',
+            },
+        ],
+    };
+
     const navStrategy: Record<Profile, NavGroupProps[]> = {
         root: [
             {
                 title: t('profiles.root'),
-                items: [
-                    {
-                        icon: <MdDashboardCustomize />,
-                        text: t('dashboard.navigation.root.items.tenants'),
-                        to: 'tenants',
-                    },
-                ],
+                items: [tenantsNavItem],
             },
         ],
         admin: [
             {
                 title: t('profiles.admin'),
-                items: [
-                    {
-                        icon: <HiOfficeBuilding />,
-                        text: t('dashboard.navigation.admin.items.organization'),
-                        to: 'organization',
-                    },
-                    {
-                        icon: <MdStore />,
-                        text: t('dashboard.navigation.admin.items.commerces'),
-                        to: 'commerces',
-                    },
-                    {
-                        icon: <MdSupervisedUserCircle />,
-                        text: t('dashboard.navigation.admin.items.users'),
-                        to: 'users',
-                    },
-                    {
-                        icon: <MdLibraryBooks />,
-                        text: t('dashboard.navigation.admin.items.collections'),
-                        items: [
-                            {
-                                icon: <MdMenuBook />,
-                                text: t('dashboard.navigation.admin.items.menu'),
-                                to: 'collections/menu',
-                            },
-                            {
-                                icon: <MdBook />,
-                                text: t('dashboard.navigation.admin.items.addons'),
-                                to: 'collections/addons',
-                            },
-                            {
-                                icon: <MdFormatListNumbered />,
-                                text: t('dashboard.navigation.admin.items.products'),
-                                to: 'collections/products',
-                            },
-                        ],
-                    },
-                ],
+                items: [organizationNavItem, commercesNavItem, usersNavItem, collectionsNavItem],
             },
         ],
         manager: [
             {
                 title: t('profiles.manager'),
-                items: [
-                    {
-                        icon: <IoMdCog />,
-                        text: t('dashboard.navigation.admin.items.organization'),
-                        to: 'organization',
-                    },
-                    {
-                        icon: <MdStore />,
-                        text: t('dashboard.navigation.admin.items.commerces'),
-                        to: 'commerces',
-                    },
-                    {
-                        icon: <MdSupervisedUserCircle />,
-                        text: t('dashboard.navigation.admin.items.users'),
-                        to: 'users',
-                    },
-                ],
+                items: [organizationNavItem, commercesNavItem, usersNavItem, collectionsNavItem],
             },
         ],
         auxiliar: [
             {
                 title: t('profiles.auxiliar'),
-                items: [
-                    {
-                        icon: <IoMdCog />,
-                        text: t('dashboard.navigation.admin.items.organization'),
-                        to: 'organization',
-                    },
-                    {
-                        icon: <MdStore />,
-                        text: t('dashboard.navigation.admin.items.commerces'),
-                        to: 'commerces',
-                    },
-                    {
-                        icon: <MdSupervisedUserCircle />,
-                        text: t('dashboard.navigation.admin.items.users'),
-                        to: 'users',
-                    },
-                ],
+                items: [organizationNavItem, commercesNavItem, usersNavItem, collectionsNavItem],
             },
         ],
         cashier: [],

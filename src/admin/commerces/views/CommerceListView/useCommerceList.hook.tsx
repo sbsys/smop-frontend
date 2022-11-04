@@ -22,13 +22,13 @@ import { FieldStyles } from 'shared/styles';
 interface CommerceListFilterForm {
     name: string;
     state: CommerceState | '';
-    fromDate: Date;
-    toDate: Date;
+    fromDate: Date | null;
+    toDate: Date | null;
 }
 
 export const useCommerceList = () => {
     /* states */
-    const { handleSubmit, reset, register } = useForm<CommerceListFilterForm>();
+    const { handleSubmit, setValue, register } = useForm<CommerceListFilterForm>();
 
     const [commerces, setCommerces] = useState<CommerceListItemDTO[]>([]);
     const [selectedCommerceToUpdateState, setSelectedCommerceToUpdateState] = useState<CommerceListItemDTO | null>(
@@ -81,7 +81,10 @@ export const useCommerceList = () => {
     });
 
     const handleResetFilter = () => {
-        reset();
+        setValue('name', '');
+        setValue('state', '');
+        setValue('fromDate', null);
+        setValue('toDate', null);
 
         setFilter(null);
 

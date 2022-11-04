@@ -36,6 +36,10 @@ const CommerceListDesktop = () => {
                 </section>
             )}
 
+            <span>
+                <NewCommerceAction />
+            </span>
+
             <section className={styles.Commerces}>
                 <TableLayout
                     className={styles.List}
@@ -47,6 +51,7 @@ const CommerceListDesktop = () => {
                                         {t('views.commercelist.list.name')}
                                     </Legend>
                                 ),
+                                span: 2,
                             },
                             {
                                 children: (
@@ -63,7 +68,11 @@ const CommerceListDesktop = () => {
                                 ),
                             },
                             {
-                                children: <NewCommerceAction />,
+                                children: (
+                                    <Legend hasDots justify="center" title={t('views.commercelist.list.actions')}>
+                                        {t('views.commercelist.list.actions')}
+                                    </Legend>
+                                ),
                             },
                         ],
                     }}

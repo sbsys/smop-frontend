@@ -14,6 +14,7 @@ export interface TitleListItemDTO {
     titleCollection: TitleCollection[];
     defaultTitle: string;
     multiLanguage: boolean;
+    totalProducts: number;
     isActive: TitleState;
     createdAt: Date | null;
     updatedAt: Date | null;

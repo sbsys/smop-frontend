@@ -8,3 +8,4 @@ export * from './update-reference.service';
 export * from './update-setting.service';
 export * from './update-attention.service';
 export * from './update-delivery.service';
+export * from './update-state.service';

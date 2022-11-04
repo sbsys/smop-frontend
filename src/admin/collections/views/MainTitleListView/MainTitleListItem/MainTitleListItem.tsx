@@ -24,6 +24,7 @@ const MainTitleListItem: FC<MainTitleListItemDTO> = ({
     titleCollection,
     createdAt,
     isActive,
+    totalProducts,
 }) => {
     const { t, i18n } = useTranslation();
 
@@ -48,6 +49,10 @@ const MainTitleListItem: FC<MainTitleListItemDTO> = ({
 
                 <Legend hasDots title={!createdAt ? '' : format(createdAt, 'MMM do, yyyy')}>
                     {!createdAt ? '' : format(createdAt, 'MMM do, yyyy')}
+                </Legend>
+
+                <Legend hasDots title={t('views.maintitlelist.list.productamout')}>
+                    <>{t('views.maintitlelist.list.productamout')}</>: {totalProducts}
                 </Legend>
             </div>
 

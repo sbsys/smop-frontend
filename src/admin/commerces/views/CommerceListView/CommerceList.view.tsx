@@ -7,6 +7,7 @@ import { CommerceListProvider } from './CommerceList.context';
 /* components */
 import { CommerceListMobile } from './CommerceListMobile';
 import { CommerceListDesktop } from './CommerceListDesktop';
+import { UpdateCommerceStateModal } from './UpdateCommerceStateModal';
 
 const CommerceListView = () => {
     const { context } = useCommerceList();
@@ -16,6 +17,8 @@ const CommerceListView = () => {
             <CommerceListMobile />
 
             <CommerceListDesktop />
+
+            <UpdateCommerceStateModal />
         </CommerceListProvider>
     );
 };

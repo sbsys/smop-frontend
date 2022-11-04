@@ -36,6 +36,10 @@ const MainTitleListDesktop = () => {
                 </section>
             )}
 
+            <span>
+                <NewMainTitleAction />
+            </span>
+
             <section className={styles.Titles}>
                 <TableLayout
                     className={styles.List}
@@ -47,6 +51,14 @@ const MainTitleListDesktop = () => {
                                         {t('views.maintitlelist.list.name')}
                                     </Legend>
                                 ),
+                                span: 3,
+                            },
+                            {
+                                children: (
+                                    <Legend hasDots title={t('views.maintitlelist.list.productamout')}>
+                                        {t('views.maintitlelist.list.productamout')}
+                                    </Legend>
+                                ),
                             },
                             {
                                 children: (
@@ -54,6 +66,7 @@ const MainTitleListDesktop = () => {
                                         {t('views.maintitlelist.list.created')}
                                     </Legend>
                                 ),
+                                span: 2,
                             },
                             {
                                 children: (
@@ -61,10 +74,15 @@ const MainTitleListDesktop = () => {
                                         {t('views.maintitlelist.list.state')}
                                     </Legend>
                                 ),
+                                span: 2,
                             },
                             {
-                                children: <NewMainTitleAction />,
-                                span: 1,
+                                children: (
+                                    <Legend hasDots justify="center" title={t('views.maintitlelist.list.actions')}>
+                                        {t('views.maintitlelist.list.actions')}
+                                    </Legend>
+                                ),
+                                span: 2,
                             },
                         ],
                     }}
@@ -80,6 +98,13 @@ const MainTitleListDesktop = () => {
                                         }>
                                         {item.titleCollection.find(collection => collection.lang === i18n.language)
                                             ?.ref ?? item.defaultTitle}
+                                    </Legend>
+                                ),
+                            },
+                            {
+                                children: (
+                                    <Legend hasDots justify="center" title={`${item.totalProducts}`}>
+                                        {item.totalProducts}
                                     </Legend>
                                 ),
                             },

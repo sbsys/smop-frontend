@@ -18,7 +18,14 @@ import { MdMoreVert } from 'react-icons/md';
 /* styles */
 import styles from './AddonsTitleListItem.module.scss';
 
-const AddonsTitleListItem: FC<TitleListItemDTO> = ({ titleId, defaultTitle, titleCollection, createdAt, isActive }) => {
+const AddonsTitleListItem: FC<TitleListItemDTO> = ({
+    titleId,
+    defaultTitle,
+    titleCollection,
+    createdAt,
+    isActive,
+    totalProducts,
+}) => {
     const { t, i18n } = useTranslation();
 
     const [isDropMore, showDropMore, hideDropMore] = useActive();
@@ -42,6 +49,10 @@ const AddonsTitleListItem: FC<TitleListItemDTO> = ({ titleId, defaultTitle, titl
 
                 <Legend hasDots title={!createdAt ? '' : format(createdAt, 'MMM do, yyyy')}>
                     {!createdAt ? '' : format(createdAt, 'MMM do, yyyy')}
+                </Legend>
+
+                <Legend hasDots title={t('views.addonstitlelist.list.productamout')}>
+                    <>{t('views.addonstitlelist.list.productamout')}</>: {totalProducts}
                 </Legend>
             </div>
 

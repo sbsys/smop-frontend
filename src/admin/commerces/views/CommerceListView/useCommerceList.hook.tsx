@@ -31,6 +31,9 @@ export const useCommerceList = () => {
     const { handleSubmit, reset, register } = useForm<CommerceListFilterForm>();
 
     const [commerces, setCommerces] = useState<CommerceListItemDTO[]>([]);
+    const [selectedCommerceToUpdateState, setSelectedCommerceToUpdateState] = useState<CommerceListItemDTO | null>(
+        null
+    );
 
     const [filter, setFilter] = useState<CommerceListFilterForm | null>(null);
 
@@ -102,6 +105,15 @@ export const useCommerceList = () => {
 
         setCommerces(service.data);
     }, [hideLoader, notify, showLoader]);
+
+    const handleSelectCommerceToUpdateState = useCallback(
+        (id: string) => {
+            setSelectedCommerceToUpdateState(commerces.find(commerce => commerce.id === id) ?? null);
+        },
+        [commerces]
+    );
+
+    const handleUnselectCommerceToUpdateState = useCallback(() => setSelectedCommerceToUpdateState(null), []);
 
     /* reactivity */
     useEffect(() => {
@@ -181,13 +193,17 @@ export const useCommerceList = () => {
     const context: CommerceListContextProps = {
         /* states */
         commerceList,
+        selectedCommerceToUpdateState,
         isDropFilter,
         showDropFilter,
         hideDropFilter,
         isBreakPoint,
         /* functions */
+        getCommerceList,
         handleFilter,
         handleResetFilter,
+        handleSelectCommerceToUpdateState,
+        handleUnselectCommerceToUpdateState,
         /* props */
         filterFormFields,
     };

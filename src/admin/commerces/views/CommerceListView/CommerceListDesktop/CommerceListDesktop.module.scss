@@ -14,6 +14,15 @@
         @include font-weight(lg);
     }
 
+    & > span {
+        @include bg-color(400, primary);
+        @include flex(row, center, flex-end);
+        @include font-color(100);
+        @include font-size(sm);
+        @include rounded(all xs);
+        margin-right: auto;
+    }
+
     .Filter {
         @include margin(bottom xs);
     }
@@ -51,6 +60,7 @@
 
             & > tr {
                 @include gap(all xs);
+                @include padding(y xs);
             }
         }
 

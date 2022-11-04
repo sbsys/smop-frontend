@@ -36,6 +36,10 @@ const AddonsTitleListDesktop = () => {
                 </section>
             )}
 
+            <span>
+                <NewAddonsTitleAction />
+            </span>
+
             <section className={styles.Titles}>
                 <TableLayout
                     className={styles.List}
@@ -47,6 +51,14 @@ const AddonsTitleListDesktop = () => {
                                         {t('views.addonstitlelist.list.name')}
                                     </Legend>
                                 ),
+                                span: 3,
+                            },
+                            {
+                                children: (
+                                    <Legend hasDots title={t('views.addonstitlelist.list.productamount')}>
+                                        {t('views.addonstitlelist.list.productamount')}
+                                    </Legend>
+                                ),
                             },
                             {
                                 children: (
@@ -54,6 +66,7 @@ const AddonsTitleListDesktop = () => {
                                         {t('views.addonstitlelist.list.created')}
                                     </Legend>
                                 ),
+                                span: 2,
                             },
                             {
                                 children: (
@@ -61,10 +74,15 @@ const AddonsTitleListDesktop = () => {
                                         {t('views.addonstitlelist.list.state')}
                                     </Legend>
                                 ),
+                                span: 2,
                             },
                             {
-                                children: <NewAddonsTitleAction />,
-                                span: 1,
+                                children: (
+                                    <Legend hasDots justify="center" title={t('views.addonstitlelist.list.actions')}>
+                                        {t('views.addonstitlelist.list.actions')}
+                                    </Legend>
+                                ),
+                                span: 2,
                             },
                         ],
                     }}
@@ -80,6 +98,13 @@ const AddonsTitleListDesktop = () => {
                                         }>
                                         {item.titleCollection.find(collection => collection.lang === i18n.language)
                                             ?.ref ?? item.defaultTitle}
+                                    </Legend>
+                                ),
+                            },
+                            {
+                                children: (
+                                    <Legend hasDots justify="center" title={`${item.totalProducts}`}>
+                                        {item.totalProducts}
                                     </Legend>
                                 ),
                             },

@@ -51,6 +51,7 @@ const ProductListDesktop = () => {
                                         {t('views.productlist.list.name')}
                                     </Legend>
                                 ),
+                                span: 3,
                             },
                             {
                                 span: 1,
@@ -61,6 +62,7 @@ const ProductListDesktop = () => {
                                         {t('views.productlist.list.created')}
                                     </Legend>
                                 ),
+                                span: 2,
                             },
                             {
                                 children: (
@@ -68,6 +70,7 @@ const ProductListDesktop = () => {
                                         {t('views.productlist.list.state')}
                                     </Legend>
                                 ),
+                                span: 2,
                             },
                             {
                                 children: (
@@ -75,6 +78,7 @@ const ProductListDesktop = () => {
                                         {t('views.productlist.list.actions')}
                                     </Legend>
                                 ),
+                                span: 2,
                             },
                         ],
                     }}

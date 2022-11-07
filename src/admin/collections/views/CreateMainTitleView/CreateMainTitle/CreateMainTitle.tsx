@@ -1,16 +1,15 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
+import { useCreateMainTitleContext } from '../CreateMainTitle.context';
 /* layouts */
 import { ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
-import { FieldSet } from 'admin/core';
+import { FieldSet, useAdminLang } from 'admin/core';
 /* styles */
 import { ButtonStyles } from 'shared/styles';
 import styles from './CreateMainTitle.module.scss';
-import { useCreateMainTitleContext } from '../CreateMainTitle.context';
 
 const CreateMainTitle = () => {
     const {
@@ -21,13 +20,13 @@ const CreateMainTitle = () => {
         createMainTitleFieldProps,
     } = useCreateMainTitleContext();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <ScrollLayout classNameContent={styles.CreateMainTitle} orientation="col">
             <form onSubmit={handleCreateMainTitle}>
-                <legend title={t('views.createmaintitle.form.title')}>
-                    <Legend hasDots>{t('views.createmaintitle.form.title')}</Legend>
+                <legend title={translate('createmaintitle.title')}>
+                    <Legend hasDots>{translate('createmaintitle.title')}</Legend>
                 </legend>
 
                 {createMainTitleFieldProps.map((field, index) => (
@@ -37,20 +36,17 @@ const CreateMainTitle = () => {
                 <div>
                     <Button
                         type="button"
-                        title={t('views.createmaintitle.form.actions.cancel')}
+                        title={translate('actions.cancel')}
                         className={ButtonStyles.OutlineNone}
                         onClick={handleCalcelCreateMainTitle}>
                         <Legend hasDots justify="center">
-                            {t('views.createmaintitle.form.actions.cancel')}
+                            {translate('actions.cancel')}
                         </Legend>
                     </Button>
 
-                    <Button
-                        type="submit"
-                        title={t('views.createmaintitle.form.actions.create')}
-                        className={ButtonStyles.FillSecondary}>
+                    <Button type="submit" title={translate('actions.save')} className={ButtonStyles.FillSecondary}>
                         <Legend hasDots justify="center">
-                            {t('views.createmaintitle.form.actions.create')}
+                            {translate('actions.save')}
                         </Legend>
                     </Button>
                 </div>

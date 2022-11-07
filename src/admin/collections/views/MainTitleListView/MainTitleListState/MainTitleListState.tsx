@@ -1,8 +1,9 @@
 /* react */
 import { FC, memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* components */
 import { Legend } from 'shared/components';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* utils */
 import { classNames } from 'shared/utils';
 /* types */
@@ -11,7 +12,7 @@ import { TitleState } from 'admin/collections/types';
 import styles from './MainTitleListState.module.scss';
 
 const MainTitleListState: FC<{ state: TitleState }> = ({ state }) => {
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     const stateStylesStrategy: Record<TitleState, string> = {
         active: styles.StateActive,
@@ -23,8 +24,8 @@ const MainTitleListState: FC<{ state: TitleState }> = ({ state }) => {
             className={classNames(styles.State, stateStylesStrategy[state])}
             hasDots
             justify="center"
-            title={t(`views.maintitlelist.list.states.${state}`)}>
-            {t(`views.maintitlelist.list.states.${state}`)}
+            title={translate(`status.${state}`)}>
+            {translate(`status.${state}`)}
         </Legend>
     );
 };

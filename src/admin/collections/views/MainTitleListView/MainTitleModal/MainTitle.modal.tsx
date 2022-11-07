@@ -1,6 +1,5 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* custom hook */
 import { useMainTitle } from './useMainTitle.hook';
 /* context */
@@ -9,6 +8,8 @@ import { useMainTitleListContext } from '../MainTitleList.context';
 import { ModalLayout, PanelLayout, ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* utils */
 import { format } from 'date-fns';
 import { classNames } from 'shared/utils';
@@ -28,23 +29,23 @@ const MainTitleModal = () => {
 
     const { productList } = useMainTitle();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <ModalLayout isVisible={selectedTitle !== null} rowAlignment="center" colAlignment="center" hasIndentation>
             <PanelLayout orientation="col" className={styles.MainTitle}>
-                <div className={styles.Header} title={t('views.maintitlelist.detail.title')}>
+                <div className={styles.Header} title={translate('maintitledetail.title')}>
                     <i>
                         <MdInfo />
                     </i>
 
-                    <Legend hasDots>{t('views.maintitlelist.detail.title')}</Legend>
+                    <Legend hasDots>{translate('maintitledetail.title')}</Legend>
                 </div>
 
                 <PanelLayout orientation="col" className={styles.Content}>
                     <div className={styles.Boolean}>
                         <Legend hasDots className={styles.Title}>
-                            {t('views.maintitlelist.detail.multilanguage')}
+                            {translate('commons.multilanguage')}
                         </Legend>
 
                         <i
@@ -56,8 +57,8 @@ const MainTitleModal = () => {
                         </i>
                     </div>
 
-                    <Legend hasDots title={t('views.maintitlelist.detail.reference')} className={styles.Title}>
-                        {t('views.maintitlelist.detail.reference')}
+                    <Legend hasDots title={translate('maintitledetail.collection')} className={styles.Title}>
+                        {translate('maintitledetail.collection')}
                     </Legend>
 
                     {selectedTitle?.multiLanguage ? (
@@ -72,8 +73,8 @@ const MainTitleModal = () => {
                         <Legend title={selectedTitle?.defaultTitle}>{selectedTitle?.defaultTitle}</Legend>
                     )}
 
-                    <Legend hasDots title={t('views.maintitlelist.detail.created')} className={styles.Title}>
-                        {t('views.maintitlelist.detail.created')}
+                    <Legend hasDots title={translate('maintitledetail.created')} className={styles.Title}>
+                        {translate('maintitledetail.created')}
                     </Legend>
 
                     <Legend title={!selectedTitle?.createdAt ? '' : format(selectedTitle.createdAt, 'MMM do, yyyy')}>
@@ -82,8 +83,8 @@ const MainTitleModal = () => {
 
                     {productList.length > 0 && (
                         <>
-                            <Legend hasDots title={t('views.maintitlelist.detail.products')} className={styles.Title}>
-                                {t('views.maintitlelist.detail.products')}
+                            <Legend hasDots title={translate('maintitledetail.products')} className={styles.Title}>
+                                {translate('maintitledetail.products')}
                             </Legend>
 
                             <ScrollLayout orientation="col">
@@ -107,10 +108,10 @@ const MainTitleModal = () => {
                     <Button
                         type="button"
                         className={ButtonStyles.OutlineNone}
-                        title={t('views.maintitlelist.detail.actions.cancel')}
+                        title={translate('actions.close')}
                         onClick={handleUnselectTitle}>
                         <Legend hasDots justify="center">
-                            {t('views.maintitlelist.detail.actions.cancel')}
+                            {translate('actions.close')}
                         </Legend>
                     </Button>
                 </div>

@@ -1,9 +1,10 @@
 import { FC, memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useMainTitleListContext } from '../MainTitleList.context';
 /* components */
 import { Button } from 'shared/components';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* types */
 import { TitleState } from 'admin/collections/types';
 /* assets */
@@ -19,7 +20,7 @@ const MainTitleListActions: FC<{ state: TitleState; titleId: number }> = ({ stat
         handleSelectTitleToUpdateState,
     } = useMainTitleListContext();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <div className={styles.Actions}>
@@ -27,7 +28,7 @@ const MainTitleListActions: FC<{ state: TitleState; titleId: number }> = ({ stat
                 <Button
                     className={styles.Delete}
                     onClick={() => handleSelectTitleToUpdateState(titleId)}
-                    title={t('views.maintitlelist.list.suspend')}>
+                    title={translate('actions.suspend')}>
                     <i>
                         <MdThumbDown />
                     </i>
@@ -36,7 +37,7 @@ const MainTitleListActions: FC<{ state: TitleState; titleId: number }> = ({ stat
                 <Button
                     className={styles.Restore}
                     onClick={() => handleSelectTitleToUpdateState(titleId)}
-                    title={t('views.maintitlelist.list.restore')}>
+                    title={translate('actions.restore')}>
                     <i>
                         <MdThumbUp />
                     </i>
@@ -47,7 +48,7 @@ const MainTitleListActions: FC<{ state: TitleState; titleId: number }> = ({ stat
                 className={styles.Edit}
                 onClick={() => handleSelectTitleToUpdate(titleId)}
                 disabled={state === 'inactive'}
-                title={t('views.maintitlelist.list.edit')}>
+                title={translate('actions.edit')}>
                 <i>
                     <MdEdit />
                 </i>
@@ -57,7 +58,7 @@ const MainTitleListActions: FC<{ state: TitleState; titleId: number }> = ({ stat
                 className={styles.View}
                 onClick={() => handleSelectTitle(titleId)}
                 disabled={state === 'inactive'}
-                title={t('views.maintitlelist.list.view')}>
+                title={translate('actions.detail')}>
                 <i>
                     <MdVisibility />
                 </i>

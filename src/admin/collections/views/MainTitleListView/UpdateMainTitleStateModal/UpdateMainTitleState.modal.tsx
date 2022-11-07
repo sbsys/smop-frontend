@@ -1,6 +1,5 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* custom hook */
 import { useUpdateMainTitleState } from './useUpdateMainTitleState.hook';
 /* context */
@@ -9,6 +8,8 @@ import { useMainTitleListContext } from '../MainTitleList.context';
 import { ModalLayout, ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* assets */
 import { MdWarning } from 'react-icons/md';
 /* styles */
@@ -23,7 +24,7 @@ const UpdateMainTitleStateModal = () => {
 
     const { handleCancelUpdateStateMainTitle, handleUpdateStateMainTitle } = useUpdateMainTitleState();
 
-    const { t, i18n } = useTranslation();
+    const { translate, lang } = useAdminLang();
 
     return (
         <ModalLayout
@@ -33,24 +34,23 @@ const UpdateMainTitleStateModal = () => {
             hasIndentation>
             <ScrollLayout orientation="col" classNameContent={styles.UpdateState}>
                 <section>
-                    <div className={styles.Header} title={t('views.maintitlelist.updatestate.title')}>
+                    <div className={styles.Header} title={translate('maintitlelist.updatestatus')}>
                         <i>
                             <MdWarning />
                         </i>
 
-                        <Legend hasDots>{t('views.maintitlelist.updatestate.title')}</Legend>
+                        <Legend hasDots>{translate('maintitlelist.updatestatus')}</Legend>
                     </div>
 
                     <div className={styles.Content}>
                         <Legend justify="center">
-                            {selectedTitleToUpdateState?.titleCollection.find(
-                                collection => collection.lang === i18n.language
-                            )?.ref ?? selectedTitleToUpdateState?.defaultTitle}
+                            {selectedTitleToUpdateState?.titleCollection.find(collection => collection.lang === lang)
+                                ?.ref ?? selectedTitleToUpdateState?.defaultTitle}
                         </Legend>
 
                         <Legend justify="center">
-                            {t(
-                                `views.maintitlelist.updatestate.${
+                            {translate(
+                                `messages.${
                                     selectedTitleToUpdateState?.isActive === 'active' ? 'deactivate' : 'activate'
                                 }`
                             )}
@@ -61,10 +61,10 @@ const UpdateMainTitleStateModal = () => {
                         <Button
                             type="button"
                             className={ButtonStyles.OutlineNone}
-                            title={t('views.maintitlelist.updatestate.actions.cancel')}
+                            title={translate('actions.cancel')}
                             onClick={handleCancelUpdateStateMainTitle}>
                             <Legend hasDots justify="center">
-                                {t('views.maintitlelist.updatestate.actions.cancel')}
+                                {translate('actions.cancel')}
                             </Legend>
                         </Button>
 
@@ -75,10 +75,10 @@ const UpdateMainTitleStateModal = () => {
                                     ? ButtonStyles.FillDanger
                                     : ButtonStyles.FillSuccess
                             }
-                            title={t('views.maintitlelist.updatestate.actions.update')}
+                            title={translate('actions.update')}
                             onClick={handleUpdateStateMainTitle}>
                             <Legend hasDots justify="center">
-                                {t('views.maintitlelist.updatestate.actions.update')}
+                                {translate('actions.update')}
                             </Legend>
                         </Button>
                     </div>

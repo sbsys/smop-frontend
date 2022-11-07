@@ -2,12 +2,11 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 /* props */
 import { CreateMainTitleContextProps, CreateMainTitleFormData } from './CreateMainTitle.props';
 /* hooks */
 import { useLoader } from 'shared/hooks';
-import { FieldSetProps, Lang, useAdminNotify } from 'admin/core';
+import { AdminLang, FieldSetProps, Lang, useAdminLang, useAdminNotify } from 'admin/core';
 /* services */
 import { createMainTitleService } from 'admin/collections/services';
 /* utils */
@@ -39,7 +38,7 @@ export const useCreateMainTitle = () => {
 
     const { notify } = useAdminNotify();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     const navigate = useNavigate();
 
@@ -93,20 +92,20 @@ export const useCreateMainTitle = () => {
         field: {
             className: errors.defaultTitle ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'text',
-            placeholder: t('views.createmaintitle.form.defaulttitle.placeholder'),
+            placeholder: translate('createmaintitle.collection.placeholder'),
             ...register('defaultTitle'),
         },
         isHintReserved: true,
         hint: errors.defaultTitle
             ? {
-                  children: t(errors.defaultTitle.message as string),
+                  children: translate(errors.defaultTitle.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.defaultTitle.message as string),
+                  title: translate(errors.defaultTitle.message as AdminLang),
               }
             : {
-                  children: t('views.createmaintitle.form.defaulttitle.hint'),
+                  children: translate('createmaintitle.collection.hint'),
                   hasDots: true,
-                  title: t('views.createmaintitle.form.defaulttitle.hint'),
+                  title: translate('createmaintitle.collection.hint'),
               },
     };
     const multiLanguageProps: FieldSetProps = {
@@ -114,20 +113,20 @@ export const useCreateMainTitle = () => {
         field: {
             className: errors.multiLanguage ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'checkbox',
-            placeholder: t('views.createmaintitle.form.multilanguage.placeholder'),
+            placeholder: translate('commons.allowmultilanguage'),
             ...register('multiLanguage'),
         },
         isHintReserved: true,
         hint: errors.multiLanguage
             ? {
-                  children: t(errors.multiLanguage.message as string),
+                  children: translate(errors.multiLanguage.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.multiLanguage.message as string),
+                  title: translate(errors.multiLanguage.message as AdminLang),
               }
             : {
-                  children: t('views.createmaintitle.form.multilanguage.hint'),
+                  children: translate('commons.allowmultilanguage'),
                   hasDots: true,
-                  title: t('views.createmaintitle.form.multilanguage.hint'),
+                  title: translate('commons.allowmultilanguage'),
               },
     };
     const titleCollectionProps = (index: number, lang: Lang): FieldSetProps => {
@@ -137,21 +136,21 @@ export const useCreateMainTitle = () => {
             field: {
                 className: errors.titleCollection ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
                 strategy: 'text',
-                placeholder: t('views.createmaintitle.form.titlecollection.placeholder'),
+                placeholder: translate('createmaintitle.collection.placeholder'),
                 afterContent: lang.toUpperCase(),
                 ...register(`titleCollection.${index}.ref`),
             },
             isHintReserved: true,
             hint: errors.titleCollection
                 ? {
-                      children: t(errors.titleCollection.message as string),
+                      children: translate(errors.titleCollection.message as AdminLang),
                       hasDots: true,
-                      title: t(errors.titleCollection.message as string),
+                      title: translate(errors.titleCollection.message as AdminLang),
                   }
                 : {
-                      children: t('views.createmaintitle.form.titlecollection.hint'),
+                      children: translate('createmaintitle.collection.hint'),
                       hasDots: true,
-                      title: t('views.createmaintitle.form.titlecollection.hint'),
+                      title: translate('createmaintitle.collection.hint'),
                   },
         };
     };

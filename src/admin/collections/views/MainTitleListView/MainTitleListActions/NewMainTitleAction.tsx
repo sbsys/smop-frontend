@@ -1,10 +1,10 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
+
 /* store */
 import { selectAuthStore } from 'admin/auth';
 /* components */
-import { NavItem, useAdminSelector } from 'admin/core';
+import { NavItem, useAdminLang, useAdminSelector } from 'admin/core';
 /* assets */
 import { MdStore } from 'react-icons/md';
 
@@ -13,16 +13,9 @@ const NewMainTitleAction = () => {
         user: { profiles },
     } = useAdminSelector(selectAuthStore);
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
-    return (
-        <NavItem
-            icon={<MdStore />}
-            isDisabled={profiles !== 'admin'}
-            text={t('views.maintitlelist.list.create')}
-            to="create"
-        />
-    );
+    return <NavItem icon={<MdStore />} isDisabled={profiles !== 'admin'} text={translate('actions.new')} to="create" />;
 };
 
 export default memo(NewMainTitleAction);

@@ -1,6 +1,5 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useMainTitleListContext } from '../MainTitleList.context';
 /* layouts */
@@ -10,6 +9,8 @@ import { Button, Legend } from 'shared/components';
 import { MainTitleListFilter } from '../MainTitleListFilter';
 import { NewMainTitleAction } from '../MainTitleListActions';
 import { MainTitleListItem } from '../MainTitleListItem';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* assets */
 import { MdClose, MdFilterList } from 'react-icons/md';
 /* styles */
@@ -25,13 +26,13 @@ const MainTitleListMobile = () => {
         hideDropFilter,
     } = useMainTitleListContext();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <PanelLayout className={styles.MainTitleList}>
             <div className={styles.Header}>
-                <h1 title={t('views.maintitlelist.title')}>
-                    <Legend hasDots>{t('views.maintitlelist.title')}</Legend>
+                <h1 title={translate('maintitlelist.title')}>
+                    <Legend hasDots>{translate('maintitlelist.title')}</Legend>
                 </h1>
 
                 <DropLayout
@@ -42,7 +43,7 @@ const MainTitleListMobile = () => {
                     anchorRow="end"
                     drop={
                         <PanelLayout className={styles.FilterContent} orientation="col">
-                            <Button title={t('views.maintitlelist.actions.closefilter')} onClick={hideDropFilter}>
+                            <Button title={translate('actions.close')} onClick={hideDropFilter}>
                                 <i>
                                     <MdClose />
                                 </i>
@@ -51,10 +52,7 @@ const MainTitleListMobile = () => {
                             {!isBreakPoint && <MainTitleListFilter />}
                         </PanelLayout>
                     }>
-                    <Button
-                        className={styles.Filter}
-                        title={t('views.maintitlelist.actions.openfilter')}
-                        onClick={showDropFilter}>
+                    <Button className={styles.Filter} title={translate('actions.open')} onClick={showDropFilter}>
                         <i>
                             <MdFilterList />
                         </i>

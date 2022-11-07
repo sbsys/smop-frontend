@@ -1,6 +1,5 @@
 /* react */
 import { FC, memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* layouts */
 import { DropLayout } from 'shared/layouts';
 /* components */
@@ -9,6 +8,7 @@ import { MainTitleListState } from '../MainTitleListState';
 import { MainTitleListActions } from '../MainTitleListActions';
 /* hooks */
 import { useActive, useClickOutside, useKeyDownEvent } from 'shared/hooks';
+import { useAdminLang } from 'admin/core';
 /* utils */
 import { format } from 'date-fns';
 /* types */
@@ -26,7 +26,7 @@ const MainTitleListItem: FC<MainTitleListItemDTO> = ({
     isActive,
     totalProducts,
 }) => {
-    const { t, i18n } = useTranslation();
+    const { translate, lang } = useAdminLang();
 
     const [isDropMore, showDropMore, hideDropMore] = useActive();
 
@@ -40,10 +40,8 @@ const MainTitleListItem: FC<MainTitleListItemDTO> = ({
                 <h4>
                     <Legend
                         hasDots
-                        title={
-                            titleCollection.find(collection => collection.lang === i18n.language)?.ref ?? defaultTitle
-                        }>
-                        {titleCollection.find(collection => collection.lang === i18n.language)?.ref ?? defaultTitle}
+                        title={titleCollection.find(collection => collection.lang === lang)?.ref ?? defaultTitle}>
+                        {titleCollection.find(collection => collection.lang === lang)?.ref ?? defaultTitle}
                     </Legend>
                 </h4>
 
@@ -51,8 +49,8 @@ const MainTitleListItem: FC<MainTitleListItemDTO> = ({
                     {!createdAt ? '' : format(createdAt, 'MMM do, yyyy')}
                 </Legend>
 
-                <Legend hasDots title={t('views.maintitlelist.list.productamout')}>
-                    <>{t('views.maintitlelist.list.productamout')}</>: {totalProducts}
+                <Legend hasDots title={translate('headers.amount')}>
+                    <>{translate('headers.amount')}</>: {totalProducts}
                 </Legend>
             </div>
 
@@ -69,7 +67,7 @@ const MainTitleListItem: FC<MainTitleListItemDTO> = ({
                         <MainTitleListActions state={isActive} titleId={titleId} />
                     </div>
                 }>
-                <Button className={styles.DropAction} onClick={showDropMore} title={t('views.maintitlelist.list.more')}>
+                <Button className={styles.DropAction} onClick={showDropMore} title={translate('actions.more')}>
                     <i>
                         <MdMoreVert />
                     </i>

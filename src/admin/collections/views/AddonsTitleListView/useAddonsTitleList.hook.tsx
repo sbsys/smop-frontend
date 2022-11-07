@@ -1,13 +1,12 @@
 /* react */
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { useOutlet } from 'react-router-dom';
 /* props */
 import { AddonsTitleListContextProps } from './AddonsTitleList.props';
 /* hooks */
 import { useActive, useKeyDownEvent, useLoader, useMinWidth } from 'shared/hooks';
-import { FieldSetProps, useAdminNotify } from 'admin/core';
+import { FieldSetProps, useAdminLang, useAdminNotify } from 'admin/core';
 /* services */
 import { addonsTitleListService } from 'admin/collections/services';
 /* utils */
@@ -48,7 +47,7 @@ export const useAddonsTitleList = () => {
 
     const isBreakPoint = useMemo(() => matchBreakPoint('md', bp).on, [bp]);
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     const addonsTitleList = useMemo(() => {
         let list = titles.slice();
@@ -157,13 +156,13 @@ export const useAddonsTitleList = () => {
     const referenceNameField: FieldSetProps = {
         field: {
             className: FieldStyles.OutlinePrimary,
-            placeholder: t('views.addonstitlelist.filter.form.referencename.placeholder'),
+            placeholder: translate('filter.name'),
             ...register('name'),
         },
         isHintReserved: true,
         hint: {
             hasDots: true,
-            children: t('views.addonstitlelist.filter.form.referencename.hint'),
+            children: translate('filter.name'),
         },
     };
 
@@ -171,14 +170,14 @@ export const useAddonsTitleList = () => {
         field: {
             className: FieldStyles.OutlinePrimary,
             strategy: 'select',
-            placeholder: t('views.addonstitlelist.filter.form.state.placeholder'),
+            placeholder: translate('filter.status'),
             options: [
                 {
-                    label: t('views.addonstitlelist.filter.form.state.active'),
+                    label: translate('status.active'),
                     value: 'active',
                 },
                 {
-                    label: t('views.addonstitlelist.filter.form.state.inactive'),
+                    label: translate('status.inactive'),
                     value: 'inactive',
                 },
             ],
@@ -186,37 +185,37 @@ export const useAddonsTitleList = () => {
         },
         isHintReserved: true,
         hint: {
-            children: t('views.addonstitlelist.filter.form.state.hint'),
+            children: translate('filter.status'),
             hasDots: true,
-            title: t('views.addonstitlelist.filter.form.state.hint'),
+            title: translate('filter.status'),
         },
     };
 
     const fromDateField: FieldSetProps = {
         field: {
             className: FieldStyles.OutlinePrimary,
-            placeholder: t('views.addonstitlelist.filter.form.fromdate.placeholder'),
+            placeholder: translate('filter.fromdate'),
             strategy: 'date',
             ...register('fromDate'),
         },
         isHintReserved: true,
         hint: {
             hasDots: true,
-            children: t('views.addonstitlelist.filter.form.fromdate.hint'),
+            children: translate('filter.fromdate'),
         },
     };
 
     const toDateField: FieldSetProps = {
         field: {
             className: FieldStyles.OutlinePrimary,
-            placeholder: t('views.addonstitlelist.filter.form.todate.placeholder'),
+            placeholder: translate('filter.todate'),
             strategy: 'date',
             ...register('toDate'),
         },
         isHintReserved: true,
         hint: {
             hasDots: true,
-            children: t('views.addonstitlelist.filter.form.todate.hint'),
+            children: translate('filter.todate'),
         },
     };
 

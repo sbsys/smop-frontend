@@ -1,10 +1,11 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* custom hook */
 import { useAddonsTitle } from './useAddonsTitle.hook';
 /* context */
 import { useAddonsTitleListContext } from '../AddonsTitleList.context';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* layouts */
 import { ModalLayout, PanelLayout, ScrollLayout } from 'shared/layouts';
 /* components */
@@ -28,23 +29,23 @@ const AddonsTitleModal = () => {
 
     const { productList } = useAddonsTitle();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <ModalLayout isVisible={selectedTitle !== null} rowAlignment="center" colAlignment="center" hasIndentation>
             <PanelLayout orientation="col" className={styles.AddonsTitle}>
-                <div className={styles.Header} title={t('views.addonstitlelist.detail.title')}>
+                <div className={styles.Header} title={translate('addontitledetail.title')}>
                     <i>
                         <MdInfo />
                     </i>
 
-                    <Legend hasDots>{t('views.addonstitlelist.detail.title')}</Legend>
+                    <Legend hasDots>{translate('addontitledetail.title')}</Legend>
                 </div>
 
                 <PanelLayout orientation="col" className={styles.Content}>
                     <div className={styles.Boolean}>
                         <Legend hasDots className={styles.Title}>
-                            {t('views.addonstitlelist.detail.multilanguage')}
+                            {translate('commons.multilanguage')}
                         </Legend>
 
                         <i
@@ -56,8 +57,8 @@ const AddonsTitleModal = () => {
                         </i>
                     </div>
 
-                    <Legend hasDots title={t('views.addonstitlelist.detail.reference')} className={styles.Title}>
-                        {t('views.addonstitlelist.detail.reference')}
+                    <Legend hasDots title={translate('addontitledetail.collection')} className={styles.Title}>
+                        {translate('addontitledetail.collection')}
                     </Legend>
 
                     {selectedTitle?.multiLanguage ? (
@@ -72,8 +73,8 @@ const AddonsTitleModal = () => {
                         <Legend title={selectedTitle?.defaultTitle}>{selectedTitle?.defaultTitle}</Legend>
                     )}
 
-                    <Legend hasDots title={t('views.addonstitlelist.detail.created')} className={styles.Title}>
-                        {t('views.addonstitlelist.detail.created')}
+                    <Legend hasDots title={translate('addontitledetail.created')} className={styles.Title}>
+                        {translate('addontitledetail.created')}
                     </Legend>
 
                     <Legend title={!selectedTitle?.createdAt ? '' : format(selectedTitle.createdAt, 'MMM do, yyyy')}>
@@ -82,8 +83,8 @@ const AddonsTitleModal = () => {
 
                     {productList.length > 0 && (
                         <>
-                            <Legend hasDots title={t('views.addonstitlelist.detail.products')} className={styles.Title}>
-                                {t('views.addonstitlelist.detail.products')}
+                            <Legend hasDots title={translate('addontitledetail.products')} className={styles.Title}>
+                                {translate('addontitledetail.products')}
                             </Legend>
 
                             <ScrollLayout orientation="col">
@@ -107,10 +108,10 @@ const AddonsTitleModal = () => {
                     <Button
                         type="button"
                         className={ButtonStyles.OutlineNone}
-                        title={t('views.addonstitlelist.detail.actions.cancel')}
+                        title={translate('actions.close')}
                         onClick={handleUnselectTitle}>
                         <Legend hasDots justify="center">
-                            {t('views.addonstitlelist.detail.actions.cancel')}
+                            {translate('actions.close')}
                         </Legend>
                     </Button>
                 </div>

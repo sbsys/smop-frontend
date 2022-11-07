@@ -1,6 +1,7 @@
 /* react */
 import { FC, memo } from 'react';
-import { useTranslation } from 'react-i18next';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* components */
 import { Legend } from 'shared/components';
 /* utils */
@@ -11,7 +12,7 @@ import { TitleState } from 'admin/collections/types';
 import styles from './AddonsTitleListState.module.scss';
 
 const AddonsTitleListState: FC<{ state: TitleState }> = ({ state }) => {
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     const stateStylesStrategy: Record<TitleState, string> = {
         active: styles.StateActive,
@@ -23,8 +24,8 @@ const AddonsTitleListState: FC<{ state: TitleState }> = ({ state }) => {
             className={classNames(styles.State, stateStylesStrategy[state])}
             hasDots
             justify="center"
-            title={t(`views.addonstitlelist.list.states.${state}`)}>
-            {t(`views.addonstitlelist.list.states.${state}`)}
+            title={translate(`status.${state}`)}>
+            {translate(`status.${state}`)}
         </Legend>
     );
 };

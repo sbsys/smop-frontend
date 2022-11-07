@@ -2,7 +2,6 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 /* props */
 import {
     CreateAddonTitleContextProps,
@@ -11,7 +10,7 @@ import {
 } from './CreateAddonTitle.props';
 /* hooks */
 import { useLoader } from 'shared/hooks';
-import { FieldSetProps, Lang, useAdminNotify } from 'admin/core';
+import { AdminLang, FieldSetProps, Lang, useAdminLang, useAdminNotify } from 'admin/core';
 /* services */
 import { createAddonTitleService } from 'admin/collections/services';
 /* utils */
@@ -40,7 +39,7 @@ export const useCreateAddonTitle = () => {
 
     const { notify } = useAdminNotify();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     const navigate = useNavigate();
 
@@ -100,20 +99,20 @@ export const useCreateAddonTitle = () => {
         field: {
             className: errors.defaultTitle ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'text',
-            placeholder: t('views.createaddontitle.form.defaulttitle.placeholder'),
+            placeholder: translate('createaddontitle.collection.placeholder'),
             ...register('defaultTitle'),
         },
         isHintReserved: true,
         hint: errors.defaultTitle
             ? {
-                  children: t(errors.defaultTitle.message as string),
+                  children: translate(errors.defaultTitle.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.defaultTitle.message as string),
+                  title: translate(errors.defaultTitle.message as AdminLang),
               }
             : {
-                  children: t('views.createaddontitle.form.defaulttitle.hint'),
+                  children: translate('createaddontitle.collection.hint'),
                   hasDots: true,
-                  title: t('views.createaddontitle.form.defaulttitle.hint'),
+                  title: translate('createaddontitle.collection.hint'),
               },
     };
     const multiLanguageProps: FieldSetProps = {
@@ -121,20 +120,20 @@ export const useCreateAddonTitle = () => {
         field: {
             className: errors.multiLanguage ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'checkbox',
-            placeholder: t('views.createaddontitle.form.multilanguage.placeholder'),
+            placeholder: translate('commons.allowmultilanguage'),
             ...register('multiLanguage'),
         },
         isHintReserved: true,
         hint: errors.multiLanguage
             ? {
-                  children: t(errors.multiLanguage.message as string),
+                  children: translate(errors.multiLanguage.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.multiLanguage.message as string),
+                  title: translate(errors.multiLanguage.message as AdminLang),
               }
             : {
-                  children: t('views.createaddontitle.form.multilanguage.hint'),
+                  children: translate('commons.allowmultilanguage'),
                   hasDots: true,
-                  title: t('views.createaddontitle.form.multilanguage.hint'),
+                  title: translate('commons.allowmultilanguage'),
               },
     };
     const titleCollectionProps = (index: number, lang: Lang): FieldSetProps => {
@@ -147,7 +146,7 @@ export const useCreateAddonTitle = () => {
                         ? FieldStyles.OutlineDanger
                         : FieldStyles.OutlinePrimary,
                 strategy: 'text',
-                placeholder: t('views.createaddontitle.form.titlecollection.placeholder'),
+                placeholder: translate('createaddontitle.collection.placeholder'),
                 afterContent: lang.toUpperCase(),
                 ...register(`titleCollection.${index}.refs`),
             },
@@ -155,14 +154,14 @@ export const useCreateAddonTitle = () => {
             hint:
                 errors.titleCollection && errors.titleCollection[index]?.refs
                     ? {
-                          children: t(errors.titleCollection[index]?.refs?.message as string),
+                          children: translate(errors.titleCollection[index]?.refs?.message as AdminLang),
                           hasDots: true,
-                          title: t(errors.titleCollection[index]?.refs?.message as string),
+                          title: translate(errors.titleCollection[index]?.refs?.message as AdminLang),
                       }
                     : {
-                          children: t('views.createaddontitle.form.titlecollection.hint'),
+                          children: translate('createaddontitle.collection.hint'),
                           hasDots: true,
-                          title: t('views.createaddontitle.form.titlecollection.hint'),
+                          title: translate('createaddontitle.collection.hint'),
                       },
         };
     };

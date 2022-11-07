@@ -75,10 +75,18 @@ const UpdateMainTitleStateModal = () => {
                                     ? ButtonStyles.FillDanger
                                     : ButtonStyles.FillSuccess
                             }
-                            title={translate('actions.update')}
+                            title={translate(
+                                selectedTitleToUpdateState?.isActive === 'active'
+                                    ? 'actions.deactivate'
+                                    : 'actions.activate'
+                            )}
                             onClick={handleUpdateStateMainTitle}>
                             <Legend hasDots justify="center">
-                                {translate('actions.update')}
+                                {translate(
+                                    selectedTitleToUpdateState?.isActive === 'active'
+                                        ? 'actions.deactivate'
+                                        : 'actions.activate'
+                                )}
                             </Legend>
                         </Button>
                     </div>

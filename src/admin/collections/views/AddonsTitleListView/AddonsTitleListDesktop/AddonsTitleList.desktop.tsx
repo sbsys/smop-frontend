@@ -1,8 +1,9 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useAddonsTitleListContext } from '../AddonsTitleList.context';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* layouts */
 import { PanelLayout, TableLayout } from 'shared/layouts';
 /* components */
@@ -22,12 +23,12 @@ const AddonsTitleListDesktop = () => {
         addonsTitleList,
     } = useAddonsTitleListContext();
 
-    const { t, i18n } = useTranslation();
+    const { translate, lang } = useAdminLang();
 
     return (
         <PanelLayout className={styles.AddonsTitleList}>
-            <h1 title={t('views.addonstitlelist.title')}>
-                <Legend hasDots>{t('views.addonstitlelist.title')}</Legend>
+            <h1 title={translate('addontitlelist.title')}>
+                <Legend hasDots>{translate('addontitlelist.title')}</Legend>
             </h1>
 
             {isBreakPoint && (
@@ -47,42 +48,39 @@ const AddonsTitleListDesktop = () => {
                         columns: [
                             {
                                 children: (
-                                    <Legend hasDots title={t('views.addonstitlelist.list.name')}>
-                                        {t('views.addonstitlelist.list.name')}
+                                    <Legend hasDots title={translate('headers.name')}>
+                                        {translate('headers.name')}
                                     </Legend>
                                 ),
                                 span: 3,
                             },
                             {
                                 children: (
-                                    <Legend
-                                        hasDots
-                                        justify="center"
-                                        title={t('views.addonstitlelist.list.productamount')}>
-                                        {t('views.addonstitlelist.list.productamount')}
+                                    <Legend hasDots justify="center" title={translate('headers.amount')}>
+                                        {translate('headers.amount')}
                                     </Legend>
                                 ),
                             },
                             {
                                 children: (
-                                    <Legend hasDots justify="center" title={t('views.addonstitlelist.list.created')}>
-                                        {t('views.addonstitlelist.list.created')}
+                                    <Legend hasDots justify="center" title={translate('headers.created')}>
+                                        {translate('headers.created')}
                                     </Legend>
                                 ),
                                 span: 2,
                             },
                             {
                                 children: (
-                                    <Legend hasDots justify="center" title={t('views.addonstitlelist.list.state')}>
-                                        {t('views.addonstitlelist.list.state')}
+                                    <Legend hasDots justify="center" title={translate('headers.status')}>
+                                        {translate('headers.status')}
                                     </Legend>
                                 ),
                                 span: 2,
                             },
                             {
                                 children: (
-                                    <Legend hasDots justify="center" title={t('views.addonstitlelist.list.actions')}>
-                                        {t('views.addonstitlelist.list.actions')}
+                                    <Legend hasDots justify="center" title={translate('headers.actions')}>
+                                        {translate('headers.actions')}
                                     </Legend>
                                 ),
                                 span: 2,
@@ -96,11 +94,11 @@ const AddonsTitleListDesktop = () => {
                                     <Legend
                                         hasDots
                                         title={
-                                            item.titleCollection.find(collection => collection.lang === i18n.language)
-                                                ?.ref ?? item.defaultTitle
+                                            item.titleCollection.find(collection => collection.lang === lang)?.ref ??
+                                            item.defaultTitle
                                         }>
-                                        {item.titleCollection.find(collection => collection.lang === i18n.language)
-                                            ?.ref ?? item.defaultTitle}
+                                        {item.titleCollection.find(collection => collection.lang === lang)?.ref ??
+                                            item.defaultTitle}
                                     </Legend>
                                 ),
                             },

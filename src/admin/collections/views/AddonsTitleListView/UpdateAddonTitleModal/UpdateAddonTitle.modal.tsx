@@ -1,6 +1,5 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* custom hook */
 import { useUpdateAddonTitle } from './useUpdateAddonTitle.hook';
 /* context */
@@ -9,7 +8,7 @@ import { useAddonsTitleListContext } from '../AddonsTitleList.context';
 import { ModalLayout, ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
-import { FieldSet } from 'admin/core';
+import { FieldSet, useAdminLang } from 'admin/core';
 /* assets */
 import { MdWarning } from 'react-icons/md';
 /* styles */
@@ -24,7 +23,7 @@ const UpdateAddonTitleModal = () => {
 
     const { handleCancelUpdateAddonTitle, handleUpdateAddonTitle, UpdateAddonTitleFieldProps } = useUpdateAddonTitle();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <ModalLayout
@@ -34,12 +33,12 @@ const UpdateAddonTitleModal = () => {
             hasIndentation>
             <ScrollLayout orientation="col" classNameContent={styles.UpdateAddonTitle}>
                 <form onSubmit={handleUpdateAddonTitle}>
-                    <div className={styles.Header} title={t('views.addontitlelist.update.title')}>
+                    <div className={styles.Header} title={translate('addontitleedit.title')}>
                         <i>
                             <MdWarning />
                         </i>
 
-                        <Legend hasDots>{t('views.addontitlelist.update.title')}</Legend>
+                        <Legend hasDots>{translate('addontitleedit.title')}</Legend>
                     </div>
 
                     <div className={styles.Content}>
@@ -52,19 +51,19 @@ const UpdateAddonTitleModal = () => {
                         <Button
                             type="button"
                             className={ButtonStyles.OutlineNone}
-                            title={t('views.addontitlelist.update.actions.cancel')}
+                            title={translate('actions.cancel')}
                             onClick={handleCancelUpdateAddonTitle}>
                             <Legend hasDots justify="center">
-                                {t('views.addontitlelist.update.actions.cancel')}
+                                {translate('actions.cancel')}
                             </Legend>
                         </Button>
 
                         <Button
                             type="submit"
                             className={ButtonStyles.FillSecondary}
-                            title={t('views.addontitlelist.update.actions.update')}>
+                            title={translate('actions.update')}>
                             <Legend hasDots justify="center">
-                                {t('views.addontitlelist.update.actions.update')}
+                                {translate('actions.update')}
                             </Legend>
                         </Button>
                     </div>

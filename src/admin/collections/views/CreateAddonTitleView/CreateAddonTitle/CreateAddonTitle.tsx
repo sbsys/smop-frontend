@@ -1,13 +1,12 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useCreateAddonTitleContext } from '../CreateAddonTitle.context';
 /* layouts */
 import { ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
-import { FieldSet } from 'admin/core';
+import { FieldSet, useAdminLang } from 'admin/core';
 /* styles */
 import { ButtonStyles } from 'shared/styles';
 import styles from './CreateAddonTitle.module.scss';
@@ -21,13 +20,13 @@ const CreateAddonTitle = () => {
         createAddonTitleFieldProps,
     } = useCreateAddonTitleContext();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <ScrollLayout classNameContent={styles.CreateAddonTitle} orientation="col">
             <form onSubmit={handleCreateAddonTitle}>
-                <legend title={t('views.createaddontitle.form.title')}>
-                    <Legend hasDots>{t('views.createaddontitle.form.title')}</Legend>
+                <legend title={translate('createaddontitle.title')}>
+                    <Legend hasDots>{translate('createaddontitle.title')}</Legend>
                 </legend>
 
                 {createAddonTitleFieldProps.map((field, index) => (
@@ -37,20 +36,17 @@ const CreateAddonTitle = () => {
                 <div>
                     <Button
                         type="button"
-                        title={t('views.createaddontitle.form.actions.cancel')}
+                        title={translate('actions.cancel')}
                         className={ButtonStyles.OutlineNone}
                         onClick={handleCalcelCreateAddonTitle}>
                         <Legend hasDots justify="center">
-                            {t('views.createaddontitle.form.actions.cancel')}
+                            {translate('actions.cancel')}
                         </Legend>
                     </Button>
 
-                    <Button
-                        type="submit"
-                        title={t('views.createaddontitle.form.actions.create')}
-                        className={ButtonStyles.FillSecondary}>
+                    <Button type="submit" title={translate('actions.save')} className={ButtonStyles.FillSecondary}>
                         <Legend hasDots justify="center">
-                            {t('views.createaddontitle.form.actions.create')}
+                            {translate('actions.save')}
                         </Legend>
                     </Button>
                 </div>

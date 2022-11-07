@@ -1,8 +1,9 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useAddonsTitleListContext } from '../AddonsTitleList.context';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* layouts */
 import { DropLayout, PanelLayout, ScrollLayout } from 'shared/layouts';
 /* components */
@@ -25,13 +26,13 @@ const AddonsTitleListMobile = () => {
         hideDropFilter,
     } = useAddonsTitleListContext();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <PanelLayout className={styles.AddonsTitleList}>
             <div className={styles.Header}>
-                <h1 title={t('views.addonstitlelist.title')}>
-                    <Legend hasDots>{t('views.addonstitlelist.title')}</Legend>
+                <h1 title={translate('addontitlelist.title')}>
+                    <Legend hasDots>{translate('addontitlelist.title')}</Legend>
                 </h1>
 
                 <DropLayout
@@ -42,7 +43,7 @@ const AddonsTitleListMobile = () => {
                     anchorRow="end"
                     drop={
                         <PanelLayout className={styles.FilterContent} orientation="col">
-                            <Button title={t('views.addonstitlelist.actions.closefilter')} onClick={hideDropFilter}>
+                            <Button title={translate('actions.close')} onClick={hideDropFilter}>
                                 <i>
                                     <MdClose />
                                 </i>
@@ -51,10 +52,7 @@ const AddonsTitleListMobile = () => {
                             {!isBreakPoint && <AddonsTitleListFilter />}
                         </PanelLayout>
                     }>
-                    <Button
-                        className={styles.Filter}
-                        title={t('views.addonstitlelist.actions.openfilter')}
-                        onClick={showDropFilter}>
+                    <Button className={styles.Filter} title={translate('actions.open')} onClick={showDropFilter}>
                         <i>
                             <MdFilterList />
                         </i>

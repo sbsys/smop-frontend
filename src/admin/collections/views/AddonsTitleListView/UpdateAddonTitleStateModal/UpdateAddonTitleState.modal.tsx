@@ -1,6 +1,5 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* custom hook */
 import { useUpdateAddonTitleState } from './useUpdateAddonTitleState.hook';
 /* context */
@@ -9,6 +8,8 @@ import { useAddonsTitleListContext } from '../AddonsTitleList.context';
 import { ModalLayout, ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* assets */
 import { MdWarning } from 'react-icons/md';
 /* styles */
@@ -23,7 +24,7 @@ const UpdateAddonTitleStateModal = () => {
 
     const { handleCancelUpdateStateAddonTitle, handleUpdateStateAddonTitle } = useUpdateAddonTitleState();
 
-    const { t, i18n } = useTranslation();
+    const { translate, lang } = useAdminLang();
 
     return (
         <ModalLayout
@@ -33,24 +34,23 @@ const UpdateAddonTitleStateModal = () => {
             hasIndentation>
             <ScrollLayout orientation="col" classNameContent={styles.UpdateState}>
                 <section>
-                    <div className={styles.Header} title={t('views.addontitlelist.updatestate.title')}>
+                    <div className={styles.Header} title={translate('addontitlelist.updatestatus')}>
                         <i>
                             <MdWarning />
                         </i>
 
-                        <Legend hasDots>{t('views.addontitlelist.updatestate.title')}</Legend>
+                        <Legend hasDots>{translate('addontitlelist.updatestatus')}</Legend>
                     </div>
 
                     <div className={styles.Content}>
                         <Legend justify="center">
-                            {selectedTitleToUpdateState?.titleCollection.find(
-                                collection => collection.lang === i18n.language
-                            )?.ref ?? selectedTitleToUpdateState?.defaultTitle}
+                            {selectedTitleToUpdateState?.titleCollection.find(collection => collection.lang === lang)
+                                ?.ref ?? selectedTitleToUpdateState?.defaultTitle}
                         </Legend>
 
                         <Legend justify="center">
-                            {t(
-                                `views.addontitlelist.updatestate.${
+                            {translate(
+                                `messages.${
                                     selectedTitleToUpdateState?.isActive === 'active' ? 'deactivate' : 'activate'
                                 }`
                             )}
@@ -61,10 +61,10 @@ const UpdateAddonTitleStateModal = () => {
                         <Button
                             type="button"
                             className={ButtonStyles.OutlineNone}
-                            title={t('views.addontitlelist.updatestate.actions.cancel')}
+                            title={translate('actions.cancel')}
                             onClick={handleCancelUpdateStateAddonTitle}>
                             <Legend hasDots justify="center">
-                                {t('views.addontitlelist.updatestate.actions.cancel')}
+                                {translate('actions.cancel')}
                             </Legend>
                         </Button>
 
@@ -75,10 +75,18 @@ const UpdateAddonTitleStateModal = () => {
                                     ? ButtonStyles.FillDanger
                                     : ButtonStyles.FillSuccess
                             }
-                            title={t('views.addontitlelist.updatestate.actions.update')}
+                            title={translate(
+                                selectedTitleToUpdateState?.isActive === 'active'
+                                    ? 'actions.deactivate'
+                                    : 'actions.activate'
+                            )}
                             onClick={handleUpdateStateAddonTitle}>
                             <Legend hasDots justify="center">
-                                {t('views.addontitlelist.updatestate.actions.update')}
+                                {translate(
+                                    selectedTitleToUpdateState?.isActive === 'active'
+                                        ? 'actions.deactivate'
+                                        : 'actions.activate'
+                                )}
                             </Legend>
                         </Button>
                     </div>

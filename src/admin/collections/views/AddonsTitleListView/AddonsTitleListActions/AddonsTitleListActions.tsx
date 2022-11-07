@@ -1,7 +1,8 @@
 import { FC, memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useAddonsTitleListContext } from '../AddonsTitleList.context';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* components */
 import { Button } from 'shared/components';
 /* types */
@@ -19,7 +20,7 @@ const AddonsTitleListActions: FC<{ state: TitleState; titleId: number }> = ({ st
         handleSelectTitleToUpdateState,
     } = useAddonsTitleListContext();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <div className={styles.Actions}>
@@ -27,7 +28,7 @@ const AddonsTitleListActions: FC<{ state: TitleState; titleId: number }> = ({ st
                 <Button
                     className={styles.Delete}
                     onClick={() => handleSelectTitleToUpdateState(titleId)}
-                    title={t('views.addonstitlelist.list.suspend')}>
+                    title={translate('actions.suspend')}>
                     <i>
                         <MdThumbDown />
                     </i>
@@ -36,7 +37,7 @@ const AddonsTitleListActions: FC<{ state: TitleState; titleId: number }> = ({ st
                 <Button
                     className={styles.Restore}
                     onClick={() => handleSelectTitleToUpdateState(titleId)}
-                    title={t('views.addonstitlelist.list.restore')}>
+                    title={translate('actions.restore')}>
                     <i>
                         <MdThumbUp />
                     </i>
@@ -47,7 +48,7 @@ const AddonsTitleListActions: FC<{ state: TitleState; titleId: number }> = ({ st
                 className={styles.Edit}
                 onClick={() => handleSelectTitleToUpdate(titleId)}
                 disabled={state === 'inactive'}
-                title={t('views.addonstitlelist.list.edit')}>
+                title={translate('actions.edit')}>
                 <i>
                     <MdEdit />
                 </i>
@@ -57,7 +58,7 @@ const AddonsTitleListActions: FC<{ state: TitleState; titleId: number }> = ({ st
                 className={styles.View}
                 onClick={() => handleSelectTitle(titleId)}
                 disabled={state === 'inactive'}
-                title={t('views.addonstitlelist.list.view')}>
+                title={translate('actions.detail')}>
                 <i>
                     <MdVisibility />
                 </i>

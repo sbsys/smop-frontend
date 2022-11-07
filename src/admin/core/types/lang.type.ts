@@ -71,6 +71,7 @@ export type AdminLang =
     | 'filter.fromdate'
     | 'filter.todate'
     | 'filter.profile'
+    | 'filter.type'
     /* headers */
     | 'headers.name'
     | 'headers.created'
@@ -82,6 +83,8 @@ export type AdminLang =
     /* status */
     | 'status.active'
     | 'status.inactive'
+    /* types */
+    | 'types.addon'
     /* nav links */
     | 'links.home'
     | 'links.organizations'

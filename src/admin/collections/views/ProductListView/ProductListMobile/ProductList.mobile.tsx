@@ -1,6 +1,5 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useProductListContext } from '../ProductList.context';
 /* layouts */
@@ -10,6 +9,8 @@ import { Button, Legend } from 'shared/components';
 import { ProductListFilter } from '../ProductListFilter';
 import { NewProductAction } from '../ProductListActions';
 import { ProductListItem } from '../ProductListItem';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* assets */
 import { MdClose, MdFilterList } from 'react-icons/md';
 /* styles */
@@ -25,13 +26,13 @@ const ProductListMobile = () => {
         hideDropFilter,
     } = useProductListContext();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <PanelLayout className={styles.ProductList}>
             <div className={styles.Header}>
-                <h1 title={t('views.productlist.title')}>
-                    <Legend hasDots>{t('views.productlist.title')}</Legend>
+                <h1 title={translate('productlist.title')}>
+                    <Legend hasDots>{translate('productlist.title')}</Legend>
                 </h1>
 
                 <DropLayout
@@ -42,7 +43,7 @@ const ProductListMobile = () => {
                     anchorRow="end"
                     drop={
                         <PanelLayout className={styles.FilterContent} orientation="col">
-                            <Button title={t('views.productlist.actions.closefilter')} onClick={hideDropFilter}>
+                            <Button title={translate('actions.close')} onClick={hideDropFilter}>
                                 <i>
                                     <MdClose />
                                 </i>
@@ -51,10 +52,7 @@ const ProductListMobile = () => {
                             {!isBreakPoint && <ProductListFilter />}
                         </PanelLayout>
                     }>
-                    <Button
-                        className={styles.Filter}
-                        title={t('views.productlist.actions.openfilter')}
-                        onClick={showDropFilter}>
+                    <Button className={styles.Filter} title={translate('actions.open')} onClick={showDropFilter}>
                         <i>
                             <MdFilterList />
                         </i>

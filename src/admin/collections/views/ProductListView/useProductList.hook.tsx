@@ -1,12 +1,11 @@
 /* react */
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 /* props */
 import { ProductListContextProps } from './ProductList.props';
 /* hooks */
 import { useActive, useKeyDownEvent, useLoader, useMinWidth } from 'shared/hooks';
-import { FieldSetProps, useAdminNotify } from 'admin/core';
+import { FieldSetProps, useAdminLang, useAdminNotify } from 'admin/core';
 /* utils */
 import { isDate, parse } from 'date-fns';
 import { isAfterOrEqual, isBeforeOrEqual, matchBreakPoint } from 'shared/utils';
@@ -16,6 +15,7 @@ import { productListService } from 'admin/collections/services';
 import { ProductListItemDTO, ProductState } from 'admin/collections/types';
 /* assets */
 import { MdDangerous } from 'react-icons/md';
+/* styles */
 import { FieldStyles } from 'shared/styles';
 
 interface ProductListFilterForm {
@@ -47,7 +47,7 @@ export const useProductList = () => {
 
     const isBreakPoint = useMemo(() => matchBreakPoint('md', bp).on, [bp]);
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     const productList = useMemo(() => {
         let list = products.slice();
@@ -132,28 +132,28 @@ export const useProductList = () => {
     const nameField: FieldSetProps = {
         field: {
             className: FieldStyles.OutlinePrimary,
-            placeholder: t('views.productlist.filter.form.name.placeholder'),
+            placeholder: translate('filter.name'),
             ...register('name'),
         },
         isHintReserved: true,
         hint: {
-            title: t('views.productlist.filter.form.name.hint'),
+            title: translate('filter.name'),
             hasDots: true,
-            children: t('views.productlist.filter.form.name.hint'),
+            children: translate('filter.name'),
         },
     };
     const stateProps: FieldSetProps = {
         field: {
             className: FieldStyles.OutlinePrimary,
             strategy: 'select',
-            placeholder: t('views.productlist.filter.form.state.placeholder'),
+            placeholder: translate('filter.status'),
             options: [
                 {
-                    label: t('views.productlist.filter.form.state.active'),
+                    label: translate('status.active'),
                     value: 'active',
                 },
                 {
-                    label: t('views.productlist.filter.form.state.inactive'),
+                    label: translate('status.inactive'),
                     value: 'inactive',
                 },
             ],
@@ -161,19 +161,19 @@ export const useProductList = () => {
         },
         isHintReserved: true,
         hint: {
-            children: t('views.productlist.filter.form.state.hint'),
+            children: translate('filter.status'),
             hasDots: true,
-            title: t('views.productlist.filter.form.state.hint'),
+            title: translate('filter.status'),
         },
     };
     const markAsAddonProps: FieldSetProps = {
         field: {
             className: FieldStyles.OutlinePrimary,
             strategy: 'select',
-            placeholder: t('views.productlist.filter.form.markasaddon.placeholder'),
+            placeholder: translate('filter.type'),
             options: [
                 {
-                    label: t('views.productlist.filter.form.markasaddon.addon'),
+                    label: translate('types.addon'),
                     value: 'addon',
                 },
             ],
@@ -181,37 +181,37 @@ export const useProductList = () => {
         },
         isHintReserved: true,
         hint: {
-            children: t('views.productlist.filter.form.markasaddon.hint'),
+            children: translate('filter.type'),
             hasDots: true,
-            title: t('views.productlist.filter.form.markasaddon.hint'),
+            title: translate('filter.type'),
         },
     };
     const fromDateField: FieldSetProps = {
         field: {
             className: FieldStyles.OutlinePrimary,
-            placeholder: t('views.productlist.filter.form.fromdate.placeholder'),
+            placeholder: translate('filter.fromdate'),
             strategy: 'date',
             ...register('fromDate'),
         },
         isHintReserved: true,
         hint: {
-            title: t('views.productlist.filter.form.fromdate.hint'),
+            title: translate('filter.fromdate'),
             hasDots: true,
-            children: t('views.productlist.filter.form.fromdate.hint'),
+            children: translate('filter.fromdate'),
         },
     };
     const toDateField: FieldSetProps = {
         field: {
             className: FieldStyles.OutlinePrimary,
-            placeholder: t('views.productlist.filter.form.todate.placeholder'),
+            placeholder: translate('filter.todate'),
             strategy: 'date',
             ...register('toDate'),
         },
         isHintReserved: true,
         hint: {
-            title: t('views.productlist.filter.form.todate.hint'),
+            title: translate('filter.todate'),
             hasDots: true,
-            children: t('views.productlist.filter.form.todate.hint'),
+            children: translate('filter.todate'),
         },
     };
 

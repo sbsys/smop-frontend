@@ -1,6 +1,5 @@
 /* react */
 import { FC, memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* layouts */
 import { DropLayout } from 'shared/layouts';
 /* components */
@@ -9,6 +8,7 @@ import { ProductListState } from '../ProductListState';
 import { ProductListActions } from '../ProductListActions';
 /* hooks */
 import { useActive, useClickOutside, useKeyDownEvent } from 'shared/hooks';
+import { useAdminLang } from 'admin/core';
 /* utils */
 import { format } from 'date-fns';
 /* types */
@@ -19,7 +19,7 @@ import { MdMoreVert } from 'react-icons/md';
 import styles from './ProductListItem.module.scss';
 
 const ProductListItem: FC<ProductListItemDTO> = ({ productId, defaultReference, markAsAddon, createdAt, isActive }) => {
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     const [isDropMore, showDropMore, hideDropMore] = useActive();
 
@@ -55,7 +55,7 @@ const ProductListItem: FC<ProductListItemDTO> = ({ productId, defaultReference, 
                         <ProductListActions state={isActive} productId={productId} />
                     </div>
                 }>
-                <Button className={styles.DropAction} onClick={showDropMore} title={t('views.productlist.list.more')}>
+                <Button className={styles.DropAction} onClick={showDropMore} title={translate('actions.more')}>
                     <i>
                         <MdMoreVert />
                     </i>

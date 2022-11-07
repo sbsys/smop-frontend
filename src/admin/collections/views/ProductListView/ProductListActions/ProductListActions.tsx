@@ -1,8 +1,9 @@
 import { FC, memo } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 /* context */
 import { useProductListContext } from '../ProductList.context';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* components */
 import { Button } from 'shared/components';
 /* types */
@@ -20,7 +21,7 @@ const ProductListActions: FC<{ state: ProductState; productId: string }> = ({ st
 
     const navigate = useNavigate();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <div className={styles.Actions}>
@@ -30,7 +31,7 @@ const ProductListActions: FC<{ state: ProductState; productId: string }> = ({ st
                     onClick={() => {
                         handleSelectProductToUpdateState(productId);
                     }}
-                    title={t('views.productlist.list.suspend')}>
+                    title={translate('actions.suspend')}>
                     <i>
                         <MdThumbDown />
                     </i>
@@ -41,7 +42,7 @@ const ProductListActions: FC<{ state: ProductState; productId: string }> = ({ st
                     onClick={() => {
                         handleSelectProductToUpdateState(productId);
                     }}
-                    title={t('views.productlist.list.restore')}>
+                    title={translate('actions.restore')}>
                     <i>
                         <MdThumbUp />
                     </i>
@@ -52,7 +53,7 @@ const ProductListActions: FC<{ state: ProductState; productId: string }> = ({ st
                 className={styles.View}
                 onClick={() => navigate(productId)}
                 disabled={state === 'inactive'}
-                title={t('views.productlist.list.view')}>
+                title={translate('actions.detail')}>
                 <i>
                     <MdVisibility />
                 </i>

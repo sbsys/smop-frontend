@@ -73,6 +73,7 @@ export const en: Record<AdminLang, string> = {
     'filter.fromdate': 'from creation date',
     'filter.todate': 'to creation date',
     'filter.profile': 'filter by profile',
+    'filter.type': 'filter by type',
     /* headers */
     'headers.name': 'Name',
     'headers.created': 'Created',
@@ -84,6 +85,8 @@ export const en: Record<AdminLang, string> = {
     /* status */
     'status.active': 'Active',
     'status.inactive': 'Inactive',
+    /* types */
+    'types.addon': 'Mark as addon',
     /* nav links */
     'links.home': 'Home',
     'links.organizations': 'Organizations',

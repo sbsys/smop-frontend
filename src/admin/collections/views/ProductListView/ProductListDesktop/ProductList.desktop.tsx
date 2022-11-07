@@ -1,8 +1,9 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useProductListContext } from '../ProductList.context';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* layouts */
 import { PanelLayout, TableLayout } from 'shared/layouts';
 /* components */
@@ -22,12 +23,12 @@ const ProductListDesktop = () => {
         productList,
     } = useProductListContext();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <PanelLayout className={styles.ProductList}>
-            <h1 title={t('views.productlist.title')}>
-                <Legend hasDots>{t('views.productlist.title')}</Legend>
+            <h1 title={translate('productlist.title')}>
+                <Legend hasDots>{translate('productlist.title')}</Legend>
             </h1>
 
             {isBreakPoint && (
@@ -47,8 +48,8 @@ const ProductListDesktop = () => {
                         columns: [
                             {
                                 children: (
-                                    <Legend hasDots title={t('views.productlist.list.name')}>
-                                        {t('views.productlist.list.name')}
+                                    <Legend hasDots title={translate('headers.name')}>
+                                        {translate('headers.name')}
                                     </Legend>
                                 ),
                                 span: 3,
@@ -58,24 +59,24 @@ const ProductListDesktop = () => {
                             },
                             {
                                 children: (
-                                    <Legend hasDots justify="center" title={t('views.productlist.list.created')}>
-                                        {t('views.productlist.list.created')}
+                                    <Legend hasDots justify="center" title={translate('headers.created')}>
+                                        {translate('headers.created')}
                                     </Legend>
                                 ),
                                 span: 2,
                             },
                             {
                                 children: (
-                                    <Legend hasDots justify="center" title={t('views.productlist.list.state')}>
-                                        {t('views.productlist.list.state')}
+                                    <Legend hasDots justify="center" title={translate('headers.status')}>
+                                        {translate('headers.status')}
                                     </Legend>
                                 ),
                                 span: 2,
                             },
                             {
                                 children: (
-                                    <Legend hasDots justify="center" title={t('views.productlist.list.actions')}>
-                                        {t('views.productlist.list.actions')}
+                                    <Legend hasDots justify="center" title={translate('headers.actions')}>
+                                        {translate('headers.actions')}
                                     </Legend>
                                 ),
                                 span: 2,

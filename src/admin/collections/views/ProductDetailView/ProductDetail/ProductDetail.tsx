@@ -1,6 +1,5 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useProductDetailContext } from '../ProductDetail.context';
 /* layouts */
@@ -15,6 +14,8 @@ import { ProductDetailCollectionSection } from '../ProductDetailCollectionSectio
 import { UpdateCollectionModal } from '../UpdateCollectionModal';
 import { ProductDetailAddonSection } from '../ProductDetailAddonSection';
 import { UpdateAddonModal } from '../UpdateAddonModal';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* assets */
 import { MdArrowBack } from 'react-icons/md';
 /* styles */
@@ -27,22 +28,22 @@ const ProductDetail = () => {
         handleGoBack,
     } = useProductDetailContext();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <PanelLayout orientation="col" className={styles.ProductDetail}>
             <div className={styles.Header}>
                 <Button
                     className={ButtonStyles.FillSecondary}
-                    title={t('views.productdetail.goback')}
+                    title={translate('actions.goback')}
                     onClick={handleGoBack}>
                     <i>
                         <MdArrowBack />
                     </i>
                 </Button>
 
-                <h1 title={t('views.productdetail.header')}>
-                    <Legend hasDots>{t('views.productdetail.header')}</Legend>
+                <h1 title={translate('productdetail.title')}>
+                    <Legend hasDots>{translate('productdetail.title')}</Legend>
                 </h1>
             </div>
 

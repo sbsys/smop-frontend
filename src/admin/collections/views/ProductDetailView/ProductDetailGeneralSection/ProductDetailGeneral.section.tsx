@@ -1,10 +1,11 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useProductDetailContext } from '../ProductDetail.context';
 /* components */
 import { Button, Legend } from 'shared/components';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* utils */
 import { classNames } from 'shared/utils';
 /* assets */
@@ -20,19 +21,19 @@ const ProductDetailGeneralSection = () => {
         showUpdateGeneral,
     } = useProductDetailContext();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <section className={styles.General}>
             <div className={styles.Header}>
-                <h2 title={t('views.productdetail.general.header')}>
-                    <Legend hasDots>{t('views.productdetail.general.header')}</Legend>
+                <h2 title={translate('productdetail.general')}>
+                    <Legend hasDots>{translate('productdetail.general')}</Legend>
                 </h2>
 
                 <Button
                     className={ButtonStyles.OutlineNone}
                     onClick={showUpdateGeneral}
-                    title={t('views.productdetail.general.edit')}>
+                    title={translate('actions.edit')}>
                     <i>
                         <MdEdit />
                     </i>
@@ -42,7 +43,7 @@ const ProductDetailGeneralSection = () => {
             <div className={styles.Content}>
                 <div className={styles.Boolean}>
                     <Legend hasDots className={styles.Title}>
-                        {t('views.productdetail.general.multilanguage')}
+                        {translate('commons.multilanguage')}
                     </Legend>
 
                     <i
@@ -54,8 +55,8 @@ const ProductDetailGeneralSection = () => {
                     </i>
                 </div>
 
-                <Legend hasDots title={t('views.productdetail.general.reference')} className={styles.Title}>
-                    {t('views.productdetail.general.reference')}
+                <Legend hasDots title={translate('productdetail.references')} className={styles.Title}>
+                    {translate('productdetail.references')}
                 </Legend>
 
                 {product?.multiLanguage ? (
@@ -72,8 +73,8 @@ const ProductDetailGeneralSection = () => {
                     <Legend title={product?.defaultReference}>{product?.defaultReference}</Legend>
                 )}
 
-                <Legend hasDots title={t('views.productdetail.general.description')} className={styles.Title}>
-                    {t('views.productdetail.general.description')}
+                <Legend hasDots title={translate('productdetail.description')} className={styles.Title}>
+                    {translate('productdetail.description')}
                 </Legend>
 
                 {product?.multiLanguage ? (
@@ -90,8 +91,8 @@ const ProductDetailGeneralSection = () => {
                     <Legend title={product?.defaultDescription}>{product?.defaultDescription}</Legend>
                 )}
 
-                <Legend hasDots title={t('views.productdetail.general.presentation')} className={styles.Title}>
-                    {t('views.productdetail.general.presentation')}
+                <Legend hasDots title={translate('productdetail.presentation')} className={styles.Title}>
+                    {translate('productdetail.presentation')}
                 </Legend>
 
                 {product?.feature ? (
@@ -105,14 +106,14 @@ const ProductDetailGeneralSection = () => {
                         <span>{product.feature.measure.unit}</span>
                     </Legend>
                 ) : (
-                    <Legend hasDots title={t('views.productdetail.general.nopresentation')}>
-                        {t('views.productdetail.general.nopresentation')}
+                    <Legend hasDots title={translate('productdetail.nopresentation')}>
+                        {translate('productdetail.nopresentation')}
                     </Legend>
                 )}
 
                 <div className={styles.Boolean}>
                     <Legend hasDots className={styles.Title}>
-                        {t('views.productdetail.general.allowprompts')}
+                        {translate('productdetail.allowprompts')}
                     </Legend>
 
                     <i

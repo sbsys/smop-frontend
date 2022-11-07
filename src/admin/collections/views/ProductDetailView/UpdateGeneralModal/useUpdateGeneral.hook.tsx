@@ -1,9 +1,8 @@
 /* react */
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 /* props */
-import { FieldSetProps, Lang, useAdminNotify } from 'admin/core';
+import { AdminLang, FieldSetProps, Lang, useAdminLang, useAdminNotify } from 'admin/core';
 /* context */
 import { useProductDetailContext } from '../ProductDetail.context';
 /* hooks */
@@ -41,7 +40,7 @@ export const useUpdateGeneral = () => {
         getProductDetail,
     } = useProductDetailContext();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     const { notify } = useAdminNotify();
 
@@ -118,42 +117,42 @@ export const useUpdateGeneral = () => {
         field: {
             className: errors.defaultReference ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'text',
-            placeholder: t('views.productdetail.updategeneral.defaultreference.placeholder'),
+            placeholder: translate('productedit.references.placeholder'),
             defaultValue: product?.defaultReference,
             ...register('defaultReference'),
         },
         isHintReserved: true,
         hint: errors.defaultReference
             ? {
-                  children: t(errors.defaultReference.message as string),
+                  children: translate(errors.defaultReference.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.defaultReference.message as string),
+                  title: translate(errors.defaultReference.message as AdminLang),
               }
             : {
-                  children: t('views.productdetail.updategeneral.defaultreference.hint'),
+                  children: translate('productedit.references.hint'),
                   hasDots: true,
-                  title: t('views.productdetail.updategeneral.defaultreference.hint'),
+                  title: translate('productedit.references.hint'),
               },
     };
     const defaultDescriptionProps: FieldSetProps = {
         field: {
             className: errors.defaultDescription ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'text',
-            placeholder: t('views.productdetail.updategeneral.defaultdescription.placeholder'),
+            placeholder: translate('productedit.description.placeholder'),
             defaultValue: product?.defaultDescription,
             ...register('defaultDescription'),
         },
         isHintReserved: true,
         hint: errors.defaultDescription
             ? {
-                  children: t(errors.defaultDescription.message as string),
+                  children: translate(errors.defaultDescription.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.defaultDescription.message as string),
+                  title: translate(errors.defaultDescription.message as AdminLang),
               }
             : {
-                  children: t('views.productdetail.updategeneral.defaultdescription.hint'),
+                  children: translate('productedit.description.hint'),
                   hasDots: true,
-                  title: t('views.productdetail.updategeneral.defaultdescription.hint'),
+                  title: translate('productedit.description.hint'),
               },
     };
     const multiLanguageProps: FieldSetProps = {
@@ -161,20 +160,20 @@ export const useUpdateGeneral = () => {
         field: {
             className: errors.multiLanguage ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'checkbox',
-            placeholder: t('views.productdetail.updategeneral.multilanguage.placeholder'),
+            placeholder: translate('commons.allowmultilanguage'),
             ...register('multiLanguage'),
         },
         isHintReserved: true,
         hint: errors.multiLanguage
             ? {
-                  children: t(errors.multiLanguage.message as string),
+                  children: translate(errors.multiLanguage.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.multiLanguage.message as string),
+                  title: translate(errors.multiLanguage.message as AdminLang),
               }
             : {
-                  children: t('views.productdetail.updategeneral.multilanguage.hint'),
+                  children: translate('commons.allowmultilanguage'),
                   hasDots: true,
-                  title: t('views.productdetail.updategeneral.multilanguage.hint'),
+                  title: translate('commons.allowmultilanguage'),
               },
     };
     const referenceTitleProps: FieldSetProps = {
@@ -184,9 +183,9 @@ export const useUpdateGeneral = () => {
         },
         isHintReserved: true,
         hint: {
-            children: t('views.productdetail.updategeneral.referencetitle.hint'),
+            children: translate('productedit.references.title'),
             hasDots: true,
-            title: t('views.productdetail.updategeneral.referencetitle.hint'),
+            title: translate('productedit.references.title'),
         },
     };
     const referenceCollectionProps = (index: number, lang: Lang): FieldSetProps => {
@@ -196,7 +195,7 @@ export const useUpdateGeneral = () => {
             field: {
                 className: errors.referenceCollection ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
                 strategy: 'text',
-                placeholder: t('views.productdetail.updategeneral.referencecollection.placeholder'),
+                placeholder: translate('productedit.references.placeholder'),
                 afterContent: lang.toUpperCase(),
                 defaultValue: product?.referenceCollection.find(ref => ref.lang === lang)?.ref,
                 ...register(`referenceCollection.${index}.ref`),
@@ -204,14 +203,14 @@ export const useUpdateGeneral = () => {
             isHintReserved: true,
             hint: errors.referenceCollection
                 ? {
-                      children: t(errors.referenceCollection.message as string),
+                      children: translate(errors.referenceCollection.message as AdminLang),
                       hasDots: true,
-                      title: t(errors.referenceCollection.message as string),
+                      title: translate(errors.referenceCollection.message as AdminLang),
                   }
                 : {
-                      children: t('views.productdetail.updategeneral.referencecollection.hint'),
+                      children: translate('productedit.references.hint'),
                       hasDots: true,
-                      title: t('views.productdetail.updategeneral.referencecollection.hint'),
+                      title: translate('productedit.references.hint'),
                   },
         };
     };
@@ -222,9 +221,9 @@ export const useUpdateGeneral = () => {
         },
         isHintReserved: true,
         hint: {
-            children: t('views.productdetail.updategeneral.descriptiontitle.hint'),
+            children: translate('productedit.description.title'),
             hasDots: true,
-            title: t('views.productdetail.updategeneral.descriptiontitle.hint'),
+            title: translate('productedit.description.title'),
         },
     };
     const descriptionCollectionProps = (index: number, lang: Lang): FieldSetProps => {
@@ -234,7 +233,7 @@ export const useUpdateGeneral = () => {
             field: {
                 className: errors.descriptionCollection ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
                 strategy: 'text',
-                placeholder: t('views.productdetail.updategeneral.descriptioncollection.placeholder'),
+                placeholder: translate('productedit.description.placeholder'),
                 afterContent: lang.toUpperCase(),
                 defaultValue: product?.descriptionCollection.find(ref => ref.lang === lang)?.ref,
                 ...register(`descriptionCollection.${index}.ref`),
@@ -242,14 +241,14 @@ export const useUpdateGeneral = () => {
             isHintReserved: true,
             hint: errors.descriptionCollection
                 ? {
-                      children: t(errors.descriptionCollection.message as string),
+                      children: translate(errors.descriptionCollection.message as AdminLang),
                       hasDots: true,
-                      title: t(errors.descriptionCollection.message as string),
+                      title: translate(errors.descriptionCollection.message as AdminLang),
                   }
                 : {
-                      children: t('views.productdetail.updategeneral.descriptioncollection.hint'),
+                      children: translate('productedit.description.hint'),
                       hasDots: true,
-                      title: t('views.productdetail.updategeneral.descriptioncollection.hint'),
+                      title: translate('productedit.description.hint'),
                   },
         };
     };
@@ -258,20 +257,20 @@ export const useUpdateGeneral = () => {
         field: {
             className: errors.allowPrompts ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'checkbox',
-            placeholder: t('views.productdetail.updategeneral.allowprompts.placeholder'),
+            placeholder: translate('productedit.allowprompts.hint'),
             ...register('allowPrompts'),
         },
         isHintReserved: true,
         hint: errors.allowPrompts
             ? {
-                  children: t(errors.allowPrompts.message as string),
+                  children: translate(errors.allowPrompts.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.allowPrompts.message as string),
+                  title: translate(errors.allowPrompts.message as AdminLang),
               }
             : {
-                  children: t('views.productdetail.updategeneral.allowprompts.hint'),
+                  children: translate('productedit.allowprompts.hint'),
                   hasDots: true,
-                  title: t('views.productdetail.updategeneral.allowprompts.hint'),
+                  title: translate('productedit.allowprompts.hint'),
               },
     };
 

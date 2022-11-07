@@ -1,17 +1,17 @@
 /* react */
 import { Fragment, memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useProductDetailContext } from '../ProductDetail.context';
 /* components */
 import { Button, Legend } from 'shared/components';
-import { Badge } from 'admin/core';
+import { Badge, useAdminLang } from 'admin/core';
+/* types */
+import { MainTitleListItemDTO, TitleListItemDTO } from 'admin/collections/types';
 /* assets */
 import { MdEdit } from 'react-icons/md';
 /* styles */
 import { ButtonStyles } from 'shared/styles';
 import styles from './ProductDetailCollection.module.scss';
-import { MainTitleListItemDTO, TitleListItemDTO } from 'admin/collections/types';
 
 const ProductDetailCollectionSection = () => {
     const {
@@ -22,19 +22,19 @@ const ProductDetailCollectionSection = () => {
         showUpdateCollection,
     } = useProductDetailContext();
 
-    const { t, i18n } = useTranslation();
+    const { translate, lang } = useAdminLang();
 
     return (
         <section className={styles.Collection}>
             <div className={styles.Header}>
-                <h2 title={t('views.productdetail.collection.header')}>
-                    <Legend hasDots>{t('views.productdetail.collection.header')}</Legend>
+                <h2 title={translate('productdetail.collection')}>
+                    <Legend hasDots>{translate('productdetail.collection')}</Legend>
                 </h2>
 
                 <Button
                     className={ButtonStyles.OutlineNone}
                     onClick={showUpdateCollection}
-                    title={t('views.productdetail.collection.edit')}>
+                    title={translate('actions.edit')}>
                     <i>
                         <MdEdit />
                     </i>
@@ -44,8 +44,8 @@ const ProductDetailCollectionSection = () => {
             <div className={styles.Content}>
                 {(product?.mainCollection.length ?? 0) > 0 ? (
                     <>
-                        <Legend hasDots title={t('views.productdetail.collection.main')} className={styles.Title}>
-                            {t('views.productdetail.collection.main')}
+                        <Legend hasDots title={translate('productdetail.main')} className={styles.Title}>
+                            {translate('productdetail.main')}
                         </Legend>
 
                         <div className={styles.TitleCollection}>
@@ -62,9 +62,8 @@ const ProductDetailCollectionSection = () => {
                                     <Fragment key={index}>
                                         <Badge>
                                             <Legend hasDots>
-                                                {title.titleCollection.find(
-                                                    collection => collection.lang === i18n.language
-                                                )?.ref ?? title.defaultTitle}
+                                                {title.titleCollection.find(collection => collection.lang === lang)
+                                                    ?.ref ?? title.defaultTitle}
                                             </Legend>
                                         </Badge>
                                     </Fragment>
@@ -72,19 +71,15 @@ const ProductDetailCollectionSection = () => {
                         </div>
                     </>
                 ) : (
-                    <Legend
-                        hasDots
-                        justify="center"
-                        title={t('views.productdetail.collection.nomain')}
-                        className={styles.Title}>
-                        {t('views.productdetail.collection.nomain')}
+                    <Legend hasDots justify="center" title={translate('productdetail.nomain')} className={styles.Title}>
+                        {translate('productdetail.nomain')}
                     </Legend>
                 )}
 
                 {(product?.accesoryCollection.length ?? 0) > 0 ? (
                     <>
-                        <Legend hasDots title={t('views.productdetail.collection.accesory')} className={styles.Title}>
-                            {t('views.productdetail.collection.accesory')}
+                        <Legend hasDots title={translate('productdetail.addon')} className={styles.Title}>
+                            {translate('productdetail.addon')}
                         </Legend>
 
                         <div className={styles.TitleCollection}>
@@ -102,9 +97,8 @@ const ProductDetailCollectionSection = () => {
                                     <Fragment key={index}>
                                         <Badge>
                                             <Legend hasDots>
-                                                {title.titleCollection.find(
-                                                    collection => collection.lang === i18n.language
-                                                )?.ref ?? title.defaultTitle}
+                                                {title.titleCollection.find(collection => collection.lang === lang)
+                                                    ?.ref ?? title.defaultTitle}
                                             </Legend>
                                         </Badge>
                                     </Fragment>
@@ -115,9 +109,9 @@ const ProductDetailCollectionSection = () => {
                     <Legend
                         hasDots
                         justify="center"
-                        title={t('views.productdetail.collection.noaccesory')}
+                        title={translate('productdetail.noaddon')}
                         className={styles.Title}>
-                        {t('views.productdetail.collection.noaccesory')}
+                        {translate('productdetail.noaddon')}
                     </Legend>
                 )}
             </div>

@@ -1,6 +1,5 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useProductDetailContext } from '../ProductDetail.context';
 /* custom hook */
@@ -9,7 +8,7 @@ import { useUpdateGeneral } from './useUpdateGeneral.hook';
 import { ModalLayout, ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
-import { FieldSet } from 'admin/core';
+import { FieldSet, useAdminLang } from 'admin/core';
 /* assets */
 import { MdWarning } from 'react-icons/md';
 /* styles */
@@ -24,18 +23,18 @@ const UpdateGeneralModal = () => {
 
     const { handleUpdateGeneral, handleResetUpdateGeneral, updateGeneralFields } = useUpdateGeneral();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <ModalLayout isVisible={isUpdateGeneral} rowAlignment="center" colAlignment="center" hasIndentation>
             <ScrollLayout orientation="col" classNameContent={styles.UpdateGeneral}>
                 <form onSubmit={handleUpdateGeneral}>
-                    <div className={styles.Header} title={t('views.productdetail.updategeneral.title')}>
+                    <div className={styles.Header} title={translate('productedit.general')}>
                         <i>
                             <MdWarning />
                         </i>
 
-                        <Legend hasDots>{t('views.productdetail.updategeneral.title')}</Legend>
+                        <Legend hasDots>{translate('productedit.general')}</Legend>
                     </div>
 
                     <div className={styles.Content}>
@@ -48,19 +47,19 @@ const UpdateGeneralModal = () => {
                         <Button
                             type="button"
                             className={ButtonStyles.OutlineNone}
-                            title={t('views.productdetail.updategeneral.actions.cancel')}
+                            title={translate('actions.cancel')}
                             onClick={handleResetUpdateGeneral}>
                             <Legend hasDots justify="center">
-                                {t('views.productdetail.updategeneral.actions.cancel')}
+                                {translate('actions.cancel')}
                             </Legend>
                         </Button>
 
                         <Button
                             type="submit"
                             className={ButtonStyles.FillSecondary}
-                            title={t('views.productdetail.updategeneral.actions.update')}>
+                            title={translate('actions.update')}>
                             <Legend hasDots justify="center">
-                                {t('views.productdetail.updategeneral.actions.update')}
+                                {translate('actions.update')}
                             </Legend>
                         </Button>
                     </div>

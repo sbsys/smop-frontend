@@ -1,10 +1,11 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useProductDetailContext } from '../ProductDetail.context';
 /* components */
 import { Button, Legend } from 'shared/components';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* assets */
 import { MdEdit } from 'react-icons/md';
 /* styles */
@@ -18,19 +19,19 @@ const ProductDetailPictureSection = () => {
         showUpdatePicture,
     } = useProductDetailContext();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <section className={styles.Picture}>
             <div className={styles.Header}>
-                <h2 title={t('views.productdetail.picture.header')}>
-                    <Legend hasDots>{t('views.productdetail.picture.header')}</Legend>
+                <h2 title={translate('productdetail.picture')}>
+                    <Legend hasDots>{translate('productdetail.picture')}</Legend>
                 </h2>
 
                 <Button
                     className={ButtonStyles.OutlineNone}
                     onClick={showUpdatePicture}
-                    title={t('views.productdetail.picture.edit')}>
+                    title={translate('actions.edit')}>
                     <i>
                         <MdEdit />
                     </i>
@@ -41,7 +42,7 @@ const ProductDetailPictureSection = () => {
                 {product?.url ? (
                     <img src={product?.url} alt={product?.defaultReference} crossOrigin="anonymous" />
                 ) : (
-                    <Legend justify="center">{t('views.productdetail.picture.nopicture')}</Legend>
+                    <Legend justify="center">{translate('productdetail.nopicture')}</Legend>
                 )}
             </div>
         </section>

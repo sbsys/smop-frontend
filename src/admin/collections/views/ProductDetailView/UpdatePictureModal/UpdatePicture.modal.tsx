@@ -1,6 +1,5 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useProductDetailContext } from '../ProductDetail.context';
 /* custom hook */
@@ -9,7 +8,7 @@ import { useUpdatePicture } from './useUpdatePicture.hook';
 import { ModalLayout, ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
-import { FieldSet } from 'admin/core';
+import { FieldSet, useAdminLang } from 'admin/core';
 /* assets */
 import { MdWarning } from 'react-icons/md';
 /* styles */
@@ -24,18 +23,18 @@ const UpdatePictureModal = () => {
 
     const { handleUpdatePicture, handleResetUpdatePicture, updatePictureFields } = useUpdatePicture();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <ModalLayout isVisible={isUpdatePicture} rowAlignment="center" colAlignment="center" hasIndentation>
             <ScrollLayout orientation="col" classNameContent={styles.UpdatePicture}>
                 <form onSubmit={handleUpdatePicture}>
-                    <div className={styles.Header} title={t('views.productdetail.updatepicture.title')}>
+                    <div className={styles.Header} title={translate('productedit.picture')}>
                         <i>
                             <MdWarning />
                         </i>
 
-                        <Legend hasDots>{t('views.productdetail.updatepicture.title')}</Legend>
+                        <Legend hasDots>{translate('productedit.picture')}</Legend>
                     </div>
 
                     <div className={styles.Content}>
@@ -48,19 +47,19 @@ const UpdatePictureModal = () => {
                         <Button
                             type="button"
                             className={ButtonStyles.OutlineNone}
-                            title={t('views.productdetail.updatepicture.actions.cancel')}
+                            title={translate('actions.cancel')}
                             onClick={handleResetUpdatePicture}>
                             <Legend hasDots justify="center">
-                                {t('views.productdetail.updatepicture.actions.cancel')}
+                                {translate('actions.cancel')}
                             </Legend>
                         </Button>
 
                         <Button
                             type="submit"
                             className={ButtonStyles.FillSecondary}
-                            title={t('views.productdetail.updatepicture.actions.update')}>
+                            title={translate('actions.update')}>
                             <Legend hasDots justify="center">
-                                {t('views.productdetail.updatepicture.actions.update')}
+                                {translate('actions.update')}
                             </Legend>
                         </Button>
                     </div>

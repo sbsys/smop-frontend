@@ -3,7 +3,7 @@ import { useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 /* props */
-import { UpdateAddonTitleFormData } from '../AddonsTitleList.props';
+import { UpdateAddonTitleFormData, UpdateAddonTitleSchema } from '../AddonsTitleList.props';
 /* context */
 import { useAddonsTitleListContext } from '../AddonsTitleList.context';
 /* hooks */
@@ -11,6 +11,8 @@ import { useLoader } from 'shared/hooks';
 import { FieldSetProps, Lang, useAdminNotify } from 'admin/core';
 /* services */
 import { updateAddonTitleService } from 'admin/collections/services';
+/* utils */
+import { yupResolver } from '@hookform/resolvers/yup';
 /* assets */
 import { MdCheckCircle, MdDangerous } from 'react-icons/md';
 /* styles */
@@ -34,7 +36,10 @@ export const useUpdateAddonTitle = () => {
         reset,
         setValue,
         watch,
-    } = useForm<UpdateAddonTitleFormData>();
+    } = useForm<UpdateAddonTitleFormData>({
+        mode: 'all',
+        resolver: yupResolver(UpdateAddonTitleSchema),
+    });
 
     const { showLoader, hideLoader } = useLoader();
 
@@ -52,11 +57,15 @@ export const useUpdateAddonTitle = () => {
     const handleUpdateAddonTitle = handleSubmit(async data => {
         showLoader();
 
-        if (data.multiLanguage) data.defaultTitle = data.titleCollection[0].ref;
+        if (data.multiLanguage) data.defaultTitle = data.titleCollection[0].refs;
         else data.titleCollection = [];
 
         const service = await updateAddonTitleService(selectedTitleToUpdate?.titleId ?? 0, {
             ...data,
+            titleCollection: data.titleCollection.map(title => ({
+                lang: title.lang,
+                ref: title.refs,
+            })),
             isActive: selectedTitleToUpdate?.isActive === 'active',
         });
 
@@ -93,7 +102,7 @@ export const useUpdateAddonTitle = () => {
         selectedTitleToUpdate.titleCollection.forEach((collection, index) => {
             setValue(`titleCollection.${index}.lang`, collection.lang);
 
-            setValue(`titleCollection.${index}.ref`, collection.ref);
+            setValue(`titleCollection.${index}.refs`, collection.ref);
         });
     }, [selectedTitleToUpdate, setValue]);
 
@@ -149,24 +158,28 @@ export const useUpdateAddonTitle = () => {
 
         return {
             field: {
-                className: errors.titleCollection ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
+                className:
+                    errors.titleCollection && errors.titleCollection[index]?.refs
+                        ? FieldStyles.OutlineDanger
+                        : FieldStyles.OutlinePrimary,
                 strategy: 'text',
                 placeholder: t('views.addontitlelist.update.titlecollection.placeholder'),
                 afterContent: lang.toUpperCase(),
-                ...register(`titleCollection.${index}.ref`),
+                ...register(`titleCollection.${index}.refs`),
             },
             isHintReserved: true,
-            hint: errors.titleCollection
-                ? {
-                      children: t(errors.titleCollection.message as string),
-                      hasDots: true,
-                      title: t(errors.titleCollection.message as string),
-                  }
-                : {
-                      children: t('views.addontitlelist.update.titlecollection.hint'),
-                      hasDots: true,
-                      title: t('views.addontitlelist.update.titlecollection.hint'),
-                  },
+            hint:
+                errors.titleCollection && errors.titleCollection[index]?.refs
+                    ? {
+                          children: t(errors.titleCollection[index]?.refs?.message as string),
+                          hasDots: true,
+                          title: t(errors.titleCollection[index]?.refs?.message as string),
+                      }
+                    : {
+                          children: t('views.addontitlelist.update.titlecollection.hint'),
+                          hasDots: true,
+                          title: t('views.addontitlelist.update.titlecollection.hint'),
+                      },
         };
     };
 

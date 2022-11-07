@@ -381,10 +381,12 @@ export type AdminLang =
     | 'maintitleedit.title'
     | 'maintitleedit.collection.placeholder'
     | 'maintitleedit.collection.hint'
+    | 'maintitleedit.collection.required'
     /* create main title */
     | 'createmaintitle.title'
     | 'createmaintitle.collection.placeholder'
     | 'createmaintitle.collection.hint'
+    | 'createmaintitle.collection.required'
     /* addon title list */
     | 'addontitlelist.title'
     | 'addontitlelist.updatestatus'
@@ -397,10 +399,12 @@ export type AdminLang =
     | 'addontitleedit.title'
     | 'addontitleedit.collection.placeholder'
     | 'addontitleedit.collection.hint'
+    | 'addontitleedit.collection.required'
     /* create addon title */
     | 'createaddontitle.title'
     | 'createaddontitle.collection.placeholder'
     | 'createaddontitle.collection.hint'
+    | 'createaddontitle.collection.required'
     /* product list view */
     | 'productlist.title'
     | 'productlist.updatestatus'

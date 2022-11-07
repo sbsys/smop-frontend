@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 /* props */
-import { CreateMainTitleContextProps, CreateMainTitleFormData } from './CreateMainTitle.props';
+import { CreateMainTitleContextProps, CreateMainTitleFormData, CreateMainTitleSchema } from './CreateMainTitle.props';
 /* hooks */
 import { useLoader } from 'shared/hooks';
 import { AdminLang, FieldSetProps, Lang, useAdminLang, useAdminNotify } from 'admin/core';
@@ -11,14 +11,11 @@ import { AdminLang, FieldSetProps, Lang, useAdminLang, useAdminNotify } from 'ad
 import { createMainTitleService } from 'admin/collections/services';
 /* utils */
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 /* assets */
 import { MdBookmarkAdded, MdDangerous } from 'react-icons/md';
 /* styles */
 import { FieldStyles } from 'shared/styles';
 import styles from './CreateMainTitle.module.scss';
-
-const CreateMainTitleSchema = yup.object({}).required();
 
 export const useCreateMainTitle = () => {
     /* states */
@@ -46,10 +43,18 @@ export const useCreateMainTitle = () => {
     const handleCreateMainTitle = handleSubmit(async data => {
         showLoader();
 
-        if (data.multiLanguage) data.defaultTitle = data.titleCollection[0].ref;
+        if (data.multiLanguage) data.defaultTitle = data.titleCollection[0].refs;
         else data.titleCollection = [];
 
-        const service = await createMainTitleService({ ...data, serviceMode: 1, servedOn: '-' });
+        const service = await createMainTitleService({
+            ...data,
+            titleCollection: data.titleCollection.map(title => ({
+                lang: title.lang,
+                ref: title.refs,
+            })),
+            serviceMode: 1,
+            servedOn: '-',
+        });
 
         hideLoader();
 
@@ -76,11 +81,11 @@ export const useCreateMainTitle = () => {
     /* reactivity */
     useEffect(() => {
         if (watch('multiLanguage')) {
-            setValue('titleCollection.0.ref', watch('defaultTitle'));
+            setValue('titleCollection.0.refs', watch('defaultTitle'));
 
             unregister('defaultTitle');
         } else {
-            setValue('defaultTitle', watch('titleCollection.0.ref'));
+            setValue('defaultTitle', watch('titleCollection.0.refs'));
 
             unregister('titleCollection');
         }
@@ -134,24 +139,32 @@ export const useCreateMainTitle = () => {
 
         return {
             field: {
-                className: errors.titleCollection ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
+                className:
+                    errors.titleCollection && errors.titleCollection[index]?.refs
+                        ? FieldStyles.OutlineDanger
+                        : FieldStyles.OutlinePrimary,
                 strategy: 'text',
                 placeholder: translate('createmaintitle.collection.placeholder'),
                 afterContent: lang.toUpperCase(),
-                ...register(`titleCollection.${index}.ref`),
+                ...register(`titleCollection.${index}.refs`),
             },
             isHintReserved: true,
-            hint: errors.titleCollection
-                ? {
-                      children: translate(errors.titleCollection.message as AdminLang),
-                      hasDots: true,
-                      title: translate(errors.titleCollection.message as AdminLang),
-                  }
-                : {
-                      children: translate('createmaintitle.collection.hint'),
-                      hasDots: true,
-                      title: translate('createmaintitle.collection.hint'),
-                  },
+            hint:
+                errors.titleCollection && errors.titleCollection[index]?.refs
+                    ? {
+                          children: translate(
+                              errors.titleCollection && (errors.titleCollection[index]?.refs?.message as AdminLang)
+                          ),
+                          hasDots: true,
+                          title: translate(
+                              errors.titleCollection && (errors.titleCollection[index]?.refs?.message as AdminLang)
+                          ),
+                      }
+                    : {
+                          children: translate('createmaintitle.collection.hint'),
+                          hasDots: true,
+                          title: translate('createmaintitle.collection.hint'),
+                      },
         };
     };
 

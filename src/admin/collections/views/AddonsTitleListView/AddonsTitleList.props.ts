@@ -2,9 +2,11 @@
 import { BaseSyntheticEvent } from 'react';
 /* props */
 import { ChildrenProps } from 'shared/props';
+/* utils */
+import * as yup from 'yup';
 /* types */
-import { TitleCollection, TitleListItemDTO } from 'admin/collections/types';
-import { FieldSetProps } from 'admin/core';
+import { TitleCollectionForm, TitleListItemDTO } from 'admin/collections/types';
+import { AdminLang, FieldSetProps } from 'admin/core';
 
 export interface AddonsTitleListContextProps {
     /* states */
@@ -36,6 +38,25 @@ export interface AddonsTitleListProviderProps extends ChildrenProps {
 
 export interface UpdateAddonTitleFormData {
     defaultTitle: string;
-    titleCollection: TitleCollection[];
+    titleCollection: TitleCollectionForm[];
     multiLanguage: boolean;
 }
+
+export const UpdateAddonTitleSchema = yup
+    .object({
+        defaultTitle: yup.mixed().when(['multiLanguage'], {
+            is: (multiLanguage: boolean) => !multiLanguage,
+            then: yup.string().required('addontitleedit.collection.required' as AdminLang),
+            otherwise: yup.string().optional(),
+        }),
+        titleCollection: yup.array().of(
+            yup
+                .object({
+                    lang: yup.string().required('addontitleedit.collection.required' as AdminLang),
+                    refs: yup.string().required('addontitleedit.collection.required' as AdminLang),
+                })
+                .required()
+        ),
+        multiLanguage: yup.boolean().required(),
+    })
+    .required();

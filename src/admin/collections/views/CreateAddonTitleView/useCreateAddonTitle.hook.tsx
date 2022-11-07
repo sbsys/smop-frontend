@@ -4,7 +4,11 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 /* props */
-import { CreateAddonTitleContextProps, CreateAddonTitleFormData } from './CreateAddonTitle.props';
+import {
+    CreateAddonTitleContextProps,
+    CreateAddonTitleFormData,
+    CreateAddonTitleSchema,
+} from './CreateAddonTitle.props';
 /* hooks */
 import { useLoader } from 'shared/hooks';
 import { FieldSetProps, Lang, useAdminNotify } from 'admin/core';
@@ -12,14 +16,11 @@ import { FieldSetProps, Lang, useAdminNotify } from 'admin/core';
 import { createAddonTitleService } from 'admin/collections/services';
 /* utils */
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 /* assets */
 import { MdBookmarkAdded, MdDangerous } from 'react-icons/md';
 /* styles */
 import { FieldStyles } from 'shared/styles';
 import styles from './CreateAddonTitle.module.scss';
-
-const CreateAddonTitleSchema = yup.object({}).required();
 
 export const useCreateAddonTitle = () => {
     /* states */
@@ -47,10 +48,16 @@ export const useCreateAddonTitle = () => {
     const handleCreateAddonTitle = handleSubmit(async data => {
         showLoader();
 
-        if (data.multiLanguage) data.defaultTitle = data.titleCollection[0].ref;
+        if (data.multiLanguage) data.defaultTitle = data.titleCollection[0].refs;
         else data.titleCollection = [];
 
-        const service = await createAddonTitleService({ ...data });
+        const service = await createAddonTitleService({
+            ...data,
+            titleCollection: data.titleCollection.map(title => ({
+                lang: title.lang,
+                ref: title.refs,
+            })),
+        });
 
         hideLoader();
 
@@ -77,11 +84,11 @@ export const useCreateAddonTitle = () => {
     /* reactivity */
     useEffect(() => {
         if (watch('multiLanguage')) {
-            setValue('titleCollection.0.ref', watch('defaultTitle'));
+            setValue('titleCollection.0.refs', watch('defaultTitle'));
 
             unregister('defaultTitle');
         } else {
-            setValue('defaultTitle', watch('titleCollection.0.ref'));
+            setValue('defaultTitle', watch('titleCollection.0.refs'));
 
             unregister('titleCollection');
         }
@@ -135,24 +142,28 @@ export const useCreateAddonTitle = () => {
 
         return {
             field: {
-                className: errors.titleCollection ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
+                className:
+                    errors.titleCollection && errors.titleCollection[index]?.refs
+                        ? FieldStyles.OutlineDanger
+                        : FieldStyles.OutlinePrimary,
                 strategy: 'text',
                 placeholder: t('views.createaddontitle.form.titlecollection.placeholder'),
                 afterContent: lang.toUpperCase(),
-                ...register(`titleCollection.${index}.ref`),
+                ...register(`titleCollection.${index}.refs`),
             },
             isHintReserved: true,
-            hint: errors.titleCollection
-                ? {
-                      children: t(errors.titleCollection.message as string),
-                      hasDots: true,
-                      title: t(errors.titleCollection.message as string),
-                  }
-                : {
-                      children: t('views.createaddontitle.form.titlecollection.hint'),
-                      hasDots: true,
-                      title: t('views.createaddontitle.form.titlecollection.hint'),
-                  },
+            hint:
+                errors.titleCollection && errors.titleCollection[index]?.refs
+                    ? {
+                          children: t(errors.titleCollection[index]?.refs?.message as string),
+                          hasDots: true,
+                          title: t(errors.titleCollection[index]?.refs?.message as string),
+                      }
+                    : {
+                          children: t('views.createaddontitle.form.titlecollection.hint'),
+                          hasDots: true,
+                          title: t('views.createaddontitle.form.titlecollection.hint'),
+                      },
         };
     };
 

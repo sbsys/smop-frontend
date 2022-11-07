@@ -3,6 +3,11 @@ export interface TitleCollection {
     lang: string;
 }
 
+export interface TitleCollectionForm {
+    refs: string;
+    lang: string;
+}
+
 export interface TitleRefCollection {
     titleId: number;
 }

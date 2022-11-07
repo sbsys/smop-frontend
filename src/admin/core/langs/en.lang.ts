@@ -383,10 +383,12 @@ export const en: Record<AdminLang, string> = {
     'maintitleedit.title': 'Edit main title',
     'maintitleedit.collection.placeholder': 'Main title name',
     'maintitleedit.collection.hint': 'update main title name',
+    'maintitleedit.collection.required': 'main title name is required',
     /* create main title */
     'createmaintitle.title': 'Create main title',
     'createmaintitle.collection.placeholder': 'Main title name',
     'createmaintitle.collection.hint': 'main title name',
+    'createmaintitle.collection.required': 'main title name is required',
     /* addon title list */
     'addontitlelist.title': 'Addon title list',
     'addontitlelist.updatestatus': 'Update addon title status',
@@ -399,10 +401,12 @@ export const en: Record<AdminLang, string> = {
     'addontitleedit.title': 'Edit addon title',
     'addontitleedit.collection.placeholder': 'Addon title name',
     'addontitleedit.collection.hint': 'update addon title name',
+    'addontitleedit.collection.required': 'addon title name is required',
     /* create addon title */
     'createaddontitle.title': 'Create addon title',
     'createaddontitle.collection.placeholder': 'Addon title name',
     'createaddontitle.collection.hint': 'addon title name',
+    'createaddontitle.collection.required': 'addon title name is required',
     /* product list view */
     'productlist.title': 'Product list',
     'productlist.updatestatus': 'Update product status',

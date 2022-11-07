@@ -2,7 +2,7 @@
 import { useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 /* props */
-import { UpdateMainTitleFormData } from '../MainTitleList.props';
+import { UpdateMainTitleFormData, UpdateMainTitleSchema } from '../MainTitleList.props';
 /* context */
 import { useMainTitleListContext } from '../MainTitleList.context';
 /* hooks */
@@ -10,6 +10,8 @@ import { useLoader } from 'shared/hooks';
 import { AdminLang, FieldSetProps, Lang, useAdminLang, useAdminNotify } from 'admin/core';
 /* services */
 import { updateMainTitleService } from 'admin/collections/services';
+/* utils */
+import { yupResolver } from '@hookform/resolvers/yup';
 /* assets */
 import { MdCheckCircle, MdDangerous } from 'react-icons/md';
 /* styles */
@@ -33,7 +35,10 @@ export const useUpdateMainTitle = () => {
         reset,
         setValue,
         watch,
-    } = useForm<UpdateMainTitleFormData>();
+    } = useForm<UpdateMainTitleFormData>({
+        mode: 'all',
+        resolver: yupResolver(UpdateMainTitleSchema),
+    });
 
     const { showLoader, hideLoader } = useLoader();
 
@@ -51,11 +56,15 @@ export const useUpdateMainTitle = () => {
     const handleUpdateMainTitle = handleSubmit(async data => {
         showLoader();
 
-        if (data.multiLanguage) data.defaultTitle = data.titleCollection[0].ref;
+        if (data.multiLanguage) data.defaultTitle = data.titleCollection[0].refs;
         else data.titleCollection = [];
 
         const service = await updateMainTitleService(selectedTitleToUpdate?.titleId ?? 0, {
             ...data,
+            titleCollection: data.titleCollection.map(title => ({
+                lang: title.lang,
+                ref: title.refs,
+            })),
             serviceMode: selectedTitleToUpdate?.serviceMode ?? 1,
             servedOn: selectedTitleToUpdate?.servedOn ?? '-',
             isActive: selectedTitleToUpdate?.isActive === 'active',
@@ -94,7 +103,7 @@ export const useUpdateMainTitle = () => {
         selectedTitleToUpdate.titleCollection.forEach((collection, index) => {
             setValue(`titleCollection.${index}.lang`, collection.lang);
 
-            setValue(`titleCollection.${index}.ref`, collection.ref);
+            setValue(`titleCollection.${index}.refs`, collection.ref);
         });
     }, [selectedTitleToUpdate, setValue]);
 
@@ -150,24 +159,28 @@ export const useUpdateMainTitle = () => {
 
         return {
             field: {
-                className: errors.titleCollection ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
+                className:
+                    errors.titleCollection && errors.titleCollection[index]?.refs
+                        ? FieldStyles.OutlineDanger
+                        : FieldStyles.OutlinePrimary,
                 strategy: 'text',
                 placeholder: translate('maintitleedit.collection.placeholder'),
                 afterContent: lang.toUpperCase(),
-                ...register(`titleCollection.${index}.ref`),
+                ...register(`titleCollection.${index}.refs`),
             },
             isHintReserved: true,
-            hint: errors.titleCollection
-                ? {
-                      children: translate(errors.titleCollection.message as AdminLang),
-                      hasDots: true,
-                      title: translate(errors.titleCollection.message as AdminLang),
-                  }
-                : {
-                      children: translate('maintitleedit.collection.hint'),
-                      hasDots: true,
-                      title: translate('maintitleedit.collection.hint'),
-                  },
+            hint:
+                errors.titleCollection && errors.titleCollection[index]?.refs
+                    ? {
+                          children: translate(errors.titleCollection[index]?.refs?.message as AdminLang),
+                          hasDots: true,
+                          title: translate(errors.titleCollection[index]?.refs?.message as AdminLang),
+                      }
+                    : {
+                          children: translate('maintitleedit.collection.hint'),
+                          hasDots: true,
+                          title: translate('maintitleedit.collection.hint'),
+                      },
         };
     };
 

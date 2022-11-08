@@ -1,6 +1,5 @@
 /* react */
 import { Fragment, memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useProductDetailContext } from '../ProductDetail.context';
 /* custom hook */
@@ -9,7 +8,7 @@ import { useUpdateCollection } from './useUpdateCollection.hook';
 import { ModalLayout, ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
-import { Badge, FieldSet } from 'admin/core';
+import { Badge, FieldSet, useAdminLang } from 'admin/core';
 /* assets */
 import { MdWarning } from 'react-icons/md';
 /* styles */
@@ -34,18 +33,18 @@ const UpdateCollectionModal = () => {
         handleRemoveFromAccesoryCollection,
     } = useUpdateCollection();
 
-    const { t, i18n } = useTranslation();
+    const { translate, lang } = useAdminLang();
 
     return (
         <ModalLayout isVisible={isUpdateCollection} rowAlignment="center" colAlignment="center" hasIndentation>
             <ScrollLayout orientation="col" classNameContent={styles.UpdateCollection}>
                 <form onSubmit={handleUpdateCollection}>
-                    <div className={styles.Header} title={t('views.productdetail.updatecollection.title')}>
+                    <div className={styles.Header} title={translate('productedit.collection')}>
                         <i>
                             <MdWarning />
                         </i>
 
-                        <Legend hasDots>{t('views.productdetail.updatecollection.title')}</Legend>
+                        <Legend hasDots>{translate('productedit.collection')}</Legend>
                     </div>
 
                     <div className={styles.Content}>
@@ -58,8 +57,8 @@ const UpdateCollectionModal = () => {
                                 <Fragment key={index}>
                                     <Badge onRemove={handleRemoveFromMainCollection(main.titleId)}>
                                         <Legend hasDots>
-                                            {main.titleCollection.find(collection => collection.lang === i18n.language)
-                                                ?.ref ?? main.defaultTitle}
+                                            {main.titleCollection.find(collection => collection.lang === lang)?.ref ??
+                                                main.defaultTitle}
                                         </Legend>
                                     </Badge>
                                 </Fragment>
@@ -76,9 +75,8 @@ const UpdateCollectionModal = () => {
                                     <Fragment key={index}>
                                         <Badge onRemove={handleRemoveFromAccesoryCollection(accesory.titleId)}>
                                             <Legend hasDots>
-                                                {accesory.titleCollection.find(
-                                                    collection => collection.lang === i18n.language
-                                                )?.ref ?? accesory.defaultTitle}
+                                                {accesory.titleCollection.find(collection => collection.lang === lang)
+                                                    ?.ref ?? accesory.defaultTitle}
                                             </Legend>
                                         </Badge>
                                     </Fragment>
@@ -91,19 +89,19 @@ const UpdateCollectionModal = () => {
                         <Button
                             type="button"
                             className={ButtonStyles.OutlineNone}
-                            title={t('views.productdetail.updatecollection.actions.cancel')}
+                            title={translate('actions.cancel')}
                             onClick={handleResetUpdateCollection}>
                             <Legend hasDots justify="center">
-                                {t('views.productdetail.updatecollection.actions.cancel')}
+                                {translate('actions.cancel')}
                             </Legend>
                         </Button>
 
                         <Button
                             type="submit"
                             className={ButtonStyles.FillSecondary}
-                            title={t('views.productdetail.updatecollection.actions.update')}>
+                            title={translate('actions.update')}>
                             <Legend hasDots justify="center">
-                                {t('views.productdetail.updatecollection.actions.update')}
+                                {translate('actions.update')}
                             </Legend>
                         </Button>
                     </div>

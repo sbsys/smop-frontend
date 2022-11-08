@@ -1,6 +1,5 @@
 /* react */
 import { Fragment, memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useProductDetailContext } from '../ProductDetail.context';
 /* custom hook */
@@ -9,7 +8,7 @@ import { useUpdateAddon } from './useUpdateAddon.hook';
 import { ModalLayout, ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
-import { Badge, FieldSet } from 'admin/core';
+import { Badge, FieldSet, useAdminLang } from 'admin/core';
 /* assets */
 import { MdWarning } from 'react-icons/md';
 /* styles */
@@ -33,18 +32,18 @@ const UpdateAddonModal = () => {
         handleRemoveFromSingleChoiceCollection,
     } = useUpdateAddon();
 
-    const { t, i18n } = useTranslation();
+    const { translate, lang } = useAdminLang();
 
     return (
         <ModalLayout isVisible={isUpdateAddon} rowAlignment="center" colAlignment="center" hasIndentation>
             <ScrollLayout orientation="col" classNameContent={styles.UpdateAddon}>
                 <form onSubmit={handleUpdateAddon}>
-                    <div className={styles.Header} title={t('views.productdetail.updateaddon.title')}>
+                    <div className={styles.Header} title={translate('productedit.accessory')}>
                         <i>
                             <MdWarning />
                         </i>
 
-                        <Legend hasDots>{t('views.productdetail.updateaddon.title')}</Legend>
+                        <Legend hasDots>{translate('productedit.accessory')}</Legend>
                     </div>
 
                     <div className={styles.Content}>
@@ -57,9 +56,8 @@ const UpdateAddonModal = () => {
                                 <Fragment key={index}>
                                     <Badge onRemove={handleRemoveFromMultipleChoiceCollection(multipleChoice.titleId)}>
                                         <Legend hasDots>
-                                            {multipleChoice.titleCollection.find(
-                                                collection => collection.lang === i18n.language
-                                            )?.ref ?? multipleChoice.defaultTitle}
+                                            {multipleChoice.titleCollection.find(collection => collection.lang === lang)
+                                                ?.ref ?? multipleChoice.defaultTitle}
                                         </Legend>
                                     </Badge>
                                 </Fragment>
@@ -75,9 +73,8 @@ const UpdateAddonModal = () => {
                                 <Fragment key={index}>
                                     <Badge onRemove={handleRemoveFromSingleChoiceCollection(singleChoice.titleId)}>
                                         <Legend hasDots>
-                                            {singleChoice.titleCollection.find(
-                                                collection => collection.lang === i18n.language
-                                            )?.ref ?? singleChoice.defaultTitle}
+                                            {singleChoice.titleCollection.find(collection => collection.lang === lang)
+                                                ?.ref ?? singleChoice.defaultTitle}
                                         </Legend>
                                     </Badge>
                                 </Fragment>
@@ -89,19 +86,19 @@ const UpdateAddonModal = () => {
                         <Button
                             type="button"
                             className={ButtonStyles.OutlineNone}
-                            title={t('views.productdetail.updateaddon.actions.cancel')}
+                            title={translate('actions.cancel')}
                             onClick={handleResetUpdateAddon}>
                             <Legend hasDots justify="center">
-                                {t('views.productdetail.updateaddon.actions.cancel')}
+                                {translate('actions.cancel')}
                             </Legend>
                         </Button>
 
                         <Button
                             type="submit"
                             className={ButtonStyles.FillSecondary}
-                            title={t('views.productdetail.updateaddon.actions.update')}>
+                            title={translate('actions.update')}>
                             <Legend hasDots justify="center">
-                                {t('views.productdetail.updateaddon.actions.update')}
+                                {translate('actions.update')}
                             </Legend>
                         </Button>
                     </div>

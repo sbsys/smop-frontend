@@ -1,9 +1,8 @@
 /* react */
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 /* props */
-import { FieldSetProps, useAdminNotify } from 'admin/core';
+import { FieldSetProps, useAdminLang, useAdminNotify } from 'admin/core';
 /* context */
 import { useProductDetailContext } from '../ProductDetail.context';
 /* components */
@@ -39,7 +38,7 @@ export const useUpdateCollection = () => {
         getProductDetail,
     } = useProductDetailContext();
 
-    const { t, i18n } = useTranslation();
+    const { translate, lang } = useAdminLang();
 
     const { notify } = useAdminNotify();
 
@@ -209,15 +208,15 @@ export const useUpdateCollection = () => {
         },
         isHintReserved: true,
         hint: {
-            children: t('views.productdetail.updatecollection.maincollectiontitle.hint'),
+            children: translate('productedit.main.title'),
             hasDots: true,
-            title: t('views.productdetail.updatecollection.maincollectiontitle.hint'),
+            title: translate('productedit.main.title'),
         },
     };
     const mainCollectionProps: FieldSetProps = {
         field: {
             className: FieldStyles.OutlinePrimary,
-            placeholder: t('views.productdetail.updatecollection.maincollection.placeholder'),
+            placeholder: translate('productedit.main.placeholder'),
             value: selectedMainCollection,
             onChange: (event: any) => setSelectedMainCollection(event.target.value),
             afterContent: (
@@ -225,7 +224,7 @@ export const useUpdateCollection = () => {
                     onClick={handleAddToMainCollection}
                     className={ButtonStyles.Plain}
                     type="button"
-                    title={t('views.productdetail.updatecollection.maincollection.add')}>
+                    title={translate('actions.add')}>
                     <i>
                         <MdAddCircle />
                     </i>
@@ -239,7 +238,7 @@ export const useUpdateCollection = () => {
                     ...prev,
                     {
                         label:
-                            current.titleCollection.find(collection => collection.lang === i18n.language)?.ref ??
+                            current.titleCollection.find(collection => collection.lang === lang)?.ref ??
                             current.defaultTitle,
                         value: current.titleId,
                     },
@@ -249,8 +248,8 @@ export const useUpdateCollection = () => {
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t('views.productdetail.updatecollection.maincollection.hint'),
-            children: t('views.productdetail.updatecollection.maincollection.hint'),
+            title: translate('productedit.main.hint'),
+            children: translate('productedit.main.hint'),
         },
     };
     /* accesory collection */
@@ -259,20 +258,20 @@ export const useUpdateCollection = () => {
         field: {
             className: FieldStyles.OutlinePrimary,
             strategy: 'checkbox',
-            placeholder: t('views.productdetail.updatecollection.markasaddon.placeholder'),
+            placeholder: translate('productedit.markasaddon.hint'),
             ...register('markAsAddon'),
         },
         isHintReserved: true,
         hint: {
-            children: t('views.productdetail.updatecollection.markasaddon.hint'),
+            children: translate('productedit.markasaddon.hint'),
             hasDots: true,
-            title: t('views.productdetail.updatecollection.markasaddon.hint'),
+            title: translate('productedit.markasaddon.hint'),
         },
     };
     const accesoryCollectionProps: FieldSetProps = {
         field: {
             className: FieldStyles.OutlinePrimary,
-            placeholder: t('views.productdetail.updatecollection.accesorycollection.placeholder'),
+            placeholder: translate('productedit.addon.placeholder'),
             value: selectedAccesoryCollection,
             onChange: (event: any) => setSelectedAccesoryCollection(event.target.value),
             afterContent: (
@@ -280,7 +279,7 @@ export const useUpdateCollection = () => {
                     onClick={handleAddToAccesoryCollection}
                     className={ButtonStyles.Plain}
                     type="button"
-                    title={t('views.productdetail.updatecollection.accesorycollection.add')}>
+                    title={translate('actions.add')}>
                     <i>
                         <MdAddCircle />
                     </i>
@@ -299,7 +298,7 @@ export const useUpdateCollection = () => {
                     ...prev,
                     {
                         label:
-                            current.titleCollection.find(collection => collection.lang === i18n.language)?.ref ??
+                            current.titleCollection.find(collection => collection.lang === lang)?.ref ??
                             current.defaultTitle,
                         value: current.titleId,
                     },
@@ -309,8 +308,8 @@ export const useUpdateCollection = () => {
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t('views.productdetail.updatecollection.accesorycollection.hint'),
-            children: t('views.productdetail.updatecollection.accesorycollection.hint'),
+            title: translate('productedit.addon.hint'),
+            children: translate('productedit.addon.hint'),
         },
     };
 

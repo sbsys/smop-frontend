@@ -1,22 +1,23 @@
 /* react */
 import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 /* props */
-import { FieldSetProps, FilePreview, FilePreviewProps, useAdminNotify } from 'admin/core';
+import { AdminLang, FieldSetProps, FilePreview, FilePreviewProps, useAdminLang, useAdminNotify } from 'admin/core';
 /* context */
 import { useProductDetailContext } from '../ProductDetail.context';
 /* hooks */
 import { useDragAndDropFiles, useLoader } from 'shared/hooks';
+/* components */
+import { Button, Legend } from 'shared/components';
 /* services */
 import { updatePictureService } from 'admin/collections/services';
+/* utils */
+import { classNames } from 'shared/utils';
 /* assets */
 import { MdCheckCircle, MdClose, MdError } from 'react-icons/md';
 /* styles */
-import styles from './UpdatePicture.module.scss';
-import { classNames } from 'shared/utils';
-import { Button, Legend } from 'shared/components';
 import { ButtonStyles } from 'shared/styles';
+import styles from './UpdatePicture.module.scss';
 
 export interface UpdatePictureFormData {
     image: FileList;
@@ -34,7 +35,7 @@ export const useUpdatePicture = () => {
 
     const [imageFileProps, isImageDragging] = useDragAndDropFiles();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     const { notify } = useAdminNotify();
 
@@ -78,7 +79,9 @@ export const useUpdatePicture = () => {
     });
 
     const handleResetUpdatePicture = () => {
-        reset();
+        reset({
+            image: undefined,
+        });
 
         hideUpdatePicture();
     };
@@ -118,12 +121,12 @@ export const useUpdatePicture = () => {
                         hasDots
                         title={
                             errors.image
-                                ? t(errors.image.message as string)
-                                : t('views.productdetail.updatepicture.image.hint')
+                                ? translate(errors.image.message as AdminLang)
+                                : translate('productedit.image.hint')
                         }>
                         {errors.image
-                            ? t(errors.image.message as string)
-                            : t('views.productdetail.updatepicture.image.hint')}
+                            ? translate(errors.image.message as AdminLang)
+                            : translate('productedit.image.hint')}
                     </Legend>
 
                     {watch('image')?.length > 0 && (
@@ -131,7 +134,7 @@ export const useUpdatePicture = () => {
                             type="button"
                             className={ButtonStyles.OutlineNone}
                             onClick={() => resetField('image')}
-                            title={t('views.productdetail.updatepicture.image.close')}>
+                            title={translate('actions.remove')}>
                             <i>
                                 <MdClose />
                             </i>

@@ -1,9 +1,8 @@
 /* react */
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 /* props */
-import { FieldSetProps, useAdminNotify } from 'admin/core';
+import { FieldSetProps, useAdminLang, useAdminNotify } from 'admin/core';
 /* context */
 import { useProductDetailContext } from '../ProductDetail.context';
 /* components */
@@ -37,7 +36,7 @@ export const useUpdateAddon = () => {
         getProductDetail,
     } = useProductDetailContext();
 
-    const { t, i18n } = useTranslation();
+    const { translate, lang } = useAdminLang();
 
     const { notify } = useAdminNotify();
 
@@ -182,15 +181,15 @@ export const useUpdateAddon = () => {
         },
         isHintReserved: true,
         hint: {
-            children: t('views.productdetail.updateaddon.multiplechoicecollectiontitle.hint'),
+            children: translate('productedit.multiple.title'),
             hasDots: true,
-            title: t('views.productdetail.updateaddon.multiplechoicecollectiontitle.hint'),
+            title: translate('productedit.multiple.title'),
         },
     };
     const multipleChoiceCollectionProps: FieldSetProps = {
         field: {
             className: FieldStyles.OutlinePrimary,
-            placeholder: t('views.productdetail.updateaddon.multiplechoicecollection.placeholder'),
+            placeholder: translate('productedit.multiple.placeholder'),
             value: selectedMultipleChoiceCollection,
             onChange: (event: any) => setSelectedMultipleChoiceCollection(event.target.value),
             afterContent: (
@@ -198,7 +197,7 @@ export const useUpdateAddon = () => {
                     onClick={handleAddToMultipleChoiceCollection}
                     className={ButtonStyles.Plain}
                     type="button"
-                    title={t('views.productdetail.updateaddon.multiplechoicecollection.add')}>
+                    title={translate('actions.add')}>
                     <i>
                         <MdAddCircle />
                     </i>
@@ -217,7 +216,7 @@ export const useUpdateAddon = () => {
                     ...prev,
                     {
                         label:
-                            current.titleCollection.find(collection => collection.lang === i18n.language)?.ref ??
+                            current.titleCollection.find(collection => collection.lang === lang)?.ref ??
                             current.defaultTitle,
                         value: current.titleId,
                     },
@@ -227,8 +226,8 @@ export const useUpdateAddon = () => {
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t('views.productdetail.updateaddon.multiplechoicecollection.hint'),
-            children: t('views.productdetail.updateaddon.multiplechoicecollection.hint'),
+            title: translate('productedit.multiple.hint'),
+            children: translate('productedit.multiple.hint'),
         },
     };
     /* single choice collection */
@@ -239,15 +238,15 @@ export const useUpdateAddon = () => {
         },
         isHintReserved: true,
         hint: {
-            children: t('views.productdetail.updateaddon.singlechoicecollectiontitle.hint'),
+            children: translate('productedit.single.title'),
             hasDots: true,
-            title: t('views.productdetail.updateaddon.singlechoicecollectiontitle.hint'),
+            title: translate('productedit.single.title'),
         },
     };
     const singleChoiceCollectionProps: FieldSetProps = {
         field: {
             className: FieldStyles.OutlinePrimary,
-            placeholder: t('views.productdetail.updateaddon.singlechoicecollection.placeholder'),
+            placeholder: translate('productedit.single.placeholder'),
             value: selectedSingleChoiceCollection,
             onChange: (event: any) => setSelectedSingleChoiceCollection(event.target.value),
             afterContent: (
@@ -255,7 +254,7 @@ export const useUpdateAddon = () => {
                     onClick={handleAddToSingleChoiceCollection}
                     className={ButtonStyles.Plain}
                     type="button"
-                    title={t('views.productdetail.updateaddon.singlechoicecollection.add')}>
+                    title={translate('actions.add')}>
                     <i>
                         <MdAddCircle />
                     </i>
@@ -274,7 +273,7 @@ export const useUpdateAddon = () => {
                     ...prev,
                     {
                         label:
-                            current.titleCollection.find(collection => collection.lang === i18n.language)?.ref ??
+                            current.titleCollection.find(collection => collection.lang === lang)?.ref ??
                             current.defaultTitle,
                         value: current.titleId,
                     },
@@ -284,8 +283,8 @@ export const useUpdateAddon = () => {
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t('views.productdetail.updateaddon.singlechoicecollection.hint'),
-            children: t('views.productdetail.updateaddon.singlechoicecollection.hint'),
+            title: translate('productedit.single.hint'),
+            children: translate('productedit.single.hint'),
         },
     };
 

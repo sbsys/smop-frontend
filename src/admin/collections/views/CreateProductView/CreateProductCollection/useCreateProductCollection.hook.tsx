@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 /* props */
-import { FieldSetProps, useAdminLang } from 'admin/core';
+import { AdminLang, FieldSetProps, useAdminLang } from 'admin/core';
 import { CreateProductFormData } from '../CreateProduct.props';
 /* context */
 import { useCreateProductContext } from '../CreateProduct.context';
@@ -24,7 +24,13 @@ export const useCreateProductCollection = () => {
         addonTitleList,
     } = useCreateProductContext();
 
-    const { setValue, register, watch } = useFormContext<CreateProductFormData>();
+    const {
+        setValue,
+        register,
+        watch,
+        formState: { errors },
+        trigger,
+    } = useFormContext<CreateProductFormData>();
 
     /* main collection */
     const [selectedMainCollection, setSelectedMainCollection] = useState<number | ''>('');
@@ -128,7 +134,9 @@ export const useCreateProductCollection = () => {
             'accesoryCollection',
             addonCollection.map(addon => ({ titleId: addon.titleId }))
         );
-    }, [addonCollection, setValue]);
+
+        trigger('accesoryCollection');
+    }, [addonCollection, setValue, trigger]);
 
     useEffect(() => {
         setValue(
@@ -215,7 +223,7 @@ export const useCreateProductCollection = () => {
     };
     const accesoryCollectionProps: FieldSetProps = {
         field: {
-            className: FieldStyles.OutlinePrimary,
+            className: errors.accesoryCollection ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             placeholder: translate('createproduct.addon.placeholder'),
             value: selectedAddonCollection,
             onChange: (event: any) => setSelectedAddonCollection(event.target.value),
@@ -251,11 +259,17 @@ export const useCreateProductCollection = () => {
             }, [] as SelectFieldOptionProps[]),
         },
         isHintReserved: true,
-        hint: {
-            hasDots: true,
-            title: translate('createproduct.addon.hint'),
-            children: translate('createproduct.addon.hint'),
-        },
+        hint: errors.accesoryCollection
+            ? {
+                  hasDots: true,
+                  title: translate(errors.accesoryCollection.message as AdminLang),
+                  children: translate(errors.accesoryCollection.message as AdminLang),
+              }
+            : {
+                  hasDots: true,
+                  title: translate('createproduct.addon.hint'),
+                  children: translate('createproduct.addon.hint'),
+              },
     };
 
     /* multiple choice collection */

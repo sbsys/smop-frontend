@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 /* props */
-import { CreateProductContextProps, CreateProductFormData } from './CreateProduct.props';
+import { CreateProductContextProps, CreateProductFormData, CreateProductSchema } from './CreateProduct.props';
 /* layouts */
 import { TabsLayoutRef } from 'shared/layouts';
 /* hooks */
@@ -13,6 +13,8 @@ import { useAdminNotify } from 'admin/core';
 import { addonsTitleListService, createProductService, mainTitleListService } from 'admin/collections/services';
 /* types */
 import { MainTitleListItemDTO, TitleListItemDTO } from 'admin/collections/types';
+/* utils */
+import { yupResolver } from '@hookform/resolvers/yup';
 /* assets */
 import { MdCheckCircle, MdError } from 'react-icons/md';
 
@@ -23,7 +25,7 @@ export const useCreateProduct = () => {
 
     const formMethods = useForm<CreateProductFormData>({
         mode: 'all',
-        /* resolver: yupResolver(CreateProductSchema), */
+        resolver: yupResolver(CreateProductSchema),
     });
 
     const navigate = useNavigate();
@@ -39,8 +41,8 @@ export const useCreateProduct = () => {
         showLoader();
 
         if (data.multiLanguage) {
-            data.defaultReference = data.referenceCollection[0].ref;
-            data.defaultDescription = data.descriptionCollection[0].ref;
+            data.defaultReference = data.referenceCollection[0].refs;
+            data.defaultDescription = data.descriptionCollection[0].refs;
         } else {
             data.referenceCollection = [];
             data.descriptionCollection = [];
@@ -48,6 +50,14 @@ export const useCreateProduct = () => {
 
         const service = await createProductService({
             ...data,
+            referenceCollection: data.referenceCollection.map(reference => ({
+                lang: reference.lang,
+                ref: reference.refs,
+            })),
+            descriptionCollection: data.descriptionCollection.map(description => ({
+                lang: description.lang,
+                ref: description.refs,
+            })),
             image: (data.image?.length ?? 0) > 0 ? data.image[0] : undefined,
         });
 

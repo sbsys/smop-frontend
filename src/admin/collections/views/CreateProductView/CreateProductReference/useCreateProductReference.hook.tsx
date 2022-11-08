@@ -64,19 +64,19 @@ export const useCreateProductReference = () => {
     /* reactivity */
     useEffect(() => {
         if (watch('multiLanguage')) {
-            setValue('referenceCollection.0.ref', watch('defaultReference'));
+            setValue('referenceCollection.0.refs', watch('defaultReference'));
 
             unregister('defaultReference');
 
-            setValue('descriptionCollection.0.ref', watch('defaultDescription'));
+            setValue('descriptionCollection.0.refs', watch('defaultDescription'));
 
             unregister('defaultDescription');
         } else {
-            setValue('defaultReference', watch('referenceCollection.0.ref'));
+            setValue('defaultReference', watch('referenceCollection.0.refs'));
 
             unregister('referenceCollection');
 
-            setValue('defaultDescription', watch('descriptionCollection.0.ref'));
+            setValue('defaultDescription', watch('descriptionCollection.0.refs'));
 
             unregister('descriptionCollection');
         }
@@ -169,24 +169,28 @@ export const useCreateProductReference = () => {
 
         return {
             field: {
-                className: errors.referenceCollection ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
+                className:
+                    errors.referenceCollection && errors.referenceCollection[index]?.refs
+                        ? FieldStyles.OutlineDanger
+                        : FieldStyles.OutlinePrimary,
                 strategy: 'text',
                 placeholder: translate('createproduct.references.placeholder'),
                 afterContent: lang.toUpperCase(),
-                ...register(`referenceCollection.${index}.ref`),
+                ...register(`referenceCollection.${index}.refs`),
             },
             isHintReserved: true,
-            hint: errors.referenceCollection
-                ? {
-                      children: translate(errors.referenceCollection.message as AdminLang),
-                      hasDots: true,
-                      title: translate(errors.referenceCollection.message as AdminLang),
-                  }
-                : {
-                      children: translate('createproduct.references.hint'),
-                      hasDots: true,
-                      title: translate('createproduct.references.hint'),
-                  },
+            hint:
+                errors.referenceCollection && errors.referenceCollection[index]?.refs
+                    ? {
+                          children: translate(errors.referenceCollection[index]?.refs?.message as AdminLang),
+                          hasDots: true,
+                          title: translate(errors.referenceCollection[index]?.refs?.message as AdminLang),
+                      }
+                    : {
+                          children: translate('createproduct.references.hint'),
+                          hasDots: true,
+                          title: translate('createproduct.references.hint'),
+                      },
         };
     };
     const descriptionTitleProps: FieldSetProps = {
@@ -206,24 +210,28 @@ export const useCreateProductReference = () => {
 
         return {
             field: {
-                className: errors.descriptionCollection ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
+                className:
+                    errors.descriptionCollection && errors.descriptionCollection[index]?.refs
+                        ? FieldStyles.OutlineDanger
+                        : FieldStyles.OutlinePrimary,
                 strategy: 'text',
                 placeholder: translate('createproduct.description.placeholder'),
                 afterContent: lang.toUpperCase(),
-                ...register(`descriptionCollection.${index}.ref`),
+                ...register(`descriptionCollection.${index}.refs`),
             },
             isHintReserved: true,
-            hint: errors.descriptionCollection
-                ? {
-                      children: translate(errors.descriptionCollection.message as AdminLang),
-                      hasDots: true,
-                      title: translate(errors.descriptionCollection.message as AdminLang),
-                  }
-                : {
-                      children: translate('createproduct.description.hint'),
-                      hasDots: true,
-                      title: translate('createproduct.description.hint'),
-                  },
+            hint:
+                errors.descriptionCollection && errors.descriptionCollection[index]?.refs
+                    ? {
+                          children: translate(errors.descriptionCollection[index]?.refs?.message as AdminLang),
+                          hasDots: true,
+                          title: translate(errors.descriptionCollection[index]?.refs?.message as AdminLang),
+                      }
+                    : {
+                          children: translate('createproduct.description.hint'),
+                          hasDots: true,
+                          title: translate('createproduct.description.hint'),
+                      },
         };
     };
     const allowPromptsProps: FieldSetProps = {

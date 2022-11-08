@@ -1,13 +1,12 @@
 /* react */
 import { memo, useContext } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { Context } from '../SignIn.context';
 /* layouts */
 import { PanelLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
-import { FieldSet, LanguageChanger } from 'admin/core';
+import { FieldSet, LanguageChanger, useAdminLang } from 'admin/core';
 /* assets */
 import { OrgsBGSrc } from 'assets';
 /* styles */
@@ -24,7 +23,7 @@ const SignIn = () => {
         passwordProps,
     } = useContext(Context);
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <PanelLayout className={styles.SignIn}>
@@ -40,17 +39,20 @@ const SignIn = () => {
 
             <PanelLayout className={styles.Form}>
                 <form className={CardStyles.Primary} onSubmit={handleSignIn}>
-                    <legend title={t('views.signin.form.title')}>
-                        <Legend hasDots>{t('views.signin.form.title')}</Legend>
+                    <legend title={translate('signin.title')}>
+                        <Legend hasDots>{translate('signin.title')}</Legend>
                     </legend>
 
                     <FieldSet {...emailProps} />
 
                     <FieldSet {...passwordProps} />
 
-                    <Button className={ButtonStyles.FillPrimary} type="submit" title={t('views.signin.form.signin')}>
+                    <Button
+                        className={ButtonStyles.FillPrimary}
+                        type="submit"
+                        title={translate('signin.actions.signin')}>
                         <Legend hasDots justify="center">
-                            {t('views.signin.form.signin')}
+                            {translate('signin.actions.signin')}
                         </Legend>
                     </Button>
 

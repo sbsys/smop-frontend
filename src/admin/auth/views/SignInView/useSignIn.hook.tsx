@@ -1,15 +1,14 @@
 /* react */
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 /* store */
 import { authStoreSignIn } from 'admin/auth/store';
 /* props */
-import { FieldSetProps, useAdminDispatch } from 'admin/core';
+import { AdminLang, FieldSetProps, useAdminDispatch } from 'admin/core';
 import { SignInContext } from './SignIn.props';
 /* hooks */
 import { useActive, useLoader, useLocalStorage } from 'shared/hooks';
-import { useAdminNotify } from 'admin/core/hooks';
+import { useAdminLang, useAdminNotify } from 'admin/core/hooks';
 /* services */
 import { signInService } from 'admin/auth/services';
 /* utils */
@@ -30,8 +29,14 @@ interface SignInForm {
 
 const SignInSchema = yup
     .object({
-        email: yup.string().email('views.signin.form.email.format').required('views.signin.form.email.required'),
-        password: yup.string().required('views.signin.form.password.required').min(8, 'views.signin.form.password.min'),
+        email: yup
+            .string()
+            .email('auth.email.format' as AdminLang)
+            .required('auth.email.required' as AdminLang),
+        password: yup
+            .string()
+            .required('auth.password.required' as AdminLang)
+            .min(8, 'auth.password.min' as AdminLang),
     })
     .required();
 
@@ -43,7 +48,7 @@ export const useSignIn = () => {
 
     const { notify } = useAdminNotify();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     const navigate = useNavigate();
 
@@ -99,15 +104,15 @@ export const useSignIn = () => {
         field: {
             className: errors.email ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'email',
-            placeholder: t('views.signin.form.email.placeholder'),
+            placeholder: translate('auth.email.placeholder'),
             ...register('email'),
         },
         isHintReserved: true,
         hint: errors.email
             ? {
-                  children: t(errors.email.message as string),
+                  children: translate(errors.email.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.email.message as string),
+                  title: translate(errors.email.message as AdminLang),
               }
             : undefined,
     };
@@ -116,7 +121,7 @@ export const useSignIn = () => {
         field: {
             className: errors.password ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'password',
-            placeholder: t('views.signin.form.password.placeholder'),
+            placeholder: translate('auth.password.placeholder'),
             isPasswordVisible: isPassword,
             showIcon: <IoMdEye />,
             onShowPassword: showPassword,
@@ -127,9 +132,9 @@ export const useSignIn = () => {
         isHintReserved: true,
         hint: errors.password
             ? {
-                  children: t(errors.password.message as string),
+                  children: translate(errors.password.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.password.message as string),
+                  title: translate(errors.password.message as AdminLang),
               }
             : undefined,
     };

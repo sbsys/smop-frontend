@@ -3,7 +3,6 @@
 .Field {
     @include flex(row);
     align-items: center;
-    height: 100%;
     overflow: hidden;
 }
 

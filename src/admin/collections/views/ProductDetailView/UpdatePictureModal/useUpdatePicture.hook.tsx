@@ -12,6 +12,8 @@ import { Button, Legend } from 'shared/components';
 /* services */
 import { updatePictureService } from 'admin/collections/services';
 /* utils */
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { classNames } from 'shared/utils';
 /* assets */
 import { MdCheckCircle, MdClose, MdError } from 'react-icons/md';
@@ -22,6 +24,23 @@ import styles from './UpdatePicture.module.scss';
 export interface UpdatePictureFormData {
     image: FileList;
 }
+
+const UpdatePictureSchema = yup.object({
+    /* file */
+    image: yup
+        .mixed()
+        .test('required', 'productedit.image.required' as AdminLang, value => value && value.length > 0)
+        .test(
+            'fileSize',
+            'productedit.image.size' as AdminLang,
+            value => value && value[0] && value[0].size <= 10000000
+        )
+        .test(
+            'type',
+            'productedit.image.type' as AdminLang,
+            value => value && value[0] && (value[0].type === 'image/jpeg' || value[0].type === 'image/png')
+        ),
+});
 
 export const useUpdatePicture = () => {
     /* states */
@@ -48,9 +67,20 @@ export const useUpdatePicture = () => {
         formState: { errors },
         resetField,
         watch,
-    } = useForm<UpdatePictureFormData>();
+    } = useForm<UpdatePictureFormData>({
+        mode: 'all',
+        resolver: yupResolver(UpdatePictureSchema),
+    });
 
     /* functions */
+    const handleResetUpdatePicture = () => {
+        reset({
+            image: undefined,
+        });
+
+        hideUpdatePicture();
+    };
+
     const handleUpdatePicture = handleSubmit(async data => {
         showLoader();
 
@@ -73,18 +103,10 @@ export const useUpdatePicture = () => {
             text: service.message,
         });
 
-        hideUpdatePicture();
+        handleResetUpdatePicture();
 
         getProductDetail();
     });
-
-    const handleResetUpdatePicture = () => {
-        reset({
-            image: undefined,
-        });
-
-        hideUpdatePicture();
-    };
 
     /* reactivity */
 

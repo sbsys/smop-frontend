@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 /* props */
-import { FieldSetProps, useAdminLang, useAdminNotify } from 'admin/core';
+import { AdminLang, FieldSetProps, useAdminLang, useAdminNotify } from 'admin/core';
 /* context */
 import { useProductDetailContext } from '../ProductDetail.context';
 /* components */
@@ -11,6 +11,9 @@ import { Button, SelectFieldOptionProps } from 'shared/components';
 import { useLoader } from 'shared/hooks';
 /* services */
 import { updateCollectionService } from 'admin/collections/services';
+/* utils */
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 /* types */
 import { MainTitleListItemDTO, TitleListItemDTO, TitleRefCollection } from 'admin/collections/types';
 /* assets */
@@ -24,6 +27,39 @@ export interface UpdateCollectionFormData {
     markAsAddon: boolean;
     accesoryCollection: TitleRefCollection[];
 }
+
+const UpdateCollectionSchema = yup.object({
+    /* collections */
+    mainCollection: yup.array().of(
+        yup.object({
+            titleId: yup.number().required(),
+        })
+    ),
+    markAsAddon: yup.boolean().required(),
+    accesoryCollection: yup.mixed().when(['markAsAddon'], {
+        is: (markAsAddon: boolean) => markAsAddon,
+        then: yup
+            .array()
+            .of(
+                yup.object({
+                    titleId: yup
+                        .number()
+                        .typeError('productedit.addon.required' as AdminLang)
+                        .required('productedit.addon.required' as AdminLang),
+                })
+            )
+            .required('productedit.addon.required' as AdminLang)
+            .min(1, 'productedit.addon.required' as AdminLang),
+        otherwise: yup.array().of(
+            yup.object({
+                titleId: yup
+                    .number()
+                    .typeError('productedit.addon.required' as AdminLang)
+                    .required('productedit.addon.required' as AdminLang),
+            })
+        ),
+    }),
+});
 
 export const useUpdateCollection = () => {
     /* states */
@@ -44,7 +80,18 @@ export const useUpdateCollection = () => {
 
     const { showLoader, hideLoader } = useLoader();
 
-    const { handleSubmit, reset, register, setValue, watch } = useForm<UpdateCollectionFormData>();
+    const {
+        handleSubmit,
+        reset,
+        register,
+        setValue,
+        watch,
+        formState: { errors },
+        trigger,
+    } = useForm<UpdateCollectionFormData>({
+        mode: 'all',
+        resolver: yupResolver(UpdateCollectionSchema),
+    });
 
     /* main collection */
     const [selectedMainCollection, setSelectedMainCollection] = useState<number | ''>('');
@@ -197,7 +244,9 @@ export const useUpdateCollection = () => {
             'accesoryCollection',
             accesoryCollection.map(accesory => ({ titleId: accesory.titleId }))
         );
-    }, [accesoryCollection, setValue]);
+
+        trigger('accesoryCollection');
+    }, [accesoryCollection, setValue, trigger]);
 
     /* props */
     /* main collection */
@@ -270,7 +319,7 @@ export const useUpdateCollection = () => {
     };
     const accesoryCollectionProps: FieldSetProps = {
         field: {
-            className: FieldStyles.OutlinePrimary,
+            className: errors.accesoryCollection ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             placeholder: translate('productedit.addon.placeholder'),
             value: selectedAccesoryCollection,
             onChange: (event: any) => setSelectedAccesoryCollection(event.target.value),
@@ -306,11 +355,17 @@ export const useUpdateCollection = () => {
             }, [] as SelectFieldOptionProps[]),
         },
         isHintReserved: true,
-        hint: {
-            hasDots: true,
-            title: translate('productedit.addon.hint'),
-            children: translate('productedit.addon.hint'),
-        },
+        hint: errors.accesoryCollection
+            ? {
+                  hasDots: true,
+                  title: translate(errors.accesoryCollection.message as AdminLang),
+                  children: translate(errors.accesoryCollection.message as AdminLang),
+              }
+            : {
+                  hasDots: true,
+                  title: translate('productedit.addon.hint'),
+                  children: translate('productedit.addon.hint'),
+              },
     };
 
     const updateMainCollectionFields: FieldSetProps[] = [mainCollectionTitleProps, mainCollectionProps];

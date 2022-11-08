@@ -11,6 +11,9 @@ import { Button, SelectFieldOptionProps } from 'shared/components';
 import { useLoader } from 'shared/hooks';
 /* services */
 import { updateAddonService } from 'admin/collections/services';
+/* utils */
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 /* types */
 import { TitleListItemDTO, TitleRefCollection } from 'admin/collections/types';
 /* assets */
@@ -23,6 +26,19 @@ export interface UpdateAddonFormData {
     multipleChoice: TitleRefCollection[];
     singleChoice: TitleRefCollection[];
 }
+
+const UpdateAddonSchema = yup.object({
+    multipleChoice: yup.array().of(
+        yup.object({
+            titleId: yup.number().required(),
+        })
+    ),
+    singleChoice: yup.array().of(
+        yup.object({
+            titleId: yup.number().required(),
+        })
+    ),
+});
 
 export const useUpdateAddon = () => {
     /* states */
@@ -42,7 +58,10 @@ export const useUpdateAddon = () => {
 
     const { showLoader, hideLoader } = useLoader();
 
-    const { handleSubmit, reset, setValue } = useForm<UpdateAddonFormData>();
+    const { handleSubmit, reset, setValue } = useForm<UpdateAddonFormData>({
+        mode: 'all',
+        resolver: yupResolver(UpdateAddonSchema),
+    });
 
     /* accesory */
     const [accesoryCollection, setAccesoryCollection] = useState<TitleListItemDTO[]>([]);

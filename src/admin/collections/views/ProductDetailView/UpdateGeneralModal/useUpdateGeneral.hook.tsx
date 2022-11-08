@@ -9,8 +9,11 @@ import { useProductDetailContext } from '../ProductDetail.context';
 import { useLoader } from 'shared/hooks';
 /* services */
 import { updateGeneralService } from 'admin/collections/services';
+/* utils */
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 /* types */
-import { ProductFeature, TitleCollection } from 'admin/collections/types';
+import { ProductFeature, TitleCollectionForm } from 'admin/collections/types';
 /* assets */
 import { MdCheckCircle, MdError } from 'react-icons/md';
 /* styles */
@@ -22,12 +25,44 @@ export interface UpdateGeneralFormData {
     defaultReference: string;
     defaultDescription: string;
     multiLanguage: boolean;
-    referenceCollection: TitleCollection[];
-    descriptionCollection: TitleCollection[];
+    referenceCollection: TitleCollectionForm[];
+    descriptionCollection: TitleCollectionForm[];
     allowPrompts: boolean;
     /* feature */
     feature?: ProductFeature[];
 }
+
+const UpdateGeneralSchema = yup.object({
+    /* references */
+    defaultReference: yup.mixed().when(['multiLanguage'], {
+        is: (multiLanguage: boolean) => !multiLanguage,
+        then: yup.string().required('productedit.references.required' as AdminLang),
+        otherwise: yup.string().optional(),
+    }),
+    defaultDescription: yup.mixed().when(['multiLanguage'], {
+        is: (multiLanguage: boolean) => !multiLanguage,
+        then: yup.string().required('productedit.description.required' as AdminLang),
+        otherwise: yup.string().optional(),
+    }),
+    multiLanguage: yup.boolean().required(),
+    referenceCollection: yup.array().of(
+        yup
+            .object({
+                lang: yup.string().required('productedit.references.required' as AdminLang),
+                refs: yup.string().required('productedit.references.required' as AdminLang),
+            })
+            .required()
+    ),
+    descriptionCollection: yup.array().of(
+        yup
+            .object({
+                lang: yup.string().required('productedit.description.required' as AdminLang),
+                refs: yup.string().required('productedit.description.required' as AdminLang),
+            })
+            .required()
+    ),
+    allowPrompts: yup.boolean().required(),
+});
 
 export const useUpdateGeneral = () => {
     /* states */
@@ -53,15 +88,18 @@ export const useUpdateGeneral = () => {
         formState: { errors },
         setValue,
         watch,
-    } = useForm<UpdateGeneralFormData>();
+    } = useForm<UpdateGeneralFormData>({
+        mode: 'all',
+        resolver: yupResolver(UpdateGeneralSchema),
+    });
 
     /* functions */
     const handleUpdateGeneral = handleSubmit(async data => {
         showLoader();
 
         if (data.multiLanguage) {
-            data.defaultReference = data.referenceCollection[0].ref;
-            data.defaultDescription = data.descriptionCollection[0].ref;
+            data.defaultReference = data.referenceCollection[0].refs;
+            data.defaultDescription = data.descriptionCollection[0].refs;
         } else {
             data.referenceCollection = [];
             data.descriptionCollection = [];
@@ -72,6 +110,14 @@ export const useUpdateGeneral = () => {
 
         const service = await updateGeneralService(product?.productId ?? '', {
             ...data,
+            referenceCollection: data.referenceCollection.map(reference => ({
+                lang: reference.lang,
+                ref: reference.refs,
+            })),
+            descriptionCollection: data.descriptionCollection.map(description => ({
+                lang: description.lang,
+                ref: description.refs,
+            })),
             isActive: product?.isActive === 'active',
         });
 
@@ -193,25 +239,29 @@ export const useUpdateGeneral = () => {
 
         return {
             field: {
-                className: errors.referenceCollection ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
+                className:
+                    errors.referenceCollection && errors.referenceCollection[index]?.refs
+                        ? FieldStyles.OutlineDanger
+                        : FieldStyles.OutlinePrimary,
                 strategy: 'text',
                 placeholder: translate('productedit.references.placeholder'),
                 afterContent: lang.toUpperCase(),
                 defaultValue: product?.referenceCollection.find(ref => ref.lang === lang)?.ref,
-                ...register(`referenceCollection.${index}.ref`),
+                ...register(`referenceCollection.${index}.refs`),
             },
             isHintReserved: true,
-            hint: errors.referenceCollection
-                ? {
-                      children: translate(errors.referenceCollection.message as AdminLang),
-                      hasDots: true,
-                      title: translate(errors.referenceCollection.message as AdminLang),
-                  }
-                : {
-                      children: translate('productedit.references.hint'),
-                      hasDots: true,
-                      title: translate('productedit.references.hint'),
-                  },
+            hint:
+                errors.referenceCollection && errors.referenceCollection[index]?.refs
+                    ? {
+                          children: translate(errors.referenceCollection[index]?.refs?.message as AdminLang),
+                          hasDots: true,
+                          title: translate(errors.referenceCollection[index]?.refs?.message as AdminLang),
+                      }
+                    : {
+                          children: translate('productedit.references.hint'),
+                          hasDots: true,
+                          title: translate('productedit.references.hint'),
+                      },
         };
     };
     const descriptionTitleProps: FieldSetProps = {
@@ -231,25 +281,29 @@ export const useUpdateGeneral = () => {
 
         return {
             field: {
-                className: errors.descriptionCollection ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
+                className:
+                    errors.descriptionCollection && errors.descriptionCollection[index]?.refs
+                        ? FieldStyles.OutlineDanger
+                        : FieldStyles.OutlinePrimary,
                 strategy: 'text',
                 placeholder: translate('productedit.description.placeholder'),
                 afterContent: lang.toUpperCase(),
                 defaultValue: product?.descriptionCollection.find(ref => ref.lang === lang)?.ref,
-                ...register(`descriptionCollection.${index}.ref`),
+                ...register(`descriptionCollection.${index}.refs`),
             },
             isHintReserved: true,
-            hint: errors.descriptionCollection
-                ? {
-                      children: translate(errors.descriptionCollection.message as AdminLang),
-                      hasDots: true,
-                      title: translate(errors.descriptionCollection.message as AdminLang),
-                  }
-                : {
-                      children: translate('productedit.description.hint'),
-                      hasDots: true,
-                      title: translate('productedit.description.hint'),
-                  },
+            hint:
+                errors.descriptionCollection && errors.descriptionCollection[index]?.refs
+                    ? {
+                          children: translate(errors.descriptionCollection[index]?.refs?.message as AdminLang),
+                          hasDots: true,
+                          title: translate(errors.descriptionCollection[index]?.refs?.message as AdminLang),
+                      }
+                    : {
+                          children: translate('productedit.description.hint'),
+                          hasDots: true,
+                          title: translate('productedit.description.hint'),
+                      },
         };
     };
     const allowPromptsProps: FieldSetProps = {

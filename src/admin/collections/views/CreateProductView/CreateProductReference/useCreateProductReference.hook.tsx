@@ -1,9 +1,8 @@
 /* react */
 import { useEffect, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 /* props */
-import { FieldSetProps, FilePreview, FilePreviewProps, Lang } from 'admin/core';
+import { AdminLang, FieldSetProps, FilePreview, FilePreviewProps, Lang, useAdminLang } from 'admin/core';
 import { CreateProductFormData } from '../CreateProduct.props';
 /* context */
 import { useCreateProductContext } from '../CreateProduct.context';
@@ -38,7 +37,7 @@ export const useCreateProductReference = () => {
 
     const [imageFileProps, isImageDragging] = useDragAndDropFiles();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     /* functions */
     const handleToNextTab = async () => {
@@ -96,40 +95,40 @@ export const useCreateProductReference = () => {
         field: {
             className: errors.defaultReference ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'text',
-            placeholder: t('views.createproduct.form.defaultreference.placeholder'),
+            placeholder: translate('createproduct.references.placeholder'),
             ...register('defaultReference'),
         },
         isHintReserved: true,
         hint: errors.defaultReference
             ? {
-                  children: t(errors.defaultReference.message as string),
+                  children: translate(errors.defaultReference.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.defaultReference.message as string),
+                  title: translate(errors.defaultReference.message as AdminLang),
               }
             : {
-                  children: t('views.createproduct.form.defaultreference.hint'),
+                  children: translate('createproduct.references.hint'),
                   hasDots: true,
-                  title: t('views.createproduct.form.defaultreference.hint'),
+                  title: translate('createproduct.references.hint'),
               },
     };
     const defaultDescriptionProps: FieldSetProps = {
         field: {
             className: errors.defaultDescription ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'text',
-            placeholder: t('views.createproduct.form.defaultdescription.placeholder'),
+            placeholder: translate('createproduct.description.placeholder'),
             ...register('defaultDescription'),
         },
         isHintReserved: true,
         hint: errors.defaultDescription
             ? {
-                  children: t(errors.defaultDescription.message as string),
+                  children: translate(errors.defaultDescription.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.defaultDescription.message as string),
+                  title: translate(errors.defaultDescription.message as AdminLang),
               }
             : {
-                  children: t('views.createproduct.form.defaultdescription.hint'),
+                  children: translate('createproduct.description.hint'),
                   hasDots: true,
-                  title: t('views.createproduct.form.defaultdescription.hint'),
+                  title: translate('createproduct.description.hint'),
               },
     };
     const multiLanguageProps: FieldSetProps = {
@@ -137,20 +136,20 @@ export const useCreateProductReference = () => {
         field: {
             className: errors.multiLanguage ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'checkbox',
-            placeholder: t('views.createproduct.form.multilanguage.placeholder'),
+            placeholder: translate('commons.allowmultilanguage'),
             ...register('multiLanguage'),
         },
         isHintReserved: true,
         hint: errors.multiLanguage
             ? {
-                  children: t(errors.multiLanguage.message as string),
+                  children: translate(errors.multiLanguage.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.multiLanguage.message as string),
+                  title: translate(errors.multiLanguage.message as AdminLang),
               }
             : {
-                  children: t('views.createproduct.form.multilanguage.hint'),
+                  children: translate('commons.allowmultilanguage'),
                   hasDots: true,
-                  title: t('views.createproduct.form.multilanguage.hint'),
+                  title: translate('commons.allowmultilanguage'),
               },
     };
     const referenceTitleProps: FieldSetProps = {
@@ -160,9 +159,9 @@ export const useCreateProductReference = () => {
         },
         isHintReserved: true,
         hint: {
-            children: t('views.createproduct.form.referencetitle.hint'),
+            children: translate('createproduct.references.title'),
             hasDots: true,
-            title: t('views.createproduct.form.referencetitle.hint'),
+            title: translate('createproduct.references.title'),
         },
     };
     const referenceCollectionProps = (index: number, lang: Lang): FieldSetProps => {
@@ -172,21 +171,21 @@ export const useCreateProductReference = () => {
             field: {
                 className: errors.referenceCollection ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
                 strategy: 'text',
-                placeholder: t('views.createproduct.form.referencecollection.placeholder'),
+                placeholder: translate('createproduct.references.placeholder'),
                 afterContent: lang.toUpperCase(),
                 ...register(`referenceCollection.${index}.ref`),
             },
             isHintReserved: true,
             hint: errors.referenceCollection
                 ? {
-                      children: t(errors.referenceCollection.message as string),
+                      children: translate(errors.referenceCollection.message as AdminLang),
                       hasDots: true,
-                      title: t(errors.referenceCollection.message as string),
+                      title: translate(errors.referenceCollection.message as AdminLang),
                   }
                 : {
-                      children: t('views.createproduct.form.referencecollection.hint'),
+                      children: translate('createproduct.references.hint'),
                       hasDots: true,
-                      title: t('views.createproduct.form.referencecollection.hint'),
+                      title: translate('createproduct.references.hint'),
                   },
         };
     };
@@ -197,9 +196,9 @@ export const useCreateProductReference = () => {
         },
         isHintReserved: true,
         hint: {
-            children: t('views.createproduct.form.descriptiontitle.hint'),
+            children: translate('createproduct.description.title'),
             hasDots: true,
-            title: t('views.createproduct.form.descriptiontitle.hint'),
+            title: translate('createproduct.description.title'),
         },
     };
     const descriptionCollectionProps = (index: number, lang: Lang): FieldSetProps => {
@@ -209,21 +208,21 @@ export const useCreateProductReference = () => {
             field: {
                 className: errors.descriptionCollection ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
                 strategy: 'text',
-                placeholder: t('views.createproduct.form.descriptioncollection.placeholder'),
+                placeholder: translate('createproduct.description.placeholder'),
                 afterContent: lang.toUpperCase(),
                 ...register(`descriptionCollection.${index}.ref`),
             },
             isHintReserved: true,
             hint: errors.descriptionCollection
                 ? {
-                      children: t(errors.descriptionCollection.message as string),
+                      children: translate(errors.descriptionCollection.message as AdminLang),
                       hasDots: true,
-                      title: t(errors.descriptionCollection.message as string),
+                      title: translate(errors.descriptionCollection.message as AdminLang),
                   }
                 : {
-                      children: t('views.createproduct.form.descriptioncollection.hint'),
+                      children: translate('createproduct.description.hint'),
                       hasDots: true,
-                      title: t('views.createproduct.form.descriptioncollection.hint'),
+                      title: translate('createproduct.description.hint'),
                   },
         };
     };
@@ -232,20 +231,20 @@ export const useCreateProductReference = () => {
         field: {
             className: errors.allowPrompts ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'checkbox',
-            placeholder: t('views.createproduct.form.allowprompts.placeholder'),
+            placeholder: translate('createproduct.allowprompts.hint'),
             ...register('allowPrompts'),
         },
         isHintReserved: true,
         hint: errors.allowPrompts
             ? {
-                  children: t(errors.allowPrompts.message as string),
+                  children: translate(errors.allowPrompts.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.allowPrompts.message as string),
+                  title: translate(errors.allowPrompts.message as AdminLang),
               }
             : {
-                  children: t('views.createproduct.form.allowprompts.hint'),
+                  children: translate('createproduct.allowprompts.hint'),
                   hasDots: true,
-                  title: t('views.createproduct.form.allowprompts.hint'),
+                  title: translate('createproduct.allowprompts.hint'),
               },
     };
 
@@ -269,20 +268,20 @@ export const useCreateProductReference = () => {
         field: {
             className: errors.includePicture ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'checkbox',
-            placeholder: t('views.createproduct.form.includepicture.placeholder'),
+            placeholder: translate('createproduct.image.title'),
             ...register('includePicture'),
         },
         isHintReserved: true,
         hint: errors.includePicture
             ? {
-                  children: t(errors.includePicture.message as string),
+                  children: translate(errors.includePicture.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.includePicture.message as string),
+                  title: translate(errors.includePicture.message as AdminLang),
               }
             : {
-                  children: t('views.createproduct.form.includepicture.hint'),
+                  children: translate('createproduct.image.title'),
                   hasDots: true,
-                  title: t('views.createproduct.form.includepicture.hint'),
+                  title: translate('createproduct.image.title'),
               },
     };
     const imagePreviewProps: FilePreviewProps = useMemo(
@@ -316,9 +315,13 @@ export const useCreateProductReference = () => {
                     <Legend
                         hasDots
                         title={
-                            errors.image ? t(errors.image.message as string) : t('views.createproduct.form.image.hint')
+                            errors.image
+                                ? translate(errors.image.message as AdminLang)
+                                : translate('createproduct.image.hint')
                         }>
-                        {errors.image ? t(errors.image.message as string) : t('views.createproduct.form.image.hint')}
+                        {errors.image
+                            ? translate(errors.image.message as AdminLang)
+                            : translate('createproduct.image.hint')}
                     </Legend>
 
                     {watch('image')?.length > 0 && (
@@ -326,7 +329,7 @@ export const useCreateProductReference = () => {
                             type="button"
                             className={ButtonStyles.OutlineNone}
                             onClick={() => resetField('image')}
-                            title={t('views.createproduct.form.image.close')}>
+                            title={translate('actions.remove')}>
                             <i>
                                 <MdClose />
                             </i>

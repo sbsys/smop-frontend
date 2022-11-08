@@ -1,13 +1,12 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* custom hook */
 import { useCreateProductReference } from './useCreateProductReference.hook';
 /* layouts */
 import { ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
-import { FieldSet } from 'admin/core';
+import { FieldSet, useAdminLang } from 'admin/core';
 /* styles */
 import { ButtonStyles } from 'shared/styles';
 import styles from './CreateProductReference.module.scss';
@@ -15,15 +14,15 @@ import styles from './CreateProductReference.module.scss';
 const CreateProductReference = () => {
     const { handleToNextTab, createProductReferenceFields, createProductFileFields } = useCreateProductReference();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <ScrollLayout orientation="col">
             <section className={styles.Reference}>
                 <div className={styles.Content}>
                     <div className={styles.Fields}>
-                        <h2 title={t('views.createproduct.reference.header')}>
-                            <Legend hasDots>{t('views.createproduct.reference.header')}</Legend>
+                        <h2 title={translate('createproduct.general')}>
+                            <Legend hasDots>{translate('createproduct.general')}</Legend>
                         </h2>
 
                         {createProductReferenceFields.map((field, index) => (
@@ -32,8 +31,8 @@ const CreateProductReference = () => {
                     </div>
 
                     <div className={styles.Fields}>
-                        <h2 title={t('views.createproduct.file.header')}>
-                            <Legend hasDots>{t('views.createproduct.file.header')}</Legend>
+                        <h2 title={translate('createproduct.picture')}>
+                            <Legend hasDots>{translate('createproduct.picture')}</Legend>
                         </h2>
 
                         {createProductFileFields.map((field, index) => (
@@ -46,10 +45,10 @@ const CreateProductReference = () => {
                     <Button
                         type="button"
                         className={ButtonStyles.FillSecondary}
-                        title={t('actions.nextstep')}
+                        title={translate('actions.nextstep')}
                         onClick={handleToNextTab}>
                         <Legend hasDots justify="center">
-                            {t('actions.nextstep')}
+                            {translate('actions.nextstep')}
                         </Legend>
                     </Button>
                 </div>

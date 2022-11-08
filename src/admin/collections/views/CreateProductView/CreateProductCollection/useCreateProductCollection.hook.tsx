@@ -1,9 +1,8 @@
 /* react */
 import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 /* props */
-import { FieldSetProps } from 'admin/core';
+import { FieldSetProps, useAdminLang } from 'admin/core';
 import { CreateProductFormData } from '../CreateProduct.props';
 /* context */
 import { useCreateProductContext } from '../CreateProduct.context';
@@ -107,7 +106,7 @@ export const useCreateProductCollection = () => {
         setSingleChoiceCollection(prev => [...prev.filter(current => current.titleId !== titleId)]);
     };
 
-    const { t, i18n } = useTranslation();
+    const { translate, lang } = useAdminLang();
 
     /* reactivity */
     useEffect(() => {
@@ -154,15 +153,15 @@ export const useCreateProductCollection = () => {
         },
         isHintReserved: true,
         hint: {
-            children: t('views.createproduct.form.maincollectiontitle.hint'),
+            children: translate('createproduct.main.title'),
             hasDots: true,
-            title: t('views.createproduct.form.maincollectiontitle.hint'),
+            title: translate('createproduct.main.title'),
         },
     };
     const mainCollectionProps: FieldSetProps = {
         field: {
             className: FieldStyles.OutlinePrimary,
-            placeholder: t('views.createproduct.form.maincollection.placeholder'),
+            placeholder: translate('createproduct.main.placeholder'),
             value: selectedMainCollection,
             onChange: (event: any) => setSelectedMainCollection(event.target.value),
             afterContent: (
@@ -170,7 +169,7 @@ export const useCreateProductCollection = () => {
                     onClick={handleAddToMainCollection}
                     className={ButtonStyles.Plain}
                     type="button"
-                    title={t('views.createproduct.form.maincollection.add')}>
+                    title={translate('actions.add')}>
                     <i>
                         <MdAddCircle />
                     </i>
@@ -184,7 +183,7 @@ export const useCreateProductCollection = () => {
                     ...prev,
                     {
                         label:
-                            current.titleCollection.find(collection => collection.lang === i18n.language)?.ref ??
+                            current.titleCollection.find(collection => collection.lang === lang)?.ref ??
                             current.defaultTitle,
                         value: current.titleId,
                     },
@@ -194,8 +193,8 @@ export const useCreateProductCollection = () => {
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t('views.createproduct.form.maincollection.hint'),
-            children: t('views.createproduct.form.maincollection.hint'),
+            title: translate('createproduct.main.hint'),
+            children: translate('createproduct.main.hint'),
         },
     };
     /* accesory collection */
@@ -204,20 +203,20 @@ export const useCreateProductCollection = () => {
         field: {
             className: FieldStyles.OutlinePrimary,
             strategy: 'checkbox',
-            placeholder: t('views.createproduct.form.markasaddon.placeholder'),
+            placeholder: translate('createproduct.addon.title'),
             ...register('markAsAddon'),
         },
         isHintReserved: true,
         hint: {
-            children: t('views.createproduct.form.markasaddon.hint'),
+            children: translate('createproduct.addon.title'),
             hasDots: true,
-            title: t('views.createproduct.form.markasaddon.hint'),
+            title: translate('createproduct.addon.title'),
         },
     };
     const accesoryCollectionProps: FieldSetProps = {
         field: {
             className: FieldStyles.OutlinePrimary,
-            placeholder: t('views.createproduct.form.accesorycollection.placeholder'),
+            placeholder: translate('createproduct.addon.placeholder'),
             value: selectedAddonCollection,
             onChange: (event: any) => setSelectedAddonCollection(event.target.value),
             afterContent: (
@@ -225,7 +224,7 @@ export const useCreateProductCollection = () => {
                     onClick={handleAddToAddonCollection}
                     className={ButtonStyles.Plain}
                     type="button"
-                    title={t('views.createproduct.form.accesorycollection.add')}>
+                    title={translate('actions.add')}>
                     <i>
                         <MdAddCircle />
                     </i>
@@ -244,7 +243,7 @@ export const useCreateProductCollection = () => {
                     ...prev,
                     {
                         label:
-                            current.titleCollection.find(collection => collection.lang === i18n.language)?.ref ??
+                            current.titleCollection.find(collection => collection.lang === lang)?.ref ??
                             current.defaultTitle,
                         value: current.titleId,
                     },
@@ -254,8 +253,8 @@ export const useCreateProductCollection = () => {
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t('views.createproduct.form.accesorycollection.hint'),
-            children: t('views.createproduct.form.accesorycollection.hint'),
+            title: translate('createproduct.addon.hint'),
+            children: translate('createproduct.addon.hint'),
         },
     };
 
@@ -267,15 +266,15 @@ export const useCreateProductCollection = () => {
         },
         isHintReserved: true,
         hint: {
-            children: t('views.createproduct.form.multiplechoicecollectiontitle.hint'),
+            children: translate('createproduct.multiple.title'),
             hasDots: true,
-            title: t('views.createproduct.form.multiplechoicecollectiontitle.hint'),
+            title: translate('createproduct.multiple.title'),
         },
     };
     const multipleChoiceCollectionProps: FieldSetProps = {
         field: {
             className: FieldStyles.OutlinePrimary,
-            placeholder: t('views.createproduct.form.multiplechoicecollection.placeholder'),
+            placeholder: translate('createproduct.multiple.placeholder'),
             value: selectedMultipleChoiceCollection,
             onChange: (event: any) => setSelectedMultipleChoiceCollection(event.target.value),
             afterContent: (
@@ -283,7 +282,7 @@ export const useCreateProductCollection = () => {
                     onClick={handleAddToMultipleChoiceCollection}
                     className={ButtonStyles.Plain}
                     type="button"
-                    title={t('views.createproduct.form.multiplechoicecollection.add')}>
+                    title={translate('actions.add')}>
                     <i>
                         <MdAddCircle />
                     </i>
@@ -302,7 +301,7 @@ export const useCreateProductCollection = () => {
                     ...prev,
                     {
                         label:
-                            current.titleCollection.find(collection => collection.lang === i18n.language)?.ref ??
+                            current.titleCollection.find(collection => collection.lang === lang)?.ref ??
                             current.defaultTitle,
                         value: current.titleId,
                     },
@@ -312,8 +311,8 @@ export const useCreateProductCollection = () => {
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t('views.createproduct.form.multiplechoicecollection.hint'),
-            children: t('views.createproduct.form.multiplechoicecollection.hint'),
+            title: translate('createproduct.multiple.hint'),
+            children: translate('createproduct.multiple.hint'),
         },
     };
     /* single choice collection */
@@ -324,15 +323,15 @@ export const useCreateProductCollection = () => {
         },
         isHintReserved: true,
         hint: {
-            children: t('views.createproduct.form.singlechoicecollectiontitle.hint'),
+            children: translate('createproduct.single.title'),
             hasDots: true,
-            title: t('views.createproduct.form.singlechoicecollectiontitle.hint'),
+            title: translate('createproduct.single.title'),
         },
     };
     const singleChoiceCollectionProps: FieldSetProps = {
         field: {
             className: FieldStyles.OutlinePrimary,
-            placeholder: t('views.createproduct.form.singlechoicecollection.placeholder'),
+            placeholder: translate('createproduct.single.placeholder'),
             value: selectedSingleChoiceCollection,
             onChange: (event: any) => setSelectedSingleChoiceCollection(event.target.value),
             afterContent: (
@@ -340,7 +339,7 @@ export const useCreateProductCollection = () => {
                     onClick={handleAddToSingleChoiceCollection}
                     className={ButtonStyles.Plain}
                     type="button"
-                    title={t('views.createproduct.form.singlechoicecollection.add')}>
+                    title={translate('actions.add')}>
                     <i>
                         <MdAddCircle />
                     </i>
@@ -359,7 +358,7 @@ export const useCreateProductCollection = () => {
                     ...prev,
                     {
                         label:
-                            current.titleCollection.find(collection => collection.lang === i18n.language)?.ref ??
+                            current.titleCollection.find(collection => collection.lang === lang)?.ref ??
                             current.defaultTitle,
                         value: current.titleId,
                     },
@@ -369,8 +368,8 @@ export const useCreateProductCollection = () => {
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t('views.createproduct.form.singlechoicecollection.hint'),
-            children: t('views.createproduct.form.singlechoicecollection.hint'),
+            title: translate('createproduct.single.hint'),
+            children: translate('createproduct.single.hint'),
         },
     };
 

@@ -1,6 +1,5 @@
 /* react */
 import { Fragment, memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* custom hook */
 import { useCreateProductCollection } from './useCreateProductCollection.hook';
 /* context */
@@ -9,9 +8,9 @@ import { useCreateProductContext } from '../CreateProduct.context';
 import { ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
+import { Badge, FieldSet, useAdminLang } from 'admin/core';
 /* styles */
 import { ButtonStyles } from 'shared/styles';
-import { Badge, FieldSet } from 'admin/core';
 import styles from './CreateProductCollection.module.scss';
 
 const CreateProductCollection = () => {
@@ -40,15 +39,15 @@ const CreateProductCollection = () => {
         handleRemoveFromSingleChoiceCollection,
     } = useCreateProductCollection();
 
-    const { t, i18n } = useTranslation();
+    const { translate, lang } = useAdminLang();
 
     return (
         <ScrollLayout orientation="col">
             <section className={styles.Collection}>
                 <div className={styles.Content}>
                     <div className={styles.Fields}>
-                        <h2 title={t('views.createproduct.collection.header')}>
-                            <Legend hasDots>{t('views.createproduct.collection.header')}</Legend>
+                        <h2 title={translate('createproduct.collection')}>
+                            <Legend hasDots>{translate('createproduct.collection')}</Legend>
                         </h2>
 
                         {createProductMainCollectionFields.map((field, index) => (
@@ -60,8 +59,8 @@ const CreateProductCollection = () => {
                                 <Fragment key={index}>
                                     <Badge onRemove={handleRemoveFromMainCollection(main.titleId)}>
                                         <Legend hasDots>
-                                            {main.titleCollection.find(collection => collection.lang === i18n.language)
-                                                ?.ref ?? main.defaultTitle}
+                                            {main.titleCollection.find(collection => collection.lang === lang)?.ref ??
+                                                main.defaultTitle}
                                         </Legend>
                                     </Badge>
                                 </Fragment>
@@ -78,9 +77,8 @@ const CreateProductCollection = () => {
                                     <Fragment key={index}>
                                         <Badge onRemove={handleRemoveFromAddonCollection(accesory.titleId)}>
                                             <Legend hasDots>
-                                                {accesory.titleCollection.find(
-                                                    collection => collection.lang === i18n.language
-                                                )?.ref ?? accesory.defaultTitle}
+                                                {accesory.titleCollection.find(collection => collection.lang === lang)
+                                                    ?.ref ?? accesory.defaultTitle}
                                             </Legend>
                                         </Badge>
                                     </Fragment>
@@ -90,8 +88,8 @@ const CreateProductCollection = () => {
                     </div>
 
                     <div className={styles.Fields}>
-                        <h2 title={t('views.createproduct.choice.header')}>
-                            <Legend hasDots>{t('views.createproduct.choice.header')}</Legend>
+                        <h2 title={translate('createproduct.accessory')}>
+                            <Legend hasDots>{translate('createproduct.accessory')}</Legend>
                         </h2>
 
                         {createProductMultipleChoiceCollectionFields.map((field, index) => (
@@ -103,9 +101,8 @@ const CreateProductCollection = () => {
                                 <Fragment key={index}>
                                     <Badge onRemove={handleRemoveFromMultipleChoiceCollection(multipleChoice.titleId)}>
                                         <Legend hasDots>
-                                            {multipleChoice.titleCollection.find(
-                                                collection => collection.lang === i18n.language
-                                            )?.ref ?? multipleChoice.defaultTitle}
+                                            {multipleChoice.titleCollection.find(collection => collection.lang === lang)
+                                                ?.ref ?? multipleChoice.defaultTitle}
                                         </Legend>
                                     </Badge>
                                 </Fragment>
@@ -121,9 +118,8 @@ const CreateProductCollection = () => {
                                 <Fragment key={index}>
                                     <Badge onRemove={handleRemoveFromSingleChoiceCollection(singleChoice.titleId)}>
                                         <Legend hasDots>
-                                            {singleChoice.titleCollection.find(
-                                                collection => collection.lang === i18n.language
-                                            )?.ref ?? singleChoice.defaultTitle}
+                                            {singleChoice.titleCollection.find(collection => collection.lang === lang)
+                                                ?.ref ?? singleChoice.defaultTitle}
                                         </Legend>
                                     </Badge>
                                 </Fragment>
@@ -136,19 +132,16 @@ const CreateProductCollection = () => {
                     <Button
                         type="button"
                         className={ButtonStyles.OutlineNone}
-                        title={t('actions.prevstep')}
+                        title={translate('actions.prevstep')}
                         onClick={handlePrevTab}>
                         <Legend hasDots justify="center">
-                            {t('actions.prevstep')}
+                            {translate('actions.prevstep')}
                         </Legend>
                     </Button>
 
-                    <Button
-                        type="submit"
-                        className={ButtonStyles.FillSecondary}
-                        title={t('views.createproduct.actions.save')}>
+                    <Button type="submit" className={ButtonStyles.FillSecondary} title={translate('actions.save')}>
                         <Legend hasDots justify="center">
-                            {t('views.createproduct.actions.save')}
+                            {translate('actions.save')}
                         </Legend>
                     </Button>
                 </div>

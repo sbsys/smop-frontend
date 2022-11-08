@@ -1,6 +1,5 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useCreateProductContext } from '../CreateProduct.context';
 /* layouts */
@@ -9,6 +8,8 @@ import { ScrollLayout, TabsLayout } from 'shared/layouts';
 import { Button, Legend } from 'shared/components';
 import { CreateProductReference } from '../CreateProductReference';
 import { CreateProductCollection } from '../CreateProductCollection';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* utils */
 import { classNames } from 'shared/utils';
 /* styles */
@@ -24,22 +25,22 @@ const CreateProduct = () => {
         handleCancelCreateProduct,
     } = useCreateProductContext();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <ScrollLayout orientation="col" classNameContent={styles.CreateProduct}>
             <div className={styles.Header}>
-                <h1 title={t('views.createproduct.header')}>
-                    <Legend hasDots>{t('views.createproduct.header')}</Legend>
+                <h1 title={translate('createproduct.title')}>
+                    <Legend hasDots>{translate('createproduct.title')}</Legend>
                 </h1>
 
                 <Button
                     type="button"
                     className={ButtonStyles.OutlineNone}
-                    title={t('views.createproduct.actions.cancel')}
+                    title={translate('actions.cancel')}
                     onClick={handleCancelCreateProduct}>
                     <Legend hasDots justify="center">
-                        {t('views.createproduct.actions.cancel')}
+                        {translate('actions.cancel')}
                     </Legend>
                 </Button>
             </div>
@@ -56,7 +57,7 @@ const CreateProduct = () => {
                                     className={classNames(styles.TabItem, isCurrentTab && styles.TabItemActive)}
                                     type="button">
                                     <Legend hasDots justify="center">
-                                        1 - <>{t('views.createproduct.reference.header')}</>
+                                        1 - <>{translate('createproduct.general')}</>
                                     </Legend>
                                 </Button>
                             ),
@@ -68,7 +69,7 @@ const CreateProduct = () => {
                                     className={classNames(styles.TabItem, isCurrentTab && styles.TabItemActive)}
                                     type="button">
                                     <Legend hasDots justify="center">
-                                        2 - <>{t('views.createproduct.collection.header')}</>
+                                        2 - <>{translate('createproduct.collection')}</>
                                     </Legend>
                                 </Button>
                             ),

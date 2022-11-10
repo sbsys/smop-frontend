@@ -38,6 +38,7 @@ export type AdminLang =
     | 'longitude.miles'
     /* actions */
     | 'actions.goback'
+    | 'actions.tryagain'
     | 'actions.open'
     | 'actions.close'
     | 'actions.cancel'
@@ -65,6 +66,7 @@ export type AdminLang =
     /* messages */
     | 'messages.activate'
     | 'messages.deactivate'
+    | 'messages.nolinkedcommerce'
     /* filter */
     | 'filter.name'
     | 'filter.status'

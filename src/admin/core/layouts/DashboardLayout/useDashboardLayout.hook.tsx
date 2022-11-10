@@ -119,7 +119,7 @@ export const useDashboardLayout = () => {
             {
                 icon: <MdStore />,
                 text: translate('links.linkedcommerce'),
-                to: 'links/commerce',
+                to: 'linked/commerce',
             },
         ],
     };

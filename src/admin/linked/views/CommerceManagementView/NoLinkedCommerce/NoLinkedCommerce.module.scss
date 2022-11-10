@@ -1,0 +1,29 @@
+@import 'styles';
+
+.NoLinked {
+    @include flex(col, center, center);
+
+    & > div {
+        @include flex(col);
+        @include gap(all md);
+        @include width(xl, component);
+        max-width: 100%;
+        overflow: hidden;
+
+        & > span {
+            @include font-size(xl);
+            @include font-weight(lg);
+        }
+
+        & > div {
+            @include gap(all xs);
+            @include padding(all xs);
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+
+            & > button {
+                overflow: hidden;
+            }
+        }
+    }
+}

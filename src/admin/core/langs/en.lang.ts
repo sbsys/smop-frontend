@@ -40,6 +40,7 @@ export const en: Record<AdminLang, string> = {
     'longitude.miles': 'Miles',
     /* actions */
     'actions.goback': 'Go back',
+    'actions.tryagain': 'Try again',
     'actions.open': 'Open',
     'actions.close': 'Close',
     'actions.cancel': 'Cancel',
@@ -67,6 +68,7 @@ export const en: Record<AdminLang, string> = {
     /* messages */
     'messages.activate': 'Are you sure you want to activate?',
     'messages.deactivate': 'Are you sure you want to deactivate?',
+    'messages.nolinkedcommerce': 'No linked commerce yet...',
     /* filter */
     'filter.name': 'filter by name',
     'filter.status': 'filter by status',

@@ -87,6 +87,7 @@ const AppbarActions = () => {
             dropRow="end"
             anchorRow="end"
             ref={ref}
+            className={styles.Drop}
             drop={
                 <PanelLayout className={styles.Actions} orientation="col">
                     <AccordionLayout

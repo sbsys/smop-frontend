@@ -1,0 +1,44 @@
+@import 'styles';
+
+.CommerceManagement {
+    @include gap(all sm);
+    @include margin(y md);
+
+    & > h1 {
+        @include font-size(xl);
+        @include font-weight(2xl);
+    }
+
+    & > div {
+        margin: 0;
+    }
+
+    .Links {
+        & > div {
+            margin: 0 auto;
+            @include flex(row, center);
+            @include gap(all xs split);
+            @include padding(x xs, bottom xs);
+        }
+    }
+
+    .Link {
+        @include border-color(bottom 400 secondary);
+        @include border-opacity(bottom 0);
+        @include border-width(bottom sm);
+        @include font-weight(lg);
+        @include interactable;
+        @include padding(x sm);
+        text-decoration: none;
+
+        &Active,
+        &:hover {
+            @include border-opacity(bottom 100);
+            @include font-color(400, secondary);
+        }
+
+        &Active {
+            @include disabled;
+        }
+    }
+}

@@ -498,4 +498,7 @@ export type AdminLang =
     | 'createproduct.multiple.hint'
     | 'createproduct.single.title'
     | 'createproduct.single.placeholder'
-    | 'createproduct.single.hint';
+    | 'createproduct.single.hint'
+    /* linked commerce management view */
+    | 'linkedcommerce.title'
+    | 'commercemenu.title';

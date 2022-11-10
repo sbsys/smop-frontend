@@ -500,4 +500,7 @@ export const en: Record<AdminLang, string> = {
     'createproduct.single.title': 'Contains single choices',
     'createproduct.single.placeholder': 'Choose single choice',
     'createproduct.single.hint': 'product single choice',
+    /* linked commerce management view */
+    'linkedcommerce.title': 'Linked commerce management',
+    'commercemenu.title': 'Commerce menu',
 };

@@ -1,0 +1,71 @@
+@import 'styles';
+
+.CommerceMenu {
+    display: none;
+
+    @include screen-width(md) {
+        @include flex;
+        @include gap(all md);
+    }
+
+    & > span {
+        @include bg-color(400, primary);
+        @include flex(row, center, flex-end);
+        @include font-color(100);
+        @include font-size(sm);
+        @include rounded(all xs);
+        margin-right: auto;
+    }
+
+    .Filter {
+        @include margin(bottom xs);
+    }
+
+    .Menus {
+        @include flex;
+        flex-grow: 1;
+        overflow: hidden;
+    }
+
+    .List {
+        & > thead,
+        & > tbody {
+            & > tr {
+                & > th,
+                & > td {
+                    & > span {
+                        flex-grow: 1;
+                    }
+
+                    & > a {
+                        margin: 0 auto;
+                        overflow: hidden;
+                    }
+                }
+            }
+        }
+
+        & > thead {
+            @include bg-color(400, primary);
+            @include font-color(100);
+            @include font-weight(lg);
+            @include padding(x xs);
+            @include rounded(all xs);
+
+            & > tr {
+                @include gap(all xs);
+                @include padding(y xs);
+            }
+        }
+
+        & > tbody > tr {
+            @include gap(all xs);
+            @include padding(all xs);
+            @include shadow(bottom xs);
+
+            &:last-child {
+                @include margin(bottom xs);
+            }
+        }
+    }
+}

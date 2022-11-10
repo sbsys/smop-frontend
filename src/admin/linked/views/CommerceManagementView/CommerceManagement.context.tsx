@@ -3,6 +3,7 @@ import { CommerceManagementContextProps, CommerceManagementProviderProps } from 
 
 const Context = createContext<CommerceManagementContextProps>({
     /* states */
+    linkedCommerceSettings: null,
     /* functions */
     getLinkedCommerceSettings: () => new Promise(resolve => resolve()),
 });

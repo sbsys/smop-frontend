@@ -1,5 +1,5 @@
 /* react */
-import { memo } from 'react';
+import { FC, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 /* context */
 import { useCommerceDetailContext } from '../CommerceDetail.context';
@@ -21,7 +21,7 @@ import { MdArrowBack } from 'react-icons/md';
 import { ButtonStyles } from 'shared/styles';
 import styles from './CommerceDetail.module.scss';
 
-const CommerceDetail = () => {
+const CommerceDetail: FC<{ isHeaderHide?: boolean }> = ({ isHeaderHide = false }) => {
     const {
         /* functions */
         handleGoBack,
@@ -31,20 +31,22 @@ const CommerceDetail = () => {
 
     return (
         <PanelLayout className={styles.CommerceDetail} orientation="col">
-            <div className={styles.Header}>
-                <Button
-                    className={ButtonStyles.FillSecondary}
-                    title={t('views.commercedetail.goback')}
-                    onClick={handleGoBack}>
-                    <i>
-                        <MdArrowBack />
-                    </i>
-                </Button>
+            {!isHeaderHide && (
+                <div className={styles.Header}>
+                    <Button
+                        className={ButtonStyles.FillSecondary}
+                        title={t('views.commercedetail.goback')}
+                        onClick={handleGoBack}>
+                        <i>
+                            <MdArrowBack />
+                        </i>
+                    </Button>
 
-                <h1 title={t('views.commercedetail.header')}>
-                    <Legend hasDots>{t('views.commercedetail.header')}</Legend>
-                </h1>
-            </div>
+                    <h1 title={t('views.commercedetail.header')}>
+                        <Legend hasDots>{t('views.commercedetail.header')}</Legend>
+                    </h1>
+                </div>
+            )}
 
             <ScrollLayout orientation="col">
                 <div className={styles.Content}>

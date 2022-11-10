@@ -5,6 +5,7 @@ import { useCommerceManagement } from './useCommerceManagement.hook';
 /* context */
 import { CommerceManagementProvider } from './CommerceManagement.context';
 /* components */
+import { CommerceManagement } from './CommerceManagement';
 import { NoLinkedCommerce } from './NoLinkedCommerce';
 
 const CommerceManagementView = () => {
@@ -12,7 +13,7 @@ const CommerceManagementView = () => {
 
     return (
         <CommerceManagementProvider context={context}>
-            {false ? <></> : <NoLinkedCommerce />}
+            {context.linkedCommerceSettings !== null ? <CommerceManagement /> : <NoLinkedCommerce />}
         </CommerceManagementProvider>
     );
 };

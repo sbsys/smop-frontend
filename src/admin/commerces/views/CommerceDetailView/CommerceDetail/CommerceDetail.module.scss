@@ -1,9 +1,6 @@
 @import 'styles';
 
 .CommerceDetail {
-    @include gap(all md);
-    @include margin(y md);
-
     @include gap(all sm);
     @include margin(y md);
 

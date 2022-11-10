@@ -140,13 +140,13 @@ export const useDashboardLayout = () => {
         manager: [
             {
                 title: translate('profiles.manager'),
-                items: [organizationNavItem, commercesNavItem, usersNavItem, collectionsNavItem, linkedNavItem],
+                items: [organizationNavItem, commercesNavItem, usersNavItem, linkedNavItem, collectionsNavItem],
             },
         ],
         auxiliar: [
             {
                 title: translate('profiles.auxiliar'),
-                items: [organizationNavItem, commercesNavItem, usersNavItem, collectionsNavItem, linkedNavItem],
+                items: [organizationNavItem, commercesNavItem, usersNavItem, linkedNavItem, collectionsNavItem],
             },
         ],
         cashier: [],

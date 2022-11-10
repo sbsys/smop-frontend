@@ -1,11 +1,12 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useCommerceDetailContext } from '../CommerceDetail.context';
 /* components */
 import { Circle, MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import { Button, Legend } from 'shared/components';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* utils */
 import { milesToMeters } from 'shared/utils';
 /* assets */
@@ -24,19 +25,19 @@ const CommerceReferenceSection = () => {
 
     const meters = milesToMeters(Number.parseFloat(commerce?.deliveryArea || '0'));
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <section className={SectionStyles.Section}>
             <div className={SectionStyles.Title}>
-                <h2 title={t('views.commercedetail.referencesection.title')}>
-                    <Legend hasDots>{t('views.commercedetail.referencesection.title')}</Legend>
+                <h2 title={translate('commercedetail.references')}>
+                    <Legend hasDots>{translate('commercedetail.references')}</Legend>
                 </h2>
 
                 <Button
                     className={ButtonStyles.OutlineNone}
                     onClick={showUpdateReference}
-                    title={t('views.commercedetail.referencesection.edit')}>
+                    title={translate('actions.edit')}>
                     <i>
                         <MdEdit />
                     </i>
@@ -45,33 +46,33 @@ const CommerceReferenceSection = () => {
 
             <div className={styles.Reference}>
                 <Legend hasDots>
-                    <span className={styles.Title}>{t('views.commercedetail.referencesection.name')}: </span>
+                    <span className={styles.Title}>{translate('commercedetail.name')}: </span>
 
                     <span>{commerce?.referenceName}</span>
                 </Legend>
 
                 <Legend hasDots>
-                    <span className={styles.Title}>{t('views.commercedetail.referencesection.address')}: </span>
+                    <span className={styles.Title}>{translate('commercedetail.address')}: </span>
 
                     <span>{commerce?.address}</span>
                 </Legend>
 
                 {commerce?.optionalAddress && commerce.optionalAddress !== '-' && (
                     <Legend hasDots>
-                        <span className={styles.Title}>{t('views.commercedetail.referencesection.optaddress')}: </span>
+                        <span className={styles.Title}>{translate('commercedetail.optaddress')}: </span>
 
                         <span>{commerce?.optionalAddress}</span>
                     </Legend>
                 )}
 
                 <Legend hasDots>
-                    <span className={styles.Title}>{t('views.commercedetail.referencesection.zipcode')}: </span>
+                    <span className={styles.Title}>{translate('commercedetail.zipcode')}: </span>
 
                     <span>{commerce?.zipcode}</span>
                 </Legend>
 
                 <Legend hasDots>
-                    <span className={styles.Title}>{t('views.commercedetail.referencesection.phones')}: </span>
+                    <span className={styles.Title}>{translate('commercedetail.phones')}: </span>
                 </Legend>
 
                 <div className={styles.Phones}>
@@ -83,46 +84,36 @@ const CommerceReferenceSection = () => {
                 </div>
 
                 <div className={styles.Geoinformation}>
-                    <h3 title={t('views.commercedetail.referencesection.geoinformation.title')}>
-                        <Legend hasDots>{t('views.commercedetail.referencesection.geoinformation.title')}</Legend>
+                    <h3 title={translate('commercedetail.geoinfo')}>
+                        <Legend hasDots>{translate('commercedetail.geoinfo')}</Legend>
                     </h3>
 
                     <Legend hasDots>
-                        <span className={styles.Title}>
-                            {t('views.commercedetail.referencesection.geoinformation.country')}:{' '}
-                        </span>
+                        <span className={styles.Title}>{translate('commercedetail.country')}: </span>
 
                         <span>{commerce?.geoinformation.country}</span>
                     </Legend>
 
                     <Legend hasDots>
-                        <span className={styles.Title}>
-                            {t('views.commercedetail.referencesection.geoinformation.state')}:{' '}
-                        </span>
+                        <span className={styles.Title}>{translate('commercedetail.state')}: </span>
 
                         <span>{commerce?.geoinformation.state}</span>
                     </Legend>
 
                     <Legend hasDots>
-                        <span className={styles.Title}>
-                            {t('views.commercedetail.referencesection.geoinformation.city')}:{' '}
-                        </span>
+                        <span className={styles.Title}>{translate('commercedetail.city')}: </span>
 
                         <span>{commerce?.geoinformation.city}</span>
                     </Legend>
 
                     <Legend hasDots>
-                        <span className={styles.Title}>
-                            {t('views.commercedetail.referencesection.geoinformation.timezone')}:{' '}
-                        </span>
+                        <span className={styles.Title}>{translate('commercedetail.timezone')}: </span>
 
                         <span>{commerce?.geoinformation.timezone}</span>
                     </Legend>
 
                     <Legend hasDots>
-                        <span className={styles.Title}>
-                            {t('views.commercedetail.referencesection.geoinformation.gtmOffset')}:{' '}
-                        </span>
+                        <span className={styles.Title}>{translate('commercedetail.gtmoffset')}: </span>
 
                         <span>{commerce?.geoinformation.gtmOffset}</span>
                     </Legend>

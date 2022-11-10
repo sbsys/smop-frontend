@@ -1,3 +1,5 @@
+export type WeekDay = 'sunday' | 'monday' | 'tuesday' | 'wenesday' | 'thursday' | 'friday' | 'saturday';
+
 export type AdminLang =
     /* apps */
     | 'apps.admin'

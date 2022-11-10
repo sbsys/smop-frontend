@@ -6,10 +6,12 @@ import { CommerceDetailContextProps } from './CommerceDetail.props';
 /* hooks */
 import { useActive, useLoader } from 'shared/hooks';
 import { useAdminNotify } from 'admin/core';
+/* services */
+import { commerceDetailService } from 'admin/commerces/services';
+/* types */
+import { CommerceDetailDTO } from 'admin/commerces/types';
 /* assets */
 import { MdDangerous } from 'react-icons/md';
-import { commerceDetailService } from 'admin/commerces/services';
-import { CommerceDetailDTO } from 'admin/commerces/types';
 
 export const useCommerceDetail = () => {
     /* states */

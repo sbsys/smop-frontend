@@ -1,6 +1,5 @@
 /* react */
 import { FC, memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useCommerceDetailContext } from '../CommerceDetail.context';
 /* layouts */
@@ -15,6 +14,8 @@ import { CommerceAttentionSection } from '../CommerceAttentionSection';
 import { UpdateAttentionModal } from '../UpdateAttentionModal';
 import { CommerceDeliverySection } from '../CommerceDeliverySection';
 import { UpdateDeliveryModal } from '../UpdateDeliveryModal';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* assets */
 import { MdArrowBack } from 'react-icons/md';
 /* styles */
@@ -27,7 +28,7 @@ const CommerceDetail: FC<{ isHeaderHide?: boolean }> = ({ isHeaderHide = false }
         handleGoBack,
     } = useCommerceDetailContext();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <PanelLayout className={styles.CommerceDetail} orientation="col">
@@ -35,15 +36,15 @@ const CommerceDetail: FC<{ isHeaderHide?: boolean }> = ({ isHeaderHide = false }
                 <div className={styles.Header}>
                     <Button
                         className={ButtonStyles.FillSecondary}
-                        title={t('views.commercedetail.goback')}
+                        title={translate('actions.goback')}
                         onClick={handleGoBack}>
                         <i>
                             <MdArrowBack />
                         </i>
                     </Button>
 
-                    <h1 title={t('views.commercedetail.header')}>
-                        <Legend hasDots>{t('views.commercedetail.header')}</Legend>
+                    <h1 title={translate('commercedetail.title')}>
+                        <Legend hasDots>{translate('commercedetail.title')}</Legend>
                     </h1>
                 </div>
             )}

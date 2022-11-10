@@ -1,10 +1,11 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useCommerceDetailContext } from '../CommerceDetail.context';
 /* components */
 import { Button, Legend } from 'shared/components';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* assets */
 import { MdCheckCircle, MdEdit } from 'react-icons/md';
 import { IoMdCloseCircle } from 'react-icons/io';
@@ -20,19 +21,19 @@ const CommerceDeliverySection = () => {
         showUpdateDelivery,
     } = useCommerceDetailContext();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <section className={SectionStyles.Section}>
             <div className={SectionStyles.Title}>
-                <h2 title={t('views.commercedetail.deliverysection.title')}>
-                    <Legend hasDots>{t('views.commercedetail.deliverysection.title')}</Legend>
+                <h2 title={translate('commercedetail.deliveries')}>
+                    <Legend hasDots>{translate('commercedetail.deliveries')}</Legend>
                 </h2>
 
                 <Button
                     className={ButtonStyles.OutlineNone}
                     onClick={showUpdateDelivery}
-                    title={t('views.commercedetail.deliverysection.edit')}>
+                    title={translate('actions.edit')}>
                     <i>
                         <MdEdit />
                     </i>
@@ -42,7 +43,7 @@ const CommerceDeliverySection = () => {
             <div className={styles.Delivery}>
                 <div className={styles.ThirdPartyDelivery}>
                     <Legend className={styles.Title} hasDots>
-                        {t('views.commercedetail.deliverysection.thirdpartydelivery.title')}
+                        {translate('commercedetail.third')}
                     </Legend>
 
                     <i className={commerce?.thirdPartyDelivery ? styles.Active : styles.Inactive}>
@@ -51,10 +52,8 @@ const CommerceDeliverySection = () => {
                 </div>
 
                 {commerce?.thirdPartyDelivery && (
-                    <Legend hasDots title={t('views.commercedetail.deliverysection.thirdpartydelivery.site')}>
-                        <span className={styles.Title}>
-                            {t('views.commercedetail.deliverysection.thirdpartydelivery.site')}:{' '}
-                        </span>
+                    <Legend hasDots title={translate('commercedetail.thirdsite')}>
+                        <span className={styles.Title}>{translate('commercedetail.thirdsite')}: </span>
 
                         <a href={commerce.externalDeliveryUrl} target="__blank">
                             {commerce.externalDeliveryUrl}
@@ -62,19 +61,17 @@ const CommerceDeliverySection = () => {
                     </Legend>
                 )}
 
-                <Legend hasDots title={t('views.commercedetail.deliverysection.minamountdelivery')}>
-                    <span className={styles.Title}>
-                        {t('views.commercedetail.deliverysection.minamountdelivery')}:{' '}
-                    </span>
+                <Legend hasDots title={translate('commercedetail.mindelivery')}>
+                    <span className={styles.Title}>{translate('commercedetail.mindelivery')}: </span>
 
                     <span>{commerce?.minAmountDelivery} $</span>
                 </Legend>
 
-                <Legend hasDots title={t('views.commercedetail.deliverysection.deliveryarea')}>
-                    <span className={styles.Title}>{t('views.commercedetail.deliverysection.deliveryarea')}: </span>
+                <Legend hasDots title={translate('commercedetail.deliveryarea')}>
+                    <span className={styles.Title}>{translate('commercedetail.deliveryarea')}: </span>
 
                     <span>
-                        {commerce?.deliveryArea} <span>{t('longitude.miles')}</span>
+                        {commerce?.deliveryArea} <span>{translate('longitude.miles')}</span>
                     </span>
                 </Legend>
 

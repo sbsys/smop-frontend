@@ -1,7 +1,6 @@
 /* react */
 import { memo, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 /* store */
 import { authStoreSignOut, selectAuthStore, SignInDTO } from 'admin/auth';
 /* hooks */
@@ -48,7 +47,7 @@ const AppbarActions = () => {
 
     const navigate = useNavigate();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     /* functions */
 
@@ -105,32 +104,35 @@ const AppbarActions = () => {
                                 }
                             </PanelLayout>
                         }>
-                        <Button className={styles.Action} onClick={toggleAccordion} title={t('dashboard.actions.lang')}>
+                        <Button
+                            className={styles.Action}
+                            onClick={toggleAccordion}
+                            title={translate('actions.changelanguage')}>
                             <i>
                                 <MdLanguage />
                             </i>
 
-                            <Legend hasDots>{t('dashboard.actions.lang')}</Legend>
+                            <Legend hasDots>{translate('actions.changelanguage')}</Legend>
                         </Button>
                     </AccordionLayout>
 
                     <Button
                         className={styles.Action}
-                        title={t('views.signin.form.passwordrecovery')}
+                        title={translate('actions.pwrecovery')}
                         onClick={handlePasswordRecovery}>
                         <i>
                             <RiRotateLockFill />
                         </i>
 
-                        <Legend hasDots>{t('views.signin.form.passwordrecovery')}</Legend>
+                        <Legend hasDots>{translate('actions.pwrecovery')}</Legend>
                     </Button>
 
-                    <Button className={styles.Action} title={t('dashboard.actions.logout')} onClick={handleSignOut}>
+                    <Button className={styles.Action} title={translate('actions.logout')} onClick={handleSignOut}>
                         <i>
                             <MdLogout />
                         </i>
 
-                        <Legend hasDots>{t('dashboard.actions.logout')}</Legend>
+                        <Legend hasDots>{translate('actions.logout')}</Legend>
                     </Button>
                 </PanelLayout>
             }>

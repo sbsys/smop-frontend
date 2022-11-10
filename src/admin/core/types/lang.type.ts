@@ -86,6 +86,7 @@ export type AdminLang =
     /* types */
     | 'types.addon'
     /* nav links */
+    | 'links.dashboard'
     | 'links.home'
     | 'links.organizations'
     | 'links.organization'
@@ -95,6 +96,8 @@ export type AdminLang =
     | 'links.titles'
     | 'links.addons'
     | 'links.products'
+    | 'links.linked'
+    | 'links.linkedcommerce'
     /* views */
     /* auth views */
     | 'auth.name.placeholder'

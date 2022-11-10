@@ -1,7 +1,6 @@
 /* react */
 import { useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 /* store */
 import { Profile, selectAuthStore } from 'admin/auth';
 /* props */
@@ -10,6 +9,7 @@ import { DropNavItemProps, NavGroupProps, NavItemProps } from 'admin/core/compon
 import { DashboardLayoutContextProps } from './DashboardLayout.props';
 /* hooks */
 import { useActive, useMinWidth } from 'shared/hooks';
+import { useAdminLang } from 'admin/core/hooks';
 /* services */
 import { useAdminSelector } from 'admin/core/services';
 /* utils */
@@ -21,6 +21,7 @@ import {
     MdDashboardCustomize,
     MdFormatListNumbered,
     MdLibraryBooks,
+    MdLink,
     MdMenuBook,
     MdStore,
     MdSupervisedUserCircle,
@@ -35,7 +36,7 @@ export const useDashboardLayout = () => {
 
     const [isSidebar, showSidebar, hideSidebar, toggleSidebar] = useActive();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     const [bp] = useMinWidth();
     const isUnderBreakPoint = useMemo(() => matchBreakPoint('3xl', bp).under, [bp]);
@@ -55,58 +56,70 @@ export const useDashboardLayout = () => {
 
     /* props */
     const backProps: ButtonProps = {
-        title: t('dashboard.actions.back'),
+        title: translate('actions.close'),
         onClick: hideSidebar,
     };
 
     const menuProps: ButtonProps = {
-        title: isSidebar ? backProps.title : t('dashboard.actions.menu'),
+        title: isSidebar ? backProps.title : translate('actions.open'),
         onClick: toggleSidebar,
     };
 
     /* nav items */
     const tenantsNavItem: NavItemProps = {
         icon: <MdDashboardCustomize />,
-        text: t('dashboard.navigation.root.items.tenants'),
+        text: translate('links.organizations'),
         to: 'tenants',
     };
 
     const organizationNavItem: NavItemProps = {
         icon: <HiOfficeBuilding />,
-        text: t('dashboard.navigation.admin.items.organization'),
+        text: translate('links.organization'),
         to: 'organization',
     };
 
     const commercesNavItem: NavItemProps = {
         icon: <MdStore />,
-        text: t('dashboard.navigation.admin.items.commerces'),
+        text: translate('links.commerces'),
         to: 'commerces',
     };
 
     const usersNavItem: NavItemProps = {
         icon: <MdSupervisedUserCircle />,
-        text: t('dashboard.navigation.admin.items.users'),
+        text: translate('links.users'),
         to: 'users',
     };
 
     const collectionsNavItem: DropNavItemProps = {
         icon: <MdLibraryBooks />,
-        text: t('dashboard.navigation.admin.items.collections'),
+        text: translate('links.shelf'),
         items: [
             {
                 icon: <MdMenuBook />,
-                text: t('dashboard.navigation.admin.items.menu'),
+                text: translate('links.titles'),
                 to: 'collections/menu',
             },
             {
                 icon: <MdBook />,
-                text: t('dashboard.navigation.admin.items.addons'),
+                text: translate('links.addons'),
                 to: 'collections/addons',
             },
             {
                 icon: <MdFormatListNumbered />,
-                text: t('dashboard.navigation.admin.items.products'),
+                text: translate('links.products'),
                 to: 'collections/products',
+            },
+        ],
+    };
+
+    const linkedNavItem: DropNavItemProps = {
+        icon: <MdLink />,
+        text: translate('links.linked'),
+        items: [
+            {
+                icon: <MdStore />,
+                text: translate('links.linkedcommerce'),
+                to: 'links/commerce',
             },
         ],
     };
@@ -114,26 +127,26 @@ export const useDashboardLayout = () => {
     const navStrategy: Record<Profile, NavGroupProps[]> = {
         root: [
             {
-                title: t('profiles.root'),
+                title: translate('profiles.root'),
                 items: [tenantsNavItem],
             },
         ],
         admin: [
             {
-                title: t('profiles.admin'),
+                title: translate('profiles.admin'),
                 items: [organizationNavItem, commercesNavItem, usersNavItem, collectionsNavItem],
             },
         ],
         manager: [
             {
-                title: t('profiles.manager'),
-                items: [organizationNavItem, commercesNavItem, usersNavItem, collectionsNavItem],
+                title: translate('profiles.manager'),
+                items: [organizationNavItem, commercesNavItem, usersNavItem, collectionsNavItem, linkedNavItem],
             },
         ],
         auxiliar: [
             {
-                title: t('profiles.auxiliar'),
-                items: [organizationNavItem, commercesNavItem, usersNavItem, collectionsNavItem],
+                title: translate('profiles.auxiliar'),
+                items: [organizationNavItem, commercesNavItem, usersNavItem, collectionsNavItem, linkedNavItem],
             },
         ],
         cashier: [],
@@ -142,16 +155,16 @@ export const useDashboardLayout = () => {
 
     const groups: NavGroupProps[] = [
         {
-            title: t('dashboard.navigation.dashboard.name'),
+            title: translate('links.dashboard'),
             items: [
                 {
                     icon: <MdDashboard />,
-                    text: t('dashboard.navigation.dashboard.items.home'),
+                    text: translate('links.home'),
                     to: 'home',
                 },
             ],
         },
-        ...navStrategy[profiles],
+        ...(navStrategy[profiles] ?? []),
     ];
 
     /* context */

@@ -88,6 +88,7 @@ export const en: Record<AdminLang, string> = {
     /* types */
     'types.addon': 'Mark as addon',
     /* nav links */
+    'links.dashboard': 'Dashboard',
     'links.home': 'Home',
     'links.organizations': 'Organizations',
     'links.organization': 'Organization',
@@ -97,6 +98,8 @@ export const en: Record<AdminLang, string> = {
     'links.titles': 'Menu titles',
     'links.addons': 'Menu addons',
     'links.products': 'Products',
+    'links.linked': 'Linked to me',
+    'links.linkedcommerce': 'Linked commerce',
     /* views */
     /* auth views */
     'auth.name.placeholder': 'User name',

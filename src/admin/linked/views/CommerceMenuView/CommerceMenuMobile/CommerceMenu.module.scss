@@ -18,8 +18,7 @@
             @include font-color(100);
             @include font-size(sm);
             @include rounded(all xs);
-            margin-left: auto;
-            max-width: 100%;
+            overflow: hidden;
 
             & > a {
                 overflow: hidden;

@@ -1,11 +1,11 @@
 /* props */
 import { ChildrenProps } from 'shared/props';
 /* types */
-import { LinkedCommerceSettings } from 'admin/linked/types';
+import { LinkedCommerceSettingsDTO } from 'admin/linked/types';
 
 export interface CommerceManagementContextProps {
     /* states */
-    linkedCommerceSettings: LinkedCommerceSettings | null;
+    linkedCommerceSettings: LinkedCommerceSettingsDTO | null;
     /* functions */
     getLinkedCommerceSettings: () => Promise<void>;
 }

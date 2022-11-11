@@ -1,22 +1,32 @@
 /* react */
 import { memo } from 'react';
+/* context */
+import { useCommerceMenuContext } from '../CommerceMenu.context';
 /* layouts */
 import { PanelLayout, TableLayout } from 'shared/layouts';
 /* components */
 import { Legend } from 'shared/components';
+import { NewMenuAction } from '../CommerceMenuActions';
 /* hooks */
 import { useAdminLang } from 'admin/core';
 /* styles */
 import styles from './CommerceMenu.module.scss';
 
 const CommerceMenuDesktop = () => {
+    const {
+        /* states */
+        isBreakPoint,
+    } = useCommerceMenuContext();
+
     const { translate } = useAdminLang();
 
     return (
         <PanelLayout className={styles.CommerceMenu}>
-            {/* isBreakPoint */ true && <section className={styles.Filter}>{/* <CommerceMenuFilter /> */}</section>}
+            {isBreakPoint && <section className={styles.Filter}>{/* <CommerceMenuFilter /> */}</section>}
 
-            <span>{/* <NewMenuAction /> */}</span>
+            <span>
+                <NewMenuAction />
+            </span>
 
             <section className={styles.Menus}>
                 <TableLayout

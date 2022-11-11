@@ -1,5 +1,5 @@
-import { LinkedCommerceSettings } from '../types';
+import { LinkedCommerceSettingsDTO } from '../types';
 
-export const propsStoreSerializer = (data: any): LinkedCommerceSettings => {
+export const propsStoreSerializer = (data: any): LinkedCommerceSettingsDTO => {
     return { ...data };
 };

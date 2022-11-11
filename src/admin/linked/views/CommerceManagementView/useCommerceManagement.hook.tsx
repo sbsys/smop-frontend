@@ -9,13 +9,13 @@ import { CommerceManagementContextProps } from './CommerceManagement.props';
 /* services */
 import { propsStoreService } from 'admin/linked/services';
 /* types */
-import { LinkedCommerceSettings } from 'admin/linked/types';
+import { LinkedCommerceSettingsDTO } from 'admin/linked/types';
 /* assets */
 import { MdDangerous } from 'react-icons/md';
 
 export const useCommerceManagement = () => {
     /* states */
-    const [linkedCommerceSettings, setLinkedCommerceSettings] = useState<LinkedCommerceSettings | null>(null);
+    const [linkedCommerceSettings, setLinkedCommerceSettings] = useState<LinkedCommerceSettingsDTO | null>(null);
 
     const { showLoader, hideLoader } = useLoader();
 

@@ -69,6 +69,7 @@ export const en: Record<AdminLang, string> = {
     'messages.activate': 'Are you sure you want to activate?',
     'messages.deactivate': 'Are you sure you want to deactivate?',
     'messages.nolinkedcommerce': 'No linked commerce yet...',
+    'messages.remove': 'Are you sure you want to remove?',
     /* filter */
     'filter.name': 'filter by name',
     'filter.status': 'filter by status',
@@ -81,7 +82,7 @@ export const en: Record<AdminLang, string> = {
     'headers.created': 'Created',
     'headers.status': 'Status',
     'headers.actions': 'Actions',
-    'headers.amount': 'Amount',
+    'headers.amount': 'Quantity',
     'headers.profile': 'Profile',
     'headers.contacts': 'Contacts',
     /* status */
@@ -503,4 +504,5 @@ export const en: Record<AdminLang, string> = {
     /* linked commerce management view */
     'linkedcommerce.title': 'Linked commerce management',
     'commercemenu.title': 'Commerce menu',
+    'commercemenu.removemenu': 'Remove menu',
 };

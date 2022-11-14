@@ -166,7 +166,13 @@ const AppRoutes: FC = () => {
                         <Route path="commerce" element={<CommerceManagementView />}>
                             <Route path=":commerceId" element={<CommerceDetailView isHeaderHide />} />
 
-                            <Route path="menu" element={<CommerceMenuView />} />
+                            <Route path="menu" element={<CommerceMenuView />}>
+                                <Route path="link" element={null} />
+
+                                <Route path=":titleId/detail" element={null} />
+
+                                <Route path=":titleId/edit" element={null} />
+                            </Route>
                         </Route>
                     </Route>
                 </Route>

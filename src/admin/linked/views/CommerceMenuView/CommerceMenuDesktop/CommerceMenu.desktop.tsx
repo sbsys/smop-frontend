@@ -6,7 +6,8 @@ import { useCommerceMenuContext } from '../CommerceMenu.context';
 import { PanelLayout, TableLayout } from 'shared/layouts';
 /* components */
 import { Legend } from 'shared/components';
-import { NewMenuAction } from '../CommerceMenuActions';
+import { CommerceMenuActions, NewMenuAction } from '../CommerceMenuActions';
+import { CommerceMenuFilter } from '../CommerceMenuFilter';
 /* hooks */
 import { useAdminLang } from 'admin/core';
 /* styles */
@@ -15,6 +16,7 @@ import styles from './CommerceMenu.module.scss';
 const CommerceMenuDesktop = () => {
     const {
         /* states */
+        linkedTitleList,
         isBreakPoint,
     } = useCommerceMenuContext();
 
@@ -22,7 +24,11 @@ const CommerceMenuDesktop = () => {
 
     return (
         <PanelLayout className={styles.CommerceMenu}>
-            {isBreakPoint && <section className={styles.Filter}>{/* <CommerceMenuFilter /> */}</section>}
+            {isBreakPoint && (
+                <section className={styles.Filter}>
+                    <CommerceMenuFilter />
+                </section>
+            )}
 
             <span>
                 <NewMenuAction />
@@ -43,15 +49,8 @@ const CommerceMenuDesktop = () => {
                             },
                             {
                                 children: (
-                                    <Legend hasDots justify="center" title={translate('headers.created')}>
-                                        {translate('headers.created')}
-                                    </Legend>
-                                ),
-                            },
-                            {
-                                children: (
-                                    <Legend hasDots justify="center" title={translate('headers.status')}>
-                                        {translate('headers.status')}
+                                    <Legend hasDots justify="center" title={translate('headers.amount')}>
+                                        {translate('headers.amount')}
                                     </Legend>
                                 ),
                             },
@@ -64,27 +63,27 @@ const CommerceMenuDesktop = () => {
                             },
                         ],
                     }}
-                    body={[].map(_ => ({
+                    body={linkedTitleList.map(item => ({
                         columns: [
                             {
-                                /* children: (
-                            <Legend hasDots title={item.name}>
-                                {item.name}
-                            </Legend>
-                        ), */
+                                children: (
+                                    <Legend hasDots title={item.defaultTitle}>
+                                        {item.defaultTitle}
+                                    </Legend>
+                                ),
                             },
                             {
-                                /* children: (
-                            <Legend hasDots justify="center" title={format(item.createdAt, 'MMM do, yyyy')}>
-                                {format(item.createdAt, 'MMM do, yyyy')}
-                            </Legend>
-                        ), */
+                                children: (
+                                    <Legend
+                                        hasDots
+                                        justify="center"
+                                        title={`${item.numberMenuItems}/${item.numberGenericItems}`}>
+                                        {`${item.numberMenuItems}/${item.numberGenericItems}`}
+                                    </Legend>
+                                ),
                             },
                             {
-                                /* children: <CommerceMenuState state={item.isActive} />, */
-                            },
-                            {
-                                /* children: <CommerceMenuActions state={item.isActive} commerceId={item.id} />, */
+                                children: <CommerceMenuActions titleId={item.titleId} />,
                             },
                         ],
                     }))}

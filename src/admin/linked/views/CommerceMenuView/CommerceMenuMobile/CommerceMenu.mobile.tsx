@@ -6,7 +6,9 @@ import { useCommerceMenuContext } from '../CommerceMenu.context';
 import { DropLayout, PanelLayout, ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button } from 'shared/components';
+import { CommerceMenuFilter } from '../CommerceMenuFilter';
 import { NewMenuAction } from '../CommerceMenuActions';
+import { CommerceMenuItem } from '../CommerceMenuItem';
 /* hooks */
 import { useAdminLang } from 'admin/core';
 /* assets */
@@ -17,6 +19,7 @@ import styles from './CommerceMenu.module.scss';
 const CommerceMenuMobile = () => {
     const {
         /* states */
+        linkedTitleList,
         isDropFilter,
         isBreakPoint,
         /* functions */
@@ -47,7 +50,7 @@ const CommerceMenuMobile = () => {
                                 </i>
                             </Button>
 
-                            {/* <CommerceMenuListFilter /> */}
+                            <CommerceMenuFilter />
                         </PanelLayout>
                     }>
                     <Button className={styles.Filter} onClick={showDropFilter} title={translate('actions.open')}>
@@ -60,8 +63,10 @@ const CommerceMenuMobile = () => {
 
             <ScrollLayout classNameContent={styles.List} orientation="col">
                 <ul>
-                    {[].map((_, index) => (
-                        <li key={index}>{/* <CommerceMenuListItem {...commerce} /> */}</li>
+                    {linkedTitleList.map((title, index) => (
+                        <li key={index}>
+                            <CommerceMenuItem {...title} />
+                        </li>
                     ))}
                 </ul>
             </ScrollLayout>

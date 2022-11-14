@@ -9,6 +9,7 @@ import { MenuLinkedListItemDTO } from 'admin/linked/types';
 export interface CommerceMenuContextProps {
     /* states */
     linkedTitleList: MenuLinkedListItemDTO[];
+    selectedTitleToRemove: MenuLinkedListItemDTO | null;
     isDropFilter: boolean;
     showDropFilter: () => void;
     hideDropFilter: () => void;
@@ -17,6 +18,8 @@ export interface CommerceMenuContextProps {
     getMenuLinkedList: () => Promise<void>;
     handleFilter: (event?: BaseSyntheticEvent) => Promise<void>;
     handleResetFilter: () => void;
+    handleSelectTitleToRemove: (id: number) => void;
+    handleUnselectTitleToRemove: () => void;
     /* props */
     filterFormFields: FieldSetProps[];
 }

@@ -16,11 +16,11 @@ import { matchBreakPoint } from 'shared/utils';
 import { MenuLinkedListItemDTO } from 'admin/linked/types';
 /* assets */
 import { MdDangerous } from 'react-icons/md';
-import { TitleState } from 'admin/collections';
+/* styles */
+import { FieldStyles } from 'shared/styles';
 
 interface CommerceMenuFilterForm {
     name: string;
-    isActive: TitleState | '';
 }
 
 export const useCommerceMenu = () => {
@@ -33,6 +33,7 @@ export const useCommerceMenu = () => {
     const { handleSubmit, setValue, register } = useForm<CommerceMenuFilterForm>();
 
     const [linkedTitles, setLinkedTitles] = useState<MenuLinkedListItemDTO[]>([]);
+    const [selectedTitleToRemove, setSelectedTitleToRemove] = useState<MenuLinkedListItemDTO | null>(null);
 
     const [filter, setFilter] = useState<CommerceMenuFilterForm | null>(null);
 
@@ -52,12 +53,11 @@ export const useCommerceMenu = () => {
 
     const linkedTitleList = useMemo(() => {
         let list = linkedTitles.slice();
-        console.log(filter);
 
-        /* if (filter?.name)
-            list = list.filter(commerce => commerce.name.toLowerCase().includes(filter.name.toLowerCase()));
+        if (filter?.name)
+            list = list.filter(title => title.defaultTitle.toLowerCase().includes(filter.name.toLowerCase()));
 
-        if (filter?.state) list = list.filter(commerce => commerce.isActive === filter.state);
+        /* if (filter?.state) list = list.filter(commerce => commerce.isActive === filter.state);
 
         if (isDate(filter?.fromDate))
             list = list.filter(commerce => isAfterOrEqual(commerce.createdAt, filter?.fromDate as Date));
@@ -82,7 +82,6 @@ export const useCommerceMenu = () => {
 
     const handleResetFilter = () => {
         setValue('name', '');
-        setValue('isActive', '');
 
         setFilter(null);
 
@@ -107,18 +106,41 @@ export const useCommerceMenu = () => {
         setLinkedTitles(service.data);
     }, [hideLoader, linkedCommerceSettings?.commerceId, notify, showLoader]);
 
+    const handleSelectTitleToRemove = useCallback(
+        (id: number) => {
+            setSelectedTitleToRemove(linkedTitles.find(title => title.titleId === id) ?? null);
+        },
+        [linkedTitles]
+    );
+
+    const handleUnselectTitleToRemove = useCallback(() => setSelectedTitleToRemove(null), []);
+
     /* reactivity */
     useEffect(() => {
         getMenuLinkedList();
     }, [getMenuLinkedList]);
 
     /* props */
-    const filterFormFields: FieldSetProps[] = [];
+    const nameField: FieldSetProps = {
+        field: {
+            className: FieldStyles.OutlinePrimary,
+            placeholder: translate('filter.name'),
+            ...register('name'),
+        },
+        isHintReserved: true,
+        hint: {
+            hasDots: true,
+            children: translate('filter.name'),
+        },
+    };
+
+    const filterFormFields: FieldSetProps[] = [nameField];
 
     /* context */
     const context: CommerceMenuContextProps = {
         /* states */
         linkedTitleList,
+        selectedTitleToRemove,
         isDropFilter,
         showDropFilter,
         hideDropFilter,
@@ -127,6 +149,8 @@ export const useCommerceMenu = () => {
         getMenuLinkedList,
         handleFilter,
         handleResetFilter,
+        handleSelectTitleToRemove,
+        handleUnselectTitleToRemove,
         /* props */
         filterFormFields,
     };

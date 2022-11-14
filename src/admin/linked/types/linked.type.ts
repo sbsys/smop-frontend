@@ -15,3 +15,9 @@ export interface MenuLinkedListItemDTO {
 }
 
 export interface MenuNotLinkedListItemDTO {}
+
+export interface LinkedProduct {
+    titleId: number;
+    productId: string;
+    price: number;
+}

@@ -1,7 +1,6 @@
 import { MenuLinkedListItemDTO } from '../types';
 
 export const menuLinkedListItemSerializer = (data: any): MenuLinkedListItemDTO => {
-    console.log(data);
     return {
         ...data,
         numberMenuItems: Number.parseInt(`${data.numberMenuItems ?? 0}`),

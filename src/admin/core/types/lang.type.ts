@@ -69,6 +69,7 @@ export type AdminLang =
     | 'messages.activate'
     | 'messages.deactivate'
     | 'messages.nolinkedcommerce'
+    | 'messages.remove'
     /* filter */
     | 'filter.name'
     | 'filter.status'
@@ -503,4 +504,5 @@ export type AdminLang =
     | 'createproduct.single.hint'
     /* linked commerce management view */
     | 'linkedcommerce.title'
-    | 'commercemenu.title';
+    | 'commercemenu.title'
+    | 'commercemenu.removemenu';

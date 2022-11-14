@@ -4,6 +4,7 @@ import { CommerceMenuContextProps, CommerceMenuProviderProps } from './CommerceM
 const Context = createContext<CommerceMenuContextProps>({
     /* states */
     linkedTitleList: [],
+    selectedTitleToRemove: null,
     isDropFilter: false,
     showDropFilter: () => {},
     hideDropFilter: () => {},
@@ -12,6 +13,8 @@ const Context = createContext<CommerceMenuContextProps>({
     getMenuLinkedList: () => new Promise(resolve => resolve()),
     handleFilter: () => new Promise(resolve => resolve()),
     handleResetFilter: () => {},
+    handleSelectTitleToRemove: _ => {},
+    handleUnselectTitleToRemove: () => {},
     /* props */
     filterFormFields: [],
 });

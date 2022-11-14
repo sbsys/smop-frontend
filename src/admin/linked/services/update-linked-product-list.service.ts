@@ -11,11 +11,11 @@ import {
 /* handlers */
 import { apiRequestHandler } from 'shared/handlers';
 /* types */
-import { LinkedProduct } from '../types';
+import { LinkProduct } from '../types';
 
 interface UpdateLinkedProductListProps {
     titleId: number;
-    productCollection: LinkedProduct[];
+    productCollection: LinkProduct[];
 }
 
 export const updateLinkedProductListService = async (

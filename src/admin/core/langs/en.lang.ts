@@ -505,4 +505,6 @@ export const en: Record<AdminLang, string> = {
     'linkedcommerce.title': 'Linked commerce management',
     'commercemenu.title': 'Commerce menu',
     'commercemenu.removemenu': 'Remove menu',
+    /* linked commerce menu detail view */
+    'menudetail.title': 'Menu detail',
 };

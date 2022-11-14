@@ -3,7 +3,7 @@ import { TitleState } from 'admin/collections';
 export interface LinkedCommerceSettingsDTO {
     organizationId: string;
     commerceId: string;
-    decimals: 4;
+    decimals: number;
 }
 
 export interface MenuLinkedListItemDTO {
@@ -16,8 +16,20 @@ export interface MenuLinkedListItemDTO {
 
 export interface MenuNotLinkedListItemDTO {}
 
-export interface LinkedProduct {
+export interface LinkProduct {
     titleId: number;
     productId: string;
     price: number;
+}
+
+export interface MenuProduct {
+    productId: string;
+    defaultReference: string;
+    url: string;
+    price: number;
+}
+
+export interface LinkMenuProduct {
+    linked: MenuProduct[];
+    unlinked: MenuProduct[];
 }

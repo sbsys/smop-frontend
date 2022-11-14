@@ -1,0 +1,70 @@
+@import 'styles';
+
+.LinkedTitleDetail {
+    @include gap(all sm);
+    @include padding(all xs);
+    @include width(xs, view);
+    max-width: 100%;
+
+    .Header {
+        @include flex(row, center, center);
+        @include font-weight(lg);
+        @include gap(all xs);
+    }
+
+    .Content {
+        @include gap(all sm);
+        @include padding(all xs);
+
+        & > div:first-of-type {
+            @include flex;
+            @include gap(all xs);
+        }
+    }
+
+    .Title {
+        @include font-weight(lg);
+    }
+
+    .List {
+        @include flex;
+        @include gap(all sm);
+        @include padding(y xs);
+        overflow: hidden;
+
+        & > li {
+            @include flex(row, center);
+            @include gap(all sm);
+            @include padding(right xs);
+            @include shadow(bottom xs);
+            overflow: hidden;
+
+            & > img {
+                @include height(md, element);
+                @include width(md, element);
+                object-fit: cover;
+            }
+
+            & > span:first-of-type {
+                flex-grow: 1;
+            }
+
+            & > span:last-of-type {
+                @include font-size(lg);
+                @include font-weight(lg);
+                white-space: nowrap;
+            }
+        }
+    }
+
+    .Actions {
+        @include gap(all md);
+        @include padding(x xs);
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+
+        & > button {
+            overflow: hidden;
+        }
+    }
+}

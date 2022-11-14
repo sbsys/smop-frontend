@@ -505,4 +505,5 @@ export type AdminLang =
     /* linked commerce management view */
     | 'linkedcommerce.title'
     | 'commercemenu.title'
-    | 'commercemenu.removemenu';
+    | 'commercemenu.removemenu'
+    | 'menudetail.title';

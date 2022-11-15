@@ -34,7 +34,7 @@ import {
     ProductListView,
 } from './collections';
 /* linked */
-import { CommerceManagementView, CommerceMenuView, LinkedLayout, LinkedTitleDetailView } from './linked';
+import { CommerceManagementView, CommerceMenuView, LinkedLayout, LinkedTitleDetailView, LinkTitleView } from './linked';
 
 const AppRoutes: FC = () => {
     const { isAuth, token } = useAdminSelector(selectAuthStore);
@@ -167,7 +167,7 @@ const AppRoutes: FC = () => {
                             <Route path=":commerceId" element={<CommerceDetailView isHeaderHide />} />
 
                             <Route path="menu" element={<CommerceMenuView />}>
-                                <Route path="link" element={null} />
+                                <Route path="link" element={<LinkTitleView />} />
 
                                 <Route path=":titleId/detail" element={<LinkedTitleDetailView />} />
 

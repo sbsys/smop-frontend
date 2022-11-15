@@ -507,4 +507,9 @@ export const en: Record<AdminLang, string> = {
     'commercemenu.removemenu': 'Remove menu',
     /* linked commerce menu detail view */
     'menudetail.title': 'Menu detail',
+    /* link title menu view */
+    'linkmenu.title': 'Link menu title to commerce',
+    'linkmenu.title.placeholder': 'Menu to link',
+    'linkmenu.title.hint': 'choose menu to link',
+    'linkmenu.title.required': 'menu to link is required',
 };

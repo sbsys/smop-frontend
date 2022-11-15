@@ -14,7 +14,10 @@ export interface MenuLinkedListItemDTO {
     isActive: TitleState;
 }
 
-export interface MenuNotLinkedListItemDTO {}
+export interface MenuNotLinkedListItemDTO {
+    titleId: number;
+    defaultTitle: string;
+}
 
 export interface LinkProduct {
     titleId: number;

@@ -506,4 +506,8 @@ export type AdminLang =
     | 'linkedcommerce.title'
     | 'commercemenu.title'
     | 'commercemenu.removemenu'
-    | 'menudetail.title';
+    | 'menudetail.title'
+    | 'linkmenu.title'
+    | 'linkmenu.title.placeholder'
+    | 'linkmenu.title.hint'
+    | 'linkmenu.title.required';

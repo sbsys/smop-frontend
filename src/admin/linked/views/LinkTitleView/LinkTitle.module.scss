@@ -2,8 +2,17 @@
 
 .Checkbox {
     flex-direction: row;
+    align-items: center;
 
     & > label {
         overflow: visible;
     }
+}
+
+.Img {
+    @include height(sm, element);
+    @include margin(right xs);
+    @include rounded(all sm);
+    @include width(sm, element);
+    object-fit: cover;
 }

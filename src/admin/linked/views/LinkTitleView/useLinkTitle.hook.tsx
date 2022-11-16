@@ -222,6 +222,14 @@ export const useLinkTitle = () => {
                 field: {
                     id: `productCollection.${index}.isSelected`,
                     strategy: 'checkbox',
+                    beforeContent: (
+                        <img
+                            src={product.url}
+                            alt={product.defaultReference}
+                            crossOrigin="anonymous"
+                            className={styles.Img}
+                        />
+                    ),
                     ...register(`productCollection.${index}.isSelected`),
                 },
                 isHintReserved: true,

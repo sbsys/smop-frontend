@@ -7,6 +7,7 @@ const Context = createContext<LinkTitleContextProps>({
     /* states */
     menus: [],
     /* functions */
+    handleLinkMenu: () => new Promise(resolve => resolve()),
     cancelLinkMenu: () => {},
     /* props */
     chooseTitleProps: { field: {} },

@@ -510,4 +510,8 @@ export type AdminLang =
     | 'linkmenu.title'
     | 'linkmenu.title.placeholder'
     | 'linkmenu.title.hint'
-    | 'linkmenu.title.required';
+    | 'linkmenu.title.required'
+    | 'linkmenu.price.placeholder'
+    | 'linkmenu.price.hint'
+    | 'linkmenu.price.required'
+    | 'linkmenu.price.min';

@@ -2,9 +2,17 @@
 
 .Checkbox {
     flex-direction: row;
+
+    & > label {
+        overflow: visible;
+    }
 }
 
 .CheckboxInverse {
     flex-direction: row-reverse;
     justify-content: flex-end;
+
+    & > label {
+        overflow: visible;
+    }
 }

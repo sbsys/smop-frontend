@@ -20,8 +20,30 @@
     }
 
     .Content {
-        @include gap(all sm);
+        @include flex;
+        @include gap(all md);
         @include padding(all xs);
+        overflow: hidden;
+    }
+
+    .List {
+        @include flex;
+        @include gap(all xs);
+        @include padding(all xs);
+
+        & > fieldset:nth-child(2n) {
+            @include margin(bottom md);
+        }
+
+        @include screen-width(4xs) {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+        }
+
+        @include screen-width(3xs) {
+            grid-template-columns: 2fr 1fr;
+        }
     }
 
     .Actions {

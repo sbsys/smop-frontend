@@ -3,7 +3,7 @@ import { memo } from 'react';
 /* context */
 import { useLinkTitleContext } from '../LinkTitle.context';
 /* layouts */
-import { PanelLayout } from 'shared/layouts';
+import { PanelLayout, ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
 /* hooks */
@@ -18,16 +18,18 @@ const LinkTitle = () => {
     const {
         /* states */
         /* functions */
+        handleLinkMenu,
         cancelLinkMenu,
         /* props */
         chooseTitleProps,
+        linkTitleFieldProps,
     } = useLinkTitleContext();
 
     const { translate } = useAdminLang();
 
     return (
         <PanelLayout orientation="col" className={styles.LinkTitle}>
-            <form onSubmit={event => event.preventDefault()}>
+            <form onSubmit={handleLinkMenu}>
                 <div className={styles.Header} title={translate('linkmenu.title')}>
                     <i>
                         <MdRestaurantMenu />
@@ -38,6 +40,14 @@ const LinkTitle = () => {
 
                 <div className={styles.Content}>
                     <FieldSet {...chooseTitleProps} />
+
+                    <ScrollLayout orientation="col">
+                        <div className={styles.List}>
+                            {linkTitleFieldProps.map((field, index) => (
+                                <FieldSet {...field} key={index} />
+                            ))}
+                        </div>
+                    </ScrollLayout>
                 </div>
 
                 <div className={styles.Actions}>
@@ -51,7 +61,7 @@ const LinkTitle = () => {
                         </Legend>
                     </Button>
 
-                    <Button type="button" title={translate('actions.save')} className={ButtonStyles.FillSecondary}>
+                    <Button type="submit" title={translate('actions.save')} className={ButtonStyles.FillSecondary}>
                         <Legend hasDots justify="center">
                             {translate('actions.save')}
                         </Legend>

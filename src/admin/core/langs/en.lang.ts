@@ -506,10 +506,14 @@ export const en: Record<AdminLang, string> = {
     'commercemenu.title': 'Commerce menu',
     'commercemenu.removemenu': 'Remove menu',
     /* linked commerce menu detail view */
-    'menudetail.title': 'Menu detail',
+    'menudetail.title': 'Menu linked detail',
     /* link title menu view */
     'linkmenu.title': 'Link menu title to commerce',
     'linkmenu.title.placeholder': 'Menu to link',
     'linkmenu.title.hint': 'choose menu to link',
     'linkmenu.title.required': 'menu to link is required',
+    'linkmenu.price.placeholder': 'Product price',
+    'linkmenu.price.hint': 'selected product price',
+    'linkmenu.price.required': 'product price is required',
+    'linkmenu.price.min': 'select at least one product',
 };

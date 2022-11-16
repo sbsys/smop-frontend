@@ -126,7 +126,7 @@ export const useLinkTitle = () => {
     const cancelLinkMenu = () => navigate(-1);
 
     const handleLinkMenu = handleSubmit(async data => {
-        if (!data.productCollection.find(product => product.isSelected))
+        if (!data.productCollection?.find(product => product.isSelected))
             return notify('warning', {
                 title: 'Warning',
                 icon: <MdWarning />,

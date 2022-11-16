@@ -1,0 +1,59 @@
+@import 'styles';
+
+.UpdateLinkedTitle {
+    @include gap(all sm);
+    @include padding(all xs);
+    @include width(sm, view);
+    max-width: 100%;
+
+    & > form {
+        @include flex;
+        @include gap(all md);
+        flex-grow: 1;
+        overflow: hidden;
+    }
+
+    .Header {
+        @include flex(row, center, center);
+        @include font-weight(lg);
+        @include gap(all xs);
+    }
+
+    .Content {
+        @include flex;
+        @include gap(all md);
+        @include padding(all xs);
+        overflow: hidden;
+    }
+
+    .List {
+        @include flex;
+        @include gap(all xs);
+        @include padding(all xs);
+
+        & > fieldset:nth-child(2n) {
+            @include margin(bottom md);
+        }
+
+        @include screen-width(4xs) {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+        }
+
+        @include screen-width(3xs) {
+            grid-template-columns: 2fr 1fr;
+        }
+    }
+
+    .Actions {
+        @include gap(all md);
+        @include padding(x xs);
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+
+        & > button {
+            overflow: hidden;
+        }
+    }
+}

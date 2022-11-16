@@ -121,7 +121,7 @@ export const useLinkTitle = () => {
 
         setMenuProductList(service.data);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [hideLoader, linkedCommerceSettings?.commerceId, notify, setValue, showLoader, watch, watch('titleId')]);
+    }, [hideLoader, linkedCommerceSettings?.commerceId, notify, showLoader, unregister, watch, watch('titleId')]);
 
     const cancelLinkMenu = () => navigate(-1);
 

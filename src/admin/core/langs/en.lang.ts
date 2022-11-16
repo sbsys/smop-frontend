@@ -516,4 +516,5 @@ export const en: Record<AdminLang, string> = {
     'linkmenu.price.hint': 'selected product price',
     'linkmenu.price.required': 'product price is required',
     'linkmenu.price.min': 'select at least one product',
+    'menuedit.title': 'Edit linked menu title',
 };

@@ -104,6 +104,8 @@ export const useLinkedTitleDetail = () => {
 
     const handleCloseLinkedTitleDetail = () => navigate(-1);
 
+    const handleEditLinkedTitleDetail = () => navigate(`../${titleId}/edit`, { replace: true });
+
     /* reactivity */
     useEffect(() => {
         getProductLinkedList();
@@ -120,6 +122,7 @@ export const useLinkedTitleDetail = () => {
         productList,
         /* functions */
         handleCloseLinkedTitleDetail,
+        handleEditLinkedTitleDetail,
     };
 
     return { context };

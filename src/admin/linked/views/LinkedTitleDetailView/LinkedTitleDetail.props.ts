@@ -13,6 +13,7 @@ export interface LinkedTitleDetailContextProps {
     })[];
     /* functions */
     handleCloseLinkedTitleDetail: () => void;
+    handleEditLinkedTitleDetail: () => void;
 }
 
 export interface LinkedTitleDetailProviderProps extends ChildrenProps {

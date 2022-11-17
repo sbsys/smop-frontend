@@ -20,10 +20,17 @@
     }
 
     .Content {
-        @include flex;
-        @include gap(all md);
+        @include gap(all sm);
         @include padding(all xs);
-        overflow: hidden;
+
+        & > div:first-of-type {
+            @include flex;
+            @include gap(all xs);
+        }
+    }
+
+    .Title {
+        @include font-weight(lg);
     }
 
     .List {

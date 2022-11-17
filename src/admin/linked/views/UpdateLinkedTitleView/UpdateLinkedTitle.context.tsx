@@ -4,8 +4,12 @@ import { createContext, FC, useContext } from 'react';
 import { UpdateLinkedTitleContextProps, UpdateLinkedTitleProviderProps } from './UpdateLinkedTitle.props';
 
 const Context = createContext<UpdateLinkedTitleContextProps>({
+    /* states */
+    linkedTitle: undefined,
+    linkedTitleFieldProps: [],
     /* functions */
     cancelUpdateLinkedMenu: () => {},
+    handleUpdateLinkedMenu: () => new Promise(resolve => resolve()),
 });
 
 export const UpdateLinkedTitleProvider: FC<UpdateLinkedTitleProviderProps> = ({ context, children }) => {

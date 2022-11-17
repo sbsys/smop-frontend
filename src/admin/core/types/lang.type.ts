@@ -515,4 +515,8 @@ export type AdminLang =
     | 'linkmenu.price.hint'
     | 'linkmenu.price.required'
     | 'linkmenu.price.min'
-    | 'menuedit.title';
+    | 'menuedit.title'
+    | 'menuedit.price.placeholder'
+    | 'menuedit.price.hint'
+    | 'menuedit.price.required'
+    | 'menuedit.price.min';

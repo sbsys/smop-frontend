@@ -9,6 +9,7 @@ const Context = createContext<LinkedTitleDetailContextProps>({
     productList: [],
     /* functions */
     handleCloseLinkedTitleDetail: () => {},
+    handleEditLinkedTitleDetail: () => {},
 });
 
 export const LinkedTitleDetailProvider: FC<LinkedTitleDetailProviderProps> = ({ context, children }) => {

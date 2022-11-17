@@ -29,6 +29,7 @@ const LinkedTitleDetail = () => {
         productList,
         /* functions */
         handleCloseLinkedTitleDetail,
+        handleEditLinkedTitleDetail,
     } = useLinkedTitleDetailContext();
 
     const { translate } = useAdminLang();
@@ -87,6 +88,16 @@ const LinkedTitleDetail = () => {
                     className={ButtonStyles.OutlineNone}>
                     <Legend hasDots justify="center">
                         {translate('actions.close')}
+                    </Legend>
+                </Button>
+
+                <Button
+                    type="button"
+                    title={translate('actions.edit')}
+                    onClick={handleEditLinkedTitleDetail}
+                    className={ButtonStyles.FillWarning}>
+                    <Legend hasDots justify="center">
+                        {translate('actions.edit')}
                     </Legend>
                 </Button>
             </div>

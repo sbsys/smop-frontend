@@ -1,9 +1,8 @@
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useTenantSettingsContext } from '../TenantSettings.context';
 /* props */
-import { FieldSetProps, useAdminNotify } from 'admin/core';
+import { AdminLang, FieldSetProps, useAdminLang, useAdminNotify } from 'admin/core';
 /* hooks */
 import { useLoader } from 'shared/hooks';
 /* services */
@@ -23,8 +22,8 @@ interface UpdateReferenceForm {
 
 const UpdateReferenceSchema = yup
     .object({
-        organization: yup.string().required('views.updatereference.form.organization.required'),
-        owner: yup.string().required('views.updatereference.form.owner.required'),
+        organization: yup.string().required('orgedit.org.required'),
+        owner: yup.string().required('orgedit.owner.required'),
     })
     .required();
 
@@ -48,7 +47,7 @@ export const useUpdateReference = () => {
         resolver: yupResolver(UpdateReferenceSchema),
     });
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     const { notify } = useAdminNotify();
 
@@ -94,30 +93,30 @@ export const useUpdateReference = () => {
     const organizationNameField: FieldSetProps = {
         field: {
             className: errors.organization ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
-            placeholder: t('views.updatereference.form.organization.placeholder'),
+            placeholder: translate('orgedit.org.placeholder'),
             defaultValue: settings?.organizationName,
             ...register('organization'),
         },
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t((errors.organization?.message as string) ?? 'views.updatereference.form.organization.hint'),
-            children: t((errors.organization?.message as string) ?? 'views.updatereference.form.organization.hint'),
+            title: translate((errors.organization?.message as AdminLang) ?? 'orgedit.org.hint'),
+            children: translate((errors.organization?.message as AdminLang) ?? 'orgedit.org.hint'),
         },
     };
 
     const ownerReferenceField: FieldSetProps = {
         field: {
             className: errors.owner ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
-            placeholder: t('views.updatereference.form.owner.placeholder'),
+            placeholder: translate('orgedit.owner.placeholder'),
             defaultValue: settings?.ownerReference,
             ...register('owner'),
         },
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t((errors.owner?.message as string) ?? 'views.updatereference.form.owner.hint'),
-            children: t((errors.owner?.message as string) ?? 'views.updatereference.form.owner.hint'),
+            title: translate((errors.owner?.message as AdminLang) ?? 'orgedit.owner.hint'),
+            children: translate((errors.owner?.message as AdminLang) ?? 'orgedit.owner.hint'),
         },
     };
 

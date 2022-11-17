@@ -1,6 +1,5 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* custom hook */
 import { useUpdateSettings } from './useUpdateSettings.hook';
 /* context */
@@ -9,12 +8,12 @@ import { useTenantSettingsContext } from '../TenantSettings.context';
 import { ModalLayout, ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
-import { FieldSet } from 'admin/core';
+import { FieldSet, useAdminLang } from 'admin/core';
 /* assets */
 import { MdWarning } from 'react-icons/md';
 /* styles */
-import styles from './UpdateSettingsModal.module.scss';
 import { ButtonStyles } from 'shared/styles';
+import styles from './UpdateSettingsModal.module.scss';
 
 const UpdateSettingsModal = () => {
     const {
@@ -25,18 +24,18 @@ const UpdateSettingsModal = () => {
 
     const { handleUpdateSettings, handleResetUpdateSettingsForm, updateSettingsFormFields } = useUpdateSettings();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <ModalLayout isVisible={isUpdateSettings} rowAlignment="center" colAlignment="center" hasIndentation>
             <ScrollLayout orientation="col" classNameContent={styles.UpdateSettings}>
                 <form onSubmit={handleUpdateSettings}>
-                    <div className={styles.Header} title={t('views.updatesettings.title')}>
+                    <div className={styles.Header} title={translate('orgedit.settings')}>
                         <i>
                             <MdWarning />
                         </i>
 
-                        <Legend hasDots>{t('views.updatesettings.title')}</Legend>
+                        <Legend hasDots>{translate('orgedit.settings')}</Legend>
                     </div>
 
                     <div className={styles.Content}>
@@ -51,23 +50,23 @@ const UpdateSettingsModal = () => {
                         <Button
                             type="button"
                             className={ButtonStyles.OutlineNone}
-                            title={t('views.updatesettings.actions.cancel')}
+                            title={translate('actions.cancel')}
                             onClick={() => {
                                 handleResetUpdateSettingsForm();
 
                                 hideUpdateSettings();
                             }}>
                             <Legend hasDots justify="center">
-                                {t('views.updatesettings.actions.cancel')}
+                                {translate('actions.cancel')}
                             </Legend>
                         </Button>
 
                         <Button
                             type="submit"
                             className={ButtonStyles.FillSecondary}
-                            title={t('views.updatesettings.actions.update')}>
+                            title={translate('actions.update')}>
                             <Legend hasDots justify="center">
-                                {t('views.updatesettings.actions.update')}
+                                {translate('actions.update')}
                             </Legend>
                         </Button>
                     </div>

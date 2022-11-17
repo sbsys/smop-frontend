@@ -65,6 +65,7 @@ export const en: Record<AdminLang, string> = {
     'actions.remove': 'Remove',
     'actions.activate': 'Activate',
     'actions.deactivate': 'Deactivate',
+    'actions.repeatweekday': 'Repeat first day on the week',
     /* messages */
     'messages.activate': 'Are you sure you want to activate?',
     'messages.deactivate': 'Are you sure you want to deactivate?',
@@ -349,7 +350,7 @@ export const en: Record<AdminLang, string> = {
     'createcommerce.deliveryzone.hint': 'Allow delivery zone?',
     'createcommerce.deliveryarea.placeholder': 'Delivery area',
     'createcommerce.deliveryarea.hint': 'delivery area in miles',
-    'createcommerce.Attention': 'Attention settings',
+    'createcommerce.attention': 'Attention settings',
     'createcommerce.onsite': 'Service hours on site',
     'createcommerce.onsitepreparation': 'On site preparation time',
     'createcommerce.delivery': 'Service hours delivery',

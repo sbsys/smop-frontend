@@ -1,10 +1,9 @@
 /* react */
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 /* props */
 import { CommerceListContextProps } from './CommerceList.props';
-import { FieldSetProps, useAdminNotify } from 'admin/core';
+import { FieldSetProps, useAdminLang, useAdminNotify } from 'admin/core';
 /* services */
 import { commerceListService } from 'admin/commerces/services';
 /* hooks */
@@ -49,7 +48,7 @@ export const useCommerceList = () => {
 
     const isBreakPoint = useMemo(() => matchBreakPoint('md', bp).on, [bp]);
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     const commerceList = useMemo(() => {
         let list = commerces.slice();
@@ -127,13 +126,13 @@ export const useCommerceList = () => {
     const referenceNameField: FieldSetProps = {
         field: {
             className: FieldStyles.OutlinePrimary,
-            placeholder: t('views.commercelist.filter.form.referencename.placeholder'),
+            placeholder: translate('filter.name'),
             ...register('name'),
         },
         isHintReserved: true,
         hint: {
             hasDots: true,
-            children: t('views.commercelist.filter.form.referencename.hint'),
+            children: translate('filter.name'),
         },
     };
 
@@ -141,14 +140,14 @@ export const useCommerceList = () => {
         field: {
             className: FieldStyles.OutlinePrimary,
             strategy: 'select',
-            placeholder: t('views.commercelist.filter.form.state.placeholder'),
+            placeholder: translate('filter.status'),
             options: [
                 {
-                    label: t('views.commercelist.filter.form.state.active'),
+                    label: translate('status.active'),
                     value: 'active',
                 },
                 {
-                    label: t('views.commercelist.filter.form.state.inactive'),
+                    label: translate('status.inactive'),
                     value: 'inactive',
                 },
             ],
@@ -156,37 +155,37 @@ export const useCommerceList = () => {
         },
         isHintReserved: true,
         hint: {
-            children: t('views.commercelist.filter.form.state.hint'),
+            children: translate('filter.status'),
             hasDots: true,
-            title: t('views.commercelist.filter.form.state.hint'),
+            title: translate('filter.status'),
         },
     };
 
     const fromDateField: FieldSetProps = {
         field: {
             className: FieldStyles.OutlinePrimary,
-            placeholder: t('views.commercelist.filter.form.fromdate.placeholder'),
+            placeholder: translate('filter.fromdate'),
             strategy: 'date',
             ...register('fromDate'),
         },
         isHintReserved: true,
         hint: {
             hasDots: true,
-            children: t('views.commercelist.filter.form.fromdate.hint'),
+            children: translate('filter.fromdate'),
         },
     };
 
     const toDateField: FieldSetProps = {
         field: {
             className: FieldStyles.OutlinePrimary,
-            placeholder: t('views.commercelist.filter.form.todate.placeholder'),
+            placeholder: translate('filter.todate'),
             strategy: 'date',
             ...register('toDate'),
         },
         isHintReserved: true,
         hint: {
             hasDots: true,
-            children: t('views.commercelist.filter.form.todate.hint'),
+            children: translate('filter.todate'),
         },
     };
 

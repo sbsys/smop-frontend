@@ -1,6 +1,5 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Circle, MapContainer, TileLayer } from 'react-leaflet';
 /* custom hook */
 import { useCreateCommerceReference } from './useCreateCommerceReference.hook';
@@ -8,7 +7,7 @@ import { useCreateCommerceReference } from './useCreateCommerceReference.hook';
 import { ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button, DraggableMarker, Legend } from 'shared/components';
-import { FieldSet } from 'admin/core';
+import { FieldSet, useAdminLang } from 'admin/core';
 /* styles */
 import { ButtonStyles } from 'shared/styles';
 import styles from './CreateCommerceReference.module.scss';
@@ -17,13 +16,13 @@ const CreateCommerceReference = () => {
     const { geolocation, meters, handleSetGeolocation, handleToNextTab, createCommerceReferenceFields } =
         useCreateCommerceReference();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <ScrollLayout orientation="col">
             <div className={styles.Reference}>
-                <h2 title={t('views.createcommerce.reference.header')}>
-                    <Legend hasDots>{t('views.createcommerce.reference.header')}</Legend>
+                <h2 title={translate('createcommerce.references')}>
+                    <Legend hasDots>{translate('createcommerce.references')}</Legend>
                 </h2>
 
                 <div className={styles.Content}>
@@ -48,10 +47,10 @@ const CreateCommerceReference = () => {
                     <Button
                         type="button"
                         className={ButtonStyles.FillSecondary}
-                        title={t('actions.nextstep')}
+                        title={translate('actions.nextstep')}
                         onClick={handleToNextTab}>
                         <Legend hasDots justify="center">
-                            {t('actions.nextstep')}
+                            {translate('actions.nextstep')}
                         </Legend>
                     </Button>
                 </div>

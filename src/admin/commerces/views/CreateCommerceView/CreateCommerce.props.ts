@@ -63,79 +63,56 @@ export interface CreateCommerceForm {
 export const CreateCommerceSchema = yup
     .object({
         /* references */
-        referenceName: yup.string().required('views.createcommerce.reference.form.name.required'),
+        referenceName: yup.string().required('createcommerce.name.required'),
         servicePhones: yup.array(
             yup
                 .object({
                     phone: yup
                         .string()
-                        .required('views.createcommerce.reference.form.servicephones.required')
-                        .matches(/^\+\d{3}-\d{7,8}$/, 'views.createcommerce.reference.form.servicephones.format'),
+                        .required('createcommerce.phones.required')
+                        .matches(/^\+\d{3}-\d{7,8}$/, 'createcommerce.phones.format'),
                 })
                 .required()
         ),
         geoinformation: yup
             .object({
-                country: yup.string().required('views.createcommerce.reference.form.country.required'),
-                state: yup.string().required('views.createcommerce.reference.form.state.required'),
-                city: yup.string().required('views.createcommerce.reference.form.city.required'),
-                timezone: yup.string().required('views.createcommerce.reference.form.timezone.required'),
-                gtmOffset: yup.string().required('views.createcommerce.reference.form.gtmoffset.required'),
+                country: yup.string().required('createcommerce.country.required'),
+                state: yup.string().required('createcommerce.state.required'),
+                city: yup.string().required('createcommerce.city.required'),
+                timezone: yup.string().required('createcommerce.timezone.required'),
+                gtmOffset: yup.string().required('createcommerce.gtmoffset.required'),
             })
             .required(),
-        address: yup.string().required('views.createcommerce.reference.form.address.required'),
-        zipcode: yup.string().required('views.createcommerce.reference.form.zipcode.required'),
+        address: yup.string().required('createcommerce.address.required'),
+        zipcode: yup.string().required('createcommerce.zipcode.required'),
         /* order settings */
         typeCharge: yup.array(
             yup
                 .object({
-                    value: yup
-                        .number()
-                        .typeError('views.createcommerce.setting.form.typecharge.cero')
-                        .min(0, 'views.createcommerce.setting.form.typecharge.cero'),
+                    value: yup.number().typeError('createcommerce.charge.min').min(0, 'createcommerce.charge.min'),
                 })
                 .required()
         ),
         applyCharge: yup
             .number()
-            .typeError('views.createcommerce.setting.form.applycharge.required')
-            .required('views.createcommerce.setting.form.applycharge.required'),
+            .typeError('createcommerce.applycharge.required')
+            .required('createcommerce.applycharge.required'),
         /* attention */
         serviceHours: yup
             .object({
                 onsite: yup.array(
                     yup
                         .object({
-                            opening: yup
-                                .string()
-                                .matches(
-                                    /^(\d{2}):([0-5])([0-9])$/,
-                                    'views.createcommerce.attention.form.servicehours.onsite.opening.format'
-                                ),
-                            closing: yup
-                                .string()
-                                .matches(
-                                    /^(\d{2}):([0-5])([0-9])$/,
-                                    'views.createcommerce.attention.form.servicehours.onsite.closing.format'
-                                ),
+                            opening: yup.string().matches(/^(\d{2}):([0-5])([0-9])$/, 'createcommerce.opening.format'),
+                            closing: yup.string().matches(/^(\d{2}):([0-5])([0-9])$/, 'createcommerce.closing.format'),
                         })
                         .required()
                 ),
                 delivery: yup.array(
                     yup
                         .object({
-                            opening: yup
-                                .string()
-                                .matches(
-                                    /^(\d{2}):([0-5])([0-9])$/,
-                                    'views.createcommerce.attention.form.servicehours.delivery.opening.format'
-                                ),
-                            closing: yup
-                                .string()
-                                .matches(
-                                    /^(\d{2}):([0-5])([0-9])$/,
-                                    'views.createcommerce.attention.form.servicehours.delivery.closing.format'
-                                ),
+                            opening: yup.string().matches(/^(\d{2}):([0-5])([0-9])$/, 'createcommerce.opening.format'),
+                            closing: yup.string().matches(/^(\d{2}):([0-5])([0-9])$/, 'createcommerce.closing.format'),
                         })
                         .required()
                 ),
@@ -145,16 +122,16 @@ export const CreateCommerceSchema = yup
             .object({
                 hours: yup
                     .number()
-                    .typeError('views.createcommerce.attention.form.onsitepreparationtime.hours.min')
-                    .integer('views.createcommerce.attention.form.onsitepreparationtime.hours.min')
-                    .min(0, 'views.createcommerce.attention.form.onsitepreparationtime.hours.min')
+                    .typeError('createcommerce.hours.min')
+                    .integer('createcommerce.hours.min')
+                    .min(0, 'createcommerce.hours.min')
                     .optional(),
                 minutes: yup
                     .number()
-                    .typeError('views.createcommerce.attention.form.onsitepreparationtime.minutes.min')
-                    .integer('views.createcommerce.attention.form.onsitepreparationtime.minutes.min')
-                    .min(0, 'views.createcommerce.attention.form.onsitepreparationtime.minutes.min')
-                    .max(59, 'views.createcommerce.attention.form.onsitepreparationtime.minutes.max')
+                    .typeError('createcommerce.minutes.min')
+                    .integer('createcommerce.minutes.min')
+                    .min(0, 'createcommerce.minutes.min')
+                    .max(59, 'createcommerce.minutes.max')
                     .optional(),
             })
             .required(),
@@ -162,16 +139,16 @@ export const CreateCommerceSchema = yup
             .object({
                 hours: yup
                     .number()
-                    .typeError('views.createcommerce.attention.form.deliverypreparationtime.hours.min')
-                    .integer('views.createcommerce.attention.form.deliverypreparationtime.hours.min')
-                    .min(0, 'views.createcommerce.attention.form.deliverypreparationtime.hours.min')
+                    .typeError('createcommerce.hours.min')
+                    .integer('createcommerce.hours.min')
+                    .min(0, 'createcommerce.hours.min')
                     .optional(),
                 minutes: yup
                     .number()
-                    .typeError('views.createcommerce.attention.form.deliverypreparationtime.minutes.min')
-                    .integer('views.createcommerce.attention.form.deliverypreparationtime.minutes.min')
-                    .min(0, 'views.createcommerce.attention.form.deliverypreparationtime.minutes.min')
-                    .max(59, 'views.createcommerce.attention.form.deliverypreparationtime.minutes.max')
+                    .typeError('createcommerce.minutes.min')
+                    .integer('createcommerce.minutes.min')
+                    .min(0, 'createcommerce.minutes.min')
+                    .max(59, 'createcommerce.minutes.max')
                     .optional(),
             })
             .required(),

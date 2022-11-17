@@ -1,6 +1,5 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* custom hook */
 import { useUpdateCommerceState } from './useUpdateCommerceState.hook';
 /* context */
@@ -9,6 +8,8 @@ import { useCommerceListContext } from '../CommerceList.context';
 import { ModalLayout, ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* assets */
 import { MdWarning } from 'react-icons/md';
 /* styles */
@@ -23,7 +24,7 @@ const UpdateCommerceStateModal = () => {
 
     const { handleCancelUpdateCommerceState, handleUpdateCommerceState } = useUpdateCommerceState();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <ModalLayout
@@ -33,20 +34,20 @@ const UpdateCommerceStateModal = () => {
             hasIndentation>
             <ScrollLayout orientation="col" classNameContent={styles.UpdateState}>
                 <section>
-                    <div className={styles.Header} title={t('views.commercelist.updatestate.title')}>
+                    <div className={styles.Header} title={translate('commercelist.updatestatus')}>
                         <i>
                             <MdWarning />
                         </i>
 
-                        <Legend hasDots>{t('views.commercelist.updatestate.title')}</Legend>
+                        <Legend hasDots>{translate('commercelist.updatestatus')}</Legend>
                     </div>
 
                     <div className={styles.Content}>
                         <Legend justify="center">{selectedCommerceToUpdateState?.name}</Legend>
 
                         <Legend justify="center">
-                            {t(
-                                `views.commercelist.updatestate.${
+                            {translate(
+                                `messages.${
                                     selectedCommerceToUpdateState?.isActive === 'active' ? 'deactivate' : 'activate'
                                 }`
                             )}
@@ -57,10 +58,10 @@ const UpdateCommerceStateModal = () => {
                         <Button
                             type="button"
                             className={ButtonStyles.OutlineNone}
-                            title={t('views.commercelist.updatestate.actions.cancel')}
+                            title={translate('actions.cancel')}
                             onClick={handleCancelUpdateCommerceState}>
                             <Legend hasDots justify="center">
-                                {t('views.commercelist.updatestate.actions.cancel')}
+                                {translate('actions.cancel')}
                             </Legend>
                         </Button>
 
@@ -71,10 +72,16 @@ const UpdateCommerceStateModal = () => {
                                     ? ButtonStyles.FillDanger
                                     : ButtonStyles.FillSuccess
                             }
-                            title={t('views.commercelist.updatestate.actions.update')}
+                            title={
+                                selectedCommerceToUpdateState?.isActive === 'active'
+                                    ? translate('actions.deactivate')
+                                    : translate('actions.activate')
+                            }
                             onClick={handleUpdateCommerceState}>
                             <Legend hasDots justify="center">
-                                {t('views.commercelist.updatestate.actions.update')}
+                                {selectedCommerceToUpdateState?.isActive === 'active'
+                                    ? translate('actions.deactivate')
+                                    : translate('actions.activate')}
                             </Legend>
                         </Button>
                     </div>

@@ -1,10 +1,10 @@
 /* react */
 import { useMemo } from 'react';
-import { FieldSetProps } from 'admin/core';
 import { useFormContext } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 /* props */
 import { CreateCommerceForm } from '../CreateCommerce.props';
+/* hooks */
+import { AdminLang, FieldSetProps, useAdminLang } from 'admin/core';
 /* utils */
 import { milesToMeters } from 'shared/utils';
 /* types */
@@ -31,7 +31,7 @@ export const useCreateCommerceDelivery = () => {
 
     const meters = milesToMeters(watch('deliveryArea') || 0);
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     /* props */
     const thirdPartyDeliveryField: FieldSetProps = {
@@ -44,36 +44,36 @@ export const useCreateCommerceDelivery = () => {
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t(
+            title: translate(
                 errors.thirdPartyDelivery
-                    ? (errors.thirdPartyDelivery.message as string)
-                    : 'views.createcommerce.delivery.form.thirdpartydelivery.hint'
+                    ? (errors.thirdPartyDelivery.message as AdminLang)
+                    : 'createcommerce.third.hint'
             ),
-            children: t(
+            children: translate(
                 errors.thirdPartyDelivery
-                    ? (errors.thirdPartyDelivery.message as string)
-                    : 'views.createcommerce.delivery.form.thirdpartydelivery.hint'
+                    ? (errors.thirdPartyDelivery.message as AdminLang)
+                    : 'createcommerce.third.hint'
             ),
         },
     };
     const externalDeliveryUrlField: FieldSetProps = {
         field: {
             className: errors.externalDeliveryUrl ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
-            placeholder: t('views.createcommerce.delivery.form.externaldeliveryurl.placeholder'),
+            placeholder: translate('createcommerce.thirdsite.placeholder'),
             ...register('externalDeliveryUrl'),
         },
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t(
+            title: translate(
                 errors.externalDeliveryUrl
-                    ? (errors.externalDeliveryUrl.message as string)
-                    : 'views.createcommerce.delivery.form.externaldeliveryurl.hint'
+                    ? (errors.externalDeliveryUrl.message as AdminLang)
+                    : 'createcommerce.thirdsite.hint'
             ),
-            children: t(
+            children: translate(
                 errors.externalDeliveryUrl
-                    ? (errors.externalDeliveryUrl.message as string)
-                    : 'views.createcommerce.delivery.form.externaldeliveryurl.hint'
+                    ? (errors.externalDeliveryUrl.message as AdminLang)
+                    : 'createcommerce.thirdsite.hint'
             ),
         },
     };
@@ -83,7 +83,7 @@ export const useCreateCommerceDelivery = () => {
             strategy: 'decimal',
             min: 0,
             step: 0.0001,
-            placeholder: t('views.createcommerce.delivery.form.minamountdelivery.placeholder'),
+            placeholder: translate('createcommerce.mindelivery.placeholder'),
             beforeContent: TypeChargeKeySymbol.amount,
             defaultValue: 0,
             ...register('minAmountDelivery'),
@@ -91,15 +91,15 @@ export const useCreateCommerceDelivery = () => {
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t(
+            title: translate(
                 errors.minAmountDelivery
-                    ? (errors.minAmountDelivery.message as string)
-                    : 'views.createcommerce.delivery.form.minamountdelivery.hint'
+                    ? (errors.minAmountDelivery.message as AdminLang)
+                    : 'createcommerce.mindelivery.hint'
             ),
-            children: t(
+            children: translate(
                 errors.minAmountDelivery
-                    ? (errors.minAmountDelivery.message as string)
-                    : 'views.createcommerce.delivery.form.minamountdelivery.hint'
+                    ? (errors.minAmountDelivery.message as AdminLang)
+                    : 'createcommerce.mindelivery.hint'
             ),
         },
     };
@@ -113,15 +113,15 @@ export const useCreateCommerceDelivery = () => {
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t(
+            title: translate(
                 errors.deliveringZone
-                    ? (errors.deliveringZone.message as string)
-                    : 'views.createcommerce.delivery.form.deliveringzone.hint'
+                    ? (errors.deliveringZone.message as AdminLang)
+                    : 'createcommerce.deliveryzone.hint'
             ),
-            children: t(
+            children: translate(
                 errors.deliveringZone
-                    ? (errors.deliveringZone.message as string)
-                    : 'views.createcommerce.delivery.form.deliveringzone.hint'
+                    ? (errors.deliveringZone.message as AdminLang)
+                    : 'createcommerce.deliveryzone.hint'
             ),
         },
     };
@@ -131,23 +131,19 @@ export const useCreateCommerceDelivery = () => {
             strategy: 'decimal',
             min: 0,
             step: 0.0001,
-            afterContent: t('longitude.miles'),
-            placeholder: t('views.createcommerce.delivery.form.deliveryarea.placeholder'),
+            afterContent: translate('longitude.miles'),
+            placeholder: translate('createcommerce.deliveryarea.placeholder'),
             defaultValue: 0,
             ...register('deliveryArea'),
         },
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t(
-                errors.deliveryArea
-                    ? (errors.deliveryArea.message as string)
-                    : 'views.createcommerce.delivery.form.deliveryarea.hint'
+            title: translate(
+                errors.deliveryArea ? (errors.deliveryArea.message as AdminLang) : 'createcommerce.deliveryarea.hint'
             ),
-            children: t(
-                errors.deliveryArea
-                    ? (errors.deliveryArea.message as string)
-                    : 'views.createcommerce.delivery.form.deliveryarea.hint'
+            children: translate(
+                errors.deliveryArea ? (errors.deliveryArea.message as AdminLang) : 'createcommerce.deliveryarea.hint'
             ),
         },
     };

@@ -1,6 +1,5 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useCommerceListContext } from '../CommerceList.context';
 /* layouts */
@@ -10,6 +9,8 @@ import { Legend } from 'shared/components';
 import { CommerceListFilter } from '../CommerceListFilter';
 import { CommerceListState } from '../CommerceListState';
 import { CommerceListActions, NewCommerceAction } from '../CommerceListActions';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* utils */
 import { format } from 'date-fns';
 /* styles */
@@ -22,12 +23,12 @@ const CommerceListDesktop = () => {
         isBreakPoint,
     } = useCommerceListContext();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <PanelLayout className={styles.CommerceList}>
-            <h1 title={t('views.commercelist.title')}>
-                <Legend hasDots>{t('views.commercelist.title')}</Legend>
+            <h1 title={translate('commercelist.title')}>
+                <Legend hasDots>{translate('commercelist.title')}</Legend>
             </h1>
 
             {isBreakPoint && (
@@ -47,30 +48,30 @@ const CommerceListDesktop = () => {
                         columns: [
                             {
                                 children: (
-                                    <Legend hasDots title={t('views.commercelist.list.name')}>
-                                        {t('views.commercelist.list.name')}
+                                    <Legend hasDots title={translate('headers.name')}>
+                                        {translate('headers.name')}
                                     </Legend>
                                 ),
                                 span: 2,
                             },
                             {
                                 children: (
-                                    <Legend hasDots justify="center" title={t('views.commercelist.list.created')}>
-                                        {t('views.commercelist.list.created')}
+                                    <Legend hasDots justify="center" title={translate('headers.created')}>
+                                        {translate('headers.created')}
                                     </Legend>
                                 ),
                             },
                             {
                                 children: (
-                                    <Legend hasDots justify="center" title={t('views.commercelist.list.state')}>
-                                        {t('views.commercelist.list.state')}
+                                    <Legend hasDots justify="center" title={translate('headers.status')}>
+                                        {translate('headers.status')}
                                     </Legend>
                                 ),
                             },
                             {
                                 children: (
-                                    <Legend hasDots justify="center" title={t('views.commercelist.list.actions')}>
-                                        {t('views.commercelist.list.actions')}
+                                    <Legend hasDots justify="center" title={translate('headers.actions')}>
+                                        {translate('headers.actions')}
                                     </Legend>
                                 ),
                             },

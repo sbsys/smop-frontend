@@ -1,10 +1,11 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useTenantSettingsContext } from '../TenantSettings.context';
 /* components */
 import { Button, Legend } from 'shared/components';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* utils */
 import { classNames } from 'shared/utils';
 /* assets */
@@ -21,18 +22,18 @@ const SettingsSection = () => {
         showUpdateSettings,
     } = useTenantSettingsContext();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <section className={SectionStyles.Section}>
             <div className={SectionStyles.Title}>
-                <h2 title={t('views.settingssection.title')}>
-                    <Legend hasDots>{t('views.settingssection.title')}</Legend>
+                <h2 title={translate('orgdetail.settings')}>
+                    <Legend hasDots>{translate('orgdetail.settings')}</Legend>
                 </h2>
 
                 <Button
                     className={ButtonStyles.OutlineNone}
-                    title={t('views.settingssection.edit')}
+                    title={translate('actions.edit')}
                     onClick={showUpdateSettings}>
                     <i>
                         <MdEdit />
@@ -42,13 +43,13 @@ const SettingsSection = () => {
 
             <div className={styles.Settings}>
                 <Legend hasDots>
-                    <span className={styles.Title}>{t('views.settingssection.decimals')}: </span>
+                    <span className={styles.Title}>{translate('orgdetail.decimals')}: </span>
 
                     <span>{settings?.decimals}</span>
                 </Legend>
 
                 <Legend hasDots>
-                    <span className={styles.Title}>{t('views.settingssection.langs')}:</span>
+                    <span className={styles.Title}>{translate('orgdetail.languages')}:</span>
 
                     <span className={styles.Flags}>
                         {settings?.internationalization.map((internationalization, index) => (

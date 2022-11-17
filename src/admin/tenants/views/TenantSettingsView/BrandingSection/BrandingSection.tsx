@@ -1,10 +1,11 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useTenantSettingsContext } from '../TenantSettings.context';
 /* components */
 import { Button, Legend } from 'shared/components';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* assets */
 import { MdEdit } from 'react-icons/md';
 /* styles */
@@ -19,19 +20,19 @@ const BrandingSection = () => {
         showUpdateBranding,
     } = useTenantSettingsContext();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <section className={SectionStyles.Section}>
             <div className={SectionStyles.Title}>
-                <h2 title={t('views.brandingsection.title')}>
-                    <Legend hasDots>{t('views.brandingsection.title')}</Legend>
+                <h2 title={translate('orgdetail.branding')}>
+                    <Legend hasDots>{translate('orgdetail.branding')}</Legend>
                 </h2>
 
                 <Button
                     className={ButtonStyles.OutlineNone}
                     onClick={showUpdateBranding}
-                    title={t('views.brandingsection.edit')}>
+                    title={translate('actions.edit')}>
                     <i>
                         <MdEdit />
                     </i>
@@ -40,17 +41,9 @@ const BrandingSection = () => {
 
             {(settings?.files.length ?? 0) > 0 && (
                 <div className={styles.Branding}>
-                    <img
-                        crossOrigin="anonymous"
-                        src={settings?.files.find(file => file.isCover)?.url}
-                        alt={t('views.brandingsection.cover')}
-                    />
+                    <img crossOrigin="anonymous" src={settings?.files.find(file => file.isCover)?.url} alt="cover" />
 
-                    <img
-                        crossOrigin="anonymous"
-                        src={settings?.files.find(file => !file.isCover)?.url}
-                        alt={t('views.brandingsection.profile')}
-                    />
+                    <img crossOrigin="anonymous" src={settings?.files.find(file => !file.isCover)?.url} alt="profile" />
                 </div>
             )}
         </section>

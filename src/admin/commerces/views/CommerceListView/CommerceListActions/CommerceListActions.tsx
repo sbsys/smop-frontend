@@ -1,10 +1,13 @@
 import { FC, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+/* store */
+import { selectAuthStore } from 'admin/auth';
 /* context */
 import { useCommerceListContext } from '../CommerceList.context';
 /* components */
 import { Button } from 'shared/components';
+/* hooks */
+import { useAdminLang, useAdminSelector } from 'admin/core';
 /* types */
 import { CommerceState } from 'admin/commerces/types';
 /* assets */
@@ -14,41 +17,49 @@ import styles from './CommerceListActions.module.scss';
 
 const CommerceListActions: FC<{ state: CommerceState; commerceId: string }> = ({ state, commerceId }) => {
     const {
+        user: { profiles },
+    } = useAdminSelector(selectAuthStore);
+
+    const {
         /* functions */
         handleSelectCommerceToUpdateState,
     } = useCommerceListContext();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     const navigate = useNavigate();
 
     return (
         <div className={styles.Actions}>
-            {state === 'active' ? (
-                <Button
-                    className={styles.Delete}
-                    onClick={() => handleSelectCommerceToUpdateState(commerceId)}
-                    title={t('views.commercelist.list.suspend')}>
-                    <i>
-                        <MdThumbDown />
-                    </i>
-                </Button>
-            ) : (
-                <Button
-                    className={styles.Restore}
-                    onClick={() => handleSelectCommerceToUpdateState(commerceId)}
-                    title={t('views.commercelist.list.restore')}>
-                    <i>
-                        <MdThumbUp />
-                    </i>
-                </Button>
+            {profiles !== 'admin' ? null : (
+                <>
+                    {state === 'active' ? (
+                        <Button
+                            className={styles.Delete}
+                            onClick={() => handleSelectCommerceToUpdateState(commerceId)}
+                            title={translate('actions.suspend')}>
+                            <i>
+                                <MdThumbDown />
+                            </i>
+                        </Button>
+                    ) : (
+                        <Button
+                            className={styles.Restore}
+                            onClick={() => handleSelectCommerceToUpdateState(commerceId)}
+                            title={translate('actions.restore')}>
+                            <i>
+                                <MdThumbUp />
+                            </i>
+                        </Button>
+                    )}
+                </>
             )}
 
             <Button
                 className={styles.View}
                 onClick={() => navigate(`../${commerceId}/detail`)}
                 disabled={state === 'inactive'}
-                title={t('views.commercelist.list.view')}>
+                title={translate('actions.detail')}>
                 <i>
                     <MdVisibility />
                 </i>

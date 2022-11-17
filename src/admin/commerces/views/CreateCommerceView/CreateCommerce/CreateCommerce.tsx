@@ -1,6 +1,5 @@
 /* react */
 import { memo, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useFormContext } from 'react-hook-form';
 /* context */
 import { useCreateCommerceContext } from '../CreateCommerce.context';
@@ -12,6 +11,8 @@ import { CreateCommerceReference } from '../CreateCommerceReference';
 import { CreateCommerceSetting } from '../CreateCommerceSetting';
 import { CreateCommerceAttention } from '../CreateCommerceAttention';
 import { CreateCommerceDelivery } from '../CreateCommerceDelivery';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* utils */
 import { classNames } from 'shared/utils';
 /* props */
@@ -38,22 +39,22 @@ const CreateCommerce = () => {
         if (await trigger(['typeCharge', 'applyCharge'])) handleNextTab();
     }, [handleNextTab, trigger]);
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <ScrollLayout orientation="col" classNameContent={styles.CreateCommerce}>
             <div className={styles.Header}>
-                <h1 title={t('views.createcommerce.header')}>
-                    <Legend hasDots>{t('views.createcommerce.header')}</Legend>
+                <h1 title={translate('createcommerce.title')}>
+                    <Legend hasDots>{translate('createcommerce.title')}</Legend>
                 </h1>
 
                 <Button
                     type="button"
                     className={ButtonStyles.OutlineNone}
-                    title={t('views.createcommerce.actions.cancel')}
+                    title={translate('actions.cancel')}
                     onClick={handleCancelCreateCommerce}>
                     <Legend hasDots justify="center">
-                        {t('views.createcommerce.actions.cancel')}
+                        {translate('actions.cancel')}
                     </Legend>
                 </Button>
             </div>
@@ -70,7 +71,7 @@ const CreateCommerce = () => {
                                     className={classNames(styles.TabItem, isCurrentTab && styles.TabItemActive)}
                                     type="button">
                                     <Legend justify="center">
-                                        1 - <>{t('views.createcommerce.reference.header')}</>
+                                        1 - <>{translate('createcommerce.references')}</>
                                     </Legend>
                                 </Button>
                             ),
@@ -82,7 +83,7 @@ const CreateCommerce = () => {
                                     className={classNames(styles.TabItem, isCurrentTab && styles.TabItemActive)}
                                     type="button">
                                     <Legend justify="center">
-                                        2 - <>{t('views.createcommerce.setting.header')}</>
+                                        2 - <>{translate('createcommerce.settings')}</>
                                     </Legend>
                                 </Button>
                             ),
@@ -97,20 +98,20 @@ const CreateCommerce = () => {
                                             <Button
                                                 type="button"
                                                 className={ButtonStyles.OutlineNone}
-                                                title={t('actions.prevstep')}
+                                                title={translate('actions.prevstep')}
                                                 onClick={handleToPrevTab}>
                                                 <Legend hasDots justify="center">
-                                                    {t('actions.prevstep')}
+                                                    {translate('actions.prevstep')}
                                                 </Legend>
                                             </Button>
 
                                             <Button
                                                 type="button"
                                                 className={ButtonStyles.FillSecondary}
-                                                title={t('actions.nextstep')}
+                                                title={translate('actions.nextstep')}
                                                 onClick={handleToNextTab}>
                                                 <Legend hasDots justify="center">
-                                                    {t('actions.nextstep')}
+                                                    {translate('actions.nextstep')}
                                                 </Legend>
                                             </Button>
                                         </div>
@@ -124,7 +125,7 @@ const CreateCommerce = () => {
                                     className={classNames(styles.TabItem, isCurrentTab && styles.TabItemActive)}
                                     type="button">
                                     <Legend justify="center">
-                                        3 - <>{t('views.createcommerce.attention.header')}</>
+                                        3 - <>{translate('createcommerce.attention')}</>
                                     </Legend>
                                 </Button>
                             ),

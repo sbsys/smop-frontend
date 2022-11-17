@@ -1,6 +1,5 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useTenantSettingsContext } from '../TenantSettings.context';
 /* custom hook */
@@ -9,7 +8,7 @@ import { useUpdateBranding } from './useUpdateBranding.hook';
 import { ModalLayout, ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
-import { FieldSet } from 'admin/core';
+import { FieldSet, useAdminLang } from 'admin/core';
 /* assets */
 import { MdWarning } from 'react-icons/md';
 /* styles */
@@ -25,18 +24,18 @@ const UpdateBrandingModal = () => {
 
     const { updateBrandingFormFields, handleUpdateBranding, handleResetUpdateBrandingForm } = useUpdateBranding();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <ModalLayout isVisible={isUpdateBranding} rowAlignment="center" colAlignment="center" hasIndentation>
             <ScrollLayout orientation="col" classNameContent={styles.UpdateBranding}>
                 <form onSubmit={handleUpdateBranding}>
-                    <div className={styles.Header} title={t('views.updatebranding.title')}>
+                    <div className={styles.Header} title={translate('orgedit.branding')}>
                         <i>
                             <MdWarning />
                         </i>
 
-                        <Legend hasDots>{t('views.updatebranding.title')}</Legend>
+                        <Legend hasDots>{translate('orgedit.branding')}</Legend>
                     </div>
 
                     <div className={styles.Content}>
@@ -49,23 +48,23 @@ const UpdateBrandingModal = () => {
                         <Button
                             type="button"
                             className={ButtonStyles.OutlineNone}
-                            title={t('views.updatebranding.actions.cancel')}
+                            title={translate('actions.cancel')}
                             onClick={() => {
                                 handleResetUpdateBrandingForm();
 
                                 hideUpdateBranding();
                             }}>
                             <Legend hasDots justify="center">
-                                {t('views.updatebranding.actions.cancel')}
+                                {translate('actions.cancel')}
                             </Legend>
                         </Button>
 
                         <Button
                             type="submit"
                             className={ButtonStyles.FillSecondary}
-                            title={t('views.updatebranding.actions.update')}>
+                            title={translate('actions.update')}>
                             <Legend hasDots justify="center">
-                                {t('views.updatebranding.actions.update')}
+                                {translate('actions.update')}
                             </Legend>
                         </Button>
                     </div>

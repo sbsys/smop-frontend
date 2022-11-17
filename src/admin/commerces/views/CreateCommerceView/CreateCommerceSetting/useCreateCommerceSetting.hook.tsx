@@ -1,9 +1,8 @@
 /* react */
 import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 /* props */
-import { FieldSetProps } from 'admin/core';
+import { AdminLang, FieldSetProps, useAdminLang } from 'admin/core';
 import { CreateCommerceForm } from '../CreateCommerce.props';
 /* types */
 import { TypeChargeValue, TypeOrderValue } from 'admin/commerces/types';
@@ -22,7 +21,7 @@ export const useCreateCommerceSetting = () => {
         trigger,
     } = useFormContext<CreateCommerceForm>();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     /* reactivity */
     useEffect(() => {
@@ -64,15 +63,11 @@ export const useCreateCommerceSetting = () => {
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t(
-                errors.orderOnline
-                    ? (errors.orderOnline.message as string)
-                    : 'views.createcommerce.setting.form.orderonline.hint'
+            title: translate(
+                errors.orderOnline ? (errors.orderOnline.message as AdminLang) : 'createcommerce.online.hint'
             ),
-            children: t(
-                errors.orderOnline
-                    ? (errors.orderOnline.message as string)
-                    : 'views.createcommerce.setting.form.orderonline.hint'
+            children: translate(
+                errors.orderOnline ? (errors.orderOnline.message as AdminLang) : 'createcommerce.online.hint'
             ),
         },
     };
@@ -95,15 +90,15 @@ export const useCreateCommerceSetting = () => {
             isHintReserved: true,
             hint: {
                 hasDots: true,
-                title: t(
+                title: translate(
                     errors.typeOrder && errors.typeOrder[index]
-                        ? (errors.typeOrder[index]?.message as string)
-                        : `views.createcommerce.setting.form.typeorder.${typeOrder?.type}`
+                        ? (errors.typeOrder[index]?.message as AdminLang)
+                        : `ordertypes.${typeOrder?.type}`
                 ),
-                children: t(
+                children: translate(
                     errors.typeOrder && errors.typeOrder[index]
-                        ? (errors.typeOrder[index]?.message as string)
-                        : `views.createcommerce.setting.form.typeorder.${typeOrder?.type}`
+                        ? (errors.typeOrder[index]?.message as AdminLang)
+                        : `ordertypes.${typeOrder?.type}`
                 ),
             },
         };
@@ -130,15 +125,15 @@ export const useCreateCommerceSetting = () => {
                 isHintReserved: true,
                 hint: {
                     hasDots: true,
-                    title: t(
+                    title: translate(
                         errors.typeCharge && errors.typeCharge[index]?.enabled
-                            ? (errors.typeCharge[index]?.enabled?.message as string)
-                            : `views.createcommerce.setting.form.typecharge.${typeCharge?.type}.title`
+                            ? (errors.typeCharge[index]?.enabled?.message as AdminLang)
+                            : `createcommerce.${typeCharge?.type}charge.title`
                     ),
-                    children: t(
+                    children: translate(
                         errors.typeCharge && errors.typeCharge[index]?.enabled
-                            ? (errors.typeCharge[index]?.enabled?.message as string)
-                            : `views.createcommerce.setting.form.typecharge.${typeCharge?.type}.title`
+                            ? (errors.typeCharge[index]?.enabled?.message as AdminLang)
+                            : `createcommerce.${typeCharge?.type}charge.title`
                     ),
                 },
             },
@@ -149,7 +144,7 @@ export const useCreateCommerceSetting = () => {
                         errors.typeCharge && errors.typeCharge[index]
                             ? FieldStyles.OutlineDanger
                             : FieldStyles.OutlinePrimary,
-                    placeholder: t(`views.createcommerce.setting.form.typecharge.${typeCharge?.type}.placeholder`),
+                    placeholder: translate(`createcommerce.${typeCharge?.type}charge.placeholder`),
                     strategy: 'decimal',
                     min: 0,
                     step: 0.0001,
@@ -160,15 +155,15 @@ export const useCreateCommerceSetting = () => {
                 isHintReserved: true,
                 hint: {
                     hasDots: true,
-                    title: t(
+                    title: translate(
                         errors.typeCharge && errors.typeCharge[index]?.value
-                            ? (errors.typeCharge[index]?.value?.message as string)
-                            : `views.createcommerce.setting.form.typecharge.${typeCharge?.type}.hint`
+                            ? (errors.typeCharge[index]?.value?.message as AdminLang)
+                            : `createcommerce.${typeCharge?.type}charge.hint`
                     ),
-                    children: t(
+                    children: translate(
                         errors.typeCharge && errors.typeCharge[index]
-                            ? (errors.typeCharge[index]?.value?.message as string)
-                            : `views.createcommerce.setting.form.typecharge.${typeCharge?.type}.hint`
+                            ? (errors.typeCharge[index]?.value?.message as AdminLang)
+                            : `createcommerce.${typeCharge?.type}charge.hint`
                     ),
                 },
             },
@@ -178,15 +173,15 @@ export const useCreateCommerceSetting = () => {
     const applyChargeField: FieldSetProps = {
         field: {
             className: errors.applyCharge ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
-            placeholder: t('views.createcommerce.setting.form.applycharge.placeholder'),
+            placeholder: translate('createcommerce.applycharge.placeholder'),
             strategy: 'select',
             options: [
                 {
-                    label: t('views.createcommerce.setting.form.applycharge.before'),
+                    label: translate('applycharge.1'),
                     value: 1,
                 },
                 {
-                    label: t('views.createcommerce.setting.form.applycharge.after'),
+                    label: translate('applycharge.0'),
                     value: 0,
                 },
             ],
@@ -195,15 +190,11 @@ export const useCreateCommerceSetting = () => {
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t(
-                errors.applyCharge
-                    ? (errors.applyCharge.message as string)
-                    : `views.createcommerce.setting.form.applycharge.hint`
+            title: translate(
+                errors.applyCharge ? (errors.applyCharge.message as AdminLang) : `createcommerce.applycharge.hint`
             ),
-            children: t(
-                errors.applyCharge
-                    ? (errors.applyCharge.message as string)
-                    : `views.createcommerce.setting.form.applycharge.hint`
+            children: translate(
+                errors.applyCharge ? (errors.applyCharge.message as AdminLang) : `createcommerce.applycharge.hint`
             ),
         },
     };
@@ -217,16 +208,8 @@ export const useCreateCommerceSetting = () => {
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t(
-                errors.smsAlerts
-                    ? (errors.smsAlerts.message as string)
-                    : 'views.createcommerce.setting.form.smsalerts.hint'
-            ),
-            children: t(
-                errors.smsAlerts
-                    ? (errors.smsAlerts.message as string)
-                    : 'views.createcommerce.setting.form.smsalerts.hint'
-            ),
+            title: translate(errors.smsAlerts ? (errors.smsAlerts.message as AdminLang) : 'createcommerce.sms.hint'),
+            children: translate(errors.smsAlerts ? (errors.smsAlerts.message as AdminLang) : 'createcommerce.sms.hint'),
         },
     };
 

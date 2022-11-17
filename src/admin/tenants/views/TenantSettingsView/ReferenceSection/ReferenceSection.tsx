@@ -1,10 +1,11 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useTenantSettingsContext } from '../TenantSettings.context';
 /* components */
 import { Button, Legend } from 'shared/components';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* assets */
 import { MdEdit } from 'react-icons/md';
 /* styles */
@@ -19,18 +20,18 @@ const ReferenceSection = () => {
         showUpdateReference,
     } = useTenantSettingsContext();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <section className={SectionStyles.Section}>
             <div className={SectionStyles.Title}>
-                <h2 title={t('views.referencesection.title')}>
-                    <Legend hasDots>{t('views.referencesection.title')}</Legend>
+                <h2 title={translate('orgdetail.references')}>
+                    <Legend hasDots>{translate('orgdetail.references')}</Legend>
                 </h2>
 
                 <Button
                     className={ButtonStyles.OutlineNone}
-                    title={t('views.referencesection.edit')}
+                    title={translate('actions.edit')}
                     onClick={showUpdateReference}>
                     <i>
                         <MdEdit />
@@ -40,13 +41,13 @@ const ReferenceSection = () => {
 
             <div className={styles.Reference}>
                 <Legend hasDots>
-                    <span className={styles.Title}>{t('views.referencesection.organization')}: </span>
+                    <span className={styles.Title}>{translate('orgdetail.orgname')}: </span>
 
                     <span>{settings?.organizationName}</span>
                 </Legend>
 
                 <Legend hasDots>
-                    <span className={styles.Title}>{t('views.referencesection.owner')}: </span>
+                    <span className={styles.Title}>{translate('orgdetail.owner')}: </span>
 
                     <span>{settings?.ownerReference}</span>
                 </Legend>

@@ -1,6 +1,5 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* custom hook */
 import { useUpdateReference } from './useUpdateReference.hook';
 /* context */
@@ -9,7 +8,7 @@ import { useTenantSettingsContext } from '../TenantSettings.context';
 import { ModalLayout, ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
-import { FieldSet } from 'admin/core';
+import { FieldSet, useAdminLang } from 'admin/core';
 /* assets */
 import { MdWarning } from 'react-icons/md';
 /* styles */
@@ -25,18 +24,18 @@ const UpdateReferenceModal = () => {
 
     const { handleUpdateReference, updateReferenceFormFields, handleResetUpdateReferenceForm } = useUpdateReference();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <ModalLayout isVisible={isUpdateReference} rowAlignment="center" colAlignment="center" hasIndentation>
             <ScrollLayout orientation="col" classNameContent={styles.UpdateReference}>
                 <form onSubmit={handleUpdateReference}>
-                    <div className={styles.Header} title={t('views.updatereference.title')}>
+                    <div className={styles.Header} title={translate('orgedit.references')}>
                         <i>
                             <MdWarning />
                         </i>
 
-                        <Legend hasDots>{t('views.updatereference.title')}</Legend>
+                        <Legend hasDots>{translate('orgedit.references')}</Legend>
                     </div>
 
                     <div className={styles.Content}>
@@ -49,23 +48,23 @@ const UpdateReferenceModal = () => {
                         <Button
                             type="button"
                             className={ButtonStyles.OutlineNone}
-                            title={t('views.updatereference.actions.cancel')}
+                            title={translate('actions.cancel')}
                             onClick={() => {
                                 handleResetUpdateReferenceForm();
 
                                 hideUpdateReference();
                             }}>
                             <Legend hasDots justify="center">
-                                {t('views.updatereference.actions.cancel')}
+                                {translate('actions.cancel')}
                             </Legend>
                         </Button>
 
                         <Button
                             type="submit"
                             className={ButtonStyles.FillSecondary}
-                            title={t('views.updatereference.actions.update')}>
+                            title={translate('actions.update')}>
                             <Legend hasDots justify="center">
-                                {t('views.updatereference.actions.update')}
+                                {translate('actions.update')}
                             </Legend>
                         </Button>
                     </div>

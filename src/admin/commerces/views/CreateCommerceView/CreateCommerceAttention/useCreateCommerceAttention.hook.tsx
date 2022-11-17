@@ -1,8 +1,7 @@
 /* react */
 import { useFormContext } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 /* props */
-import { FieldSetProps } from 'admin/core';
+import { AdminLang, FieldSetProps, useAdminLang, WeekDay } from 'admin/core';
 import { CreateCommerceForm } from '../CreateCommerce.props';
 /* types */
 import { DayServiceValue } from 'admin/commerces/types';
@@ -20,7 +19,7 @@ export const useCreateCommerceAttention = () => {
         trigger,
     } = useFormContext<CreateCommerceForm>();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     /* functions */
     const handleRepeatSunday = async (attention: 'onsite' | 'delivery') => {
@@ -62,19 +61,19 @@ export const useCreateCommerceAttention = () => {
                 isHintReserved: true,
                 hint: {
                     hasDots: true,
-                    title: t(
+                    title: translate(
                         errors.serviceHours?.onsite &&
                             errors.serviceHours.onsite[index] &&
                             errors.serviceHours.onsite[index]?.enabled
-                            ? (errors.serviceHours.onsite[index]?.enabled?.message as string)
-                            : `weekday.${dayService?.key.toLowerCase()}`
+                            ? (errors.serviceHours.onsite[index]?.enabled?.message as AdminLang)
+                            : `day.${dayService?.key.toLowerCase() as WeekDay}`
                     ),
-                    children: t(
+                    children: translate(
                         errors.serviceHours?.onsite &&
                             errors.serviceHours.onsite[index] &&
                             errors.serviceHours.onsite[index]?.enabled
-                            ? (errors.serviceHours.onsite[index]?.enabled?.message as string)
-                            : `weekday.${dayService?.key.toLowerCase()}`
+                            ? (errors.serviceHours.onsite[index]?.enabled?.message as AdminLang)
+                            : `day.${dayService?.key.toLowerCase() as WeekDay}`
                     ),
                 },
             },
@@ -87,28 +86,26 @@ export const useCreateCommerceAttention = () => {
                         errors.serviceHours.onsite[index]?.opening
                             ? FieldStyles.OutlineDanger
                             : FieldStyles.OutlinePrimary,
-                    placeholder: t(
-                        `views.createcommerce.attention.form.servicehours.onsite.${dayService?.key.toLowerCase()}.opening.placeholder`
-                    ),
+                    placeholder: translate('day.opening'),
                     defaultValue: dayService?.opening,
                     ...register(`serviceHours.onsite.${index}.opening`),
                 },
                 isHintReserved: true,
                 hint: {
                     hasDots: true,
-                    title: t(
+                    title: translate(
                         errors.serviceHours?.onsite &&
                             errors.serviceHours.onsite[index] &&
                             errors.serviceHours.onsite[index]?.opening
-                            ? (errors.serviceHours.onsite[index]?.opening?.message as string)
-                            : `views.createcommerce.attention.form.servicehours.onsite.${dayService?.key.toLowerCase()}.opening.hint`
+                            ? (errors.serviceHours.onsite[index]?.opening?.message as AdminLang)
+                            : 'createcommerce.opening.hint'
                     ),
-                    children: t(
+                    children: translate(
                         errors.serviceHours?.onsite &&
                             errors.serviceHours.onsite[index] &&
                             errors.serviceHours.onsite[index]?.opening
-                            ? (errors.serviceHours.onsite[index]?.opening?.message as string)
-                            : `views.createcommerce.attention.form.servicehours.onsite.${dayService?.key.toLowerCase()}.opening.hint`
+                            ? (errors.serviceHours.onsite[index]?.opening?.message as AdminLang)
+                            : 'createcommerce.opening.hint'
                     ),
                 },
             },
@@ -121,28 +118,26 @@ export const useCreateCommerceAttention = () => {
                         errors.serviceHours.onsite[index]?.closing
                             ? FieldStyles.OutlineDanger
                             : FieldStyles.OutlinePrimary,
-                    placeholder: t(
-                        `views.createcommerce.attention.form.servicehours.onsite.${dayService?.key.toLowerCase()}.closing.placeholder`
-                    ),
+                    placeholder: translate('day.closing'),
                     defaultValue: dayService?.closing,
                     ...register(`serviceHours.onsite.${index}.closing`),
                 },
                 isHintReserved: true,
                 hint: {
                     hasDots: true,
-                    title: t(
+                    title: translate(
                         errors.serviceHours?.onsite &&
                             errors.serviceHours.onsite[index] &&
                             errors.serviceHours.onsite[index]?.closing
-                            ? (errors.serviceHours.onsite[index]?.closing?.message as string)
-                            : `views.createcommerce.attention.form.servicehours.onsite.${dayService?.key.toLowerCase()}.closing.hint`
+                            ? (errors.serviceHours.onsite[index]?.closing?.message as AdminLang)
+                            : 'createcommerce.closing.hint'
                     ),
-                    children: t(
+                    children: translate(
                         errors.serviceHours?.onsite &&
                             errors.serviceHours.onsite[index] &&
                             errors.serviceHours.onsite[index]?.closing
-                            ? (errors.serviceHours.onsite[index]?.closing?.message as string)
-                            : `views.createcommerce.attention.form.servicehours.onsite.${dayService?.key.toLowerCase()}.closing.hint`
+                            ? (errors.serviceHours.onsite[index]?.closing?.message as AdminLang)
+                            : 'createcommerce.closing.hint'
                     ),
                 },
             },
@@ -159,21 +154,21 @@ export const useCreateCommerceAttention = () => {
                     min: 0,
                     step: 1,
                     defaultValue: 0,
-                    placeholder: t('views.createcommerce.attention.form.onsitepreparationtime.hours.placeholder'),
+                    placeholder: translate('createcommerce.hours.placeholder'),
                     ...register('onsitePreparationTime.hours'),
                 },
                 isHintReserved: true,
                 hint: {
                     hasDots: true,
-                    title: t(
+                    title: translate(
                         errors.onsitePreparationTime?.hours
-                            ? (errors.onsitePreparationTime?.hours.message as string)
-                            : 'views.createcommerce.attention.form.onsitepreparationtime.hours.hint'
+                            ? (errors.onsitePreparationTime?.hours.message as AdminLang)
+                            : 'createcommerce.hours.hint'
                     ),
-                    children: t(
+                    children: translate(
                         errors.onsitePreparationTime?.hours
-                            ? (errors.onsitePreparationTime?.hours.message as string)
-                            : 'views.createcommerce.attention.form.onsitepreparationtime.hours.hint'
+                            ? (errors.onsitePreparationTime?.hours.message as AdminLang)
+                            : 'createcommerce.hours.hint'
                     ),
                 },
             },
@@ -187,21 +182,21 @@ export const useCreateCommerceAttention = () => {
                     max: 59,
                     step: 1,
                     defaultValue: 0,
-                    placeholder: t('views.createcommerce.attention.form.onsitepreparationtime.minutes.placeholder'),
+                    placeholder: translate('createcommerce.minutes.placeholder'),
                     ...register('onsitePreparationTime.minutes'),
                 },
                 isHintReserved: true,
                 hint: {
                     hasDots: true,
-                    title: t(
+                    title: translate(
                         errors.onsitePreparationTime?.minutes
-                            ? (errors.onsitePreparationTime?.minutes.message as string)
-                            : 'views.createcommerce.attention.form.onsitepreparationtime.minutes.hint'
+                            ? (errors.onsitePreparationTime?.minutes.message as AdminLang)
+                            : 'createcommerce.minutes.hint'
                     ),
-                    children: t(
+                    children: translate(
                         errors.onsitePreparationTime?.minutes
-                            ? (errors.onsitePreparationTime?.minutes.message as string)
-                            : 'views.createcommerce.attention.form.onsitepreparationtime.minutes.hint'
+                            ? (errors.onsitePreparationTime?.minutes.message as AdminLang)
+                            : 'createcommerce.minutes.hint'
                     ),
                 },
             },
@@ -231,19 +226,19 @@ export const useCreateCommerceAttention = () => {
                 isHintReserved: true,
                 hint: {
                     hasDots: true,
-                    title: t(
+                    title: translate(
                         errors.serviceHours?.delivery &&
                             errors.serviceHours.delivery[index] &&
                             errors.serviceHours.delivery[index]?.enabled
-                            ? (errors.serviceHours.delivery[index]?.enabled?.message as string)
-                            : `weekday.${dayService?.key.toLowerCase()}`
+                            ? (errors.serviceHours.delivery[index]?.enabled?.message as AdminLang)
+                            : `day.${dayService?.key.toLowerCase() as WeekDay}`
                     ),
-                    children: t(
+                    children: translate(
                         errors.serviceHours?.delivery &&
                             errors.serviceHours.delivery[index] &&
                             errors.serviceHours.delivery[index]?.enabled
-                            ? (errors.serviceHours.delivery[index]?.enabled?.message as string)
-                            : `weekday.${dayService?.key.toLowerCase()}`
+                            ? (errors.serviceHours.delivery[index]?.enabled?.message as AdminLang)
+                            : `day.${dayService?.key.toLowerCase() as WeekDay}`
                     ),
                 },
             },
@@ -256,28 +251,26 @@ export const useCreateCommerceAttention = () => {
                         errors.serviceHours.delivery[index]?.opening
                             ? FieldStyles.OutlineDanger
                             : FieldStyles.OutlinePrimary,
-                    placeholder: t(
-                        `views.createcommerce.attention.form.servicehours.delivery.${dayService?.key.toLowerCase()}.opening.placeholder`
-                    ),
+                    placeholder: translate('day.opening'),
                     defaultValue: dayService?.opening,
                     ...register(`serviceHours.delivery.${index}.opening`),
                 },
                 isHintReserved: true,
                 hint: {
                     hasDots: true,
-                    title: t(
+                    title: translate(
                         errors.serviceHours?.delivery &&
                             errors.serviceHours.delivery[index] &&
                             errors.serviceHours.delivery[index]?.opening
-                            ? (errors.serviceHours.delivery[index]?.opening?.message as string)
-                            : `views.createcommerce.attention.form.servicehours.delivery.${dayService?.key.toLowerCase()}.opening.hint`
+                            ? (errors.serviceHours.delivery[index]?.opening?.message as AdminLang)
+                            : 'createcommerce.opening.hint'
                     ),
-                    children: t(
+                    children: translate(
                         errors.serviceHours?.delivery &&
                             errors.serviceHours.delivery[index] &&
                             errors.serviceHours.delivery[index]?.opening
-                            ? (errors.serviceHours.delivery[index]?.opening?.message as string)
-                            : `views.createcommerce.attention.form.servicehours.delivery.${dayService?.key.toLowerCase()}.opening.hint`
+                            ? (errors.serviceHours.delivery[index]?.opening?.message as AdminLang)
+                            : 'createcommerce.opening.hint'
                     ),
                 },
             },
@@ -290,28 +283,26 @@ export const useCreateCommerceAttention = () => {
                         errors.serviceHours.delivery[index]?.closing
                             ? FieldStyles.OutlineDanger
                             : FieldStyles.OutlinePrimary,
-                    placeholder: t(
-                        `views.createcommerce.attention.form.servicehours.delivery.${dayService?.key.toLowerCase()}.closing.placeholder`
-                    ),
+                    placeholder: translate('day.closing'),
                     defaultValue: dayService?.closing,
                     ...register(`serviceHours.delivery.${index}.closing`),
                 },
                 isHintReserved: true,
                 hint: {
                     hasDots: true,
-                    title: t(
+                    title: translate(
                         errors.serviceHours?.delivery &&
                             errors.serviceHours.delivery[index] &&
                             errors.serviceHours.delivery[index]?.closing
-                            ? (errors.serviceHours.delivery[index]?.closing?.message as string)
-                            : `views.createcommerce.attention.form.servicehours.delivery.${dayService?.key.toLowerCase()}.closing.hint`
+                            ? (errors.serviceHours.delivery[index]?.closing?.message as AdminLang)
+                            : 'createcommerce.closing.hint'
                     ),
-                    children: t(
+                    children: translate(
                         errors.serviceHours?.delivery &&
                             errors.serviceHours.delivery[index] &&
                             errors.serviceHours.delivery[index]?.closing
-                            ? (errors.serviceHours.delivery[index]?.closing?.message as string)
-                            : `views.createcommerce.attention.form.servicehours.delivery.${dayService?.key.toLowerCase()}.closing.hint`
+                            ? (errors.serviceHours.delivery[index]?.closing?.message as AdminLang)
+                            : 'createcommerce.closing.hint'
                     ),
                 },
             },
@@ -328,21 +319,21 @@ export const useCreateCommerceAttention = () => {
                     min: 0,
                     step: 1,
                     defaultValue: 0,
-                    placeholder: t('views.createcommerce.attention.form.deliverypreparationtime.hours.placeholder'),
+                    placeholder: translate('createcommerce.hours.placeholder'),
                     ...register('deliveryPreparationTime.hours'),
                 },
                 isHintReserved: true,
                 hint: {
                     hasDots: true,
-                    title: t(
+                    title: translate(
                         errors.deliveryPreparationTime?.hours
-                            ? (errors.deliveryPreparationTime?.hours.message as string)
-                            : 'views.createcommerce.attention.form.deliverypreparationtime.hours.hint'
+                            ? (errors.deliveryPreparationTime?.hours.message as AdminLang)
+                            : 'createcommerce.hours.hint'
                     ),
-                    children: t(
+                    children: translate(
                         errors.deliveryPreparationTime?.hours
-                            ? (errors.deliveryPreparationTime?.hours.message as string)
-                            : 'views.createcommerce.attention.form.deliverypreparationtime.hours.hint'
+                            ? (errors.deliveryPreparationTime?.hours.message as AdminLang)
+                            : 'createcommerce.hours.hint'
                     ),
                 },
             },
@@ -356,21 +347,21 @@ export const useCreateCommerceAttention = () => {
                     max: 59,
                     step: 1,
                     defaultValue: 0,
-                    placeholder: t('views.createcommerce.attention.form.deliverypreparationtime.minutes.placeholder'),
+                    placeholder: translate('createcommerce.minutes.placeholder'),
                     ...register('deliveryPreparationTime.minutes'),
                 },
                 isHintReserved: true,
                 hint: {
                     hasDots: true,
-                    title: t(
+                    title: translate(
                         errors.deliveryPreparationTime?.minutes
-                            ? (errors.deliveryPreparationTime?.minutes.message as string)
-                            : 'views.createcommerce.attention.form.deliverypreparationtime.minutes.hint'
+                            ? (errors.deliveryPreparationTime?.minutes.message as AdminLang)
+                            : 'createcommerce.minutes.hint'
                     ),
-                    children: t(
+                    children: translate(
                         errors.deliveryPreparationTime?.minutes
-                            ? (errors.deliveryPreparationTime?.minutes.message as string)
-                            : 'views.createcommerce.attention.form.deliverypreparationtime.minutes.hint'
+                            ? (errors.deliveryPreparationTime?.minutes.message as AdminLang)
+                            : 'createcommerce.minutes.hint'
                     ),
                 },
             },

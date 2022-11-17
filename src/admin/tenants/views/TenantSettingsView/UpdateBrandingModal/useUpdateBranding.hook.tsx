@@ -1,7 +1,6 @@
 /* react */
 import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useTenantSettingsContext } from '../TenantSettings.context';
 /* components */
@@ -9,7 +8,7 @@ import { Button, Legend } from 'shared/components';
 /* hooks */
 import { useDragAndDropFiles, useLoader } from 'shared/hooks';
 /* props */
-import { FieldSetProps, FilePreview, FilePreviewProps, useAdminNotify } from 'admin/core';
+import { AdminLang, FieldSetProps, FilePreview, FilePreviewProps, useAdminLang, useAdminNotify } from 'admin/core';
 /* services */
 import { updateBrandingService } from 'admin/tenants/services';
 /* utils */
@@ -31,28 +30,20 @@ const UpdateBrandingSchema = yup
     .object({
         cover: yup
             .mixed()
-            .test('required', 'views.updatebranding.form.cover.required', value => value && value.length > 0)
-            .test(
-                'fileSize',
-                'views.updatebranding.form.cover.size',
-                value => value && value[0] && value[0].size <= 10000000
-            )
+            .test('required', 'orgedit.cover.required', value => value && value.length > 0)
+            .test('fileSize', 'orgedit.cover.size', value => value && value[0] && value[0].size <= 10000000)
             .test(
                 'type',
-                'views.updatebranding.form.cover.type',
+                'orgedit.cover.type',
                 value => value && value[0] && (value[0].type === 'image/jpeg' || value[0].type === 'image/png')
             ),
         profile: yup
             .mixed()
-            .test('required', 'views.updatebranding.form.profile.required', value => value && value.length > 0)
-            .test(
-                'fileSize',
-                'views.updatebranding.form.profile.size',
-                value => value && value[0] && value[0].size <= 10000000
-            )
+            .test('required', 'orgedit.profile.required', value => value && value.length > 0)
+            .test('fileSize', 'orgedit.profile.size', value => value && value[0] && value[0].size <= 10000000)
             .test(
                 'type',
-                'views.updatebranding.form.profile.type',
+                'orgedit.profile.type',
                 value => value && value[0] && (value[0].type === 'image/jpeg' || value[0].type === 'image/png')
             ),
     })
@@ -80,7 +71,7 @@ export const useUpdateBranding = () => {
         resolver: yupResolver(UpdateBrandingSchema),
     });
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     const { showLoader, hideLoader } = useLoader();
 
@@ -159,9 +150,11 @@ export const useUpdateBranding = () => {
                     <Legend
                         hasDots
                         title={
-                            errors.cover ? t(errors.cover.message as string) : t('views.updatebranding.form.cover.hint')
+                            errors.cover
+                                ? translate(errors.cover.message as AdminLang)
+                                : translate('orgedit.cover.hint')
                         }>
-                        {errors.cover ? t(errors.cover.message as string) : t('views.updatebranding.form.cover.hint')}
+                        {errors.cover ? translate(errors.cover.message as AdminLang) : translate('orgedit.cover.hint')}
                     </Legend>
 
                     {watch('cover')?.length > 0 && (
@@ -169,7 +162,7 @@ export const useUpdateBranding = () => {
                             type="button"
                             className={ButtonStyles.OutlineNone}
                             onClick={() => resetField('cover')}
-                            title={t('views.updatebranding.form.cover.close')}>
+                            title={translate('actions.remove')}>
                             <i>
                                 <MdClose />
                             </i>
@@ -210,12 +203,12 @@ export const useUpdateBranding = () => {
                         hasDots
                         title={
                             errors.profile
-                                ? t(errors.profile.message as string)
-                                : t('views.updatebranding.form.profile.hint')
+                                ? translate(errors.profile.message as AdminLang)
+                                : translate('orgedit.profile.hint')
                         }>
                         {errors.profile
-                            ? t(errors.profile.message as string)
-                            : t('views.updatebranding.form.profile.hint')}
+                            ? translate(errors.profile.message as AdminLang)
+                            : translate('orgedit.profile.hint')}
                     </Legend>
 
                     {watch('profile')?.length > 0 && (
@@ -223,7 +216,7 @@ export const useUpdateBranding = () => {
                             type="button"
                             className={ButtonStyles.OutlineNone}
                             onClick={() => resetField('profile')}
-                            title={t('views.updatebranding.form.profile.close')}>
+                            title={translate('actions.remove')}>
                             <i>
                                 <MdClose />
                             </i>

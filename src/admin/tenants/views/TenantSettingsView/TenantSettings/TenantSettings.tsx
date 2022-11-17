@@ -1,6 +1,5 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* layouts */
 import { ScrollLayout } from 'shared/layouts';
 /* components */
@@ -11,16 +10,18 @@ import { SettingsSection } from '../SettingsSection';
 import { UpdateSettingsModal } from '../UpdateSettingsModal';
 import { BrandingSection } from '../BrandingSection';
 import { UpdateBrandingModal } from '../UpdateBrandingModal';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* styles */
 import styles from '../TenantSettings.module.scss';
 
 const TenantSettings = () => {
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <ScrollLayout classNameContent={styles.Settings} orientation="col">
-            <h1 title={t('views.settingssection.header')}>
-                <Legend hasDots>{t('views.settingssection.header')}</Legend>
+            <h1 title={translate('orgdetail.title')}>
+                <Legend hasDots>{translate('orgdetail.title')}</Legend>
             </h1>
 
             <ReferenceSection />

@@ -1,6 +1,5 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Circle, MapContainer, TileLayer } from 'react-leaflet';
 /* context */
 import { useCreateCommerceContext } from '../CreateCommerce.context';
@@ -8,7 +7,7 @@ import { useCreateCommerceContext } from '../CreateCommerce.context';
 import { useCreateCommerceDelivery } from './useCreateCommerceDelivery.hook';
 /* components */
 import { DraggableMarker, Legend } from 'shared/components';
-import { FieldSet } from 'admin/core';
+import { FieldSet, useAdminLang } from 'admin/core';
 /* styles */
 import styles from './CreateCommerceDelivery.module.scss';
 
@@ -20,12 +19,12 @@ const CreateCommerceDelivery = () => {
 
     const { createCommerceDeliveryFields, geolocation, meters } = useCreateCommerceDelivery();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <div className={styles.Delivery}>
-            <h2 title={t('views.createcommerce.delivery.header')}>
-                <Legend hasDots>{t('views.createcommerce.delivery.header')}</Legend>
+            <h2 title={translate('createcommerce.deliveries')}>
+                <Legend hasDots>{translate('createcommerce.deliveries')}</Legend>
             </h2>
 
             <div className={styles.Content}>

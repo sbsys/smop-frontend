@@ -65,6 +65,7 @@ export type AdminLang =
     | 'actions.remove'
     | 'actions.activate'
     | 'actions.deactivate'
+    | 'actions.repeatweekday'
     /* messages */
     | 'messages.activate'
     | 'messages.deactivate'
@@ -349,7 +350,7 @@ export type AdminLang =
     | 'createcommerce.deliveryzone.hint'
     | 'createcommerce.deliveryarea.placeholder'
     | 'createcommerce.deliveryarea.hint'
-    | 'createcommerce.Attention'
+    | 'createcommerce.attention'
     | 'createcommerce.onsite'
     | 'createcommerce.onsitepreparation'
     | 'createcommerce.delivery'

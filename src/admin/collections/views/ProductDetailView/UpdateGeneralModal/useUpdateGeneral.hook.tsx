@@ -204,7 +204,6 @@ export const useUpdateGeneral = () => {
     const multiLanguageProps: FieldSetProps = {
         className: styles.CheckboxInverse,
         field: {
-            className: errors.multiLanguage ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'checkbox',
             placeholder: translate('commons.allowmultilanguage'),
             ...register('multiLanguage'),
@@ -309,7 +308,6 @@ export const useUpdateGeneral = () => {
     const allowPromptsProps: FieldSetProps = {
         className: styles.CheckboxInverse,
         field: {
-            className: errors.allowPrompts ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'checkbox',
             placeholder: translate('productedit.allowprompts.hint'),
             ...register('allowPrompts'),

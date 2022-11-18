@@ -305,7 +305,6 @@ export const useUpdateCollection = () => {
     const markAsAddonProps: FieldSetProps = {
         className: styles.CheckboxInverse,
         field: {
-            className: FieldStyles.OutlinePrimary,
             strategy: 'checkbox',
             placeholder: translate('productedit.markasaddon.hint'),
             ...register('markAsAddon'),

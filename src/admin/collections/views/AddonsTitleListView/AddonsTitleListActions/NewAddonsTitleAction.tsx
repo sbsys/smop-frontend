@@ -14,7 +14,9 @@ const NewAddonsTitleAction = () => {
 
     const { translate } = useAdminLang();
 
-    return <NavItem icon={<MdStore />} isDisabled={profiles !== 'admin'} text={translate('actions.new')} to="create" />;
+    if (profiles !== 'admin') return null;
+
+    return <NavItem icon={<MdStore />} text={translate('actions.new')} to="create" />;
 };
 
 export default memo(NewAddonsTitleAction);

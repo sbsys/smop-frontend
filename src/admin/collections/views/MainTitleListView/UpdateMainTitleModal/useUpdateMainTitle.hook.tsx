@@ -136,7 +136,6 @@ export const useUpdateMainTitle = () => {
     const multiLanguageProps: FieldSetProps = {
         className: styles.CheckboxInverse,
         field: {
-            className: errors.multiLanguage ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'checkbox',
             placeholder: translate('commons.allowmultilanguage'),
             ...register('multiLanguage'),

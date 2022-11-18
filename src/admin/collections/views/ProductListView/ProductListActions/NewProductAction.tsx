@@ -14,9 +14,9 @@ const NewProductAction = () => {
 
     const { translate } = useAdminLang();
 
-    return (
-        <NavItem icon={<MdChecklist />} isDisabled={profiles !== 'admin'} text={translate('actions.new')} to="create" />
-    );
+    if (profiles !== 'admin') return null;
+
+    return <NavItem icon={<MdChecklist />} text={translate('actions.new')} to="create" />;
 };
 
 export default memo(NewProductAction);

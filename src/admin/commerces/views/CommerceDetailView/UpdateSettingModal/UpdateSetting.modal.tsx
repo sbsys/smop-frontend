@@ -1,6 +1,5 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* custom hook */
 import { useUpdateSetting } from './useUpdateSetting.hook';
 /* context */
@@ -9,7 +8,7 @@ import { useCommerceDetailContext } from '../CommerceDetail.context';
 import { ModalLayout, ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
-import { FieldSet } from 'admin/core';
+import { FieldSet, useAdminLang } from 'admin/core';
 /* assets */
 import { MdWarning } from 'react-icons/md';
 /* styles */
@@ -25,18 +24,18 @@ const UpdateSettingModal = () => {
 
     const { handleUpdateSetting, handleResetUpdateSettingForm, updateSettingFormFields } = useUpdateSetting();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <ModalLayout isVisible={isUpdateSetting} rowAlignment="center" colAlignment="center" hasIndentation>
             <ScrollLayout orientation="col" classNameContent={styles.UpdateSetting}>
                 <form onSubmit={handleUpdateSetting}>
-                    <div className={styles.Header} title={t('views.commercedetail.updatesetting.title')}>
+                    <div className={styles.Header} title={translate('commercedetail.settings')}>
                         <i>
                             <MdWarning />
                         </i>
 
-                        <Legend hasDots>{t('views.commercedetail.updatesetting.title')}</Legend>
+                        <Legend hasDots>{translate('commercedetail.settings')}</Legend>
                     </div>
 
                     <div className={styles.Content}>
@@ -49,23 +48,23 @@ const UpdateSettingModal = () => {
                         <Button
                             type="button"
                             className={ButtonStyles.OutlineNone}
-                            title={t('views.commercedetail.updatesetting.actions.cancel')}
+                            title={translate('actions.cancel')}
                             onClick={() => {
                                 handleResetUpdateSettingForm();
 
                                 hideUpdateSetting();
                             }}>
                             <Legend hasDots justify="center">
-                                {t('views.commercedetail.updatesetting.actions.cancel')}
+                                {translate('actions.cancel')}
                             </Legend>
                         </Button>
 
                         <Button
                             type="submit"
                             className={ButtonStyles.FillSecondary}
-                            title={t('views.commercedetail.updatesetting.actions.update')}>
+                            title={translate('actions.update')}>
                             <Legend hasDots justify="center">
-                                {t('views.commercedetail.updatesetting.actions.update')}
+                                {translate('actions.update')}
                             </Legend>
                         </Button>
                     </div>

@@ -10,6 +10,7 @@
     & > form {
         @include flex;
         @include gap(all md);
+        overflow: hidden;
     }
 
     .Header {
@@ -26,14 +27,13 @@
 
     .Map {
         @include margin(all xs);
+        @include min-height(xs, component);
         @include rounded(all xs);
         @include shadow(all xs);
-        aspect-ratio: 1;
-        overflow: hidden;
+    }
 
-        @include screen-width(4xs) {
-            aspect-ratio: 2 / 1;
-        }
+    .FormInputs {
+        @include padding(all xs);
     }
 
     .Actions {

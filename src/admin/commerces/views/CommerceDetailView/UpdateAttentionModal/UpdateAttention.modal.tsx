@@ -1,6 +1,5 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* custom hook */
 import { useUpdateAttention } from './useUpdateAttention.hook';
 /* context */
@@ -9,7 +8,7 @@ import { useCommerceDetailContext } from '../CommerceDetail.context';
 import { ModalLayout, ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
-import { FieldSet } from 'admin/core';
+import { FieldSet, useAdminLang } from 'admin/core';
 /* assets */
 import { MdWarning } from 'react-icons/md';
 /* styles */
@@ -33,35 +32,34 @@ const UpdateAttentionModal = () => {
         updateAttentionDeliveryPreparationTimeFormFields,
     } = useUpdateAttention();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <ModalLayout isVisible={isUpdateAttention} rowAlignment="center" colAlignment="center" hasIndentation>
             <ScrollLayout orientation="col" classNameContent={styles.UpdateAttention}>
                 <form onSubmit={handleUpdateAttention}>
-                    <div className={styles.Header} title={t('views.commercedetail.updateattention.title')}>
+                    <div className={styles.Header} title={translate('commerceedit.attention')}>
                         <i>
                             <MdWarning />
                         </i>
 
-                        <Legend hasDots>{t('views.commercedetail.updateattention.title')}</Legend>
+                        <Legend hasDots>{translate('commerceedit.attention')}</Legend>
                     </div>
 
                     <div className={styles.Content}>
                         <div>
                             <div className={styles.ContentHeader}>
-                                <h3 title={t('views.commercedetail.updateattention.servicehours.onsite')}>
-                                    <Legend hasDots>
-                                        {t('views.commercedetail.updateattention.servicehours.onsite')}
-                                    </Legend>
+                                <h3 title={translate('commerceedit.onsite')}>
+                                    <Legend hasDots>{translate('commerceedit.onsite')}</Legend>
                                 </h3>
 
                                 <Button
                                     type="button"
                                     className={ButtonStyles.FillSecondary}
-                                    onClick={() => handleRepeatSunday('onsite')}>
+                                    onClick={() => handleRepeatSunday('onsite')}
+                                    title={translate('actions.repeatweekday')}>
                                     <Legend hasDots justify="center">
-                                        {t('views.createcommerce.attention.servicehours.onsiterepeat')}
+                                        {translate('actions.repeatweekday')}
                                     </Legend>
                                 </Button>
                             </div>
@@ -72,10 +70,8 @@ const UpdateAttentionModal = () => {
                                 ))}
                             </div>
 
-                            <h3 title={t('views.commercedetail.updateattention.servicehours.onsitepreparationtime')}>
-                                <Legend hasDots>
-                                    {t('views.commercedetail.updateattention.servicehours.onsitepreparationtime')}
-                                </Legend>
+                            <h3 title={translate('commerceedit.onsitepreparation')}>
+                                <Legend hasDots>{translate('commerceedit.onsitepreparation')}</Legend>
                             </h3>
 
                             <div className={styles.PreparationTime}>
@@ -87,18 +83,17 @@ const UpdateAttentionModal = () => {
 
                         <div>
                             <div className={styles.ContentHeader}>
-                                <h3 title={t('views.commercedetail.updateattention.servicehours.delivery')}>
-                                    <Legend hasDots>
-                                        {t('views.commercedetail.updateattention.servicehours.delivery')}
-                                    </Legend>
+                                <h3 title={translate('commerceedit.delivery')}>
+                                    <Legend hasDots>{translate('commerceedit.delivery')}</Legend>
                                 </h3>
 
                                 <Button
                                     type="button"
                                     className={ButtonStyles.FillSecondary}
-                                    onClick={() => handleRepeatSunday('delivery')}>
+                                    onClick={() => handleRepeatSunday('delivery')}
+                                    title={translate('actions.repeatweekday')}>
                                     <Legend hasDots justify="center">
-                                        {t('views.createcommerce.attention.servicehours.deliveryrepeat')}
+                                        {translate('actions.repeatweekday')}
                                     </Legend>
                                 </Button>
                             </div>
@@ -109,10 +104,8 @@ const UpdateAttentionModal = () => {
                                 ))}
                             </div>
 
-                            <h3 title={t('views.commercedetail.updateattention.servicehours.deliverypreparationtime')}>
-                                <Legend hasDots>
-                                    {t('views.commercedetail.updateattention.servicehours.deliverypreparationtime')}
-                                </Legend>
+                            <h3 title={translate('commerceedit.deliverypreparation')}>
+                                <Legend hasDots>{translate('commerceedit.deliverypreparation')}</Legend>
                             </h3>
 
                             <div className={styles.PreparationTime}>
@@ -127,23 +120,23 @@ const UpdateAttentionModal = () => {
                         <Button
                             type="button"
                             className={ButtonStyles.OutlineNone}
-                            title={t('views.commercedetail.updateattention.actions.cancel')}
+                            title={translate('actions.cancel')}
                             onClick={() => {
                                 handleResetUpdateAttentionForm();
 
                                 hideUpdateAttention();
                             }}>
                             <Legend hasDots justify="center">
-                                {t('views.commercedetail.updateattention.actions.cancel')}
+                                {translate('actions.cancel')}
                             </Legend>
                         </Button>
 
                         <Button
                             type="submit"
                             className={ButtonStyles.FillSecondary}
-                            title={t('views.commercedetail.updateattention.actions.update')}>
+                            title={translate('actions.update')}>
                             <Legend hasDots justify="center">
-                                {t('views.commercedetail.updateattention.actions.update')}
+                                {translate('actions.update')}
                             </Legend>
                         </Button>
                     </div>

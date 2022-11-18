@@ -1,6 +1,5 @@
 /* react */
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 /* context */
 import { useCommerceDetailContext } from '../CommerceDetail.context';
@@ -8,18 +7,18 @@ import { useCommerceDetailContext } from '../CommerceDetail.context';
 import { Button } from 'shared/components';
 /* hooks */
 import { useLoader } from 'shared/hooks';
-import { FieldSetProps, useAdminNotify } from 'admin/core';
+import { AdminLang, FieldSetProps, useAdminLang, useAdminNotify } from 'admin/core';
 /* types */
 import { CountryListItemDTO, DepartmentDTO, Geoinformation, Geolocation, ServicePhone } from 'admin/commerces/types';
 /* services */
 import { countryListService, departmentListService, updateReferenceService } from 'admin/commerces/services';
 /* utils */
 import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 /* assets */
 import { MdAddCircle, MdCheckCircle, MdError, MdRemoveCircle } from 'react-icons/md';
 /* styles */
 import { ButtonStyles, FieldStyles } from 'shared/styles';
-import { yupResolver } from '@hookform/resolvers/yup';
 
 export interface UpdateReferenceForm {
     referenceName: string;
@@ -33,28 +32,28 @@ export interface UpdateReferenceForm {
 
 const UpdateReferenceSchema = yup
     .object({
-        referenceName: yup.string().required('views.commercedetail.updatereference.form.name.required'),
+        referenceName: yup.string().required('commerceedit.name.required'),
         servicePhones: yup.array(
             yup
                 .object({
                     phone: yup
                         .string()
-                        .required('views.commercedetail.updatereference.form.servicephones.required')
-                        .matches(/^\+\d{3}-\d{7,8}$/, 'views.commercedetail.updatereference.form.servicephones.format'),
+                        .required('commerceedit.phones.required')
+                        .matches(/^\+\d{3}-\d{7,8}$/, 'commerceedit.phones.format'),
                 })
                 .required()
         ),
         geoinformation: yup
             .object({
-                country: yup.string().required('views.commercedetail.updatereference.form.country.required'),
-                state: yup.string().required('views.commercedetail.updatereference.form.state.required'),
-                city: yup.string().required('views.commercedetail.updatereference.form.city.required'),
-                timezone: yup.string().required('views.commercedetail.updatereference.form.timezone.required'),
-                gtmOffset: yup.string().required('views.commercedetail.updatereference.form.gtmoffset.required'),
+                country: yup.string().required('commerceedit.country.required'),
+                state: yup.string().required('commerceedit.state.required'),
+                city: yup.string().required('commerceedit.city.required'),
+                timezone: yup.string().required('commerceedit.timezone.required'),
+                gtmOffset: yup.string().required('commerceedit.gtmoffset.required'),
             })
             .required(),
-        address: yup.string().required('views.commercedetail.updatereference.form.address.required'),
-        zipcode: yup.string().required('views.commercedetail.updatereference.form.zipcode.required'),
+        address: yup.string().required('commerceedit.address.required'),
+        zipcode: yup.string().required('commerceedit.zipcode.required'),
     })
     .required();
 
@@ -101,7 +100,7 @@ export const useUpdateReference = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [departmentList.states, watch('geoinformation.state')]);
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     const { notify } = useAdminNotify();
 
@@ -244,22 +243,18 @@ export const useUpdateReference = () => {
     const referenceNameField: FieldSetProps = {
         field: {
             className: errors.referenceName ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
-            placeholder: t('views.commercedetail.updatereference.form.name.placeholder'),
+            placeholder: translate('commerceedit.name.placeholder'),
             defaultValue: commerce?.referenceName,
             ...register('referenceName'),
         },
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t(
-                errors.referenceName
-                    ? (errors.referenceName.message as string)
-                    : 'views.commercedetail.updatereference.form.name.hint'
+            title: translate(
+                errors.referenceName ? (errors.referenceName.message as AdminLang) : 'commerceedit.name.hint'
             ),
-            children: t(
-                errors.referenceName
-                    ? (errors.referenceName.message as string)
-                    : 'views.commercedetail.updatereference.form.name.hint'
+            children: translate(
+                errors.referenceName ? (errors.referenceName.message as AdminLang) : 'commerceedit.name.hint'
             ),
         },
     };
@@ -267,10 +262,10 @@ export const useUpdateReference = () => {
         return {
             field: {
                 className:
-                    errors.servicePhones && errors.servicePhones[index]
+                    errors.servicePhones && errors.servicePhones[index]?.phone
                         ? FieldStyles.OutlineDanger
                         : FieldStyles.OutlinePrimary,
-                placeholder: t('views.commercedetail.updatereference.form.servicephones.placeholder'),
+                placeholder: translate('commerceedit.phones.placeholder'),
                 defaultValue: commerce?.servicePhones[index]?.phone,
                 beforeContent:
                     index > 0 && index + 1 === phonesCount ? (
@@ -278,7 +273,7 @@ export const useUpdateReference = () => {
                             onClick={removePhone}
                             className={ButtonStyles.Plain}
                             type="button"
-                            title={t('views.commercedetail.updatereference.form.servicephones.remove')}>
+                            title={translate('actions.remove')}>
                             <i>
                                 <MdRemoveCircle />
                             </i>
@@ -290,7 +285,7 @@ export const useUpdateReference = () => {
                             onClick={addPhone}
                             className={ButtonStyles.Plain}
                             type="button"
-                            title={t('views.commercedetail.updatereference.form.servicephones.add')}>
+                            title={translate('actions.add')}>
                             <i>
                                 <MdAddCircle />
                             </i>
@@ -301,15 +296,15 @@ export const useUpdateReference = () => {
             isHintReserved: true,
             hint: {
                 hasDots: true,
-                title: t(
-                    errors.servicePhones && errors.servicePhones[index]
-                        ? (errors.servicePhones[index]?.message as string)
-                        : 'views.commercedetail.updatereference.form.servicephones.hint'
+                title: translate(
+                    errors.servicePhones && errors.servicePhones[index]?.phone
+                        ? (errors.servicePhones[index]?.phone?.message as AdminLang)
+                        : 'commerceedit.phones.hint'
                 ),
-                children: t(
-                    errors.servicePhones && errors.servicePhones[index]
-                        ? (errors.servicePhones[index]?.message as string)
-                        : 'views.commercedetail.updatereference.form.servicephones.hint'
+                children: translate(
+                    errors.servicePhones && errors.servicePhones[index]?.phone
+                        ? (errors.servicePhones[index]?.phone?.message as AdminLang)
+                        : 'commerceedit.phones.hint'
                 ),
             },
         };
@@ -317,7 +312,7 @@ export const useUpdateReference = () => {
     const countryField: FieldSetProps = {
         field: {
             className: errors.geoinformation?.country ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
-            placeholder: t('views.commercedetail.updatereference.form.country.placeholder'),
+            placeholder: translate('commerceedit.country.placeholder'),
             strategy: 'select',
             options: countryList.map(item => ({
                 label: item.name,
@@ -329,22 +324,22 @@ export const useUpdateReference = () => {
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t(
+            title: translate(
                 errors.geoinformation?.country
-                    ? (errors.geoinformation?.country.message as string)
-                    : 'views.commercedetail.updatereference.form.country.hint'
+                    ? (errors.geoinformation?.country.message as AdminLang)
+                    : 'commerceedit.country.hint'
             ),
-            children: t(
+            children: translate(
                 errors.geoinformation?.country
-                    ? (errors.geoinformation?.country.message as string)
-                    : 'views.commercedetail.updatereference.form.country.hint'
+                    ? (errors.geoinformation?.country.message as AdminLang)
+                    : 'commerceedit.country.hint'
             ),
         },
     };
     const stateField: FieldSetProps = {
         field: {
             className: errors.geoinformation?.state ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
-            placeholder: t('views.commercedetail.updatereference.form.state.placeholder'),
+            placeholder: translate('commerceedit.state.placeholder'),
             strategy: 'select',
             options: departmentList.states.map(item => ({
                 label: item.name,
@@ -356,22 +351,22 @@ export const useUpdateReference = () => {
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t(
+            title: translate(
                 errors.geoinformation?.state
-                    ? (errors.geoinformation?.state.message as string)
-                    : 'views.commercedetail.updatereference.form.state.hint'
+                    ? (errors.geoinformation?.state.message as AdminLang)
+                    : 'commerceedit.state.hint'
             ),
-            children: t(
+            children: translate(
                 errors.geoinformation?.state
-                    ? (errors.geoinformation?.state.message as string)
-                    : 'views.commercedetail.updatereference.form.state.hint'
+                    ? (errors.geoinformation?.state.message as AdminLang)
+                    : 'commerceedit.state.hint'
             ),
         },
     };
     const cityField: FieldSetProps = {
         field: {
             className: errors.geoinformation?.city ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
-            placeholder: t('views.commercedetail.updatereference.form.city.placeholder'),
+            placeholder: translate('commerceedit.city.placeholder'),
             strategy: 'select',
             options: cities.map(item => ({
                 label: item.name,
@@ -383,88 +378,68 @@ export const useUpdateReference = () => {
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t(
+            title: translate(
                 errors.geoinformation?.city
-                    ? (errors.geoinformation?.city.message as string)
-                    : 'views.commercedetail.updatereference.form.city.hint'
+                    ? (errors.geoinformation?.city.message as AdminLang)
+                    : 'commerceedit.city.hint'
             ),
-            children: t(
+            children: translate(
                 errors.geoinformation?.city
-                    ? (errors.geoinformation?.city.message as string)
-                    : 'views.commercedetail.updatereference.form.city.hint'
+                    ? (errors.geoinformation?.city.message as AdminLang)
+                    : 'commerceedit.city.hint'
             ),
         },
     };
     const addressField: FieldSetProps = {
         field: {
             className: errors.address ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
-            placeholder: t('views.commercedetail.updatereference.form.address.placeholder'),
+            placeholder: translate('commerceedit.address.placeholder'),
             defaultValue: commerce?.address,
             ...register('address'),
         },
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t(
-                errors.address
-                    ? (errors.address.message as string)
-                    : 'views.commercedetail.updatereference.form.address.hint'
-            ),
-            children: t(
-                errors.address
-                    ? (errors.address.message as string)
-                    : 'views.commercedetail.updatereference.form.address.hint'
-            ),
+            title: translate(errors.address ? (errors.address.message as AdminLang) : 'commerceedit.address.hint'),
+            children: translate(errors.address ? (errors.address.message as AdminLang) : 'commerceedit.address.hint'),
         },
     };
     const optionalAddressField: FieldSetProps = {
         field: {
             className: errors.optionalAddress ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
-            placeholder: t('views.commercedetail.updatereference.form.optionaladdress.placeholder'),
+            placeholder: translate('commerceedit.optaddress.placeholder'),
             defaultValue: commerce?.optionalAddress,
             ...register('optionalAddress'),
         },
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t(
-                errors.optionalAddress
-                    ? (errors.optionalAddress.message as string)
-                    : 'views.commercedetail.updatereference.form.optionaladdress.hint'
+            title: translate(
+                errors.optionalAddress ? (errors.optionalAddress.message as AdminLang) : 'commerceedit.optaddress.hint'
             ),
-            children: t(
-                errors.optionalAddress
-                    ? (errors.optionalAddress.message as string)
-                    : 'views.commercedetail.updatereference.form.optionaladdress.hint'
+            children: translate(
+                errors.optionalAddress ? (errors.optionalAddress.message as AdminLang) : 'commerceedit.optaddress.hint'
             ),
         },
     };
     const zipcodeField: FieldSetProps = {
         field: {
             className: errors.zipcode ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
-            placeholder: t('views.commercedetail.updatereference.form.zipcode.placeholder'),
+            placeholder: translate('commerceedit.zipcode.placeholder'),
             defaultValue: commerce?.zipcode,
             ...register('zipcode'),
         },
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t(
-                errors.zipcode
-                    ? (errors.zipcode.message as string)
-                    : 'views.commercedetail.updatereference.form.zipcode.hint'
-            ),
-            children: t(
-                errors.zipcode
-                    ? (errors.zipcode.message as string)
-                    : 'views.commercedetail.updatereference.form.zipcode.hint'
-            ),
+            title: translate(errors.zipcode ? (errors.zipcode.message as AdminLang) : 'commerceedit.zipcode.hint'),
+            children: translate(errors.zipcode ? (errors.zipcode.message as AdminLang) : 'commerceedit.zipcode.hint'),
         },
     };
     const timezoneField: FieldSetProps = {
         field: {
             className: errors.geoinformation?.timezone ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
-            placeholder: t('views.commercedetail.updatereference.form.timezone.placeholder'),
+            placeholder: translate('commerceedit.timezone.placeholder'),
             strategy: 'select',
             options: departmentList.timezones.map(item => ({
                 label: item.zoneName,
@@ -475,15 +450,15 @@ export const useUpdateReference = () => {
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t(
+            title: translate(
                 errors.geoinformation?.timezone
-                    ? (errors.geoinformation?.timezone.message as string)
-                    : 'views.commercedetail.updatereference.form.timezone.hint'
+                    ? (errors.geoinformation?.timezone.message as AdminLang)
+                    : 'commerceedit.timezone.hint'
             ),
-            children: t(
+            children: translate(
                 errors.geoinformation?.timezone
-                    ? (errors.geoinformation?.timezone.message as string)
-                    : 'views.commercedetail.updatereference.form.timezone.hint'
+                    ? (errors.geoinformation?.timezone.message as AdminLang)
+                    : 'commerceedit.timezone.hint'
             ),
         },
     };
@@ -491,22 +466,22 @@ export const useUpdateReference = () => {
         disabled: true,
         field: {
             className: errors.geoinformation?.gtmOffset ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
-            placeholder: t('views.commercedetail.updatereference.form.gtmoffset.placeholder'),
+            placeholder: translate('commerceedit.gtmoffset.placeholder'),
             defaultValue: commerce?.geoinformation.gtmOffset,
             ...register('geoinformation.gtmOffset'),
         },
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t(
+            title: translate(
                 errors.geoinformation?.gtmOffset
-                    ? (errors.geoinformation?.gtmOffset.message as string)
-                    : 'views.commercedetail.updatereference.form.gtmoffset.hint'
+                    ? (errors.geoinformation?.gtmOffset.message as AdminLang)
+                    : 'commerceedit.gtmoffset.hint'
             ),
-            children: t(
+            children: translate(
                 errors.geoinformation?.gtmOffset
-                    ? (errors.geoinformation?.gtmOffset.message as string)
-                    : 'views.commercedetail.updatereference.form.gtmoffset.hint'
+                    ? (errors.geoinformation?.gtmOffset.message as AdminLang)
+                    : 'commerceedit.gtmoffset.hint'
             ),
         },
     };

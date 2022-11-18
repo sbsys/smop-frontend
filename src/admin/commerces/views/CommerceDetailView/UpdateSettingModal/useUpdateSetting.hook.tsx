@@ -1,12 +1,11 @@
 /* react */
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useCommerceDetailContext } from '../CommerceDetail.context';
 /* hooks */
 import { useLoader } from 'shared/hooks';
-import { FieldSetProps, useAdminNotify } from 'admin/core';
+import { AdminLang, FieldSetProps, useAdminLang, useAdminNotify } from 'admin/core';
 /* types */
 import { TypeCharge, TypeOrder } from 'admin/commerces/types';
 /* services */
@@ -33,17 +32,14 @@ export const UpdateSettingSchema = yup
         typeCharge: yup.array(
             yup
                 .object({
-                    value: yup
-                        .number()
-                        .typeError('views.commercedetail.updatesetting.form.typecharge.cero')
-                        .min(0, 'views.commercedetail.updatesetting.form.typecharge.cero'),
+                    value: yup.number().typeError('commerceedit.charge.min').min(0, 'commerceedit.charge.min'),
                 })
                 .required()
         ),
         applyCharge: yup
             .number()
-            .typeError('views.commercedetail.updatesetting.form.applycharge.required')
-            .required('views.commercedetail.updatesetting.form.applycharge.required'),
+            .typeError('commerceedit.applycharge.required')
+            .required('commerceedit.applycharge.required'),
     })
     .required();
 
@@ -72,7 +68,7 @@ export const useUpdateSetting = () => {
         resolver: yupResolver(UpdateSettingSchema),
     });
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     const { notify } = useAdminNotify();
 
@@ -111,6 +107,14 @@ export const useUpdateSetting = () => {
     };
 
     /* reactivity */
+    useEffect(() => {
+        if (!isUpdateSetting) return;
+
+        if (!commerce) return;
+
+        commerce.typeOrder.forEach((order, index) => setValue(`typeOrder.${index}.enabled`, order.enabled));
+    }, [commerce, isUpdateSetting, setValue]);
+
     useEffect(() => {
         if (watch('typeCharge.0.enabled')) {
             setValue('typeCharge.1.enabled', false);
@@ -151,7 +155,6 @@ export const useUpdateSetting = () => {
     const orderOnlineField: FieldSetProps = {
         className: styles.CheckboxInverse,
         field: {
-            className: errors.orderOnline ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'checkbox',
             defaultChecked: commerce?.orderOnline,
             ...register('orderOnline'),
@@ -159,15 +162,11 @@ export const useUpdateSetting = () => {
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t(
-                errors.orderOnline
-                    ? (errors.orderOnline.message as string)
-                    : 'views.commercedetail.updatesetting.form.orderonline.hint'
+            title: translate(
+                errors.orderOnline ? (errors.orderOnline.message as AdminLang) : 'commerceedit.online.hint'
             ),
-            children: t(
-                errors.orderOnline
-                    ? (errors.orderOnline.message as string)
-                    : 'views.commercedetail.updatesetting.form.orderonline.hint'
+            children: translate(
+                errors.orderOnline ? (errors.orderOnline.message as AdminLang) : 'commerceedit.online.hint'
             ),
         },
     };
@@ -179,25 +178,21 @@ export const useUpdateSetting = () => {
         return {
             className: styles.Checkbox,
             field: {
-                className:
-                    errors.typeOrder && errors.typeOrder[index]
-                        ? FieldStyles.OutlineDanger
-                        : FieldStyles.OutlinePrimary,
                 strategy: 'checkbox',
                 ...register(`typeOrder.${index}.enabled`),
             },
             isHintReserved: true,
             hint: {
                 hasDots: true,
-                title: t(
+                title: translate(
                     errors.typeOrder && errors.typeOrder[index]
-                        ? (errors.typeOrder[index]?.message as string)
-                        : `views.commercedetail.updatesetting.form.typeorder.${typeOrder?.type}`
+                        ? (errors.typeOrder[index]?.message as AdminLang)
+                        : `ordertypes.${typeOrder?.type}`
                 ),
-                children: t(
+                children: translate(
                     errors.typeOrder && errors.typeOrder[index]
-                        ? (errors.typeOrder[index]?.message as string)
-                        : `views.commercedetail.updatesetting.form.typeorder.${typeOrder?.type}`
+                        ? (errors.typeOrder[index]?.message as AdminLang)
+                        : `ordertypes.${typeOrder?.type}`
                 ),
             },
         };
@@ -213,10 +208,6 @@ export const useUpdateSetting = () => {
             {
                 className: styles.CheckboxInverse,
                 field: {
-                    className:
-                        errors.typeCharge && errors.typeCharge[index]?.enabled
-                            ? FieldStyles.OutlineDanger
-                            : FieldStyles.OutlinePrimary,
                     strategy: 'checkbox',
                     defaultChecked: typeCharge?.enabled,
                     ...register(`typeCharge.${index}.enabled`),
@@ -224,15 +215,15 @@ export const useUpdateSetting = () => {
                 isHintReserved: true,
                 hint: {
                     hasDots: true,
-                    title: t(
+                    title: translate(
                         errors.typeCharge && errors.typeCharge[index]?.enabled
-                            ? (errors.typeCharge[index]?.enabled?.message as string)
-                            : `views.commercedetail.updatesetting.form.typecharge.${typeCharge?.type}.title`
+                            ? (errors.typeCharge[index]?.enabled?.message as AdminLang)
+                            : `commerceedit.${typeCharge?.type}charge.title`
                     ),
-                    children: t(
+                    children: translate(
                         errors.typeCharge && errors.typeCharge[index]?.enabled
-                            ? (errors.typeCharge[index]?.enabled?.message as string)
-                            : `views.commercedetail.updatesetting.form.typecharge.${typeCharge?.type}.title`
+                            ? (errors.typeCharge[index]?.enabled?.message as AdminLang)
+                            : `commerceedit.${typeCharge?.type}charge.title`
                     ),
                 },
             },
@@ -243,9 +234,7 @@ export const useUpdateSetting = () => {
                         errors.typeCharge && errors.typeCharge[index]?.value
                             ? FieldStyles.OutlineDanger
                             : FieldStyles.OutlinePrimary,
-                    placeholder: t(
-                        `views.commercedetail.updatesetting.form.typecharge.${typeCharge?.type}.placeholder`
-                    ),
+                    placeholder: translate(`commerceedit.${typeCharge?.type}charge.placeholder`),
                     strategy: 'decimal',
                     min: 0,
                     step: 0.0001,
@@ -256,15 +245,15 @@ export const useUpdateSetting = () => {
                 isHintReserved: true,
                 hint: {
                     hasDots: true,
-                    title: t(
+                    title: translate(
                         errors.typeCharge && errors.typeCharge[index]?.value
-                            ? (errors.typeCharge[index]?.value?.message as string)
-                            : `views.commercedetail.updatesetting.form.typecharge.${typeCharge?.type}.hint`
+                            ? (errors.typeCharge[index]?.value?.message as AdminLang)
+                            : `commerceedit.${typeCharge?.type}charge.hint`
                     ),
-                    children: t(
+                    children: translate(
                         errors.typeCharge && errors.typeCharge[index]
-                            ? (errors.typeCharge[index]?.value?.message as string)
-                            : `views.commercedetail.updatesetting.form.typecharge.${typeCharge?.type}.hint`
+                            ? (errors.typeCharge[index]?.value?.message as AdminLang)
+                            : `commerceedit.${typeCharge?.type}charge.hint`
                     ),
                 },
             },
@@ -274,15 +263,15 @@ export const useUpdateSetting = () => {
     const applyChargeField: FieldSetProps = {
         field: {
             className: errors.applyCharge ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
-            placeholder: t('views.commercedetail.updatesetting.form.applycharge.placeholder'),
+            placeholder: translate('commerceedit.applycharge.placeholder'),
             strategy: 'select',
             options: [
                 {
-                    label: t('views.commercedetail.updatesetting.form.applycharge.before'),
+                    label: translate('applycharge.1'),
                     value: 1,
                 },
                 {
-                    label: t('views.commercedetail.updatesetting.form.applycharge.after'),
+                    label: translate('applycharge.0'),
                     value: 0,
                 },
             ],
@@ -292,22 +281,17 @@ export const useUpdateSetting = () => {
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t(
-                errors.applyCharge
-                    ? (errors.applyCharge.message as string)
-                    : `views.commercedetail.updatesetting.form.applycharge.hint`
+            title: translate(
+                errors.applyCharge ? (errors.applyCharge.message as AdminLang) : `commerceedit.applycharge.hint`
             ),
-            children: t(
-                errors.applyCharge
-                    ? (errors.applyCharge.message as string)
-                    : `views.commercedetail.updatesetting.form.applycharge.hint`
+            children: translate(
+                errors.applyCharge ? (errors.applyCharge.message as AdminLang) : `commerceedit.applycharge.hint`
             ),
         },
     };
     const smsAlertsField: FieldSetProps = {
         className: styles.CheckboxInverse,
         field: {
-            className: errors.smsAlerts ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'checkbox',
             defaultChecked: commerce?.smsAlerts,
             ...register('smsAlerts'),
@@ -315,16 +299,8 @@ export const useUpdateSetting = () => {
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t(
-                errors.smsAlerts
-                    ? (errors.smsAlerts.message as string)
-                    : 'views.commercedetail.updatesetting.form.smsalerts.hint'
-            ),
-            children: t(
-                errors.smsAlerts
-                    ? (errors.smsAlerts.message as string)
-                    : 'views.commercedetail.updatesetting.form.smsalerts.hint'
-            ),
+            title: translate(errors.smsAlerts ? (errors.smsAlerts.message as AdminLang) : 'commerceedit.sms.hint'),
+            children: translate(errors.smsAlerts ? (errors.smsAlerts.message as AdminLang) : 'commerceedit.sms.hint'),
         },
     };
 

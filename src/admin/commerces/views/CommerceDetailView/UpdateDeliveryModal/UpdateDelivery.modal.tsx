@@ -1,6 +1,5 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Circle, MapContainer, Marker, TileLayer } from 'react-leaflet';
 /* custom hook */
 import { useUpdateDelivery } from './useUpdateDelivery.hook';
@@ -10,7 +9,7 @@ import { useCommerceDetailContext } from '../CommerceDetail.context';
 import { ModalLayout, ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
-import { FieldSet } from 'admin/core';
+import { FieldSet, useAdminLang } from 'admin/core';
 /* assets */
 import { MdWarning } from 'react-icons/md';
 /* styles */
@@ -28,18 +27,18 @@ const UpdateDeliveryModal = () => {
     const { handleUpdateDelivery, handleResetUpdateDeliveryForm, updateDeliveryFormFields, meters } =
         useUpdateDelivery();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <ModalLayout isVisible={isUpdateDelivery} rowAlignment="center" colAlignment="center" hasIndentation>
             <ScrollLayout orientation="col" classNameContent={styles.UpdateDelivery}>
                 <form onSubmit={handleUpdateDelivery}>
-                    <div className={styles.Header} title={t('views.commercedetail.updatedelivery.title')}>
+                    <div className={styles.Header} title={translate('commerceedit.deliveries')}>
                         <i>
                             <MdWarning />
                         </i>
 
-                        <Legend hasDots>{t('views.commercedetail.updatedelivery.title')}</Legend>
+                        <Legend hasDots>{translate('commerceedit.deliveries')}</Legend>
                     </div>
 
                     <div className={styles.Content}>
@@ -71,23 +70,23 @@ const UpdateDeliveryModal = () => {
                         <Button
                             type="button"
                             className={ButtonStyles.OutlineNone}
-                            title={t('views.commercedetail.updatedelivery.actions.cancel')}
+                            title={translate('actions.cancel')}
                             onClick={() => {
                                 handleResetUpdateDeliveryForm();
 
                                 hideUpdateDelivery();
                             }}>
                             <Legend hasDots justify="center">
-                                {t('views.commercedetail.updatedelivery.actions.cancel')}
+                                {translate('actions.cancel')}
                             </Legend>
                         </Button>
 
                         <Button
                             type="submit"
                             className={ButtonStyles.FillSecondary}
-                            title={t('views.commercedetail.updatedelivery.actions.update')}>
+                            title={translate('actions.update')}>
                             <Legend hasDots justify="center">
-                                {t('views.commercedetail.updatedelivery.actions.update')}
+                                {translate('actions.update')}
                             </Legend>
                         </Button>
                     </div>

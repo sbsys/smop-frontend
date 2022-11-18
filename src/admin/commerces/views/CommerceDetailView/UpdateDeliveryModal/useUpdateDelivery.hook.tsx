@@ -1,11 +1,11 @@
 /* react */
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useCommerceDetailContext } from '../CommerceDetail.context';
 /* hooks */
 import { useLoader } from 'shared/hooks';
-import { FieldSetProps, useAdminNotify } from 'admin/core';
+import { AdminLang, FieldSetProps, useAdminLang, useAdminNotify } from 'admin/core';
 /* utils */
 import { milesToMeters } from 'shared/utils';
 /* types */
@@ -17,7 +17,6 @@ import { MdCheckCircle, MdError } from 'react-icons/md';
 /* styles */
 import { FieldStyles } from 'shared/styles';
 import styles from './UpdateDelivery.module.scss';
-import { useEffect } from 'react';
 
 export interface UpdateDeliveryForm {
     thirdPartyDelivery: boolean;
@@ -47,7 +46,7 @@ export const useUpdateDelivery = () => {
         setValue,
     } = useForm<UpdateDeliveryForm>();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     const { notify } = useAdminNotify();
 
@@ -94,7 +93,6 @@ export const useUpdateDelivery = () => {
     const thirdPartyDeliveryField: FieldSetProps = {
         className: styles.CheckboxInverse,
         field: {
-            className: errors.thirdPartyDelivery ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'checkbox',
             defaultChecked: commerce?.thirdPartyDelivery,
             ...register('thirdPartyDelivery'),
@@ -102,37 +100,33 @@ export const useUpdateDelivery = () => {
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t(
-                errors.thirdPartyDelivery
-                    ? (errors.thirdPartyDelivery.message as string)
-                    : 'views.commercedetail.updatedelivery.form.thirdpartydelivery.hint'
+            title: translate(
+                errors.thirdPartyDelivery ? (errors.thirdPartyDelivery.message as AdminLang) : 'commerceedit.third.hint'
             ),
-            children: t(
-                errors.thirdPartyDelivery
-                    ? (errors.thirdPartyDelivery.message as string)
-                    : 'views.commercedetail.updatedelivery.form.thirdpartydelivery.hint'
+            children: translate(
+                errors.thirdPartyDelivery ? (errors.thirdPartyDelivery.message as AdminLang) : 'commerceedit.third.hint'
             ),
         },
     };
     const externalDeliveryUrlField: FieldSetProps = {
         field: {
             className: errors.externalDeliveryUrl ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
-            placeholder: t('views.commercedetail.updatedelivery.form.externaldeliveryurl.placeholder'),
+            placeholder: translate('commerceedit.thirdsite.placeholder'),
             defaultValue: commerce?.externalDeliveryUrl,
             ...register('externalDeliveryUrl'),
         },
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t(
+            title: translate(
                 errors.externalDeliveryUrl
-                    ? (errors.externalDeliveryUrl.message as string)
-                    : 'views.commercedetail.updatedelivery.form.externaldeliveryurl.hint'
+                    ? (errors.externalDeliveryUrl.message as AdminLang)
+                    : 'commerceedit.thirdsite.hint'
             ),
-            children: t(
+            children: translate(
                 errors.externalDeliveryUrl
-                    ? (errors.externalDeliveryUrl.message as string)
-                    : 'views.commercedetail.updatedelivery.form.externaldeliveryurl.hint'
+                    ? (errors.externalDeliveryUrl.message as AdminLang)
+                    : 'commerceedit.thirdsite.hint'
             ),
         },
     };
@@ -142,7 +136,7 @@ export const useUpdateDelivery = () => {
             strategy: 'decimal',
             min: 0,
             step: 0.0001,
-            placeholder: t('views.commercedetail.updatedelivery.form.minamountdelivery.placeholder'),
+            placeholder: translate('commerceedit.mindelivery.placeholder'),
             beforeContent: TypeChargeKeySymbol.amount,
             defaultValue: commerce?.minAmountDelivery,
             ...register('minAmountDelivery'),
@@ -150,22 +144,21 @@ export const useUpdateDelivery = () => {
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t(
+            title: translate(
                 errors.minAmountDelivery
-                    ? (errors.minAmountDelivery.message as string)
-                    : 'views.commercedetail.updatedelivery.form.minamountdelivery.hint'
+                    ? (errors.minAmountDelivery.message as AdminLang)
+                    : 'commerceedit.mindelivery.hint'
             ),
-            children: t(
+            children: translate(
                 errors.minAmountDelivery
-                    ? (errors.minAmountDelivery.message as string)
-                    : 'views.commercedetail.updatedelivery.form.minamountdelivery.hint'
+                    ? (errors.minAmountDelivery.message as AdminLang)
+                    : 'commerceedit.mindelivery.hint'
             ),
         },
     };
     const deliveringzoneField: FieldSetProps = {
         className: styles.CheckboxInverse,
         field: {
-            className: errors.deliveringZone ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'checkbox',
             defaultChecked: commerce?.deliveringZone,
             ...register('deliveringZone'),
@@ -173,15 +166,11 @@ export const useUpdateDelivery = () => {
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t(
-                errors.deliveringZone
-                    ? (errors.deliveringZone.message as string)
-                    : 'views.commercedetail.updatedelivery.form.deliveringzone.hint'
+            title: translate(
+                errors.deliveringZone ? (errors.deliveringZone.message as AdminLang) : 'commerceedit.deliveryzone.hint'
             ),
-            children: t(
-                errors.deliveringZone
-                    ? (errors.deliveringZone.message as string)
-                    : 'views.commercedetail.updatedelivery.form.deliveringzone.hint'
+            children: translate(
+                errors.deliveringZone ? (errors.deliveringZone.message as AdminLang) : 'commerceedit.deliveryzone.hint'
             ),
         },
     };
@@ -191,22 +180,18 @@ export const useUpdateDelivery = () => {
             strategy: 'decimal',
             min: 0,
             step: 0.0001,
-            afterContent: t('longitude.miles'),
-            placeholder: t('views.commercedetail.updatedelivery.form.deliveryarea.placeholder'),
+            afterContent: translate('longitude.miles'),
+            placeholder: translate('commerceedit.deliveryarea.placeholder'),
             ...register('deliveryArea'),
         },
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: t(
-                errors.deliveryArea
-                    ? (errors.deliveryArea.message as string)
-                    : 'views.commercedetail.updatedelivery.form.deliveryarea.hint'
+            title: translate(
+                errors.deliveryArea ? (errors.deliveryArea.message as AdminLang) : 'commerceedit.deliveryarea.hint'
             ),
-            children: t(
-                errors.deliveryArea
-                    ? (errors.deliveryArea.message as string)
-                    : 'views.commercedetail.updatedelivery.form.deliveryarea.hint'
+            children: translate(
+                errors.deliveryArea ? (errors.deliveryArea.message as AdminLang) : 'commerceedit.deliveryarea.hint'
             ),
         },
     };

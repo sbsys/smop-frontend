@@ -1,12 +1,11 @@
 /* react */
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useCommerceDetailContext } from '../CommerceDetail.context';
 /* hooks */
 import { useLoader } from 'shared/hooks';
-import { FieldSetProps, useAdminNotify } from 'admin/core';
+import { AdminLang, FieldSetProps, useAdminLang, useAdminNotify, WeekDay } from 'admin/core';
 /* services */
 import { updateAttentionService } from 'admin/commerces/services';
 /* utils */
@@ -33,36 +32,16 @@ export const UpdateAttentionSchema = yup
                 onsite: yup.array(
                     yup
                         .object({
-                            opening: yup
-                                .string()
-                                .matches(
-                                    /^(\d{2}):([0-5])([0-9])$/,
-                                    'views.commercedetail.updateattention.form.servicehours.onsite.opening.format'
-                                ),
-                            closing: yup
-                                .string()
-                                .matches(
-                                    /^(\d{2}):([0-5])([0-9])$/,
-                                    'views.commercedetail.updateattention.form.servicehours.onsite.closing.format'
-                                ),
+                            opening: yup.string().matches(/^(\d{2}):([0-5])([0-9])$/, 'commerceedit.opening.format'),
+                            closing: yup.string().matches(/^(\d{2}):([0-5])([0-9])$/, 'commerceedit.closing.format'),
                         })
                         .required()
                 ),
                 delivery: yup.array(
                     yup
                         .object({
-                            opening: yup
-                                .string()
-                                .matches(
-                                    /^(\d{2}):([0-5])([0-9])$/,
-                                    'views.commercedetail.updateattention.form.servicehours.delivery.opening.format'
-                                ),
-                            closing: yup
-                                .string()
-                                .matches(
-                                    /^(\d{2}):([0-5])([0-9])$/,
-                                    'views.commercedetail.updateattention.form.servicehours.delivery.closing.format'
-                                ),
+                            opening: yup.string().matches(/^(\d{2}):([0-5])([0-9])$/, 'commerceedit.opening.format'),
+                            closing: yup.string().matches(/^(\d{2}):([0-5])([0-9])$/, 'commerceedit.closing.format'),
                         })
                         .required()
                 ),
@@ -72,16 +51,16 @@ export const UpdateAttentionSchema = yup
             .object({
                 hours: yup
                     .number()
-                    .typeError('views.commercedetail.updateattention.form.onsitepreparationtime.hours.min')
-                    .integer('views.commercedetail.updateattention.form.onsitepreparationtime.hours.min')
-                    .min(0, 'views.commercedetail.updateattention.form.onsitepreparationtime.hours.min')
+                    .typeError('commerceedit.hours.min')
+                    .integer('commerceedit.hours.min')
+                    .min(0, 'commerceedit.hours.min')
                     .optional(),
                 minutes: yup
                     .number()
-                    .typeError('views.commercedetail.updateattention.form.onsitepreparationtime.minutes.min')
-                    .integer('views.commercedetail.updateattention.form.onsitepreparationtime.minutes.min')
-                    .min(0, 'views.commercedetail.updateattention.form.onsitepreparationtime.minutes.min')
-                    .max(59, 'views.commercedetail.updateattention.form.onsitepreparationtime.minutes.max')
+                    .typeError('commerceedit.minutes.min')
+                    .integer('commerceedit.minutes.min')
+                    .min(0, 'commerceedit.minutes.min')
+                    .max(59, 'commerceedit.minutes.max')
                     .optional(),
             })
             .required(),
@@ -89,16 +68,16 @@ export const UpdateAttentionSchema = yup
             .object({
                 hours: yup
                     .number()
-                    .typeError('views.commercedetail.updateattention.form.deliverypreparationtime.hours.min')
-                    .integer('views.commercedetail.updateattention.form.deliverypreparationtime.hours.min')
-                    .min(0, 'views.commercedetail.updateattention.form.deliverypreparationtime.hours.min')
+                    .typeError('commerceedit.hours.min')
+                    .integer('commerceedit.hours.min')
+                    .min(0, 'commerceedit.hours.min')
                     .optional(),
                 minutes: yup
                     .number()
-                    .typeError('views.commercedetail.updateattention.form.deliverypreparationtime.minutes.min')
-                    .integer('views.commercedetail.updateattention.form.deliverypreparationtime.minutes.min')
-                    .min(0, 'views.commercedetail.updateattention.form.deliverypreparationtime.minutes.min')
-                    .max(59, 'views.commercedetail.updateattention.form.deliverypreparationtime.minutes.max')
+                    .typeError('commerceedit.minutes.min')
+                    .integer('commerceedit.minutes.min')
+                    .min(0, 'commerceedit.minutes.min')
+                    .max(59, 'commerceedit.minutes.max')
                     .optional(),
             })
             .required(),
@@ -129,7 +108,7 @@ export const useUpdateAttention = () => {
         resolver: yupResolver(UpdateAttentionSchema),
     });
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     const { notify } = useAdminNotify();
 
@@ -219,19 +198,19 @@ export const useUpdateAttention = () => {
                 isHintReserved: true,
                 hint: {
                     hasDots: true,
-                    title: t(
+                    title: translate(
                         errors.serviceHours?.onsite &&
                             errors.serviceHours.onsite[index] &&
                             errors.serviceHours.onsite[index]?.enabled
-                            ? (errors.serviceHours.onsite[index]?.enabled?.message as string)
-                            : `weekday.${dayService?.key.toLowerCase()}`
+                            ? (errors.serviceHours.onsite[index]?.enabled?.message as AdminLang)
+                            : `day.${dayService?.key.toLowerCase() as WeekDay}`
                     ),
-                    children: t(
+                    children: translate(
                         errors.serviceHours?.onsite &&
                             errors.serviceHours.onsite[index] &&
                             errors.serviceHours.onsite[index]?.enabled
-                            ? (errors.serviceHours.onsite[index]?.enabled?.message as string)
-                            : `weekday.${dayService?.key.toLowerCase()}`
+                            ? (errors.serviceHours.onsite[index]?.enabled?.message as AdminLang)
+                            : `day.${dayService?.key.toLowerCase() as WeekDay}`
                     ),
                 },
             },
@@ -244,28 +223,26 @@ export const useUpdateAttention = () => {
                         errors.serviceHours.onsite[index]?.opening
                             ? FieldStyles.OutlineDanger
                             : FieldStyles.OutlinePrimary,
-                    placeholder: t(
-                        `views.commercedetail.updateattention.form.servicehours.onsite.${dayService?.key.toLowerCase()}.opening.placeholder`
-                    ),
+                    placeholder: translate('day.opening'),
                     defaultValue: dayService?.opening,
                     ...register(`serviceHours.onsite.${index}.opening`),
                 },
                 isHintReserved: true,
                 hint: {
                     hasDots: true,
-                    title: t(
+                    title: translate(
                         errors.serviceHours?.onsite &&
                             errors.serviceHours.onsite[index] &&
                             errors.serviceHours.onsite[index]?.opening
-                            ? (errors.serviceHours.onsite[index]?.opening?.message as string)
-                            : `views.commercedetail.updateattention.form.servicehours.onsite.${dayService?.key.toLowerCase()}.opening.hint`
+                            ? (errors.serviceHours.onsite[index]?.opening?.message as AdminLang)
+                            : 'commerceedit.opening.hint'
                     ),
-                    children: t(
+                    children: translate(
                         errors.serviceHours?.onsite &&
                             errors.serviceHours.onsite[index] &&
                             errors.serviceHours.onsite[index]?.opening
-                            ? (errors.serviceHours.onsite[index]?.opening?.message as string)
-                            : `views.commercedetail.updateattention.form.servicehours.onsite.${dayService?.key.toLowerCase()}.opening.hint`
+                            ? (errors.serviceHours.onsite[index]?.opening?.message as AdminLang)
+                            : 'commerceedit.opening.hint'
                     ),
                 },
             },
@@ -278,28 +255,26 @@ export const useUpdateAttention = () => {
                         errors.serviceHours.onsite[index]?.closing
                             ? FieldStyles.OutlineDanger
                             : FieldStyles.OutlinePrimary,
-                    placeholder: t(
-                        `views.commercedetail.updateattention.form.servicehours.onsite.${dayService?.key.toLowerCase()}.closing.placeholder`
-                    ),
+                    placeholder: translate('day.closing'),
                     defaultValue: dayService?.closing,
                     ...register(`serviceHours.onsite.${index}.closing`),
                 },
                 isHintReserved: true,
                 hint: {
                     hasDots: true,
-                    title: t(
+                    title: translate(
                         errors.serviceHours?.onsite &&
                             errors.serviceHours.onsite[index] &&
                             errors.serviceHours.onsite[index]?.closing
-                            ? (errors.serviceHours.onsite[index]?.closing?.message as string)
-                            : `views.commercedetail.updateattention.form.servicehours.onsite.${dayService?.key.toLowerCase()}.closing.hint`
+                            ? (errors.serviceHours.onsite[index]?.closing?.message as AdminLang)
+                            : 'commerceedit.closing.hint'
                     ),
-                    children: t(
+                    children: translate(
                         errors.serviceHours?.onsite &&
                             errors.serviceHours.onsite[index] &&
                             errors.serviceHours.onsite[index]?.closing
-                            ? (errors.serviceHours.onsite[index]?.closing?.message as string)
-                            : `views.commercedetail.updateattention.form.servicehours.onsite.${dayService?.key.toLowerCase()}.closing.hint`
+                            ? (errors.serviceHours.onsite[index]?.closing?.message as AdminLang)
+                            : 'commerceedit.closing.hint'
                     ),
                 },
             },
@@ -315,22 +290,22 @@ export const useUpdateAttention = () => {
                     strategy: 'decimal',
                     min: 0,
                     step: 1,
-                    placeholder: t('views.commercedetail.updateattention.form.onsitepreparationtime.hours.placeholder'),
+                    placeholder: translate('commerceedit.hours.placeholder'),
                     defaultValue: commerce?.onsitePreparationTime.hours,
                     ...register('onsitePreparationTime.hours'),
                 },
                 isHintReserved: true,
                 hint: {
                     hasDots: true,
-                    title: t(
+                    title: translate(
                         errors.onsitePreparationTime?.hours
-                            ? (errors.onsitePreparationTime?.hours.message as string)
-                            : 'views.commercedetail.updateattention.form.onsitepreparationtime.hours.hint'
+                            ? (errors.onsitePreparationTime?.hours.message as AdminLang)
+                            : 'commerceedit.hours.hint'
                     ),
-                    children: t(
+                    children: translate(
                         errors.onsitePreparationTime?.hours
-                            ? (errors.onsitePreparationTime?.hours.message as string)
-                            : 'views.commercedetail.updateattention.form.onsitepreparationtime.hours.hint'
+                            ? (errors.onsitePreparationTime?.hours.message as AdminLang)
+                            : 'commerceedit.hours.hint'
                     ),
                 },
             },
@@ -343,24 +318,22 @@ export const useUpdateAttention = () => {
                     min: 0,
                     max: 59,
                     step: 1,
-                    placeholder: t(
-                        'views.commercedetail.updateattention.form.onsitepreparationtime.minutes.placeholder'
-                    ),
+                    placeholder: translate('commerceedit.minutes.placeholder'),
                     defaultValue: commerce?.onsitePreparationTime.minutes,
                     ...register('onsitePreparationTime.minutes'),
                 },
                 isHintReserved: true,
                 hint: {
                     hasDots: true,
-                    title: t(
+                    title: translate(
                         errors.onsitePreparationTime?.minutes
-                            ? (errors.onsitePreparationTime?.minutes.message as string)
-                            : 'views.commercedetail.updateattention.form.onsitepreparationtime.minutes.hint'
+                            ? (errors.onsitePreparationTime?.minutes.message as AdminLang)
+                            : 'commerceedit.minutes.hint'
                     ),
-                    children: t(
+                    children: translate(
                         errors.onsitePreparationTime?.minutes
-                            ? (errors.onsitePreparationTime?.minutes.message as string)
-                            : 'views.commercedetail.updateattention.form.onsitepreparationtime.minutes.hint'
+                            ? (errors.onsitePreparationTime?.minutes.message as AdminLang)
+                            : 'commerceedit.minutes.hint'
                     ),
                 },
             },
@@ -390,19 +363,19 @@ export const useUpdateAttention = () => {
                 isHintReserved: true,
                 hint: {
                     hasDots: true,
-                    title: t(
+                    title: translate(
                         errors.serviceHours?.delivery &&
                             errors.serviceHours.delivery[index] &&
                             errors.serviceHours.delivery[index]?.enabled
-                            ? (errors.serviceHours.delivery[index]?.enabled?.message as string)
-                            : `weekday.${dayService?.key.toLowerCase()}`
+                            ? (errors.serviceHours.delivery[index]?.enabled?.message as AdminLang)
+                            : `day.${dayService?.key.toLowerCase() as WeekDay}`
                     ),
-                    children: t(
+                    children: translate(
                         errors.serviceHours?.delivery &&
                             errors.serviceHours.delivery[index] &&
                             errors.serviceHours.delivery[index]?.enabled
-                            ? (errors.serviceHours.delivery[index]?.enabled?.message as string)
-                            : `weekday.${dayService?.key.toLowerCase()}`
+                            ? (errors.serviceHours.delivery[index]?.enabled?.message as AdminLang)
+                            : `day.${dayService?.key.toLowerCase() as WeekDay}`
                     ),
                 },
             },
@@ -415,28 +388,26 @@ export const useUpdateAttention = () => {
                         errors.serviceHours.delivery[index]?.opening
                             ? FieldStyles.OutlineDanger
                             : FieldStyles.OutlinePrimary,
-                    placeholder: t(
-                        `views.commercedetail.updateattention.form.servicehours.delivery.${dayService?.key.toLowerCase()}.opening.placeholder`
-                    ),
+                    placeholder: translate('day.opening'),
                     defaultValue: dayService?.opening,
                     ...register(`serviceHours.delivery.${index}.opening`),
                 },
                 isHintReserved: true,
                 hint: {
                     hasDots: true,
-                    title: t(
+                    title: translate(
                         errors.serviceHours?.delivery &&
                             errors.serviceHours.delivery[index] &&
                             errors.serviceHours.delivery[index]?.opening
-                            ? (errors.serviceHours.delivery[index]?.opening?.message as string)
-                            : `views.commercedetail.updateattention.form.servicehours.delivery.${dayService?.key.toLowerCase()}.opening.hint`
+                            ? (errors.serviceHours.delivery[index]?.opening?.message as AdminLang)
+                            : 'commerceedit.opening.hint'
                     ),
-                    children: t(
+                    children: translate(
                         errors.serviceHours?.delivery &&
                             errors.serviceHours.delivery[index] &&
                             errors.serviceHours.delivery[index]?.opening
-                            ? (errors.serviceHours.delivery[index]?.opening?.message as string)
-                            : `views.commercedetail.updateattention.form.servicehours.delivery.${dayService?.key.toLowerCase()}.opening.hint`
+                            ? (errors.serviceHours.delivery[index]?.opening?.message as AdminLang)
+                            : 'commerceedit.opening.hint'
                     ),
                 },
             },
@@ -449,28 +420,26 @@ export const useUpdateAttention = () => {
                         errors.serviceHours.delivery[index]?.closing
                             ? FieldStyles.OutlineDanger
                             : FieldStyles.OutlinePrimary,
-                    placeholder: t(
-                        `views.commercedetail.updateattention.form.servicehours.delivery.${dayService?.key.toLowerCase()}.closing.placeholder`
-                    ),
+                    placeholder: translate('day.closing'),
                     defaultValue: dayService?.closing,
                     ...register(`serviceHours.delivery.${index}.closing`),
                 },
                 isHintReserved: true,
                 hint: {
                     hasDots: true,
-                    title: t(
+                    title: translate(
                         errors.serviceHours?.delivery &&
                             errors.serviceHours.delivery[index] &&
                             errors.serviceHours.delivery[index]?.closing
-                            ? (errors.serviceHours.delivery[index]?.closing?.message as string)
-                            : `views.commercedetail.updateattention.form.servicehours.delivery.${dayService?.key.toLowerCase()}.closing.hint`
+                            ? (errors.serviceHours.delivery[index]?.closing?.message as AdminLang)
+                            : 'commerceedit.closing.hint'
                     ),
-                    children: t(
+                    children: translate(
                         errors.serviceHours?.delivery &&
                             errors.serviceHours.delivery[index] &&
                             errors.serviceHours.delivery[index]?.closing
-                            ? (errors.serviceHours.delivery[index]?.closing?.message as string)
-                            : `views.commercedetail.updateattention.form.servicehours.delivery.${dayService?.key.toLowerCase()}.closing.hint`
+                            ? (errors.serviceHours.delivery[index]?.closing?.message as AdminLang)
+                            : 'commerceedit.closing.hint'
                     ),
                 },
             },
@@ -486,24 +455,22 @@ export const useUpdateAttention = () => {
                     strategy: 'decimal',
                     min: 0,
                     step: 1,
-                    placeholder: t(
-                        'views.commercedetail.updateattention.form.deliverypreparationtime.hours.placeholder'
-                    ),
+                    placeholder: translate('commerceedit.hours.placeholder'),
                     defaultValue: commerce?.deliveryPreparationTime.hours,
                     ...register('deliveryPreparationTime.hours'),
                 },
                 isHintReserved: true,
                 hint: {
                     hasDots: true,
-                    title: t(
+                    title: translate(
                         errors.deliveryPreparationTime?.hours
-                            ? (errors.deliveryPreparationTime?.hours.message as string)
-                            : 'views.commercedetail.updateattention.form.deliverypreparationtime.hours.hint'
+                            ? (errors.deliveryPreparationTime?.hours.message as AdminLang)
+                            : 'commerceedit.hours.hint'
                     ),
-                    children: t(
+                    children: translate(
                         errors.deliveryPreparationTime?.hours
-                            ? (errors.deliveryPreparationTime?.hours.message as string)
-                            : 'views.commercedetail.updateattention.form.deliverypreparationtime.hours.hint'
+                            ? (errors.deliveryPreparationTime?.hours.message as AdminLang)
+                            : 'commerceedit.hours.hint'
                     ),
                 },
             },
@@ -516,24 +483,22 @@ export const useUpdateAttention = () => {
                     min: 0,
                     max: 59,
                     step: 1,
-                    placeholder: t(
-                        'views.commercedetail.updateattention.form.deliverypreparationtime.minutes.placeholder'
-                    ),
+                    placeholder: translate('commerceedit.minutes.placeholder'),
                     defaultValue: commerce?.deliveryPreparationTime.minutes,
                     ...register('deliveryPreparationTime.minutes'),
                 },
                 isHintReserved: true,
                 hint: {
                     hasDots: true,
-                    title: t(
+                    title: translate(
                         errors.deliveryPreparationTime?.minutes
-                            ? (errors.deliveryPreparationTime?.minutes.message as string)
-                            : 'views.commercedetail.updateattention.form.deliverypreparationtime.minutes.hint'
+                            ? (errors.deliveryPreparationTime?.minutes.message as AdminLang)
+                            : 'commerceedit.minutes.hint'
                     ),
-                    children: t(
+                    children: translate(
                         errors.deliveryPreparationTime?.minutes
-                            ? (errors.deliveryPreparationTime?.minutes.message as string)
-                            : 'views.commercedetail.updateattention.form.deliverypreparationtime.minutes.hint'
+                            ? (errors.deliveryPreparationTime?.minutes.message as AdminLang)
+                            : 'commerceedit.minutes.hint'
                     ),
                 },
             },

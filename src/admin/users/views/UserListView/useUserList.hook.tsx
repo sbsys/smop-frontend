@@ -1,13 +1,12 @@
 /* react */
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { useOutlet } from 'react-router-dom';
 /* props */
 import { UserListContextProps } from './UserList.props';
 /* hooks */
 import { useActive, useKeyDownEvent, useLoader, useMinWidth } from 'shared/hooks';
-import { FieldSetProps, useAdminNotify } from 'admin/core';
+import { FieldSetProps, useAdminLang, useAdminNotify } from 'admin/core';
 /* services */
 import { userListService } from 'admin/users/services';
 /* utils */
@@ -53,7 +52,7 @@ export const useUserList = () => {
 
     const outlet = useOutlet();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     const userList = useMemo(() => {
         let list = users.slice();
@@ -147,45 +146,45 @@ export const useUserList = () => {
     const nameField: FieldSetProps = {
         field: {
             className: FieldStyles.OutlinePrimary,
-            placeholder: t('views.userlist.filter.form.name.placeholder'),
+            placeholder: translate('filter.name'),
             ...register('name'),
         },
         isHintReserved: true,
         hint: {
             hasDots: true,
-            children: t('views.userlist.filter.form.name.hint'),
+            children: translate('filter.name'),
         },
     };
     const profileField: FieldSetProps = {
         field: {
             className: FieldStyles.OutlinePrimary,
             strategy: 'select',
-            placeholder: t('views.userlist.filter.form.profile.placeholder'),
+            placeholder: translate('filter.profile'),
             options: [...Array(ProfileValue.length - 1)].map((_, index) => ({
-                label: t(`profiles.${ProfileValue[index + 1].profile}`),
+                label: translate(`profiles.${ProfileValue[index + 1].profile}`),
                 value: ProfileValue[index + 1].profile,
             })),
             ...register('profile'),
         },
         isHintReserved: true,
         hint: {
-            children: t('views.userlist.filter.form.profile.hint'),
+            children: translate('filter.profile'),
             hasDots: true,
-            title: t('views.userlist.filter.form.profile.hint'),
+            title: translate('filter.profile'),
         },
     };
     const stateField: FieldSetProps = {
         field: {
             className: FieldStyles.OutlinePrimary,
             strategy: 'select',
-            placeholder: t('views.userlist.filter.form.state.placeholder'),
+            placeholder: translate('filter.status'),
             options: [
                 {
-                    label: t('views.userlist.filter.form.state.active'),
+                    label: translate('status.active'),
                     value: 'active',
                 },
                 {
-                    label: t('views.userlist.filter.form.state.inactive'),
+                    label: translate('status.inactive'),
                     value: 'inactive',
                 },
             ],
@@ -193,35 +192,35 @@ export const useUserList = () => {
         },
         isHintReserved: true,
         hint: {
-            children: t('views.userlist.filter.form.state.hint'),
+            children: translate('filter.status'),
             hasDots: true,
-            title: t('views.userlist.filter.form.state.hint'),
+            title: translate('filter.status'),
         },
     };
     const fromDateField: FieldSetProps = {
         field: {
             className: FieldStyles.OutlinePrimary,
-            placeholder: t('views.userlist.filter.form.fromdate.placeholder'),
+            placeholder: translate('filter.fromdate'),
             strategy: 'date',
             ...register('fromDate'),
         },
         isHintReserved: true,
         hint: {
             hasDots: true,
-            children: t('views.userlist.filter.form.fromdate.hint'),
+            children: translate('filter.fromdate'),
         },
     };
     const toDateField: FieldSetProps = {
         field: {
             className: FieldStyles.OutlinePrimary,
-            placeholder: t('views.userlist.filter.form.todate.placeholder'),
+            placeholder: translate('filter.todate'),
             strategy: 'date',
             ...register('toDate'),
         },
         isHintReserved: true,
         hint: {
             hasDots: true,
-            children: t('views.userlist.filter.form.todate.hint'),
+            children: translate('filter.todate'),
         },
     };
 

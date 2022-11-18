@@ -1,6 +1,5 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useUserListContext } from '../UserList.context';
 /* layouts */
@@ -10,6 +9,8 @@ import { Button, Legend } from 'shared/components';
 import { UserListFilter } from '../UserListFilter';
 import { NewUserAction } from '../UserListActions';
 import { UserListItem } from '../UserListItem';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* assets */
 import { MdClose, MdFilterList } from 'react-icons/md';
 /* styles */
@@ -25,13 +26,13 @@ const UserListMobile = () => {
         userList,
     } = useUserListContext();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <PanelLayout className={styles.UserList}>
             <div className={styles.Header}>
-                <h1 title={t('views.userlist.title')}>
-                    <Legend hasDots>{t('views.userlist.title')}</Legend>
+                <h1 title={translate('userlist.title')}>
+                    <Legend hasDots>{translate('userlist.title')}</Legend>
                 </h1>
 
                 <DropLayout
@@ -42,7 +43,7 @@ const UserListMobile = () => {
                     anchorRow="end"
                     drop={
                         <PanelLayout className={styles.FilterContent} orientation="col">
-                            <Button onClick={hideDropFilter} title={t('views.userlist.actions.closefilter')}>
+                            <Button onClick={hideDropFilter} title={translate('actions.close')}>
                                 <i>
                                     <MdClose />
                                 </i>
@@ -51,10 +52,7 @@ const UserListMobile = () => {
                             <UserListFilter />
                         </PanelLayout>
                     }>
-                    <Button
-                        className={styles.Filter}
-                        onClick={showDropFilter}
-                        title={t('views.userlist.actions.openfilter')}>
+                    <Button className={styles.Filter} onClick={showDropFilter} title={translate('actions.open')}>
                         <i>
                             <MdFilterList />
                         </i>

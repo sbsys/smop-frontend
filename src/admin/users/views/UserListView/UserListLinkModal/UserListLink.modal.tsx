@@ -1,6 +1,5 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useUserListContext } from '../UserList.context';
 /* custom hook */
@@ -9,7 +8,7 @@ import { useUserListLinkModal } from './useUserListLinkModal.hook';
 import { ModalLayout, ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
-import { FieldSet } from 'admin/core';
+import { FieldSet, useAdminLang } from 'admin/core';
 /* utils */
 import { format, isDate } from 'date-fns';
 import { classNames } from 'shared/utils';
@@ -27,41 +26,41 @@ const UserListLinkModal = () => {
 
     const { handleUpdateLink, handleCancelUpdateLink, handleUnlink, updateUserLinkFieldProps } = useUserListLinkModal();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <ModalLayout isVisible={selectedUserToLink !== null} rowAlignment="center" colAlignment="center" hasIndentation>
             <ScrollLayout orientation="col" classNameContent={styles.Link}>
                 <form onSubmit={handleUpdateLink}>
-                    <div className={styles.Header} title={t('views.userlist.link.title')}>
+                    <div className={styles.Header} title={translate('userlink.title')}>
                         <i>
                             <MdWarning />
                         </i>
 
-                        <Legend hasDots>{t('views.userlist.link.title')}</Legend>
+                        <Legend hasDots>{translate('userlink.title')}</Legend>
                     </div>
 
                     <div className={styles.Content}>
                         <Legend hasDots>
-                            <span className={styles.Title}>{t('views.userlist.link.name')}: </span>
+                            <span className={styles.Title}>{translate('userlink.name')}: </span>
 
                             <span>{selectedUserToLink?.fullname}</span>
                         </Legend>
 
                         <Legend hasDots>
-                            <span className={styles.Title}>{t('views.userlist.link.email')}: </span>
+                            <span className={styles.Title}>{translate('userlink.email')}: </span>
 
                             <span>{selectedUserToLink?.email}</span>
                         </Legend>
 
                         <Legend hasDots>
-                            <span className={styles.Title}>{t('views.userlist.link.phone')}: </span>
+                            <span className={styles.Title}>{translate('userlink.phone')}: </span>
 
                             <span>{selectedUserToLink?.phoneNumber}</span>
                         </Legend>
 
                         <Legend hasDots>
-                            <span className={styles.Title}>{t('views.userlist.link.created')}: </span>
+                            <span className={styles.Title}>{translate('userlink.created')}: </span>
 
                             <span>
                                 {isDate(selectedUserToLink?.createdAt) &&
@@ -74,8 +73,8 @@ const UserListLinkModal = () => {
                             type="button"
                             onClick={handleUnlink}
                             disabled={!selectedUserToLink?.commerceId && !selectedUserToLink?.profileName}
-                            title={t('views.userlist.link.unlink')}>
-                            <Legend hasDots>{t('views.userlist.link.unlink')}</Legend>
+                            title={translate('userlink.unlink')}>
+                            <Legend hasDots>{translate('userlink.unlink')}</Legend>
 
                             <i>
                                 <MdLinkOff />
@@ -91,19 +90,19 @@ const UserListLinkModal = () => {
                         <Button
                             type="button"
                             className={ButtonStyles.OutlineNone}
-                            title={t('views.userlist.link.actions.cancel')}
+                            title={translate('actions.cancel')}
                             onClick={handleCancelUpdateLink}>
                             <Legend hasDots justify="center">
-                                {t('views.userlist.link.actions.cancel')}
+                                {translate('actions.cancel')}
                             </Legend>
                         </Button>
 
                         <Button
                             type="submit"
                             className={ButtonStyles.FillSecondary}
-                            title={t('views.userlist.link.actions.update')}>
+                            title={translate('actions.update')}>
                             <Legend hasDots justify="center">
-                                {t('views.userlist.link.actions.update')}
+                                {translate('actions.update')}
                             </Legend>
                         </Button>
                     </div>

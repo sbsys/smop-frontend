@@ -114,6 +114,7 @@ export type AdminLang =
     | 'auth.phone.required'
     | 'auth.phone.format'
     | 'auth.email.placeholder'
+    | 'auth.email.hint'
     | 'auth.email.required'
     | 'auth.email.format'
     | 'auth.password.placeholder'

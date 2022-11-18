@@ -1,6 +1,5 @@
 /* react */
 import { FC, memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* layouts */
 import { DropLayout } from 'shared/layouts';
 /* components */
@@ -9,6 +8,7 @@ import { UserListState } from '../UserListState';
 import { UserListActions } from '../UserListActions';
 /* hooks */
 import { useActive, useClickOutside, useKeyDownEvent } from 'shared/hooks';
+import { useAdminLang } from 'admin/core';
 /* utils */
 import { format } from 'date-fns';
 /* types */
@@ -19,7 +19,7 @@ import { MdMoreVert } from 'react-icons/md';
 import styles from './UserListItem.module.scss';
 
 const UserListItem: FC<UserListItemDTO> = ({ userId, fullname, profileName, createdAt, isActive }) => {
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     const [isDropMore, showDropMore, hideDropMore] = useActive();
 
@@ -39,7 +39,7 @@ const UserListItem: FC<UserListItemDTO> = ({ userId, fullname, profileName, crea
                 <Legend hasDots title={format(createdAt, 'MMM do, yyyy')}>
                     {profileName && (
                         <>
-                            <span>{t(`profiles.${profileName}`)}</span> -{' '}
+                            <span>{translate(`profiles.${profileName}`)}</span> -{' '}
                         </>
                     )}
                     {format(createdAt, 'MMM do, yyyy')}
@@ -59,7 +59,7 @@ const UserListItem: FC<UserListItemDTO> = ({ userId, fullname, profileName, crea
                         <UserListActions state={isActive} userId={userId} />
                     </div>
                 }>
-                <Button className={styles.DropAction} onClick={showDropMore} title={t('views.userlist.list.more')}>
+                <Button className={styles.DropAction} onClick={showDropMore} title={translate('actions.more')}>
                     <i>
                         <MdMoreVert />
                     </i>

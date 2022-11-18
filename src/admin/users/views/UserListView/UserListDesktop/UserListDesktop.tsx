@@ -1,6 +1,5 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useUserListContext } from '../UserList.context';
 /* layouts */
@@ -10,6 +9,8 @@ import { Legend } from 'shared/components';
 import { UserListFilter } from '../UserListFilter';
 import { NewUserAction, UserListActions } from '../UserListActions';
 import { UserListState } from '../UserListState';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* utils */
 import { format } from 'date-fns';
 /* styles */
@@ -22,12 +23,12 @@ const UserListDesktop = () => {
         isBreakPoint,
     } = useUserListContext();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <PanelLayout className={styles.UserList}>
-            <h1 title={t('views.userlist.title')}>
-                <Legend hasDots>{t('views.userlist.title')}</Legend>
+            <h1 title={translate('userlist.title')}>
+                <Legend hasDots>{translate('userlist.title')}</Legend>
             </h1>
 
             {isBreakPoint && (
@@ -47,36 +48,36 @@ const UserListDesktop = () => {
                         columns: [
                             {
                                 children: (
-                                    <Legend hasDots title={t('views.userlist.list.name')}>
-                                        {t('views.userlist.list.name')}
+                                    <Legend hasDots title={translate('headers.name')}>
+                                        {translate('headers.name')}
                                     </Legend>
                                 ),
                             },
                             {
                                 children: (
-                                    <Legend hasDots justify="center" title={t('views.userlist.list.profile')}>
-                                        {t('views.userlist.list.profile')}
+                                    <Legend hasDots justify="center" title={translate('headers.profile')}>
+                                        {translate('headers.profile')}
                                     </Legend>
                                 ),
                             },
                             {
                                 children: (
-                                    <Legend hasDots justify="center" title={t('views.userlist.list.created')}>
-                                        {t('views.userlist.list.created')}
+                                    <Legend hasDots justify="center" title={translate('headers.created')}>
+                                        {translate('headers.created')}
                                     </Legend>
                                 ),
                             },
                             {
                                 children: (
-                                    <Legend hasDots justify="center" title={t('views.userlist.list.state')}>
-                                        {t('views.userlist.list.state')}
+                                    <Legend hasDots justify="center" title={translate('headers.status')}>
+                                        {translate('headers.status')}
                                     </Legend>
                                 ),
                             },
                             {
                                 children: (
-                                    <Legend hasDots justify="center" title={t('views.userlist.list.actions')}>
-                                        {t('views.userlist.list.actions')}
+                                    <Legend hasDots justify="center" title={translate('headers.actions')}>
+                                        {translate('headers.actions')}
                                     </Legend>
                                 ),
                             },
@@ -95,8 +96,11 @@ const UserListDesktop = () => {
                                 children: (
                                     <>
                                         {item.profileName && (
-                                            <Legend hasDots justify="center" title={t(`profiles.${item.profileName}`)}>
-                                                {t(`profiles.${item.profileName}`)}
+                                            <Legend
+                                                hasDots
+                                                justify="center"
+                                                title={translate(`profiles.${item.profileName}`)}>
+                                                {translate(`profiles.${item.profileName}`)}
                                             </Legend>
                                         )}
                                     </>

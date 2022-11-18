@@ -1,13 +1,12 @@
 /* react */
 import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 /* props */
 import { CreateUserContextProps } from './CreateUser.props';
 /* hooks */
 import { useActive, useLoader } from 'shared/hooks';
-import { FieldSetProps, useAdminNotify } from 'admin/core';
+import { AdminLang, FieldSetProps, useAdminLang, useAdminNotify } from 'admin/core';
 /* utils */
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -35,41 +34,29 @@ interface CreateUserForm {
 
 const CreateUserSchema = yup
     .object({
-        name: yup.string().required('views.createuser.form.name.required'),
+        name: yup.string().required('auth.name.required'),
         phone: yup
             .string()
-            .required('views.createuser.form.phone.required')
-            .matches(/^\+\d{3}-\d{7,8}$/, 'views.createuser.form.phone.format'),
-        email: yup
-            .string()
-            .required('views.createuser.form.email.required')
-            .email('views.createuser.form.email.format'),
+            .required('auth.phone.required')
+            .matches(/^\+\d{3}-\d{7,8}$/, 'auth.phone.format'),
+        email: yup.string().required('auth.email.required').email('auth.email.format'),
         password: yup
             .string()
-            .required('views.createuser.form.password.required')
-            .matches(
-                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/,
-                'views.createuser.form.password.format'
-            ),
+            .required('auth.password.required')
+            .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/, 'auth.password.format'),
         repeat_password: yup
             .string()
-            .required('views.createuser.form.repeatpassword.required')
-            .oneOf([yup.ref('password')], 'views.createuser.form.repeatpassword.equal'),
+            .required('auth.repeatpassword.required')
+            .oneOf([yup.ref('password')], 'auth.repeatpassword.equal'),
         linked: yup.boolean(),
         profile: yup.mixed().when(['linked'], {
             is: (linked: boolean) => linked,
-            then: yup
-                .number()
-                .typeError('views.createuser.form.profile.required')
-                .required('views.createuser.form.profile.required'),
+            then: yup.number().typeError('auth.profile.required').required('auth.profile.required'),
             otherwise: yup.string(),
         }),
         commerce: yup.mixed().when(['linked'], {
             is: (linked: boolean) => linked,
-            then: yup
-                .string()
-                .typeError('views.createuser.form.commerce.required')
-                .required('views.createuser.form.commerce.required'),
+            then: yup.string().typeError('auth.commerce.required').required('auth.commerce.required'),
             otherwise: yup.string(),
         }),
     })
@@ -95,7 +82,7 @@ export const useCreateUser = () => {
 
     const { notify } = useAdminNotify();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     const navigate = useNavigate();
 
@@ -169,67 +156,67 @@ export const useCreateUser = () => {
         field: {
             className: errors.name ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'text',
-            placeholder: t('views.createuser.form.name.placeholder'),
+            placeholder: translate('auth.name.placeholder'),
             ...register('name'),
         },
         isHintReserved: true,
         hint: errors.name
             ? {
-                  children: t(errors.name.message as string),
+                  children: translate(errors.name.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.name.message as string),
+                  title: translate(errors.name.message as AdminLang),
               }
             : {
-                  children: t('views.createuser.form.name.hint'),
+                  children: translate('auth.name.hint'),
                   hasDots: true,
-                  title: t('views.createuser.form.name.hint'),
+                  title: translate('auth.name.hint'),
               },
     };
     const phoneField: FieldSetProps = {
         field: {
             className: errors.phone ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'text',
-            placeholder: t('views.createuser.form.phone.placeholder'),
+            placeholder: translate('auth.phone.placeholder'),
             ...register('phone'),
         },
         isHintReserved: true,
         hint: errors.phone
             ? {
-                  children: t(errors.phone.message as string),
+                  children: translate(errors.phone.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.phone.message as string),
+                  title: translate(errors.phone.message as AdminLang),
               }
             : {
-                  children: t('views.createuser.form.phone.hint'),
+                  children: translate('auth.phone.hint'),
                   hasDots: true,
-                  title: t('views.createuser.form.phone.hint'),
+                  title: translate('auth.phone.hint'),
               },
     };
     const emailField: FieldSetProps = {
         field: {
             className: errors.email ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'email',
-            placeholder: t('views.createuser.form.email.placeholder'),
+            placeholder: translate('auth.email.placeholder'),
             ...register('email'),
         },
         isHintReserved: true,
         hint: errors.email
             ? {
-                  children: t(errors.email.message as string),
+                  children: translate(errors.email.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.email.message as string),
+                  title: translate(errors.email.message as AdminLang),
               }
             : {
-                  children: t('views.createuser.form.email.hint'),
+                  children: translate('auth.email.hint'),
                   hasDots: true,
-                  title: t('views.createuser.form.email.hint'),
+                  title: translate('auth.email.hint'),
               },
     };
     const passwordField: FieldSetProps = {
         field: {
             className: errors.password ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'password',
-            placeholder: t('views.createuser.form.password.placeholder'),
+            placeholder: translate('auth.password.placeholder'),
             ...register('password'),
             isPasswordVisible: isPassword,
             showIcon: <IoMdEye />,
@@ -240,14 +227,14 @@ export const useCreateUser = () => {
         isHintReserved: true,
         hint: errors.password
             ? {
-                  children: t(errors.password.message as string),
+                  children: translate(errors.password.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.password.message as string),
+                  title: translate(errors.password.message as AdminLang),
               }
             : {
-                  children: t('views.createuser.form.password.hint'),
+                  children: translate('auth.password.hint'),
                   hasDots: true,
-                  title: t('views.createuser.form.password.hint'),
+                  title: translate('auth.password.hint'),
               },
     };
     const repeatPasswordField: FieldSetProps = {
@@ -255,7 +242,7 @@ export const useCreateUser = () => {
             className:
                 errors.password || errors.repeat_password ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'password',
-            placeholder: t('views.createuser.form.repeatpassword.placeholder'),
+            placeholder: translate('auth.repeatpassword.placeholder'),
             ...register('repeat_password'),
             isPasswordVisible: isPassword,
             showIcon: <IoMdEye />,
@@ -266,37 +253,36 @@ export const useCreateUser = () => {
         isHintReserved: true,
         hint: errors.repeat_password
             ? {
-                  children: t(errors.repeat_password.message as string),
+                  children: translate(errors.repeat_password.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.repeat_password.message as string),
+                  title: translate(errors.repeat_password.message as AdminLang),
               }
             : {
-                  children: t('views.createuser.form.repeatpassword.hint'),
+                  children: translate('auth.password.format'),
                   hasDots: true,
-                  title: t('views.createuser.form.repeatpassword.hint'),
+                  title: translate('auth.password.format'),
               },
     };
     const linkedField: FieldSetProps = {
         field: {
-            className: FieldStyles.OutlinePrimary,
             strategy: 'checkbox',
             defaultChecked: false,
             ...register('linked'),
         },
         isHintReserved: true,
         hint: {
-            children: t('views.createuser.form.linked.hint'),
+            children: translate('createuser.linked.hint'),
             hasDots: true,
-            title: t('views.createuser.form.linked.hint'),
+            title: translate('createuser.linked.hint'),
         },
     };
     const profileField: FieldSetProps = {
         field: {
             className: errors.profile ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'select',
-            placeholder: t('views.createuser.form.profile.placeholder'),
+            placeholder: translate('auth.profile.placeholder'),
             options: [...Array(ProfileValue.length - 2)].map((_, index) => ({
-                label: t(`profiles.${ProfileValue[index + 2].profile}`),
+                label: translate(`profiles.${ProfileValue[index + 2].profile}`),
                 value: ProfileValue[index + 2].id,
             })),
             ...register('profile'),
@@ -304,21 +290,21 @@ export const useCreateUser = () => {
         isHintReserved: true,
         hint: errors.profile
             ? {
-                  children: t(errors.profile.message as string),
+                  children: translate(errors.profile.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.profile.message as string),
+                  title: translate(errors.profile.message as AdminLang),
               }
             : {
-                  children: t('views.createuser.form.profile.hint'),
+                  children: translate('auth.profile.hint'),
                   hasDots: true,
-                  title: t('views.createuser.form.profile.hint'),
+                  title: translate('auth.profile.hint'),
               },
     };
     const commerceField: FieldSetProps = {
         field: {
             className: errors.commerce ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'select',
-            placeholder: t('views.createuser.form.commerce.placeholder'),
+            placeholder: translate('auth.commerce.placeholder'),
             options: commerces.map(commerce => ({
                 label: `${commerce.isActive === 'inactive' ? '(inactive) ' : ''}${commerce.name}`,
                 value: commerce.id,
@@ -328,14 +314,14 @@ export const useCreateUser = () => {
         isHintReserved: true,
         hint: errors.commerce
             ? {
-                  children: t(errors.commerce.message as string),
+                  children: translate(errors.commerce.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.commerce.message as string),
+                  title: translate(errors.commerce.message as AdminLang),
               }
             : {
-                  children: t('views.createuser.form.commerce.hint'),
+                  children: translate('auth.commerce.hint'),
                   hasDots: true,
-                  title: t('views.createuser.form.commerce.hint'),
+                  title: translate('auth.commerce.hint'),
               },
     };
 

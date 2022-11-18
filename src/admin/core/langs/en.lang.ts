@@ -114,6 +114,7 @@ export const en: Record<AdminLang, string> = {
     'auth.phone.required': 'user phone number is required',
     'auth.phone.format': 'format: +000-00000000',
     'auth.email.placeholder': 'User email',
+    'auth.email.hint': 'user email',
     'auth.email.required': 'user email is required',
     'auth.email.format': 'invalid email format',
     'auth.password.placeholder': 'User password',

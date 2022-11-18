@@ -1,12 +1,11 @@
 /* react */
 import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useUserListContext } from '../UserList.context';
 /* hooks */
 import { useLoader } from 'shared/hooks';
-import { FieldSetProps, useAdminNotify } from 'admin/core';
+import { AdminLang, FieldSetProps, useAdminLang, useAdminNotify } from 'admin/core';
 /* services */
 import { CommerceListItemDTO, commerceListService } from 'admin/commerces';
 import { linkUserService, unlinkUserService } from 'admin/users/services';
@@ -27,8 +26,8 @@ interface UpdateUserLinkForm {
 
 const UpdateUserLinkSchema = yup
     .object({
-        profile: yup.number().required('views.userlist.link.form.profile.required'),
-        commerce: yup.string().required('views.userlist.link.form.commerce.required'),
+        profile: yup.number().typeError('auth.profile.required').required('auth.profile.required'),
+        commerce: yup.string().required('auth.commerce.required'),
     })
     .required();
 
@@ -59,7 +58,7 @@ export const useUserListLinkModal = () => {
 
     const { notify } = useAdminNotify();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     /* functions */
     const handleCancelUpdateLink = () => {
@@ -164,9 +163,9 @@ export const useUserListLinkModal = () => {
         field: {
             className: errors.profile ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'select',
-            placeholder: t('views.userlist.link.form.profile.placeholder'),
+            placeholder: translate('auth.profile.placeholder'),
             options: [...Array(ProfileValue.length - 2)].map((_, index) => ({
-                label: t(`profiles.${ProfileValue[index + 2].profile}`),
+                label: translate(`profiles.${ProfileValue[index + 2].profile}`),
                 value: ProfileValue[index + 2].id,
             })),
             defaultValue: ProfileValue.find(value => value.profile === selectedUserToLink?.profileName)?.id,
@@ -175,21 +174,21 @@ export const useUserListLinkModal = () => {
         isHintReserved: true,
         hint: errors.profile
             ? {
-                  children: t(errors.profile.message as string),
+                  children: translate(errors.profile.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.profile.message as string),
+                  title: translate(errors.profile.message as AdminLang),
               }
             : {
-                  children: t('views.userlist.link.form.profile.hint'),
+                  children: translate('auth.profile.hint'),
                   hasDots: true,
-                  title: t('views.userlist.link.form.profile.hint'),
+                  title: translate('auth.profile.hint'),
               },
     };
     const commerceField: FieldSetProps = {
         field: {
             className: errors.commerce ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'select',
-            placeholder: t('views.userlist.link.form.commerce.placeholder'),
+            placeholder: translate('auth.commerce.placeholder'),
             options: commerces.map(commerce => ({
                 label: `${commerce.isActive === 'inactive' ? '(inactive) ' : ''}${commerce.name}`,
                 value: commerce.id,
@@ -199,14 +198,14 @@ export const useUserListLinkModal = () => {
         isHintReserved: true,
         hint: errors.commerce
             ? {
-                  children: t(errors.commerce.message as string),
+                  children: translate(errors.commerce.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.commerce.message as string),
+                  title: translate(errors.commerce.message as AdminLang),
               }
             : {
-                  children: t('views.userlist.link.form.commerce.hint'),
+                  children: translate('auth.commerce.hint'),
                   hasDots: true,
-                  title: t('views.userlist.link.form.commerce.hint'),
+                  title: translate('auth.commerce.hint'),
               },
     };
 

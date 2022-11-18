@@ -1,9 +1,10 @@
 import { FC, memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useUserListContext } from '../UserList.context';
 /* components */
 import { Button } from 'shared/components';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* types */
 import { UserState } from 'admin/users/types';
 /* assets */
@@ -18,7 +19,7 @@ const UserListActions: FC<{ state: UserState; userId: string }> = ({ state, user
         handleSelectUserToLink,
     } = useUserListContext();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <div className={styles.Actions}>
@@ -26,7 +27,7 @@ const UserListActions: FC<{ state: UserState; userId: string }> = ({ state, user
                 <Button
                     className={styles.Delete}
                     onClick={() => handleSelectUserToUpdateState(userId)}
-                    title={t('views.userlist.list.suspend')}>
+                    title={translate('actions.suspend')}>
                     <i>
                         <MdThumbDown />
                     </i>
@@ -35,7 +36,7 @@ const UserListActions: FC<{ state: UserState; userId: string }> = ({ state, user
                 <Button
                     className={styles.Restore}
                     onClick={() => handleSelectUserToUpdateState(userId)}
-                    title={t('views.userlist.list.restore')}>
+                    title={translate('actions.restore')}>
                     <i>
                         <MdThumbUp />
                     </i>
@@ -46,7 +47,7 @@ const UserListActions: FC<{ state: UserState; userId: string }> = ({ state, user
                 className={styles.Link}
                 onClick={() => handleSelectUserToLink(userId)}
                 disabled={state === 'inactive'}
-                title={t('views.userlist.list.link')}>
+                title={translate('actions.link')}>
                 <i>
                     <MdLink />
                 </i>

@@ -1,6 +1,5 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* custom hook */
 import { useUpdateUserState } from './useUpdateUserState.hook';
 /* context */
@@ -9,6 +8,8 @@ import { useUserListContext } from '../UserList.context';
 import { ModalLayout, ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* assets */
 import { MdWarning } from 'react-icons/md';
 /* styles */
@@ -23,7 +24,7 @@ const UpdateUserStateModal = () => {
 
     const { handleCancelUpdateUserState, handleUpdateUserState } = useUpdateUserState();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <ModalLayout
@@ -33,20 +34,20 @@ const UpdateUserStateModal = () => {
             hasIndentation>
             <ScrollLayout orientation="col" classNameContent={styles.UpdateState}>
                 <section>
-                    <div className={styles.Header} title={t('views.userlist.updatestate.title')}>
+                    <div className={styles.Header} title={translate('userlist.updatestatus')}>
                         <i>
                             <MdWarning />
                         </i>
 
-                        <Legend hasDots>{t('views.userlist.updatestate.title')}</Legend>
+                        <Legend hasDots>{translate('userlist.updatestatus')}</Legend>
                     </div>
 
                     <div className={styles.Content}>
                         <Legend justify="center">{selectedUserToUpdateState?.fullname}</Legend>
 
                         <Legend justify="center">
-                            {t(
-                                `views.userlist.updatestate.${
+                            {translate(
+                                `messages.${
                                     selectedUserToUpdateState?.isActive === 'active' ? 'deactivate' : 'activate'
                                 }`
                             )}
@@ -57,10 +58,10 @@ const UpdateUserStateModal = () => {
                         <Button
                             type="button"
                             className={ButtonStyles.OutlineNone}
-                            title={t('views.userlist.updatestate.actions.cancel')}
+                            title={translate('actions.cancel')}
                             onClick={handleCancelUpdateUserState}>
                             <Legend hasDots justify="center">
-                                {t('views.userlist.updatestate.actions.cancel')}
+                                {translate('actions.cancel')}
                             </Legend>
                         </Button>
 
@@ -71,10 +72,18 @@ const UpdateUserStateModal = () => {
                                     ? ButtonStyles.FillDanger
                                     : ButtonStyles.FillSuccess
                             }
-                            title={t('views.userlist.updatestate.actions.update')}
+                            title={translate(
+                                selectedUserToUpdateState?.isActive === 'active'
+                                    ? 'actions.deactivate'
+                                    : 'actions.activate'
+                            )}
                             onClick={handleUpdateUserState}>
                             <Legend hasDots justify="center">
-                                {t('views.userlist.updatestate.actions.update')}
+                                {translate(
+                                    selectedUserToUpdateState?.isActive === 'active'
+                                        ? 'actions.deactivate'
+                                        : 'actions.activate'
+                                )}
                             </Legend>
                         </Button>
                     </div>

@@ -38,6 +38,18 @@ export interface DayService {
     opening: string;
 }
 
+export interface Schedule {
+    opening: string;
+    closing: string;
+}
+
+export interface ExtendedDayService {
+    key: DayKey;
+    dayId: number;
+    schedules: Schedule[];
+    enabled: boolean;
+}
+
 export const DayServiceValue: DayService[] = [
     {
         key: 'Sunday',
@@ -93,6 +105,11 @@ export const DayServiceValue: DayService[] = [
 export interface ServiceHours {
     onsite: DayService[];
     delivery: DayService[];
+}
+
+export interface ExtendedServiceHours {
+    onsite: ExtendedDayService[];
+    delivery: ExtendedDayService[];
 }
 
 export interface PreparationTime {

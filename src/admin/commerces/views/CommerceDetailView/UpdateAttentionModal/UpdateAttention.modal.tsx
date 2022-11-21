@@ -5,7 +5,7 @@ import { useUpdateAttention } from './useUpdateAttention.hook';
 /* context */
 import { useCommerceDetailContext } from '../CommerceDetail.context';
 /* layouts */
-import { ModalLayout, ScrollLayout } from 'shared/layouts';
+import { ModalLayout, PanelLayout, ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
 import { FieldSet, useAdminLang } from 'admin/core';
@@ -36,7 +36,7 @@ const UpdateAttentionModal = () => {
 
     return (
         <ModalLayout isVisible={isUpdateAttention} rowAlignment="center" colAlignment="center" hasIndentation>
-            <ScrollLayout orientation="col" classNameContent={styles.UpdateAttention}>
+            <PanelLayout orientation="col" className={styles.UpdateAttention}>
                 <form onSubmit={handleUpdateAttention}>
                     <div className={styles.Header} title={translate('commerceedit.attention')}>
                         <i>
@@ -46,75 +46,77 @@ const UpdateAttentionModal = () => {
                         <Legend hasDots>{translate('commerceedit.attention')}</Legend>
                     </div>
 
-                    <div className={styles.Content}>
-                        <div>
-                            <div className={styles.ContentHeader}>
-                                <h3 title={translate('commerceedit.onsite')}>
-                                    <Legend hasDots>{translate('commerceedit.onsite')}</Legend>
+                    <ScrollLayout orientation="col">
+                        <div className={styles.Content}>
+                            <div>
+                                <div className={styles.ContentHeader}>
+                                    <h3 title={translate('commerceedit.onsite')}>
+                                        <Legend hasDots>{translate('commerceedit.onsite')}</Legend>
+                                    </h3>
+
+                                    <Button
+                                        type="button"
+                                        className={ButtonStyles.FillSecondary}
+                                        onClick={() => handleRepeatSunday('onsite')}
+                                        title={translate('actions.repeatweekday')}>
+                                        <Legend hasDots justify="center">
+                                            {translate('actions.repeatweekday')}
+                                        </Legend>
+                                    </Button>
+                                </div>
+
+                                <div className={styles.ServiceHours}>
+                                    {updateAttentionServiceHoursOnsiteFormFields.map((field, index) => (
+                                        <FieldSet {...field} key={index} />
+                                    ))}
+                                </div>
+
+                                <h3 title={translate('commerceedit.onsitepreparation')}>
+                                    <Legend hasDots>{translate('commerceedit.onsitepreparation')}</Legend>
                                 </h3>
 
-                                <Button
-                                    type="button"
-                                    className={ButtonStyles.FillSecondary}
-                                    onClick={() => handleRepeatSunday('onsite')}
-                                    title={translate('actions.repeatweekday')}>
-                                    <Legend hasDots justify="center">
-                                        {translate('actions.repeatweekday')}
-                                    </Legend>
-                                </Button>
+                                <div className={styles.PreparationTime}>
+                                    {updateAttentionOnsitePreparationTimeFormFields.map((field, index) => (
+                                        <FieldSet {...field} key={index} />
+                                    ))}
+                                </div>
                             </div>
 
-                            <div className={styles.ServiceHours}>
-                                {updateAttentionServiceHoursOnsiteFormFields.map((field, index) => (
-                                    <FieldSet {...field} key={index} />
-                                ))}
-                            </div>
+                            <div>
+                                <div className={styles.ContentHeader}>
+                                    <h3 title={translate('commerceedit.delivery')}>
+                                        <Legend hasDots>{translate('commerceedit.delivery')}</Legend>
+                                    </h3>
 
-                            <h3 title={translate('commerceedit.onsitepreparation')}>
-                                <Legend hasDots>{translate('commerceedit.onsitepreparation')}</Legend>
-                            </h3>
+                                    <Button
+                                        type="button"
+                                        className={ButtonStyles.FillSecondary}
+                                        onClick={() => handleRepeatSunday('delivery')}
+                                        title={translate('actions.repeatweekday')}>
+                                        <Legend hasDots justify="center">
+                                            {translate('actions.repeatweekday')}
+                                        </Legend>
+                                    </Button>
+                                </div>
 
-                            <div className={styles.PreparationTime}>
-                                {updateAttentionOnsitePreparationTimeFormFields.map((field, index) => (
-                                    <FieldSet {...field} key={index} />
-                                ))}
-                            </div>
-                        </div>
+                                <div className={styles.ServiceHours}>
+                                    {updateAttentionServiceHoursDeliveryFormFields.map((field, index) => (
+                                        <FieldSet {...field} key={index} />
+                                    ))}
+                                </div>
 
-                        <div>
-                            <div className={styles.ContentHeader}>
-                                <h3 title={translate('commerceedit.delivery')}>
-                                    <Legend hasDots>{translate('commerceedit.delivery')}</Legend>
+                                <h3 title={translate('commerceedit.deliverypreparation')}>
+                                    <Legend hasDots>{translate('commerceedit.deliverypreparation')}</Legend>
                                 </h3>
 
-                                <Button
-                                    type="button"
-                                    className={ButtonStyles.FillSecondary}
-                                    onClick={() => handleRepeatSunday('delivery')}
-                                    title={translate('actions.repeatweekday')}>
-                                    <Legend hasDots justify="center">
-                                        {translate('actions.repeatweekday')}
-                                    </Legend>
-                                </Button>
-                            </div>
-
-                            <div className={styles.ServiceHours}>
-                                {updateAttentionServiceHoursDeliveryFormFields.map((field, index) => (
-                                    <FieldSet {...field} key={index} />
-                                ))}
-                            </div>
-
-                            <h3 title={translate('commerceedit.deliverypreparation')}>
-                                <Legend hasDots>{translate('commerceedit.deliverypreparation')}</Legend>
-                            </h3>
-
-                            <div className={styles.PreparationTime}>
-                                {updateAttentionDeliveryPreparationTimeFormFields.map((field, index) => (
-                                    <FieldSet {...field} key={index} />
-                                ))}
+                                <div className={styles.PreparationTime}>
+                                    {updateAttentionDeliveryPreparationTimeFormFields.map((field, index) => (
+                                        <FieldSet {...field} key={index} />
+                                    ))}
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </ScrollLayout>
 
                     <div className={styles.Actions}>
                         <Button
@@ -141,7 +143,7 @@ const UpdateAttentionModal = () => {
                         </Button>
                     </div>
                 </form>
-            </ScrollLayout>
+            </PanelLayout>
         </ModalLayout>
     );
 };

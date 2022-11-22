@@ -193,7 +193,7 @@ export interface CommerceDetailDTO {
     servicePhones: ServicePhone[];
     geohash: string;
     globalRaiting: string;
-    serviceHours: ServiceHours;
+    serviceHours: ExtendedServiceHours;
     thirdPartyDelivery: boolean;
     externalDeliveryUrl: string;
     deliveryPreparationTime: PreparationTime;

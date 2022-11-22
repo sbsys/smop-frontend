@@ -50,15 +50,18 @@
 
         .ContentHeader {
             @include gap(all xs);
-            @include margin(bottom sm);
+            @include margin(bottom md);
 
-            @include screen-width(2xs) {
+            /* @include screen-width(2xs) {
                 @include flex(row, center, space-between);
-            }
+            } */
+
+            /* & > h3 {
+                overflow: hidden;
+            } */
 
             & > button {
                 @include margin(x xs);
-                overflow: hidden;
             }
         }
     }

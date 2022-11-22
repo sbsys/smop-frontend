@@ -1,5 +1,5 @@
 /* react */
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 /* context */
 import { useCommerceDetailContext } from '../CommerceDetail.context';
@@ -14,7 +14,7 @@ import { updateAttentionService } from 'admin/commerces/services';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 /* types */
-import { DayService, DayServiceValue, ExtendedServiceHours, PreparationTime } from 'admin/commerces/types';
+import { DayServiceValue, ExtendedDayService, ExtendedServiceHours, PreparationTime } from 'admin/commerces/types';
 /* assets */
 import { MdAdd, MdCheckCircle, MdError, MdRemove } from 'react-icons/md';
 /* styles */
@@ -34,16 +34,32 @@ export const UpdateAttentionSchema = yup
                 onsite: yup.array(
                     yup
                         .object({
-                            opening: yup.string().matches(/^(\d{2}):([0-5])([0-9])$/, 'commerceedit.opening.format'),
-                            closing: yup.string().matches(/^(\d{2}):([0-5])([0-9])$/, 'commerceedit.closing.format'),
+                            schedules: yup.array().of(
+                                yup.object({
+                                    opening: yup
+                                        .string()
+                                        .matches(/^(\d{2}):([0-5])([0-9])$/, 'commerceedit.opening.format'),
+                                    closing: yup
+                                        .string()
+                                        .matches(/^(\d{2}):([0-5])([0-9])$/, 'commerceedit.closing.format'),
+                                })
+                            ),
                         })
                         .required()
                 ),
                 delivery: yup.array(
                     yup
                         .object({
-                            opening: yup.string().matches(/^(\d{2}):([0-5])([0-9])$/, 'commerceedit.opening.format'),
-                            closing: yup.string().matches(/^(\d{2}):([0-5])([0-9])$/, 'commerceedit.closing.format'),
+                            schedules: yup.array().of(
+                                yup.object({
+                                    opening: yup
+                                        .string()
+                                        .matches(/^(\d{2}):([0-5])([0-9])$/, 'commerceedit.opening.format'),
+                                    closing: yup
+                                        .string()
+                                        .matches(/^(\d{2}):([0-5])([0-9])$/, 'commerceedit.closing.format'),
+                                })
+                            ),
                         })
                         .required()
                 ),
@@ -109,6 +125,7 @@ export const useUpdateAttention = () => {
     } = useForm<UpdateAttentionForm>({
         mode: 'all',
         resolver: yupResolver(UpdateAttentionSchema),
+        shouldUnregister: false,
     });
 
     const [scheduleCountByDay, setScheduleCountByDay] = useState<{
@@ -127,9 +144,6 @@ export const useUpdateAttention = () => {
 
     /* functions */
     const handleUpdateAttention = handleSubmit(async data => {
-        console.log(data);
-
-        return;
         showLoader();
 
         const service = await updateAttentionService(commerce?.commerceId ?? '', data);
@@ -160,200 +174,237 @@ export const useUpdateAttention = () => {
         reset();
     };
 
-    const handleRepeatSunday = async (attention: 'onsite' | 'delivery') => {
-        if (
-            !(await trigger(
-                [
-                    `serviceHours.${attention}.0.schedules.0.opening`,
-                    `serviceHours.${attention}.0.schedules.0.closing`,
-                    `serviceHours.${attention}.0.schedules.1.opening`,
-                    `serviceHours.${attention}.0.schedules.1.closing`,
-                ],
-                {
-                    shouldFocus: true,
-                }
-            ))
-        )
-            return;
+    const handleRepeatSunday = useCallback(
+        async (attention: 'onsite' | 'delivery') => {
+            if (
+                !(await trigger(
+                    [
+                        `serviceHours.${attention}.0.schedules.0.opening`,
+                        `serviceHours.${attention}.0.schedules.0.closing`,
+                        `serviceHours.${attention}.0.schedules.1.opening`,
+                        `serviceHours.${attention}.0.schedules.1.closing`,
+                    ],
+                    {
+                        shouldFocus: true,
+                    }
+                ))
+            )
+                return;
 
-        const scheduleCount = watch(`serviceHours.${attention}.0.schedules`)?.length ?? 1;
+            const enabled = watch(`serviceHours.${attention}.0.enabled`);
+            const scheduleCount = watch(`serviceHours.${attention}.0.schedules`)?.length ?? 1;
 
-        [...Array(DayServiceValue.length - 1)].forEach((_, index) => {
-            unregister(`serviceHours.${attention}.${index + 1}`);
+            [...Array(DayServiceValue.length - 1)].forEach((_, index) => {
+                unregister(`serviceHours.${attention}.${index + 1}.enabled`);
+                unregister(`serviceHours.${attention}.${index + 1}.schedules`);
 
-            setValue(`serviceHours.${attention}.${index + 1}.enabled`, watch(`serviceHours.${attention}.0.enabled`));
+                setScheduleCountByDay(prev => {
+                    prev[attention][index + 2] = scheduleCount;
 
-            setScheduleCountByDay(prev => {
-                prev[attention][index + 2] = scheduleCount;
+                    return { ...prev };
+                });
 
-                return { ...prev };
+                [...Array(scheduleCount)].forEach((_, scheduleIndex) => {
+                    const schedule = watch(`serviceHours.${attention}.0.schedules.${scheduleIndex}`);
+
+                    setValue(
+                        `serviceHours.${attention}.${index + 1}.schedules.${scheduleIndex}.opening`,
+                        schedule.opening
+                    );
+                    setValue(
+                        `serviceHours.${attention}.${index + 1}.schedules.${scheduleIndex}.closing`,
+                        schedule.closing
+                    );
+                });
+
+                setValue(`serviceHours.${attention}.${index + 1}.enabled`, enabled);
             });
-
-            [...Array(scheduleCount)].forEach((_, scheduleIndex) => {
-                setValue(
-                    `serviceHours.${attention}.${index + 1}.schedules.${scheduleIndex}.opening`,
-                    watch(`serviceHours.${attention}.0.schedules.${scheduleIndex}.opening`)
-                );
-                setValue(
-                    `serviceHours.${attention}.${index + 1}.schedules.${scheduleIndex}.closing`,
-                    watch(`serviceHours.${attention}.0.schedules.${scheduleIndex}.closing`)
-                );
-            });
-        });
-    };
+        },
+        [setValue, trigger, unregister, watch]
+    );
 
     /* reactivity */
     useEffect(() => {
-        if (isUpdateAttention) {
-            setScheduleCountByDay({
-                onsite: { 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1, 7: 1 },
-                delivery: { 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1, 7: 1 },
-            });
+        if (!isUpdateAttention) return;
 
-            commerce?.serviceHours.onsite.forEach((onsite, index) => {
-                setValue(`serviceHours.onsite.${index}.enabled`, onsite.enabled);
-            });
+        unregister();
 
-            commerce?.serviceHours.delivery.forEach((delivery, index) => {
-                setValue(`serviceHours.delivery.${index}.enabled`, delivery.enabled);
-            });
-        }
-    }, [commerce?.serviceHours.delivery, commerce?.serviceHours.onsite, isUpdateAttention, setValue]);
+        setScheduleCountByDay({
+            onsite: { 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1, 7: 1 },
+            delivery: { 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1, 7: 1 },
+        });
+
+        commerce?.serviceHours.onsite.forEach((onsite, index) => {
+            setValue(`serviceHours.onsite.${index}.enabled`, onsite.enabled);
+        });
+
+        commerce?.serviceHours.delivery.forEach((delivery, index) => {
+            setValue(`serviceHours.delivery.${index}.enabled`, delivery.enabled);
+        });
+    }, [commerce?.serviceHours.delivery, commerce?.serviceHours.onsite, isUpdateAttention, setValue, unregister]);
 
     /* props */
-    const addScheduleProps = (cb: () => void): ButtonProps => ({
-        className: ButtonStyles.FillSuccess,
-        title: translate('actions.add'),
-        type: 'button',
-        onClick: cb,
-        children: (
-            <>
-                <i>
-                    <MdAdd />
-                </i>
+    const addScheduleProps = useCallback(
+        (cb: () => void): ButtonProps => ({
+            className: ButtonStyles.FillSuccess,
+            title: translate('actions.add'),
+            type: 'button',
+            onClick: cb,
+            children: (
+                <>
+                    <i>
+                        <MdAdd />
+                    </i>
 
-                <Legend hasDots>{translate('actions.add')}</Legend>
-            </>
-        ),
-    });
-    const removeScheduleProps = (cb: () => void): ButtonProps => ({
-        className: ButtonStyles.FillDanger,
-        title: translate('actions.remove'),
-        type: 'button',
-        onClick: cb,
-        children: (
-            <>
-                <i>
-                    <MdRemove />
-                </i>
+                    <Legend hasDots>{translate('actions.add')}</Legend>
+                </>
+            ),
+        }),
+        [translate]
+    );
+    const removeScheduleProps = useCallback(
+        (cb: () => void): ButtonProps => ({
+            className: ButtonStyles.FillDanger,
+            title: translate('actions.remove'),
+            type: 'button',
+            onClick: cb,
+            children: (
+                <>
+                    <i>
+                        <MdRemove />
+                    </i>
 
-                <Legend hasDots>{translate('actions.remove')}</Legend>
-            </>
-        ),
-    });
+                    <Legend hasDots>{translate('actions.remove')}</Legend>
+                </>
+            ),
+        }),
+        [translate]
+    );
 
-    const serviceHoursFields = (index: number, attention: 'onsite' | 'delivery'): FieldSetProps[] => {
-        const dayService = commerce?.serviceHours[attention][index] as DayService;
+    const serviceHoursFields = useCallback(
+        (index: number, attention: 'onsite' | 'delivery'): FieldSetProps[] => {
+            const dayService = commerce?.serviceHours[attention][index] as ExtendedDayService;
 
-        setValue(`serviceHours.${attention}.${index}.dayId`, dayService?.dayId);
-        setValue(`serviceHours.${attention}.${index}.key`, dayService?.key);
+            setValue(`serviceHours.${attention}.${index}.dayId`, dayService?.dayId);
+            setValue(`serviceHours.${attention}.${index}.key`, dayService?.key);
 
-        return [
-            {
-                className: styles.Checkbox,
-                field: {
-                    strategy: 'checkbox',
-                    defaultChecked: dayService?.enabled,
-                    id: `serviceHours.${attention}.${index}.enabled`,
-                    ...register(`serviceHours.${attention}.${index}.enabled`),
+            return [
+                {
+                    className: styles.Checkbox,
+                    field: {
+                        strategy: 'checkbox',
+                        id: `serviceHours.${attention}.${index}.enabled`,
+                        ...register(`serviceHours.${attention}.${index}.enabled`),
+                    },
+                    isHintReserved: true,
+                    hint: {
+                        title: translate(`day.${dayService?.key.toLowerCase() as WeekDay}`),
+                        children: (
+                            <div className={styles.DayActions}>
+                                <label htmlFor={`serviceHours.${attention}.${index}.enabled`}>
+                                    <Legend hasDots>
+                                        {translate(`day.${dayService?.key.toLowerCase() as WeekDay}`)}
+                                    </Legend>
+                                </label>
+
+                                <Button
+                                    {...(scheduleCountByDay[attention][dayService?.dayId] > 1
+                                        ? removeScheduleProps(() =>
+                                              setScheduleCountByDay(prev => {
+                                                  unregister(`serviceHours.${attention}.${index}.schedules`);
+
+                                                  prev[attention][dayService?.dayId] =
+                                                      prev[attention][dayService?.dayId] - 1;
+                                                  return { ...prev };
+                                              })
+                                          )
+                                        : addScheduleProps(() =>
+                                              setScheduleCountByDay(prev => {
+                                                  prev[attention][dayService?.dayId] =
+                                                      prev[attention][dayService?.dayId] + 1;
+                                                  return { ...prev };
+                                              })
+                                          ))}
+                                    disabled={!watch(`serviceHours.${attention}.${index}.enabled`)}
+                                />
+                            </div>
+                        ),
+                    },
                 },
-                isHintReserved: true,
-                hint: {
-                    title: translate(`day.${dayService?.key.toLowerCase() as WeekDay}`),
-                    children: (
-                        <div className={styles.DayActions}>
-                            <label htmlFor={`serviceHours.${attention}.${index}.enabled`}>
-                                <Legend hasDots>{translate(`day.${dayService?.key.toLowerCase() as WeekDay}`)}</Legend>
-                            </label>
-
-                            <Button
-                                {...(scheduleCountByDay[attention][index + 1] > 1
-                                    ? removeScheduleProps(() =>
-                                          setScheduleCountByDay(prev => {
-                                              unregister(`serviceHours.${attention}.${index}.schedules`);
-
-                                              prev[attention][index + 1] = prev[attention][index + 1] - 1;
-                                              return { ...prev };
-                                          })
-                                      )
-                                    : addScheduleProps(() =>
-                                          setScheduleCountByDay(prev => {
-                                              prev[attention][index + 1] = prev[attention][index + 1] + 1;
-                                              return { ...prev };
-                                          })
-                                      ))}
-                                disabled={!watch(`serviceHours.${attention}.${index}.enabled`)}
-                            />
-                        </div>
-                    ),
-                },
-            },
-            ...[...Array(scheduleCountByDay[attention][index + 1] ?? 1)]
-                .map((_, scheduleIndex) => {
-                    return [
-                        {
-                            disabled: !watch(`serviceHours.${attention}.${index}.enabled`),
-                            field: {
-                                className: errors.serviceHours?.[attention]?.[index]?.schedules?.[scheduleIndex]
-                                    ?.opening
-                                    ? FieldStyles.OutlineDanger
-                                    : FieldStyles.OutlinePrimary,
-                                placeholder: translate('day.opening'),
-                                defaultValue: dayService?.opening,
-                                ...register(`serviceHours.${attention}.${index}.schedules.${scheduleIndex}.opening`),
+                ...[...Array(scheduleCountByDay[attention][dayService?.dayId] ?? 1)]
+                    .map((_, scheduleIndex) => {
+                        console.log(dayService);
+                        return [
+                            {
+                                disabled: !watch(`serviceHours.${attention}.${index}.enabled`),
+                                field: {
+                                    className: errors.serviceHours?.[attention]?.[index]?.schedules?.[scheduleIndex]
+                                        ?.opening
+                                        ? FieldStyles.OutlineDanger
+                                        : FieldStyles.OutlinePrimary,
+                                    placeholder: translate('day.opening'),
+                                    defaultValue: dayService?.schedules[scheduleIndex].opening,
+                                    ...register(
+                                        `serviceHours.${attention}.${index}.schedules.${scheduleIndex}.opening`
+                                    ),
+                                },
+                                isHintReserved: true,
+                                hint: {
+                                    hasDots: true,
+                                    title: translate(
+                                        (errors.serviceHours?.[attention]?.[index]?.schedules?.[scheduleIndex]?.opening
+                                            ?.message as AdminLang) ?? 'commerceedit.opening.hint'
+                                    ),
+                                    children: translate(
+                                        (errors.serviceHours?.[attention]?.[index]?.schedules?.[scheduleIndex]?.opening
+                                            ?.message as AdminLang) ?? 'commerceedit.opening.hint'
+                                    ),
+                                },
                             },
-                            isHintReserved: true,
-                            hint: {
-                                hasDots: true,
-                                title: translate(
-                                    (errors.serviceHours?.[attention]?.[index]?.schedules?.[scheduleIndex]?.opening
-                                        ?.message as AdminLang) ?? 'commerceedit.opening.hint'
-                                ),
-                                children: translate(
-                                    (errors.serviceHours?.[attention]?.[index]?.schedules?.[scheduleIndex]?.opening
-                                        ?.message as AdminLang) ?? 'commerceedit.opening.hint'
-                                ),
+                            {
+                                disabled: !watch(`serviceHours.${attention}.${index}.enabled`),
+                                field: {
+                                    className: errors.serviceHours?.[attention]?.[index]?.schedules?.[scheduleIndex]
+                                        ?.closing
+                                        ? FieldStyles.OutlineDanger
+                                        : FieldStyles.OutlinePrimary,
+                                    placeholder: translate('day.closing'),
+                                    defaultValue: dayService?.schedules[scheduleIndex].closing,
+                                    ...register(
+                                        `serviceHours.${attention}.${index}.schedules.${scheduleIndex}.closing`
+                                    ),
+                                },
+                                isHintReserved: true,
+                                hint: {
+                                    hasDots: true,
+                                    title: translate(
+                                        (errors.serviceHours?.[attention]?.[index]?.schedules?.[scheduleIndex]?.closing
+                                            ?.message as AdminLang) ?? 'commerceedit.closing.hint'
+                                    ),
+                                    children: translate(
+                                        (errors.serviceHours?.[attention]?.[index]?.schedules?.[scheduleIndex]?.closing
+                                            ?.message as AdminLang) ?? 'commerceedit.closing.hint'
+                                    ),
+                                },
                             },
-                        },
-                        {
-                            disabled: !watch(`serviceHours.${attention}.${index}.enabled`),
-                            field: {
-                                className: errors.serviceHours?.[attention]?.[index]?.schedules?.[scheduleIndex]
-                                    ?.closing
-                                    ? FieldStyles.OutlineDanger
-                                    : FieldStyles.OutlinePrimary,
-                                placeholder: translate('day.closing'),
-                                defaultValue: dayService?.closing,
-                                ...register(`serviceHours.${attention}.${index}.schedules.${scheduleIndex}.closing`),
-                            },
-                            isHintReserved: true,
-                            hint: {
-                                hasDots: true,
-                                title: translate(
-                                    (errors.serviceHours?.[attention]?.[index]?.schedules?.[scheduleIndex]?.closing
-                                        ?.message as AdminLang) ?? 'commerceedit.closing.hint'
-                                ),
-                                children: translate(
-                                    (errors.serviceHours?.[attention]?.[index]?.schedules?.[scheduleIndex]?.closing
-                                        ?.message as AdminLang) ?? 'commerceedit.closing.hint'
-                                ),
-                            },
-                        },
-                    ];
-                })
-                .reduce((prev, current) => [...prev, ...current]),
-        ];
-    };
+                        ];
+                    })
+                    .reduce((prev, current) => [...prev, ...current]),
+            ];
+        },
+        [
+            addScheduleProps,
+            commerce?.serviceHours,
+            errors.serviceHours,
+            register,
+            removeScheduleProps,
+            scheduleCountByDay,
+            setValue,
+            translate,
+            unregister,
+            watch,
+        ]
+    );
     const onsitePreparationTimeField = (): FieldSetProps[] => {
         return [
             {

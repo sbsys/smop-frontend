@@ -51,7 +51,9 @@ const UpdateAttentionModal = () => {
                             <div>
                                 <div className={styles.ContentHeader}>
                                     <h3 title={translate('commerceedit.onsite')}>
-                                        <Legend hasDots>{translate('commerceedit.onsite')}</Legend>
+                                        <Legend hasDots justify="center">
+                                            {translate('commerceedit.onsite')}
+                                        </Legend>
                                     </h3>
 
                                     <Button
@@ -67,7 +69,7 @@ const UpdateAttentionModal = () => {
 
                                 <div className={styles.ServiceHours}>
                                     {updateAttentionServiceHoursOnsiteFormFields.map((field, index) => (
-                                        <FieldSet {...field} key={index} />
+                                        <FieldSet {...field} key={`onsite_${index}`} />
                                     ))}
                                 </div>
 
@@ -85,7 +87,9 @@ const UpdateAttentionModal = () => {
                             <div>
                                 <div className={styles.ContentHeader}>
                                     <h3 title={translate('commerceedit.delivery')}>
-                                        <Legend hasDots>{translate('commerceedit.delivery')}</Legend>
+                                        <Legend hasDots justify="center">
+                                            {translate('commerceedit.delivery')}
+                                        </Legend>
                                     </h3>
 
                                     <Button
@@ -101,7 +105,7 @@ const UpdateAttentionModal = () => {
 
                                 <div className={styles.ServiceHours}>
                                     {updateAttentionServiceHoursDeliveryFormFields.map((field, index) => (
-                                        <FieldSet {...field} key={index} />
+                                        <FieldSet {...field} key={`delivery_${index}`} />
                                     ))}
                                 </div>
 

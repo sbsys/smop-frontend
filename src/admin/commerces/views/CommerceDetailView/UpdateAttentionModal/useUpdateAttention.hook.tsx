@@ -232,6 +232,8 @@ export const useUpdateAttention = () => {
         commerce?.serviceHours.onsite.forEach((onsite, index) => {
             setValue(`serviceHours.onsite.${index}.enabled`, onsite.enabled);
 
+            setValue(`serviceHours.onsite.${index}.schedules`, onsite.schedules);
+
             setScheduleCountByDay(prev => {
                 prev.onsite[onsite.dayId] = onsite.schedules.length;
 
@@ -241,6 +243,8 @@ export const useUpdateAttention = () => {
 
         commerce?.serviceHours.delivery.forEach((delivery, index) => {
             setValue(`serviceHours.delivery.${index}.enabled`, delivery.enabled);
+
+            setValue(`serviceHours.delivery.${index}.schedules`, delivery.schedules);
 
             setScheduleCountByDay(prev => {
                 prev.delivery[delivery.dayId] = delivery.schedules.length;
@@ -349,7 +353,6 @@ export const useUpdateAttention = () => {
                                         ? FieldStyles.OutlineDanger
                                         : FieldStyles.OutlinePrimary,
                                     placeholder: translate('day.opening'),
-                                    defaultValue: dayService?.schedules[scheduleIndex].opening,
                                     ...register(
                                         `serviceHours.${attention}.${index}.schedules.${scheduleIndex}.opening`
                                     ),
@@ -375,7 +378,6 @@ export const useUpdateAttention = () => {
                                         ? FieldStyles.OutlineDanger
                                         : FieldStyles.OutlinePrimary,
                                     placeholder: translate('day.closing'),
-                                    defaultValue: dayService?.schedules[scheduleIndex].closing,
                                     ...register(
                                         `serviceHours.${attention}.${index}.schedules.${scheduleIndex}.closing`
                                     ),

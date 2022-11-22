@@ -43,7 +43,12 @@
                 @include font-weight(lg);
 
                 &:nth-child(n + 2) {
-                    @include margin(top md);
+                    @include border-color(top 600 bg);
+                    @include border-opacity(top 60);
+                    @include border-width(top sm);
+                    @include margin(top xl);
+                    @include padding(top xs);
+                    border-style: dotted;
                 }
             }
         }
@@ -106,6 +111,12 @@
 
     @include screen-width(2xs) {
         grid-column: span 2;
+    }
+
+    &:nth-child(n + 2) {
+        @include margin(top md);
+        @include padding(top xs);
+        @include shadow(top sm);
     }
 
     & > label {

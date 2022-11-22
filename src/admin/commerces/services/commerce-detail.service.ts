@@ -51,102 +51,158 @@ const mock: ApiResponse<CommerceDetailDTO> = {
                 {
                     key: 'Sunday',
                     dayId: 1,
-                    closing: '00:00',
                     enabled: true,
-                    opening: '00:00',
+                    schedules: [
+                        {
+                            closing: '00:00',
+                            opening: '00:00',
+                        },
+                    ],
                 },
                 {
                     key: 'Monday',
                     dayId: 2,
-                    closing: '19:00',
                     enabled: false,
-                    opening: '08:30',
+                    schedules: [
+                        {
+                            closing: '00:00',
+                            opening: '00:00',
+                        },
+                    ],
                 },
                 {
                     key: 'Tuesday',
                     dayId: 3,
-                    closing: '19:00',
                     enabled: false,
-                    opening: '08:30',
+                    schedules: [
+                        {
+                            closing: '00:00',
+                            opening: '00:00',
+                        },
+                    ],
                 },
                 {
                     key: 'Wenesday',
                     dayId: 4,
-                    closing: '19:00',
                     enabled: false,
-                    opening: '08:30',
+                    schedules: [
+                        {
+                            closing: '00:00',
+                            opening: '00:00',
+                        },
+                    ],
                 },
                 {
                     key: 'Thursday',
                     dayId: 5,
-                    closing: '19:00',
                     enabled: false,
-                    opening: '08:00',
+                    schedules: [
+                        {
+                            closing: '00:00',
+                            opening: '00:00',
+                        },
+                    ],
                 },
                 {
                     key: 'Friday',
                     dayId: 6,
-                    closing: '22:00',
                     enabled: false,
-                    opening: '10:00',
+                    schedules: [
+                        {
+                            closing: '00:00',
+                            opening: '00:00',
+                        },
+                    ],
                 },
                 {
                     key: 'Saturday',
                     dayId: 7,
-                    closing: '14:00',
                     enabled: false,
-                    opening: '09:00',
+                    schedules: [
+                        {
+                            closing: '00:00',
+                            opening: '00:00',
+                        },
+                    ],
                 },
             ],
             delivery: [
                 {
                     key: 'Sunday',
                     dayId: 1,
-                    closing: '00:00',
                     enabled: false,
-                    opening: '00:00',
+                    schedules: [
+                        {
+                            closing: '00:00',
+                            opening: '00:00',
+                        },
+                    ],
                 },
                 {
                     key: 'Monday',
                     dayId: 2,
-                    closing: '18:00',
                     enabled: true,
-                    opening: '10:00',
+                    schedules: [
+                        {
+                            closing: '00:00',
+                            opening: '00:00',
+                        },
+                    ],
                 },
                 {
                     key: 'Tuesday',
                     dayId: 3,
-                    closing: '18:00',
                     enabled: true,
-                    opening: '10:00',
+                    schedules: [
+                        {
+                            closing: '00:00',
+                            opening: '00:00',
+                        },
+                    ],
                 },
                 {
                     key: 'Wenesday',
                     dayId: 4,
-                    closing: '18:00',
                     enabled: true,
-                    opening: '10:00',
+                    schedules: [
+                        {
+                            closing: '00:00',
+                            opening: '00:00',
+                        },
+                    ],
                 },
                 {
                     key: 'Thursday',
                     dayId: 5,
-                    closing: '18:00',
                     enabled: true,
-                    opening: '10:00',
+                    schedules: [
+                        {
+                            closing: '00:00',
+                            opening: '00:00',
+                        },
+                    ],
                 },
                 {
                     key: 'Friday',
                     dayId: 6,
-                    closing: '21:00',
                     enabled: true,
-                    opening: '10:00',
+                    schedules: [
+                        {
+                            closing: '00:00',
+                            opening: '00:00',
+                        },
+                    ],
                 },
                 {
                     key: 'Saturday',
                     dayId: 7,
-                    closing: '13:30',
                     enabled: true,
-                    opening: '10:00',
+                    schedules: [
+                        {
+                            closing: '00:00',
+                            opening: '00:00',
+                        },
+                    ],
                 },
             ],
         },

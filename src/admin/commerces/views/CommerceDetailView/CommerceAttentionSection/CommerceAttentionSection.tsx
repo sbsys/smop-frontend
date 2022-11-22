@@ -71,10 +71,26 @@ const CommerceAttentionSection = () => {
                         body={commerce?.serviceHours.onsite.map(item => ({
                             columns: [
                                 {
-                                    children: item.opening,
+                                    children: (
+                                        <div>
+                                            {item.schedules.map((schedule, index) => (
+                                                <Legend key={index} hasDots>
+                                                    {schedule.opening}
+                                                </Legend>
+                                            ))}
+                                        </div>
+                                    ),
                                 },
                                 {
-                                    children: item.closing,
+                                    children: (
+                                        <div>
+                                            {item.schedules.map((schedule, index) => (
+                                                <Legend key={index} hasDots>
+                                                    {schedule.closing}
+                                                </Legend>
+                                            ))}
+                                        </div>
+                                    ),
                                 },
                                 {
                                     children: (
@@ -133,10 +149,26 @@ const CommerceAttentionSection = () => {
                         body={commerce?.serviceHours.delivery.map(item => ({
                             columns: [
                                 {
-                                    children: item.opening,
+                                    children: (
+                                        <div>
+                                            {item.schedules.map((schedule, index) => (
+                                                <Legend key={index} hasDots>
+                                                    {schedule.opening}
+                                                </Legend>
+                                            ))}
+                                        </div>
+                                    ),
                                 },
                                 {
-                                    children: item.closing,
+                                    children: (
+                                        <div>
+                                            {item.schedules.map((schedule, index) => (
+                                                <Legend key={index} hasDots>
+                                                    {schedule.closing}
+                                                </Legend>
+                                            ))}
+                                        </div>
+                                    ),
                                 },
                                 {
                                     children: (

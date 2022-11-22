@@ -36,6 +36,11 @@
                     & > i {
                         margin: 0 auto;
                     }
+
+                    & > div {
+                        @include flex;
+                        overflow: hidden;
+                    }
                 }
             }
         }

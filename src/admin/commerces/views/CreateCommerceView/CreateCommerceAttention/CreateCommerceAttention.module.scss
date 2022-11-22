@@ -32,22 +32,26 @@
                 @include font-weight(lg);
 
                 &:nth-child(n + 2) {
-                    @include margin(top md);
+                    @include border-color(top 600 bg);
+                    @include border-opacity(top 60);
+                    @include border-width(top sm);
+                    @include margin(top xl);
+                    @include padding(top xs);
+                    border-style: dotted;
                 }
             }
         }
 
         .AttentionHeader {
             @include gap(all xs);
-            @include margin(bottom sm);
+            @include margin(bottom md);
 
-            @include screen-width(2xs) {
+            /* @include screen-width(2xs) {
                 @include flex(row, center, space-between);
-            }
+            } */
 
             & > button {
                 @include margin(x xs);
-                overflow: hidden;
             }
         }
     }
@@ -64,9 +68,9 @@
         @include screen-width(2xs) {
             grid-template-columns: repeat(2, 1fr);
 
-            & > fieldset:nth-child(3n + 1) {
+            /* & > fieldset:nth-child(3n + 1) {
                 grid-column: span 2;
-            }
+            } */
         }
     }
 
@@ -98,9 +102,49 @@
 
 .Checkbox {
     flex-direction: row;
+
+    @include screen-width(2xs) {
+        grid-column: span 2;
+    }
+
+    &:nth-child(n + 2) {
+        @include margin(top md);
+        @include padding(top xs);
+        @include shadow(top sm);
+    }
+
+    & > label {
+        overflow: visible;
+    }
+
+    & > span {
+        flex-grow: 1;
+        overflow: hidden;
+
+        & > span {
+            flex-grow: 1;
+            overflow: hidden;
+        }
+    }
 }
 
 .CheckboxInverse {
     flex-direction: row-reverse;
     justify-content: flex-end;
+}
+
+.DayActions {
+    @include flex(row, center);
+    @include gap(all sm);
+    justify-content: space-between;
+
+    & > label {
+        overflow: hidden;
+    }
+
+    & > button {
+        @include flex(row, center);
+        @include gap(all xs);
+        @include margin(all xs split);
+    }
 }

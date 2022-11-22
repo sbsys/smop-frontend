@@ -5,10 +5,10 @@ import { ChildrenProps } from 'shared/props';
 /* types */
 import {
     CountryListItemDTO,
+    ExtendedServiceHours,
     Geoinformation,
     Geolocation,
     PreparationTime,
-    ServiceHours,
     ServicePhone,
     TypeCharge,
     TypeOrder,
@@ -49,7 +49,7 @@ export interface CreateCommerceForm {
     applyCharge: number;
     smsAlerts: boolean;
     /* attention */
-    serviceHours: ServiceHours;
+    serviceHours: ExtendedServiceHours;
     onsitePreparationTime: PreparationTime;
     deliveryPreparationTime: PreparationTime;
     /* delivery */
@@ -103,16 +103,32 @@ export const CreateCommerceSchema = yup
                 onsite: yup.array(
                     yup
                         .object({
-                            opening: yup.string().matches(/^(\d{2}):([0-5])([0-9])$/, 'createcommerce.opening.format'),
-                            closing: yup.string().matches(/^(\d{2}):([0-5])([0-9])$/, 'createcommerce.closing.format'),
+                            schedules: yup.array().of(
+                                yup.object({
+                                    opening: yup
+                                        .string()
+                                        .matches(/^(\d{2}):([0-5])([0-9])$/, 'createcommerce.opening.format'),
+                                    closing: yup
+                                        .string()
+                                        .matches(/^(\d{2}):([0-5])([0-9])$/, 'createcommerce.closing.format'),
+                                })
+                            ),
                         })
                         .required()
                 ),
                 delivery: yup.array(
                     yup
                         .object({
-                            opening: yup.string().matches(/^(\d{2}):([0-5])([0-9])$/, 'createcommerce.opening.format'),
-                            closing: yup.string().matches(/^(\d{2}):([0-5])([0-9])$/, 'createcommerce.closing.format'),
+                            schedules: yup.array().of(
+                                yup.object({
+                                    opening: yup
+                                        .string()
+                                        .matches(/^(\d{2}):([0-5])([0-9])$/, 'createcommerce.opening.format'),
+                                    closing: yup
+                                        .string()
+                                        .matches(/^(\d{2}):([0-5])([0-9])$/, 'createcommerce.closing.format'),
+                                })
+                            ),
                         })
                         .required()
                 ),

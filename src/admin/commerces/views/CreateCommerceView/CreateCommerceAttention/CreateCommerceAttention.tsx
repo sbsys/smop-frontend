@@ -36,14 +36,18 @@ const CreateCommerceAttention = () => {
                     <div>
                         <div className={styles.AttentionHeader}>
                             <h3 title={translate('createcommerce.onsite')}>
-                                <Legend hasDots>{translate('createcommerce.onsite')}</Legend>
+                                <Legend hasDots justify="center">
+                                    {translate('createcommerce.onsite')}
+                                </Legend>
                             </h3>
 
                             <Button
                                 type="button"
                                 className={ButtonStyles.FillSecondary}
                                 onClick={() => handleRepeatSunday('onsite')}>
-                                <Legend hasDots>{translate('actions.repeatweekday')}</Legend>
+                                <Legend hasDots justify="center">
+                                    {translate('actions.repeatweekday')}
+                                </Legend>
                             </Button>
                         </div>
 
@@ -67,14 +71,18 @@ const CreateCommerceAttention = () => {
                     <div>
                         <div className={styles.AttentionHeader}>
                             <h3 title={translate('createcommerce.delivery')}>
-                                <Legend hasDots>{translate('createcommerce.delivery')}</Legend>
+                                <Legend hasDots justify="center">
+                                    {translate('createcommerce.delivery')}
+                                </Legend>
                             </h3>
 
                             <Button
                                 type="button"
                                 className={ButtonStyles.FillSecondary}
                                 onClick={() => handleRepeatSunday('delivery')}>
-                                <Legend hasDots>{translate('actions.repeatweekday')}</Legend>
+                                <Legend hasDots justify="center">
+                                    {translate('actions.repeatweekday')}
+                                </Legend>
                             </Button>
                         </div>
 

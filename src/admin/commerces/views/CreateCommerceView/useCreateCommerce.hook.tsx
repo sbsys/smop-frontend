@@ -24,6 +24,7 @@ export const useCreateCommerce = () => {
     const formMethods = useForm<CreateCommerceForm>({
         mode: 'all',
         resolver: yupResolver(CreateCommerceSchema),
+        shouldUnregister: false,
     });
 
     const navigate = useNavigate();

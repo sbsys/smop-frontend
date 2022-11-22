@@ -229,17 +229,24 @@ export const useUpdateAttention = () => {
 
         unregister();
 
-        setScheduleCountByDay({
-            onsite: { 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1, 7: 1 },
-            delivery: { 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1, 7: 1 },
-        });
-
         commerce?.serviceHours.onsite.forEach((onsite, index) => {
             setValue(`serviceHours.onsite.${index}.enabled`, onsite.enabled);
+
+            setScheduleCountByDay(prev => {
+                prev.onsite[onsite.dayId] = onsite.schedules.length;
+
+                return { ...prev };
+            });
         });
 
         commerce?.serviceHours.delivery.forEach((delivery, index) => {
             setValue(`serviceHours.delivery.${index}.enabled`, delivery.enabled);
+
+            setScheduleCountByDay(prev => {
+                prev.delivery[delivery.dayId] = delivery.schedules.length;
+
+                return { ...prev };
+            });
         });
     }, [commerce?.serviceHours.delivery, commerce?.serviceHours.onsite, isUpdateAttention, setValue, unregister]);
 
@@ -333,7 +340,6 @@ export const useUpdateAttention = () => {
                 },
                 ...[...Array(scheduleCountByDay[attention][dayService?.dayId] ?? 1)]
                     .map((_, scheduleIndex) => {
-                        console.log(dayService);
                         return [
                             {
                                 disabled: !watch(`serviceHours.${attention}.${index}.enabled`),

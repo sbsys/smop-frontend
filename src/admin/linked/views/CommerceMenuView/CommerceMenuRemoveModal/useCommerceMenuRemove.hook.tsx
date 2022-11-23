@@ -1,3 +1,5 @@
+/* react */
+import { useParams } from 'react-router-dom';
 /* context */
 import { useCommerceManagementContext } from '../../CommerceManagementView';
 import { useCommerceMenuContext } from '../CommerceMenu.context';
@@ -11,6 +13,8 @@ import { MdCheckCircle, MdDangerous } from 'react-icons/md';
 
 export const useCommerceMenuRemove = () => {
     /* states */
+    const { commerceId } = useParams<{ commerceId: string }>();
+
     const {
         /* states */
         linkedCommerceSettings,
@@ -34,7 +38,7 @@ export const useCommerceMenuRemove = () => {
     const handleCommerceMenuRemove = async () => {
         showLoader();
 
-        const service = await updateLinkedProductListService(linkedCommerceSettings?.commerceId ?? '', {
+        const service = await updateLinkedProductListService(linkedCommerceSettings?.commerceId ?? commerceId ?? '', {
             titleId: selectedTitleToRemove?.titleId ?? 0,
             productCollection: [],
         });

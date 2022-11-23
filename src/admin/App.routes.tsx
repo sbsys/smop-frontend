@@ -140,6 +140,14 @@ const AppRoutes: FC = () => {
                         <Route path=":commerceId/edit" element={<CommerceDetailView />} />
 
                         <Route path="create" element={<CreateCommerceView />} />
+
+                        <Route path=":commerceId/menu" element={<CommerceMenuView />}>
+                            <Route path="link" element={<LinkTitleView />} />
+
+                            <Route path=":titleId/detail" element={<LinkedTitleDetailView />} />
+
+                            <Route path=":titleId/edit" element={<UpdateLinkedTitleView />} />
+                        </Route>
                     </Route>
 
                     {/* users module */}

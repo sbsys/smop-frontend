@@ -74,4 +74,16 @@
             @include font-color(500, info);
         }
     }
+
+    .Menu {
+        @include font-color(400, accent);
+
+        &:hover {
+            @include font-color(300, accent);
+        }
+
+        &:active {
+            @include font-color(500, accent);
+        }
+    }
 }

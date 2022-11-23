@@ -11,7 +11,7 @@ import { useAdminLang, useAdminSelector } from 'admin/core';
 /* types */
 import { CommerceState } from 'admin/commerces/types';
 /* assets */
-import { MdThumbDown, MdThumbUp, MdVisibility } from 'react-icons/md';
+import { MdRestaurantMenu, MdThumbDown, MdThumbUp, MdVisibility } from 'react-icons/md';
 /* styles */
 import styles from './CommerceListActions.module.scss';
 
@@ -58,12 +58,22 @@ const CommerceListActions: FC<{ state: CommerceState; commerceId: string }> = ({
             <Button
                 className={styles.View}
                 onClick={() => navigate(`../${commerceId}/detail`)}
-                disabled={state === 'inactive'}
                 title={translate('actions.detail')}>
                 <i>
                     <MdVisibility />
                 </i>
             </Button>
+
+            {profiles === 'admin' ? null : (
+                <Button
+                    className={styles.Menu}
+                    onClick={() => navigate(`../${commerceId}/menu`)}
+                    title={translate('commercemenu.title')}>
+                    <i>
+                        <MdRestaurantMenu />
+                    </i>
+                </Button>
+            )}
         </div>
     );
 };

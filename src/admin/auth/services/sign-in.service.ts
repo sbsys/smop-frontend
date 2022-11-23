@@ -8,7 +8,7 @@ import {
     is307ErrorResponse,
     offline,
 } from 'admin/core';
-import { triggerPasswordRecoveryService } from './trigger-password-recovery.service';
+import { triggerResetPasswordService } from './trigger-password-recovery.service';
 /* serializers */
 import { signInSerializer } from '../serializers';
 /* handlers */
@@ -56,7 +56,7 @@ export const signInService = async (props: SignInProps): Promise<ApiResponse<Sig
                 error,
                 is307ErrorResponse,
                 async () => {
-                    triggerPasswordRecoveryService();
+                    triggerResetPasswordService();
 
                     return await apiErrorSerializer<SignInDTO>(error);
                 },

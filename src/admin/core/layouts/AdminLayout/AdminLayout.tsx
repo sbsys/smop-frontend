@@ -8,14 +8,14 @@ const AdminLayout = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const password_recovery = () => {
-            navigate('/admin/security', { replace: true });
+        const reset_password = () => {
+            navigate('/admin/security/reset-password', { replace: true });
         };
 
-        onCustomEvent('password_recovery', password_recovery);
+        onCustomEvent('reset_password', reset_password);
 
         return () => {
-            offCustomEvent('password_recovery', password_recovery);
+            offCustomEvent('reset_password', reset_password);
         };
     }, [navigate]);
 

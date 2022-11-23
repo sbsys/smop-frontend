@@ -1,28 +1,27 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
-import { usePasswordRecoveryContext } from '../PasswordRecovery.context';
+import { useResetPasswordContext } from '../ResetPassword.context';
 /* layouts */
 import { PanelLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
-import { FieldSet, LanguageChanger } from 'admin/core';
+import { FieldSet, LanguageChanger, useAdminLang } from 'admin/core';
 /* assets */
 import { OrgsBGSrc } from 'assets';
 /* styles */
 import { ButtonStyles, CardStyles } from 'shared/styles';
-import styles from './PasswordRecovery.module.scss';
+import styles from './ResetPassword.module.scss';
 
 const PasswordRecovery = () => {
     const {
         /* functions */
-        handlePasswordRecovery,
+        handleResetPassword,
         /* props */
-        passwordRecoveryFieldProps,
-    } = usePasswordRecoveryContext();
+        resetPasswordFieldProps,
+    } = useResetPasswordContext();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <PanelLayout className={styles.PasswordRecovery}>
@@ -37,21 +36,21 @@ const PasswordRecovery = () => {
             </PanelLayout>
 
             <PanelLayout className={styles.Form}>
-                <form className={CardStyles.Primary} onSubmit={handlePasswordRecovery}>
-                    <legend title={t('views.passwordrecovery.form.title')}>
-                        <Legend hasDots>{t('views.passwordrecovery.form.title')}</Legend>
+                <form className={CardStyles.Primary} onSubmit={handleResetPassword}>
+                    <legend title={translate('resetpassword.title')}>
+                        <Legend hasDots>{translate('resetpassword.title')}</Legend>
                     </legend>
 
-                    {passwordRecoveryFieldProps.map((field, index) => (
+                    {resetPasswordFieldProps.map((field, index) => (
                         <FieldSet {...field} key={index} />
                     ))}
 
                     <Button
                         className={ButtonStyles.FillPrimary}
                         type="submit"
-                        title={t('views.passwordrecovery.form.passwordrecovery')}>
+                        title={translate('resetpassword.actions.reset')}>
                         <Legend hasDots justify="center">
-                            {t('views.passwordrecovery.form.passwordrecovery')}
+                            {translate('resetpassword.actions.reset')}
                         </Legend>
                     </Button>
 

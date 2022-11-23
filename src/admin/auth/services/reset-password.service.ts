@@ -3,16 +3,16 @@ import { AdminApiService, apiErrorSerializer, ApiResponse, apiSerializer } from 
 /* handlers */
 import { apiRequestHandler } from 'shared/handlers';
 
-interface PasswordRecoveryProps {
+interface ResetPasswordProps {
     email: string;
     password: string;
     newPassword: string;
 }
 
-export const passwordRecoveryService = async (props: PasswordRecoveryProps): Promise<ApiResponse<{}>> => {
+export const resetPasswordService = async (props: ResetPasswordProps): Promise<ApiResponse<{}>> => {
     const body = new FormData();
 
-    (Object.keys(props) as (keyof PasswordRecoveryProps)[]).forEach(key => body.append(key, props[key]));
+    (Object.keys(props) as (keyof ResetPasswordProps)[]).forEach(key => body.append(key, props[key]));
 
     return await apiRequestHandler<ApiResponse<{}>, FormData>({
         instance: AdminApiService,

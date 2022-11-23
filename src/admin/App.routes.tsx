@@ -13,7 +13,7 @@ import { MdError } from 'react-icons/md';
 /* modules */
 
 /* authentication */
-import { AuthLayout, authStoreSignIn, PasswordRecoveryView, selectAuthStore, SignInDTO, SignInView } from './auth';
+import { AuthLayout, authStoreSignIn, ResetPasswordView, selectAuthStore, SignInDTO, SignInView } from './auth';
 /* tenants */
 import { CreateTenantView, TenantListView, TenantSettingsView, TenantsLayout } from './tenants';
 /* commerces */
@@ -103,9 +103,9 @@ const AppRoutes: FC = () => {
                 </Route>
 
                 <Route path="security" element={<AuthLayout />}>
-                    <Route index element={<Navigate to={'password-recovery'} replace />} />
+                    {/* <Route index element={<Navigate to={'password-recovery'} replace />} /> */}
 
-                    <Route path="password-recovery" element={<PasswordRecoveryView />} />
+                    <Route path="reset-password" element={<ResetPasswordView />} />
                 </Route>
 
                 {/* signed in modules */}

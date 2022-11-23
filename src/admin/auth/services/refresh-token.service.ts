@@ -11,7 +11,7 @@ import { getCurrentUserId } from './get-current-user-id.service';
 import { getCurrentUserToken } from './get-current-user-token.service';
 /* handlers */
 import { apiRequestHandler } from 'shared/handlers';
-import { triggerPasswordRecoveryService } from './trigger-password-recovery.service';
+import { triggerResetPasswordService } from './trigger-password-recovery.service';
 
 export interface RefreshTokenDTO {
     token: string;
@@ -30,7 +30,7 @@ export const refreshTokenService = async (): Promise<ApiResponse<RefreshTokenDTO
                 error,
                 is307ErrorResponse,
                 async () => {
-                    triggerPasswordRecoveryService();
+                    triggerResetPasswordService();
 
                     return await apiErrorSerializer<RefreshTokenDTO>(error);
                 },

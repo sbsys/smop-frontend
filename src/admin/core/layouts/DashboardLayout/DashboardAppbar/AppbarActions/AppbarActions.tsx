@@ -66,7 +66,7 @@ const AppbarActions = () => {
         disabled: langProps.lang === lang,
     });
 
-    const handlePasswordRecovery = () => navigate('/admin/security/password-recovery');
+    const handleResetPassword = () => navigate('/admin/security/reset-password');
 
     const handleSignOut = () => {
         clearAuthLocalStorage();
@@ -120,7 +120,7 @@ const AppbarActions = () => {
                     <Button
                         className={styles.Action}
                         title={translate('actions.pwrecovery')}
-                        onClick={handlePasswordRecovery}>
+                        onClick={handleResetPassword}>
                         <i>
                             <RiRotateLockFill />
                         </i>

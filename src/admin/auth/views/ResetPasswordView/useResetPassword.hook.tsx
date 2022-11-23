@@ -1,15 +1,14 @@
 /* react */
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 /* props */
-import { FieldSetProps } from 'admin/core';
-import { PasswordRecoveryContextProps } from './PasswordRecovery.props';
+import { AdminLang, FieldSetProps } from 'admin/core';
+import { ResetPasswordContextProps } from './ResetPassword.props';
 /* hooks */
 import { useActive, useLoader } from 'shared/hooks';
-import { useAdminNotify } from 'admin/core/hooks';
+import { useAdminLang, useAdminNotify } from 'admin/core/hooks';
 /* services */
-import { passwordRecoveryService } from 'admin/auth/services';
+import { resetPasswordService } from 'admin/auth/services';
 /* utils */
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -19,35 +18,31 @@ import { MdBookmarkAdded, MdDangerous } from 'react-icons/md';
 /* styles */
 import { FieldStyles } from 'shared/styles';
 
-interface PasswordRecoveryForm {
+interface ResetPasswordForm {
     email: string;
     password: string;
     newPassword: string;
     repeatPassword: string;
 }
 
-const PasswordRecoverySchema = yup
+const ResetPasswordSchema = yup
     .object({
-        email: yup
-            .string()
-            .email('views.passwordrecovery.form.email.format')
-            .required('views.passwordrecovery.form.email.required'),
-        password: yup.string().required('views.passwordrecovery.form.password.required'),
+        email: yup.string().email('auth.email.format').required('auth.email.required'),
+        password: yup.string().required('auth.password.required'),
         newPassword: yup
             .string()
-            .required('views.passwordrecovery.form.newpassword.required')
-            .matches(
-                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/,
-                'views.createtenant.form.password.format'
-            ),
+            .required('auth.newpassword.required')
+            .min(8, 'auth.password.min')
+            .max(15, 'auth.password.max')
+            .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/, 'auth.password.format'),
         repeatPassword: yup
             .string()
-            .required('views.passwordrecovery.form.repeatpassword.required')
-            .oneOf([yup.ref('newPassword')], 'views.passwordrecovery.form.repeatpassword.equal'),
+            .required('auth.repeatpassword.required')
+            .oneOf([yup.ref('newPassword')], 'auth.repeatpassword.equal'),
     })
     .required();
 
-export const usePasswordRecovery = () => {
+export const useResetPassword = () => {
     /* states */
     const [isPassword, showPassword, hidePassword] = useActive();
 
@@ -55,7 +50,7 @@ export const usePasswordRecovery = () => {
 
     const { notify } = useAdminNotify();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     const navigate = useNavigate();
 
@@ -64,16 +59,16 @@ export const usePasswordRecovery = () => {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<PasswordRecoveryForm>({
-        resolver: yupResolver(PasswordRecoverySchema),
+    } = useForm<ResetPasswordForm>({
+        resolver: yupResolver(ResetPasswordSchema),
     });
 
     /* functions */
 
-    const handlePasswordRecovery = handleSubmit(async data => {
+    const handleResetPassword = handleSubmit(async data => {
         showLoader();
 
-        const service = await passwordRecoveryService({
+        const service = await resetPasswordService({
             email: data.email,
             password: data.password,
             newPassword: data.newPassword,
@@ -105,15 +100,15 @@ export const usePasswordRecovery = () => {
         field: {
             className: errors.email ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'email',
-            placeholder: t('views.passwordrecovery.form.email.placeholder'),
+            placeholder: translate('auth.email.placeholder'),
             ...register('email'),
         },
         isHintReserved: true,
         hint: errors.email
             ? {
-                  children: t(errors.email.message as string),
+                  children: translate(errors.email.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.email.message as string),
+                  title: translate(errors.email.message as AdminLang),
               }
             : undefined,
     };
@@ -122,7 +117,7 @@ export const usePasswordRecovery = () => {
         field: {
             className: errors.password ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'password',
-            placeholder: t('views.passwordrecovery.form.password.placeholder'),
+            placeholder: translate('auth.password.placeholder'),
             isPasswordVisible: isPassword,
             showIcon: <IoMdEye />,
             onShowPassword: showPassword,
@@ -133,9 +128,9 @@ export const usePasswordRecovery = () => {
         isHintReserved: true,
         hint: errors.password
             ? {
-                  children: t(errors.password.message as string),
+                  children: translate(errors.password.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.password.message as string),
+                  title: translate(errors.password.message as AdminLang),
               }
             : undefined,
     };
@@ -144,7 +139,7 @@ export const usePasswordRecovery = () => {
         field: {
             className: errors.newPassword ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'password',
-            placeholder: t('views.passwordrecovery.form.newpassword.placeholder'),
+            placeholder: translate('auth.newpassword.placeholder'),
             isPasswordVisible: isPassword,
             showIcon: <IoMdEye />,
             onShowPassword: showPassword,
@@ -155,9 +150,9 @@ export const usePasswordRecovery = () => {
         isHintReserved: true,
         hint: errors.newPassword
             ? {
-                  children: t(errors.newPassword.message as string),
+                  children: translate(errors.newPassword.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.newPassword.message as string),
+                  title: translate(errors.newPassword.message as AdminLang),
               }
             : undefined,
     };
@@ -167,7 +162,7 @@ export const usePasswordRecovery = () => {
             className:
                 errors.newPassword || errors.repeatPassword ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'password',
-            placeholder: t('views.passwordrecovery.form.repeatpassword.placeholder'),
+            placeholder: translate('auth.repeatpassword.placeholder'),
             ...register('repeatPassword'),
             isPasswordVisible: isPassword,
             showIcon: <IoMdEye />,
@@ -178,26 +173,21 @@ export const usePasswordRecovery = () => {
         isHintReserved: true,
         hint: errors.repeatPassword
             ? {
-                  children: t(errors.repeatPassword.message as string),
+                  children: translate(errors.repeatPassword.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.repeatPassword.message as string),
+                  title: translate(errors.repeatPassword.message as AdminLang),
               }
             : undefined,
     };
 
-    const passwordRecoveryFieldProps: FieldSetProps[] = [
-        emailProps,
-        passwordProps,
-        newPasswordProps,
-        repeatPasswordProps,
-    ];
+    const resetPasswordFieldProps: FieldSetProps[] = [emailProps, passwordProps, newPasswordProps, repeatPasswordProps];
 
     /* context */
-    const context: PasswordRecoveryContextProps = {
+    const context: ResetPasswordContextProps = {
         /* functions */
-        handlePasswordRecovery,
+        handleResetPassword,
         /* props */
-        passwordRecoveryFieldProps,
+        resetPasswordFieldProps,
     };
 
     return { context };

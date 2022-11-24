@@ -141,12 +141,17 @@ const AppRoutes: FC = () => {
 
                         <Route path="create" element={<CreateCommerceView />} />
 
-                        <Route path=":commerceId/menu" element={<CommerceMenuView />}>
-                            <Route path="link" element={<LinkTitleView />} />
+                        {/* linked module */}
+                        <Route path=":commerceId/management" element={<LinkedLayout />}>
+                            <Route path="" element={<CommerceManagementView />}>
+                                <Route path="menu" element={<CommerceMenuView />}>
+                                    <Route path="link" element={<LinkTitleView />} />
 
-                            <Route path=":titleId/detail" element={<LinkedTitleDetailView />} />
+                                    <Route path=":titleId/detail" element={<LinkedTitleDetailView />} />
 
-                            <Route path=":titleId/edit" element={<UpdateLinkedTitleView />} />
+                                    <Route path=":titleId/edit" element={<UpdateLinkedTitleView />} />
+                                </Route>
+                            </Route>
                         </Route>
                     </Route>
 
@@ -174,21 +179,6 @@ const AppRoutes: FC = () => {
                         <Route path="products/create" element={<CreateProductView />} />
 
                         <Route path="products/:productId" element={<ProductDetailView />} />
-                    </Route>
-
-                    {/* linked module */}
-                    <Route path="linked" element={<LinkedLayout />}>
-                        <Route path="commerce" element={<CommerceManagementView />}>
-                            <Route path=":commerceId" element={<CommerceDetailView isHeaderHide />} />
-
-                            <Route path="menu" element={<CommerceMenuView />}>
-                                <Route path="link" element={<LinkTitleView />} />
-
-                                <Route path=":titleId/detail" element={<LinkedTitleDetailView />} />
-
-                                <Route path=":titleId/edit" element={<UpdateLinkedTitleView />} />
-                            </Route>
-                        </Route>
                     </Route>
                 </Route>
             </Route>

@@ -67,7 +67,7 @@ const CommerceListActions: FC<{ state: CommerceState; commerceId: string }> = ({
             {profiles === 'admin' ? null : (
                 <Button
                     className={styles.Menu}
-                    onClick={() => navigate(`../${commerceId}/menu`)}
+                    onClick={() => navigate(`../${commerceId}/management/menu`)}
                     title={translate('commercemenu.title')}>
                     <i>
                         <MdRestaurantMenu />

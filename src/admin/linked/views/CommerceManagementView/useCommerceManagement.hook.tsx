@@ -1,6 +1,6 @@
 /* react */
 import { useCallback, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 /* hooks */
 import { useLoader } from 'shared/hooks';
 import { useAdminNotify } from 'admin/core';
@@ -15,13 +15,13 @@ import { MdDangerous } from 'react-icons/md';
 
 export const useCommerceManagement = () => {
     /* states */
+    const { commerceId } = useParams<{ commerceId: string }>();
+
     const [linkedCommerceSettings, setLinkedCommerceSettings] = useState<LinkedCommerceSettingsDTO | null>(null);
 
     const { showLoader, hideLoader } = useLoader();
 
     const { notify } = useAdminNotify();
-
-    const navigate = useNavigate();
 
     /* functions */
     const getLinkedCommerceSettings = useCallback(async () => {
@@ -41,10 +41,9 @@ export const useCommerceManagement = () => {
                 timestamp: new Date(),
             });
 
-        setLinkedCommerceSettings(service.data);
-
-        navigate(service.data.commerceId, { replace: true });
-    }, [hideLoader, linkedCommerceSettings, navigate, notify, showLoader]);
+        /* add validation when link to 2 or more commerces */
+        setLinkedCommerceSettings({ ...service.data, commerceId: commerceId ?? service.data.commerceId });
+    }, [commerceId, hideLoader, linkedCommerceSettings, notify, showLoader]);
 
     /* reactivity */
     useEffect(() => {

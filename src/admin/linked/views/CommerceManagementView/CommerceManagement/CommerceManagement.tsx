@@ -1,8 +1,6 @@
 /* react */
 import { memo } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
-/* context */
-import { useCommerceManagementContext } from '../CommerceManagement.context';
 /* layouts */
 import { PanelLayout, ScrollLayout } from 'shared/layouts';
 /* components */
@@ -15,11 +13,6 @@ import { classNames } from 'shared/utils';
 import styles from './CommerceManagement.module.scss';
 
 const CommerceManagement = () => {
-    const {
-        /* states */
-        linkedCommerceSettings,
-    } = useCommerceManagementContext();
-
     const { translate } = useAdminLang();
 
     return (
@@ -31,15 +24,6 @@ const CommerceManagement = () => {
             <section>
                 <ScrollLayout orientation="row" classNameContent={styles.Links}>
                     <div>
-                        <NavLink
-                            to={linkedCommerceSettings?.commerceId ?? ''}
-                            className={({ isActive }) => classNames(styles.Link, isActive && styles.LinkActive)}
-                            title={translate('commercedetail.title')}>
-                            <Legend hasDots justify="center">
-                                {translate('commercedetail.title')}
-                            </Legend>
-                        </NavLink>
-
                         <NavLink
                             to={`menu`}
                             className={({ isActive }) => classNames(styles.Link, isActive && styles.LinkActive)}

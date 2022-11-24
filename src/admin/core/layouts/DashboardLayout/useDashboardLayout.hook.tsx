@@ -21,7 +21,6 @@ import {
     MdDashboardCustomize,
     MdFormatListNumbered,
     MdLibraryBooks,
-    MdLink,
     MdMenuBook,
     MdStore,
     MdSupervisedUserCircle,
@@ -112,7 +111,7 @@ export const useDashboardLayout = () => {
         ],
     };
 
-    const linkedNavItem: DropNavItemProps = {
+    /* const linkedNavItem: DropNavItemProps = {
         icon: <MdLink />,
         text: translate('links.linked'),
         items: [
@@ -122,7 +121,7 @@ export const useDashboardLayout = () => {
                 to: 'linked/commerce',
             },
         ],
-    };
+    }; */
 
     const navStrategy: Record<Profile, NavGroupProps[]> = {
         root: [
@@ -140,13 +139,13 @@ export const useDashboardLayout = () => {
         manager: [
             {
                 title: translate('profiles.manager'),
-                items: [organizationNavItem, commercesNavItem, usersNavItem, linkedNavItem, collectionsNavItem],
+                items: [organizationNavItem, commercesNavItem, usersNavItem, /* linkedNavItem, */ collectionsNavItem],
             },
         ],
         auxiliar: [
             {
                 title: translate('profiles.auxiliar'),
-                items: [organizationNavItem, commercesNavItem, usersNavItem, linkedNavItem, collectionsNavItem],
+                items: [organizationNavItem, commercesNavItem, usersNavItem, /* linkedNavItem, */ collectionsNavItem],
             },
         ],
         cashier: [],

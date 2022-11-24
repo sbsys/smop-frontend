@@ -1,6 +1,5 @@
 /* react */
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 /* props */
 import { CommerceMenuContextProps } from './CommerceMenu.props';
@@ -26,8 +25,6 @@ interface CommerceMenuFilterForm {
 
 export const useCommerceMenu = () => {
     /* states */
-    const { commerceId } = useParams<{ commerceId: string }>();
-
     const {
         /* states */
         linkedCommerceSettings,
@@ -94,7 +91,7 @@ export const useCommerceMenu = () => {
     const getMenuLinkedList = useCallback(async () => {
         showLoader();
 
-        const service = await menuLinkedListService(linkedCommerceSettings?.commerceId ?? commerceId ?? '');
+        const service = await menuLinkedListService(linkedCommerceSettings?.commerceId ?? '');
 
         hideLoader();
 
@@ -107,7 +104,7 @@ export const useCommerceMenu = () => {
             });
 
         setLinkedTitles(service.data);
-    }, [commerceId, hideLoader, linkedCommerceSettings?.commerceId, notify, showLoader]);
+    }, [hideLoader, linkedCommerceSettings?.commerceId, notify, showLoader]);
 
     const handleSelectTitleToRemove = useCallback(
         (id: number) => {

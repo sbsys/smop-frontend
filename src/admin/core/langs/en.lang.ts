@@ -139,7 +139,7 @@ export const en: Record<AdminLang, string> = {
     /* sign in view */
     'signin.title': 'Sign in',
     'signin.actions.signin': 'Sign in',
-    'signin.actions.recovery': 'Password recovery',
+    'signin.actions.recovery': 'Reset password',
     /* reset password view */
     'resetpassword.title': 'Reset password',
     'resetpassword.actions.reset': 'Reset password',

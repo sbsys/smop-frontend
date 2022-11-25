@@ -61,7 +61,11 @@ const LinkTitle = () => {
                         </Legend>
                     </Button>
 
-                    <Button type="submit" title={translate('actions.save')} className={ButtonStyles.FillSecondary}>
+                    <Button
+                        type="submit"
+                        title={translate('actions.save')}
+                        disabled={linkTitleFieldProps.length === 0}
+                        className={ButtonStyles.FillSecondary}>
                         <Legend hasDots justify="center">
                             {translate('actions.save')}
                         </Legend>

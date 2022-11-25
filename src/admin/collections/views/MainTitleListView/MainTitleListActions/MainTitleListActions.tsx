@@ -55,7 +55,6 @@ const MainTitleListActions: FC<{ state: TitleState; titleId: number }> = ({ stat
                     <Button
                         className={styles.Edit}
                         onClick={() => handleSelectTitleToUpdate(titleId)}
-                        disabled={state === 'inactive'}
                         title={translate('actions.edit')}>
                         <i>
                             <MdEdit />
@@ -67,7 +66,6 @@ const MainTitleListActions: FC<{ state: TitleState; titleId: number }> = ({ stat
             <Button
                 className={styles.View}
                 onClick={() => handleSelectTitle(titleId)}
-                disabled={state === 'inactive'}
                 title={translate('actions.detail')}>
                 <i>
                     <MdVisibility />

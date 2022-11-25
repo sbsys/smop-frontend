@@ -46,7 +46,6 @@ const UserListActions: FC<{ state: UserState; userId: string }> = ({ state, user
             <Button
                 className={styles.Link}
                 onClick={() => handleSelectUserToLink(userId)}
-                disabled={state === 'inactive'}
                 title={translate('actions.link')}>
                 <i>
                     <MdLink />

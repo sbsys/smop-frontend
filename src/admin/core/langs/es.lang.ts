@@ -60,7 +60,7 @@ export const es: Record<AdminLang, string> = {
     'actions.nextstep': 'Siguiente paso',
     'actions.changelanguage': 'Cambiar idioma',
     'actions.logout': 'Cerrar sesión',
-    'actions.pwrecovery': 'Recuperación de contraseña',
+    'actions.pwrecovery': 'Restablecer contraseña',
     'actions.add': 'Agregar',
     'actions.remove': 'Eliminar',
     'actions.activate': 'Activar',

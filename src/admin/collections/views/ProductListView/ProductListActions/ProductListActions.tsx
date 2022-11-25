@@ -59,11 +59,7 @@ const ProductListActions: FC<{ state: ProductState; productId: string }> = ({ st
                 </>
             )}
 
-            <Button
-                className={styles.View}
-                onClick={() => navigate(productId)}
-                disabled={state === 'inactive'}
-                title={translate('actions.detail')}>
+            <Button className={styles.View} onClick={() => navigate(productId)} title={translate('actions.detail')}>
                 <i>
                     <MdVisibility />
                 </i>

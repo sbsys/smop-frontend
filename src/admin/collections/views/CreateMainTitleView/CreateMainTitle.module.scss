@@ -16,3 +16,34 @@
         overflow: visible;
     }
 }
+
+.Preview {
+    aspect-ratio: 1 / 1;
+
+    @include screen-width(4xs) {
+        aspect-ratio: 3 / 2;
+    }
+}
+
+.DraggingBorder {
+    @include border-color(all 200 secondary);
+    @include border-width(all sm);
+    border-style: dashed;
+}
+
+.CloseImg {
+    & > span {
+        @include flex(row, center, space-between);
+        flex-grow: 1;
+        overflow: hidden;
+
+        & > button {
+            @include margin(all xs split);
+            @include padding(all xs split);
+        }
+    }
+}
+
+.NoPhotoHint {
+    @include font-color(300, danger);
+}

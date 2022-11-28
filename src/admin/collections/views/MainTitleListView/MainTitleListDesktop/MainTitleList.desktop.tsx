@@ -52,7 +52,10 @@ const MainTitleListDesktop = () => {
                                         {translate('headers.name')}
                                     </Legend>
                                 ),
-                                span: 3,
+                                span: 2,
+                            },
+                            {
+                                span: 1,
                             },
                             {
                                 children: (
@@ -101,6 +104,9 @@ const MainTitleListDesktop = () => {
                                             item.defaultTitle}
                                     </Legend>
                                 ),
+                            },
+                            {
+                                children: <img src={item.url} alt={item.defaultTitle} crossOrigin="anonymous" />,
                             },
                             {
                                 children: (

@@ -24,6 +24,7 @@ export interface CreateMainTitleFormData {
     defaultTitle: string;
     titleCollection: TitleCollectionForm[];
     multiLanguage: boolean;
+    image: FileList;
 }
 
 export const CreateMainTitleSchema = yup
@@ -42,5 +43,18 @@ export const CreateMainTitleSchema = yup
                 .required()
         ),
         multiLanguage: yup.boolean().required(),
+        image: yup
+            .mixed()
+            .test('required', 'createmaintitle.image.required' as AdminLang, value => value && value.length > 0)
+            .test(
+                'fileSize',
+                'createmaintitle.image.size' as AdminLang,
+                value => value && value[0] && value[0].size <= 10000000
+            )
+            .test(
+                'type',
+                'createmaintitle.image.type' as AdminLang,
+                value => value && value[0] && (value[0].type === 'image/jpeg' || value[0].type === 'image/png')
+            ),
     })
     .required();

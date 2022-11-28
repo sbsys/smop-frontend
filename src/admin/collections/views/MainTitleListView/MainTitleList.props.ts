@@ -40,6 +40,7 @@ export interface UpdateMainTitleFormData {
     defaultTitle: string;
     titleCollection: TitleCollectionForm[];
     multiLanguage: boolean;
+    image: FileList;
 }
 
 export const UpdateMainTitleSchema = yup
@@ -58,5 +59,18 @@ export const UpdateMainTitleSchema = yup
                 .required()
         ),
         multiLanguage: yup.boolean().required(),
+        image: yup
+            .mixed()
+            .test('required', 'maintitleedit.image.required' as AdminLang, value => value && value.length > 0)
+            .test(
+                'fileSize',
+                'maintitleedit.image.size' as AdminLang,
+                value => value && value[0] && value[0].size <= 10000000
+            )
+            .test(
+                'type',
+                'maintitleedit.image.type' as AdminLang,
+                value => value && value[0] && (value[0].type === 'image/jpeg' || value[0].type === 'image/png')
+            ),
     })
     .required();

@@ -1,20 +1,31 @@
 /* react */
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 /* props */
 import { CreateMainTitleContextProps, CreateMainTitleFormData, CreateMainTitleSchema } from './CreateMainTitle.props';
+/* components */
+import { Button, Legend } from 'shared/components';
 /* hooks */
-import { useLoader } from 'shared/hooks';
-import { AdminLang, FieldSetProps, Lang, useAdminLang, useAdminNotify } from 'admin/core';
+import { useDragAndDropFiles, useLoader } from 'shared/hooks';
+import {
+    AdminLang,
+    FieldSetProps,
+    FilePreview,
+    FilePreviewProps,
+    Lang,
+    useAdminLang,
+    useAdminNotify,
+} from 'admin/core';
 /* services */
 import { createMainTitleService } from 'admin/collections/services';
 /* utils */
 import { yupResolver } from '@hookform/resolvers/yup';
+import { classNames } from 'shared/utils';
 /* assets */
-import { MdBookmarkAdded, MdDangerous } from 'react-icons/md';
+import { MdBookmarkAdded, MdClose, MdDangerous } from 'react-icons/md';
 /* styles */
-import { FieldStyles } from 'shared/styles';
+import { ButtonStyles, FieldStyles } from 'shared/styles';
 import styles from './CreateMainTitle.module.scss';
 
 export const useCreateMainTitle = () => {
@@ -26,10 +37,13 @@ export const useCreateMainTitle = () => {
         setValue,
         unregister,
         watch,
+        resetField,
     } = useForm<CreateMainTitleFormData>({
         mode: 'all',
         resolver: yupResolver(CreateMainTitleSchema),
     });
+
+    const [imageFileProps, isImageDragging] = useDragAndDropFiles();
 
     const { showLoader, hideLoader } = useLoader();
 
@@ -54,6 +68,7 @@ export const useCreateMainTitle = () => {
             })),
             serviceMode: 1,
             servedOn: '-',
+            image: data.image[0],
         });
 
         hideLoader();
@@ -167,10 +182,67 @@ export const useCreateMainTitle = () => {
         };
     };
 
+    const imagePreviewProps: FilePreviewProps = useMemo(
+        () => ({
+            className: classNames(styles.Preview, isImageDragging && styles.DraggingBorder),
+            data: watch('image')?.length > 0 ? URL.createObjectURL(watch('image')[0]) : undefined,
+            type: watch('image')?.length > 0 ? watch('image')[0].type : undefined,
+        }),
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [isImageDragging, watch('image')]
+    );
+    const imageProps: FieldSetProps = {
+        className: styles.Preview,
+        field: {
+            strategy: 'file',
+            ...imageFileProps,
+            children: <FilePreview {...imagePreviewProps} />,
+            ...register('image'),
+            ...{
+                ref: (node: any) => {
+                    register('image').ref(node);
+                    imageFileProps.ref.current = node;
+                },
+            },
+        },
+        isHintReserved: true,
+        hint: {
+            className: classNames(styles.CloseImg, errors.image && styles.NoPhotoHint),
+            children: (
+                <>
+                    <Legend
+                        hasDots
+                        title={
+                            errors.image
+                                ? translate(errors.image.message as AdminLang)
+                                : translate('createmaintitle.image.hint')
+                        }>
+                        {errors.image
+                            ? translate(errors.image.message as AdminLang)
+                            : translate('createmaintitle.image.hint')}
+                    </Legend>
+
+                    {watch('image')?.length > 0 && (
+                        <Button
+                            type="button"
+                            className={ButtonStyles.OutlineNone}
+                            onClick={() => resetField('image')}
+                            title={translate('actions.remove')}>
+                            <i>
+                                <MdClose />
+                            </i>
+                        </Button>
+                    )}
+                </>
+            ),
+        },
+    };
+
     const createMainTitleFieldProps: FieldSetProps[] = [
         ...(watch('multiLanguage')
             ? [multiLanguageProps, titleCollectionProps(0, 'en'), titleCollectionProps(1, 'es')]
             : [defaultTitleProps, multiLanguageProps]),
+        imageProps,
     ];
 
     /* context */

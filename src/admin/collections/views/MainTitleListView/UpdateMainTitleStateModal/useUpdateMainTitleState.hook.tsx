@@ -27,7 +27,8 @@ export const useUpdateMainTitleState = () => {
 
     const handleUpdateStateMainTitle = async () => {
         showLoader();
-
+        const image = await (await fetch(selectedTitleToUpdateState?.url ?? '')).blob();
+        console.log(image);
         const service = await updateMainTitleService(selectedTitleToUpdateState?.titleId ?? 0, {
             defaultTitle: selectedTitleToUpdateState?.defaultTitle ?? '',
             multiLanguage: selectedTitleToUpdateState?.multiLanguage ?? true,
@@ -35,6 +36,7 @@ export const useUpdateMainTitleState = () => {
             serviceMode: selectedTitleToUpdateState?.serviceMode ?? 1,
             servedOn: selectedTitleToUpdateState?.servedOn ?? '-',
             isActive: selectedTitleToUpdateState?.isActive !== 'active',
+            image: image as File,
         });
 
         hideLoader();

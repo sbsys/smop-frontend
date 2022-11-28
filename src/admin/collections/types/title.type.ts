@@ -28,4 +28,5 @@ export interface TitleListItemDTO {
 export interface MainTitleListItemDTO extends TitleListItemDTO {
     serviceMode: number;
     servedOn: string;
+    url: string;
 }

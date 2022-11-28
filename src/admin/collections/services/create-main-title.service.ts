@@ -19,19 +19,26 @@ interface CreateMainTitleProps {
     multiLanguage: boolean;
     serviceMode: number;
     servedOn: string;
+    image: File;
 }
 
 export const createMainTitleService = async (props: CreateMainTitleProps): Promise<ApiResponse<{}>> => {
-    /* const body = new FormData();
+    const body = new FormData();
 
-    (Object.keys(props) as (keyof CreateMainTitleProps)[]).forEach(key => body.append(key, JSON.stringify(props[key]))); */
+    (Object.keys(props) as (keyof CreateMainTitleProps)[]).forEach(key => {
+        if (key === 'image') body.append(key, props[key], key);
+        else body.append(key, JSON.stringify(props[key]));
+    });
 
-    return await apiRequestHandler<ApiResponse<{}>>({
+    return await apiRequestHandler<ApiResponse<{}>, FormData>({
         instance: AdminApiService,
         endpoint: '/shop/main-title',
         token: getCurrentUserToken(),
         method: 'POST',
-        body: props,
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+        body,
         responseSerializer: async data => apiSerializer<{}>(data),
         errorSerializer: error =>
             apiOnErrorSideEffect<ApiResponse<{}>>(

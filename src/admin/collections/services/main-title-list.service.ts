@@ -17,6 +17,7 @@ import { apiRequestHandler } from 'shared/handlers';
 import { parse } from 'date-fns';
 /* types */
 import { MainTitleListItemDTO } from '../types';
+import { TenantCoverSrc } from 'assets';
 
 interface MainTitleListProps {}
 
@@ -35,6 +36,7 @@ const mock: ApiResponse<MainTitleListItemDTO[]> = {
             updatedAt: parse('2022-08-29', 'yyyy-MM-dd', Date.now()),
             serviceMode: 1,
             servedOn: '-',
+            url: TenantCoverSrc,
         },
         {
             titleId: 2,
@@ -56,6 +58,7 @@ const mock: ApiResponse<MainTitleListItemDTO[]> = {
             updatedAt: parse('2022-08-30', 'yyyy-MM-dd', Date.now()),
             serviceMode: 1,
             servedOn: '-',
+            url: TenantCoverSrc,
         },
         {
             titleId: 3,
@@ -77,6 +80,7 @@ const mock: ApiResponse<MainTitleListItemDTO[]> = {
             updatedAt: parse('2022-09-01', 'yyyy-MM-dd', Date.now()),
             serviceMode: 1,
             servedOn: '-',
+            url: TenantCoverSrc,
         },
     ],
 };

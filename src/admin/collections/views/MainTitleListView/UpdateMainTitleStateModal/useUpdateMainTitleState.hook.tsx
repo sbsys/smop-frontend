@@ -27,8 +27,21 @@ export const useUpdateMainTitleState = () => {
 
     const handleUpdateStateMainTitle = async () => {
         showLoader();
-        const image = await (await fetch(selectedTitleToUpdateState?.url ?? '')).blob();
-        console.log(image);
+        const image = await fetch(selectedTitleToUpdateState?.url ?? '')
+            .then(data => data.blob())
+            .catch(error => error);
+
+        if (image?.type !== 'image/jpeg' && image?.type !== 'image/png') {
+            notify('danger', {
+                title: 'Conflict',
+                icon: <MdDangerous />,
+                text: 'Current image type validation',
+                timestamp: new Date(),
+            });
+
+            return hideLoader();
+        }
+
         const service = await updateMainTitleService(selectedTitleToUpdateState?.titleId ?? 0, {
             defaultTitle: selectedTitleToUpdateState?.defaultTitle ?? '',
             multiLanguage: selectedTitleToUpdateState?.multiLanguage ?? true,
@@ -36,7 +49,7 @@ export const useUpdateMainTitleState = () => {
             serviceMode: selectedTitleToUpdateState?.serviceMode ?? 1,
             servedOn: selectedTitleToUpdateState?.servedOn ?? '-',
             isActive: selectedTitleToUpdateState?.isActive !== 'active',
-            image: image as File,
+            image: new File([image], 'image', { type: image.type }),
         });
 
         hideLoader();

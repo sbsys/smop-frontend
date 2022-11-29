@@ -21,7 +21,8 @@ const UpdateMainTitleModal = () => {
         selectedTitleToUpdate,
     } = useMainTitleListContext();
 
-    const { handleCancelUpdateMainTitle, handleUpdateMainTitle, UpdateMainTitleFieldProps } = useUpdateMainTitle();
+    const { handleCancelUpdateMainTitle, handleUpdateMainTitle, UpdateMainTitleFieldProps, currentImageURL } =
+        useUpdateMainTitle();
 
     const { translate } = useAdminLang();
 
@@ -45,6 +46,15 @@ const UpdateMainTitleModal = () => {
                         {UpdateMainTitleFieldProps.map((field, index) => (
                             <FieldSet {...field} key={index} />
                         ))}
+                    </div>
+
+                    <div className={styles.Previous}>
+                        <img src={currentImageURL.url} alt="previous" />
+
+                        <Legend justify="center">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga labore illo repudiandae totam
+                            possimus sed aperiam nulla maiores id quasi?
+                        </Legend>
                     </div>
 
                     <div className={styles.Actions}>

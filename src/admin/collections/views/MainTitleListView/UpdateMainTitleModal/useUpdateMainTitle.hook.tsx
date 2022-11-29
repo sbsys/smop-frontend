@@ -1,5 +1,5 @@
 /* react */
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 /* props */
 import { UpdateMainTitleFormData, UpdateMainTitleSchema } from '../MainTitleList.props';
@@ -52,7 +52,24 @@ export const useUpdateMainTitle = () => {
         resolver: yupResolver(UpdateMainTitleSchema),
     });
 
-    const [imageFileProps, isImageDragging] = useDragAndDropFiles();
+    const [imageFileProps, isImageDragging, setImage] = useDragAndDropFiles();
+
+    const [currentImage, setCurrentImage] = useState<File | null>(null);
+
+    const currentImageURL = useMemo(() => {
+        const toReturn = {
+            hasImage: currentImage ? true : false,
+            url: '',
+            type: '',
+        };
+
+        if (!currentImage) return toReturn;
+
+        toReturn.url = URL.createObjectURL(currentImage);
+        toReturn.type = currentImage.type;
+
+        return toReturn;
+    }, [currentImage]);
 
     const { showLoader, hideLoader } = useLoader();
 
@@ -68,6 +85,7 @@ export const useUpdateMainTitle = () => {
             titleCollection: [],
             image: undefined,
         });
+        setCurrentImage(null);
 
         handleUnselectTitleToUpdate();
     };
@@ -78,6 +96,19 @@ export const useUpdateMainTitle = () => {
         if (data.multiLanguage) data.defaultTitle = data.titleCollection[0].refs;
         else data.titleCollection = [];
 
+        const imageToSet = data.image && data.image.length > 0 ? data.image[0] : currentImage;
+
+        if (!imageToSet) {
+            notify('danger', {
+                title: 'Conflict',
+                icon: <MdDangerous />,
+                text: 'Current image type validation',
+                timestamp: new Date(),
+            });
+
+            return hideLoader();
+        }
+
         const service = await updateMainTitleService(selectedTitleToUpdate?.titleId ?? 0, {
             ...data,
             titleCollection: data.titleCollection.map(title => ({
@@ -87,7 +118,7 @@ export const useUpdateMainTitle = () => {
             serviceMode: selectedTitleToUpdate?.serviceMode ?? 1,
             servedOn: selectedTitleToUpdate?.servedOn ?? '-',
             isActive: selectedTitleToUpdate?.isActive === 'active',
-            image: data.image[0],
+            image: imageToSet,
         });
 
         hideLoader();
@@ -112,11 +143,35 @@ export const useUpdateMainTitle = () => {
         getTitleList();
     });
 
-    const setMainTitleDefaults = useCallback(() => {
+    const setMainTitleDefaults = useCallback(async () => {
         if (selectedTitleToUpdate === null) return;
 
         setValue('defaultTitle', selectedTitleToUpdate.defaultTitle);
         setValue('multiLanguage', selectedTitleToUpdate.multiLanguage);
+
+        showLoader();
+
+        const image = await fetch(selectedTitleToUpdate?.url ?? '')
+            .then(data => data.blob())
+            .catch(error => error);
+
+        if (image?.type !== 'image/jpeg' && image?.type !== 'image/png') {
+            notify('danger', {
+                title: 'Conflict',
+                icon: <MdDangerous />,
+                text: 'Current image type validation',
+                timestamp: new Date(),
+            });
+
+            return hideLoader();
+        }
+
+        const imageFile = new File([image], 'image', { type: image.type });
+
+        setCurrentImage(imageFile);
+        setImage([imageFile]);
+
+        hideLoader();
 
         if (!selectedTitleToUpdate.multiLanguage) return;
 
@@ -125,7 +180,7 @@ export const useUpdateMainTitle = () => {
 
             setValue(`titleCollection.${index}.refs`, collection.ref);
         });
-    }, [selectedTitleToUpdate, setValue]);
+    }, [hideLoader, notify, selectedTitleToUpdate, setImage, setValue, showLoader]);
 
     /* reactivity */
     useEffect(() => {
@@ -204,11 +259,20 @@ export const useUpdateMainTitle = () => {
     };
 
     const imagePreviewProps: FilePreviewProps = useMemo(
-        () => ({
-            className: classNames(styles.Preview, isImageDragging && styles.DraggingBorder),
-            data: watch('image')?.length > 0 ? URL.createObjectURL(watch('image')[0]) : undefined,
-            type: watch('image')?.length > 0 ? watch('image')[0].type : undefined,
-        }),
+        () => {
+            const toReturn = {
+                className: classNames(styles.Preview, isImageDragging && styles.DraggingBorder),
+                data: /* currentImageURL.hasImage ? currentImageURL.url :  */ '',
+                type: /* currentImageURL.hasImage ? currentImageURL.type :  */ '',
+            };
+
+            if (watch('image')?.length > 0) {
+                toReturn.data = URL.createObjectURL(watch('image')[0]);
+                toReturn.type = watch('image')[0].type;
+            }
+
+            return toReturn;
+        },
         // eslint-disable-next-line react-hooks/exhaustive-deps
         [isImageDragging, watch('image')]
     );
@@ -273,5 +337,5 @@ export const useUpdateMainTitle = () => {
         imageProps,
     ];
 
-    return { handleCancelUpdateMainTitle, handleUpdateMainTitle, UpdateMainTitleFieldProps };
+    return { handleCancelUpdateMainTitle, handleUpdateMainTitle, UpdateMainTitleFieldProps, currentImageURL };
 };

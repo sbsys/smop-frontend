@@ -1,5 +1,5 @@
 /* react */
-import { DragEvent, MutableRefObject, useRef, useState } from 'react';
+import { DragEvent, MutableRefObject, useCallback, useRef, useState } from 'react';
 
 interface InputProps {
     onDragEnter: (event: DragEvent<HTMLElement>) => void;
@@ -9,23 +9,22 @@ interface InputProps {
     ref: MutableRefObject<HTMLInputElement | null>;
 }
 
-export const useDragAndDropFiles = (): [InputProps, boolean] => {
+export const useDragAndDropFiles = (): [InputProps, boolean, (files: File[]) => void] => {
     /* states */
     const [isDragging, setIsDragging] = useState<boolean>(false);
 
     /* file input reference */
     const inputRef = useRef<HTMLInputElement | null>(null);
 
-    const handleDrag = (event: DragEvent<HTMLElement>) => {
+    const handleDrag = useCallback((event: DragEvent<HTMLElement>) => {
         event.preventDefault();
         event.stopPropagation();
 
-        if (event.type === 'dragenter' || event.type === 'dragover')
-            setIsDragging(true);
+        if (event.type === 'dragenter' || event.type === 'dragover') setIsDragging(true);
         else setIsDragging(false);
-    };
+    }, []);
 
-    const handleDrop = (event: DragEvent<HTMLElement>) => {
+    const handleDrop = useCallback((event: DragEvent<HTMLElement>) => {
         event.preventDefault();
         event.stopPropagation();
 
@@ -36,7 +35,19 @@ export const useDragAndDropFiles = (): [InputProps, boolean] => {
         inputRef.current.files = event.dataTransfer.files;
 
         inputRef.current.dispatchEvent(new Event('change', { bubbles: true }));
-    };
+    }, []);
+
+    const handleSetFiles = useCallback((files: File[]) => {
+        if (!inputRef.current || files.length === 0) return;
+
+        const dataTransfer = new DataTransfer();
+
+        files.forEach(file => dataTransfer.items.add(file));
+
+        inputRef.current.files = dataTransfer.files;
+
+        inputRef.current.dispatchEvent(new Event('change', { bubbles: true }));
+    }, []);
 
     const props: InputProps = {
         onDragEnter: handleDrag,
@@ -46,5 +57,5 @@ export const useDragAndDropFiles = (): [InputProps, boolean] => {
         ref: inputRef,
     };
 
-    return [props, isDragging];
+    return [props, isDragging, handleSetFiles];
 };

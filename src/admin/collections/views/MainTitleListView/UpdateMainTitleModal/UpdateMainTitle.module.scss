@@ -74,3 +74,18 @@
 .NoPhotoHint {
     @include font-color(300, danger);
 }
+
+.Previous {
+    @include flex(row, flex-start);
+    @include gap(all xs);
+
+    & > img {
+        @include height(2xl, element);
+        @include min-height(2xl, element);
+        @include min-width(2xl, element);
+        @include rounded(all xs);
+        @include width(2xl, element);
+        object-fit: cover;
+        overflow: hidden;
+    }
+}

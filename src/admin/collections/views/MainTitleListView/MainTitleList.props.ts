@@ -61,16 +61,19 @@ export const UpdateMainTitleSchema = yup
         multiLanguage: yup.boolean().required(),
         image: yup
             .mixed()
-            .test('required', 'maintitleedit.image.required' as AdminLang, value => value && value.length > 0)
+            .optional()
+            /* .test('required', 'maintitleedit.image.required' as AdminLang, value => value && value.length > 0) */
             .test(
                 'fileSize',
                 'maintitleedit.image.size' as AdminLang,
-                value => value && value[0] && value[0].size <= 10000000
+                (value: any) => (value && value[0] && value[0].size <= 10000000) || value === undefined
             )
             .test(
                 'type',
                 'maintitleedit.image.type' as AdminLang,
-                value => value && value[0] && (value[0].type === 'image/jpeg' || value[0].type === 'image/png')
+                (value: any) =>
+                    (value && value[0] && (value[0].type === 'image/jpeg' || value[0].type === 'image/png')) ||
+                    value === undefined
             ),
     })
     .required();

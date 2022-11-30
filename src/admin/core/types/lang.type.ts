@@ -394,7 +394,7 @@ export type AdminLang =
     | 'maintitleedit.collection.hint'
     | 'maintitleedit.collection.required'
     | 'maintitleedit.image.hint'
-    | 'maintitleedit.image.required'
+    | 'maintitleedit.image.description'
     | 'maintitleedit.image.size'
     | 'maintitleedit.image.type'
     /* create main title */

@@ -51,9 +51,8 @@ const UpdateMainTitleModal = () => {
                     <div className={styles.Previous}>
                         <img src={currentImageURL.url} alt="previous" />
 
-                        <Legend justify="center">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga labore illo repudiandae totam
-                            possimus sed aperiam nulla maiores id quasi?
+                        <Legend justify="center" title={translate('maintitleedit.image.description')}>
+                            {translate('maintitleedit.image.description')}
                         </Legend>
                     </div>
 

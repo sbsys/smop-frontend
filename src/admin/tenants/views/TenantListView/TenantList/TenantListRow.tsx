@@ -1,12 +1,12 @@
 /* react */
 import { FC, memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* props */
 import { DropLayout, TableRow } from 'shared/layouts';
 import { TitleSubtitle } from '../TenantList.props';
 /* components */
 import { Button, Legend } from 'shared/components';
 /* hooks */
+import { useAdminLang } from 'admin/core';
 import { useActive, useClickOutside, useKeyDownEvent } from 'shared/hooks';
 /* utils */
 import { format } from 'date-fns';
@@ -49,7 +49,7 @@ const TenantListContacts: FC<TitleSubtitle> = ({ title, subtitle }) => {
 };
 
 const TenantListState: FC<{ state: TenantState }> = ({ state }) => {
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     const stateStylesStrategy: Record<TenantState, string> = {
         active: styles.StateActive,
@@ -61,38 +61,38 @@ const TenantListState: FC<{ state: TenantState }> = ({ state }) => {
             className={classNames(styles.State, stateStylesStrategy[state])}
             hasDots
             justify="center"
-            title={t(`views.tenants.filter.state.states.${state}`)}>
-            {t(`views.tenants.filter.state.states.${state}`)}
+            title={translate(`status.${state}`)}>
+            {translate(`status.${state}`)}
         </Legend>
     );
 };
 
 const TenantListActions = ({ state }: { state: TenantState }) => {
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <div className={styles.Actions}>
             {state === 'active' ? (
-                <Button className={styles.Delete} title={t('views.tenants.list.suspend')}>
+                <Button className={styles.Delete} title={translate('actions.suspend')}>
                     <i>
                         <MdThumbDown />
                     </i>
                 </Button>
             ) : (
-                <Button className={styles.Restore} title={t('views.tenants.list.restore')}>
+                <Button className={styles.Restore} title={translate('actions.restore')}>
                     <i>
                         <MdThumbUp />
                     </i>
                 </Button>
             )}
 
-            <Button className={styles.Edit} disabled={state === 'inactive'} title={t('views.tenants.list.edit')}>
+            <Button className={styles.Edit} disabled={state === 'inactive'} title={translate('actions.edit')}>
                 <i>
                     <MdEdit />
                 </i>
             </Button>
 
-            <Button className={styles.View} disabled={state === 'inactive'} title={t('views.tenants.list.view')}>
+            <Button className={styles.View} disabled={state === 'inactive'} title={translate('actions.detail')}>
                 <i>
                     <MdVisibility />
                 </i>
@@ -119,7 +119,7 @@ export const TenantListRow = (tenant: TenantItemDTO): TableRow => ({
 });
 
 const TenantListMore = () => {
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     const [isDropMore, showDropMore, hideDropMore] = useActive();
 
@@ -139,7 +139,7 @@ const TenantListMore = () => {
                     <TenantListActions state="active" />
                 </div>
             }>
-            <Button className={styles.DropMoreAction} onClick={showDropMore} title={t('views.tenants.list.more')}>
+            <Button className={styles.DropMoreAction} onClick={showDropMore} title={translate('actions.more')}>
                 <i>
                     <MdMoreVert />
                 </i>

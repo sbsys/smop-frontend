@@ -1,13 +1,12 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useCreateTenantContext } from '../CreateTenant.context';
 /* layouts */
 import { ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
-import { FieldSet } from 'admin/core';
+import { FieldSet, useAdminLang } from 'admin/core';
 /* styles */
 import { ButtonStyles } from 'shared/styles';
 import styles from './CreateTenant.module.scss';
@@ -21,13 +20,13 @@ const CreateTenant = () => {
         createTenantFieldProps,
     } = useCreateTenantContext();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <ScrollLayout classNameContent={styles.CreateTenant} orientation="col">
             <form onSubmit={handleCreateTenant}>
-                <legend title={t('views.createtenant.form.title')}>
-                    <Legend hasDots>{t('views.createtenant.form.title')}</Legend>
+                <legend title={translate('createorg.title')}>
+                    <Legend hasDots>{translate('createorg.title')}</Legend>
                 </legend>
 
                 {createTenantFieldProps.map((field, index) => (
@@ -37,20 +36,17 @@ const CreateTenant = () => {
                 <div>
                     <Button
                         type="button"
-                        title={t('views.createtenant.form.actions.cancel')}
+                        title={translate('actions.cancel')}
                         className={ButtonStyles.OutlineNone}
                         onClick={handleCalcelCreateTenant}>
                         <Legend hasDots justify="center">
-                            {t('views.createtenant.form.actions.cancel')}
+                            {translate('actions.cancel')}
                         </Legend>
                     </Button>
 
-                    <Button
-                        type="submit"
-                        title={t('views.createtenant.form.actions.create')}
-                        className={ButtonStyles.FillSecondary}>
+                    <Button type="submit" title={translate('actions.save')} className={ButtonStyles.FillSecondary}>
                         <Legend hasDots justify="center">
-                            {t('views.createtenant.form.actions.create')}
+                            {translate('actions.save')}
                         </Legend>
                     </Button>
                 </div>

@@ -1,10 +1,9 @@
 /* react */
 import { BaseSyntheticEvent } from 'react';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 /* props */
-import { FieldSetProps, useAdminNotify } from 'admin/core';
+import { AdminLang, FieldSetProps, useAdminLang, useAdminNotify } from 'admin/core';
 import { CreateTenantContextProps } from './CreateTenant.props';
 /* components */
 import { Button } from 'shared/components';
@@ -34,28 +33,25 @@ const CreateTenantSchema = yup
     .object({
         schema: yup
             .string()
-            .required('views.createtenant.form.schema.required')
-            .matches(/^[a-z]+$/, 'views.createtenant.form.schema.alphabets'),
-        name: yup.string().required('views.createtenant.form.name.required'),
+            .required('createorg.schema.required' as AdminLang)
+            .matches(/^[a-z]+$/, 'createorg.schema.alphabets' as AdminLang),
+        name: yup.string().required('createorg.name.required' as AdminLang),
         phone: yup
             .string()
-            .required('views.createtenant.form.phone.required')
-            .matches(/^\+\d{3}-\d{7,8}$/, 'views.createtenant.form.phone.format'),
+            .required('auth.phone.required' as AdminLang)
+            .matches(/^\+\d{3}-\d{7,8}$/, 'auth.phone.format' as AdminLang),
         email: yup
             .string()
-            .required('views.createtenant.form.email.required')
-            .email('views.createtenant.form.email.format'),
+            .required('auth.email.required' as AdminLang)
+            .email('auth.email.format' as AdminLang),
         password: yup
             .string()
-            .required('views.createtenant.form.password.required')
-            .matches(
-                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/,
-                'views.createtenant.form.password.format'
-            ),
+            .required('auth.password.required' as AdminLang)
+            .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/, 'auth.password.format'),
         repeat_password: yup
             .string()
-            .required('views.createtenant.form.repeatpassword.required')
-            .oneOf([yup.ref('password')], 'views.createtenant.form.repeatpassword.equal'),
+            .required('auth.repeatpassword.required' as AdminLang)
+            .oneOf([yup.ref('password')], 'auth.repeatpassword.equal' as AdminLang),
     })
     .required();
 
@@ -80,7 +76,7 @@ export const useCreateTenant = () => {
 
     const { notify } = useAdminNotify();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     const navigate = useNavigate();
 
@@ -134,20 +130,20 @@ export const useCreateTenant = () => {
         field: {
             className: errors.schema ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'text',
-            placeholder: t('views.createtenant.form.schema.placeholder'),
+            placeholder: translate('createorg.schema.placeholder'),
             ...register('schema'),
         },
         isHintReserved: true,
         hint: errors.schema
             ? {
-                  children: t(errors.schema.message as string),
+                  children: translate(errors.schema.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.schema.message as string),
+                  title: translate(errors.schema.message as AdminLang),
               }
             : {
-                  children: t('views.createtenant.form.schema.hint'),
+                  children: translate('createorg.schema.hint'),
                   hasDots: true,
-                  title: t('views.createtenant.form.schema.hint'),
+                  title: translate('createorg.schema.hint'),
               },
     };
 
@@ -155,20 +151,20 @@ export const useCreateTenant = () => {
         field: {
             className: errors.name ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'text',
-            placeholder: t('views.createtenant.form.name.placeholder'),
+            placeholder: translate('createorg.name.placeholder'),
             ...register('name'),
         },
         isHintReserved: true,
         hint: errors.name
             ? {
-                  children: t(errors.name.message as string),
+                  children: translate(errors.name.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.name.message as string),
+                  title: translate(errors.name.message as AdminLang),
               }
             : {
-                  children: t('views.createtenant.form.name.hint'),
+                  children: translate('createorg.name.hint'),
                   hasDots: true,
-                  title: t('views.createtenant.form.name.hint'),
+                  title: translate('createorg.name.hint'),
               },
     };
 
@@ -176,28 +172,25 @@ export const useCreateTenant = () => {
         field: {
             className: errors.phone ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'text',
-            placeholder: t('views.createtenant.form.phone.placeholder'),
+            placeholder: translate('auth.phone.placeholder'),
             ...register('phone'),
         },
         isHintReserved: true,
         hint: errors.phone
             ? {
-                  children: t(errors.phone.message as string),
+                  children: translate(errors.phone.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.phone.message as string),
+                  title: translate(errors.phone.message as AdminLang),
               }
             : {
-                  children: t('views.createtenant.form.phone.hint'),
+                  children: translate('auth.phone.hint'),
                   hasDots: true,
-                  title: t('views.createtenant.form.phone.hint'),
+                  title: translate('auth.phone.hint'),
               },
     };
 
     const GenerateEmailBySchema = () => (
-        <Button
-            type="button"
-            onClick={handleGenerateEmailBySchema}
-            title={t('views.createtenant.form.email.hintgenerate')}>
+        <Button type="button" onClick={handleGenerateEmailBySchema} title={translate('createorg.email.generate')}>
             <i>
                 <MdAlternateEmail />
             </i>
@@ -208,21 +201,21 @@ export const useCreateTenant = () => {
         field: {
             className: errors.email ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'email',
-            placeholder: t('views.createtenant.form.email.placeholder'),
+            placeholder: translate('auth.email.placeholder'),
             ...register('email'),
             afterContent: <GenerateEmailBySchema />,
         },
         isHintReserved: true,
         hint: errors.email
             ? {
-                  children: t(errors.email.message as string),
+                  children: translate(errors.email.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.email.message as string),
+                  title: translate(errors.email.message as AdminLang),
               }
             : {
-                  children: t('views.createtenant.form.email.hint'),
+                  children: translate('createorg.email.hint'),
                   hasDots: true,
-                  title: t('views.createtenant.form.email.hint'),
+                  title: translate('createorg.email.hint'),
               },
     };
 
@@ -230,7 +223,7 @@ export const useCreateTenant = () => {
         field: {
             className: errors.password ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'password',
-            placeholder: t('views.createtenant.form.password.placeholder'),
+            placeholder: translate('auth.password.placeholder'),
             ...register('password'),
             isPasswordVisible: isPassword,
             showIcon: <IoMdEye />,
@@ -241,14 +234,14 @@ export const useCreateTenant = () => {
         isHintReserved: true,
         hint: errors.password
             ? {
-                  children: t(errors.password.message as string),
+                  children: translate(errors.password.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.password.message as string),
+                  title: translate(errors.password.message as AdminLang),
               }
             : {
-                  children: t('views.createtenant.form.password.hint'),
+                  children: translate('auth.password.hint'),
                   hasDots: true,
-                  title: t('views.createtenant.form.password.hint'),
+                  title: translate('auth.password.hint'),
               },
     };
 
@@ -257,7 +250,7 @@ export const useCreateTenant = () => {
             className:
                 errors.password || errors.repeat_password ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'password',
-            placeholder: t('views.createtenant.form.repeatpassword.placeholder'),
+            placeholder: translate('auth.repeatpassword.placeholder'),
             ...register('repeat_password'),
             isPasswordVisible: isPassword,
             showIcon: <IoMdEye />,
@@ -268,9 +261,9 @@ export const useCreateTenant = () => {
         isHintReserved: true,
         hint: errors.repeat_password
             ? {
-                  children: t(errors.repeat_password.message as string),
+                  children: translate(errors.repeat_password.message as AdminLang),
                   hasDots: true,
-                  title: t(errors.repeat_password.message as string),
+                  title: translate(errors.repeat_password.message as AdminLang),
               }
             : undefined,
     };

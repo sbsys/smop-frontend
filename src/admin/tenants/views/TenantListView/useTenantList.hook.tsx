@@ -1,11 +1,10 @@
 /* react */
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { useOutlet } from 'react-router-dom';
 /* props */
 import { TenantListContextProps } from './TenantList.props';
-import { FieldSetProps, useAdminNotify } from 'admin/core';
+import { FieldSetProps, useAdminLang, useAdminNotify } from 'admin/core';
 /* hooks */
 import { useActive, useKeyDownEvent, useLoader, useMinWidth } from 'shared/hooks';
 /* utils */
@@ -53,7 +52,7 @@ export const useTenantList = () => {
 
     const { notify } = useAdminNotify();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     const outlet = useOutlet();
 
@@ -126,14 +125,14 @@ export const useTenantList = () => {
         field: {
             className: FieldStyles.OutlinePrimary,
             strategy: 'text',
-            placeholder: t('views.tenants.filter.schema.placeholder'),
+            placeholder: translate('filter.name'),
             ...register('schema'),
         },
         isHintReserved: true,
         hint: {
-            children: t('views.tenants.filter.schema.hint'),
+            children: translate('filter.name'),
             hasDots: true,
-            title: t('views.tenants.filter.schema.hint'),
+            title: translate('filter.name'),
         },
     };
 
@@ -141,14 +140,14 @@ export const useTenantList = () => {
         field: {
             className: FieldStyles.OutlinePrimary,
             strategy: 'select',
-            placeholder: t('views.tenants.filter.state.placeholder'),
+            placeholder: translate('filter.status'),
             options: [
                 {
-                    label: t('views.tenants.filter.state.states.active'),
+                    label: translate('status.active'),
                     value: 'active',
                 },
                 {
-                    label: t('views.tenants.filter.state.states.inactive'),
+                    label: translate('status.inactive'),
                     value: 'inactive',
                 },
             ],
@@ -156,9 +155,9 @@ export const useTenantList = () => {
         },
         isHintReserved: true,
         hint: {
-            children: t('views.tenants.filter.state.hint'),
+            children: translate('filter.status'),
             hasDots: true,
-            title: t('views.tenants.filter.state.hint'),
+            title: translate('filter.status'),
         },
     };
 
@@ -166,14 +165,14 @@ export const useTenantList = () => {
         field: {
             className: FieldStyles.OutlinePrimary,
             strategy: 'date',
-            placeholder: t('views.tenants.filter.start.placeholder'),
+            placeholder: translate('filter.fromdate'),
             ...register('start_date'),
         },
         isHintReserved: true,
         hint: {
-            children: t('views.tenants.filter.start.hint'),
+            children: translate('filter.fromdate'),
             hasDots: true,
-            title: t('views.tenants.filter.start.hint'),
+            title: translate('filter.fromdate'),
         },
     };
 
@@ -181,14 +180,14 @@ export const useTenantList = () => {
         field: {
             className: FieldStyles.OutlinePrimary,
             strategy: 'date',
-            placeholder: t('views.tenants.filter.end.placeholder'),
+            placeholder: translate('filter.todate'),
             ...register('end_date'),
         },
         isHintReserved: true,
         hint: {
-            children: t('views.tenants.filter.end.hint'),
+            children: translate('filter.todate'),
             hasDots: true,
-            title: t('views.tenants.filter.end.hint'),
+            title: translate('filter.todate'),
         },
     };
 

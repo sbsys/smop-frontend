@@ -1,42 +1,42 @@
-/* react */
-import { useTranslation } from 'react-i18next';
 /* props */
 import { TableRow } from 'shared/layouts';
 /* components */
 import { Legend } from 'shared/components';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* styles */
 import styles from './TenantList.module.scss';
 
 export const TenantListHeader = (): TableRow => {
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return {
         columns: [
             {
                 children: (
-                    <Legend className={styles.Column} hasDots title={t('views.tenants.list.schema')}>
-                        {t('views.tenants.list.schema')}
+                    <Legend className={styles.Column} hasDots title={translate('headers.name')}>
+                        {translate('headers.name')}
                     </Legend>
                 ),
             },
             {
                 children: (
-                    <Legend className={styles.Column} hasDots title={t('views.tenants.list.contacts')}>
-                        {t('views.tenants.list.contacts')}
+                    <Legend className={styles.Column} hasDots title={translate('headers.contacts')}>
+                        {translate('headers.contacts')}
                     </Legend>
                 ),
             },
             {
                 children: (
-                    <Legend className={styles.Column} hasDots justify="center" title={t('views.tenants.list.state')}>
-                        {t('views.tenants.list.state')}
+                    <Legend className={styles.Column} hasDots justify="center" title={translate('headers.status')}>
+                        {translate('headers.status')}
                     </Legend>
                 ),
             },
             {
                 children: (
-                    <Legend className={styles.Column} hasDots justify="center" title={t('views.tenants.list.actions')}>
-                        {t('views.tenants.list.actions')}
+                    <Legend className={styles.Column} hasDots justify="center" title={translate('headers.actions')}>
+                        {translate('headers.actions')}
                     </Legend>
                 ),
             },

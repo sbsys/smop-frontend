@@ -1,10 +1,9 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useTenantListContext } from '../TenantList.context';
 /* layouts */
-import { FieldSet } from 'admin/core';
+import { FieldSet, useAdminLang } from 'admin/core';
 /* components */
 import { Button, Legend } from 'shared/components';
 /* styles */
@@ -23,7 +22,7 @@ const TenantListFilter = () => {
         stateSearchProps,
     } = useTenantListContext();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <form className={styles.Filter} onSubmit={handleFilter} onReset={handleResetFilter}>
@@ -40,21 +39,15 @@ const TenantListFilter = () => {
             </div>
 
             <div>
-                <Button
-                    type="reset"
-                    className={ButtonStyles.OutlineNone}
-                    title={t('views.tenants.filter.actions.clean')}>
+                <Button type="reset" className={ButtonStyles.OutlineNone} title={translate('actions.clean')}>
                     <Legend hasDots justify="center">
-                        {t('views.tenants.filter.actions.clean')}
+                        {translate('actions.clean')}
                     </Legend>
                 </Button>
 
-                <Button
-                    type="submit"
-                    className={ButtonStyles.FillSecondary}
-                    title={t('views.tenants.filter.actions.filter')}>
+                <Button type="submit" className={ButtonStyles.FillSecondary} title={translate('actions.filter')}>
                     <Legend hasDots justify="center">
-                        {t('views.tenants.filter.actions.filter')}
+                        {translate('actions.filter')}
                     </Legend>
                 </Button>
             </div>

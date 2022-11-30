@@ -1,6 +1,5 @@
 /* react */
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 /* context */
 import { useTenantListContext } from '../TenantList.context';
 /* layouts */
@@ -9,6 +8,8 @@ import { PanelLayout } from 'shared/layouts';
 import { Legend } from 'shared/components';
 import { TenantListFilter } from '../TenantListFilter';
 import { TenantList, NewTenantAction } from '../TenantList';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* styles */
 import styles from './TenantListDesktop.module.scss';
 
@@ -18,12 +19,12 @@ const TenantListDesktop = () => {
         isBreakPoint,
     } = useTenantListContext();
 
-    const { t } = useTranslation();
+    const { translate } = useAdminLang();
 
     return (
         <PanelLayout className={styles.TenantList}>
-            <h1 title={t('views.tenants.header.title')}>
-                <Legend hasDots>{t('views.tenants.header.title')}</Legend>
+            <h1 title={translate('organizations.title')}>
+                <Legend hasDots>{translate('organizations.title')}</Legend>
             </h1>
 
             {isBreakPoint && (

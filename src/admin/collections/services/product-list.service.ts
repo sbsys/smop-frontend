@@ -31,6 +31,7 @@ const mock: ApiResponse<ProductListItemDTO[]> = {
             isActive: 'active',
             createdAt: parse('2022-08-29', 'yyyy-MM-dd', Date.now()),
             url: 'https://www.goya.com/media/7017/churrasco-con-chimichurri-grilled-skirt-steak.jpg',
+            price: '12.0000',
         },
         {
             productId: '2',
@@ -39,6 +40,7 @@ const mock: ApiResponse<ProductListItemDTO[]> = {
             isActive: 'active',
             createdAt: parse('2022-08-30', 'yyyy-MM-dd', Date.now()),
             url: 'https://images.freeimages.com/images/large-previews/922/tomates-sliced-1-1315997.jpg',
+            price: '12.0000',
         },
         {
             productId: '3',
@@ -47,6 +49,7 @@ const mock: ApiResponse<ProductListItemDTO[]> = {
             isActive: 'inactive',
             createdAt: parse('2022-08-31', 'yyyy-MM-dd', Date.now()),
             url: 'https://www.codigococina.com/wp-content/uploads/2016/11/tomate_concasse_corte-1.jpg',
+            price: '12.0000',
         },
     ],
 };

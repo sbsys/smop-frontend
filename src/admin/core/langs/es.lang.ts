@@ -86,6 +86,7 @@ export const es: Record<AdminLang, string> = {
     'headers.amount': 'Cantidad',
     'headers.profile': 'Perfil',
     'headers.contacts': 'Contactos',
+    'headers.price': 'Precio de venta',
     /* status */
     'status.active': 'Activo',
     'status.inactive': 'Inactivo',

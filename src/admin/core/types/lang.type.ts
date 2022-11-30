@@ -86,6 +86,7 @@ export type AdminLang =
     | 'headers.amount'
     | 'headers.profile'
     | 'headers.contacts'
+    | 'headers.price'
     /* status */
     | 'status.active'
     | 'status.inactive'

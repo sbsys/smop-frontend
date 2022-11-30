@@ -18,7 +18,14 @@ import { MdMoreVert } from 'react-icons/md';
 /* styles */
 import styles from './ProductListItem.module.scss';
 
-const ProductListItem: FC<ProductListItemDTO> = ({ productId, defaultReference, markAsAddon, createdAt, isActive }) => {
+const ProductListItem: FC<ProductListItemDTO> = ({
+    productId,
+    defaultReference,
+    price,
+    markAsAddon,
+    createdAt,
+    isActive,
+}) => {
     const { translate } = useAdminLang();
 
     const [isDropMore, showDropMore, hideDropMore] = useActive();
@@ -35,6 +42,10 @@ const ProductListItem: FC<ProductListItemDTO> = ({ productId, defaultReference, 
                         {defaultReference}
                     </Legend>
                 </h4>
+
+                <Legend hasDots justify='end' title={`$ ${price}`}>
+                    ${price}
+                </Legend>
 
                 <Legend hasDots title={!createdAt ? '' : format(createdAt, 'MMM do, yyyy')}>
                     <>{markAsAddon && '(addon) '}</>

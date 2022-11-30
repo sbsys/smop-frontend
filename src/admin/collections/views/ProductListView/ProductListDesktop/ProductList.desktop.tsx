@@ -55,6 +55,14 @@ const ProductListDesktop = () => {
                                 span: 3,
                             },
                             {
+                                children: (
+                                    <Legend hasDots justify="end" title={translate('headers.price')}>
+                                        {translate('headers.price')}
+                                    </Legend>
+                                ),
+                                span: 2,
+                            },
+                            {
                                 span: 1,
                             },
                             {
@@ -92,6 +100,13 @@ const ProductListDesktop = () => {
                                         title={`${item.markAsAddon ? '(addon) ' : ''}${item.defaultReference}`}>
                                         <>{item.markAsAddon && '(addon) '}</>
                                         <>{item.defaultReference}</>
+                                    </Legend>
+                                ),
+                            },
+                            {
+                                children: (
+                                    <Legend justify="end" hasDots title={`$ ${item.price}`}>
+                                        ${item.price}
                                     </Legend>
                                 ),
                             },

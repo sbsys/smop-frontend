@@ -9,6 +9,7 @@ export interface ProductListItemDTO {
     isActive: ProductState;
     createdAt: Date;
     url: string;
+    price: string;
 }
 
 export interface TitleProductListItemDTO {

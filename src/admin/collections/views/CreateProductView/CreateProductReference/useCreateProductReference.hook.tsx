@@ -49,6 +49,7 @@ export const useCreateProductReference = () => {
                     'defaultDescription',
                     'referenceCollection',
                     'descriptionCollection',
+                    'price',
                     'allowPrompts',
                     'includePicture',
                     'image',
@@ -234,6 +235,28 @@ export const useCreateProductReference = () => {
                       },
         };
     };
+    const priceProps: FieldSetProps = {
+        field: {
+            className: errors.price ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
+            strategy: 'number',
+            min: 0,
+            step: 0.0001,
+            placeholder: translate('createproduct.price.placeholder'),
+            ...register('price'),
+        },
+        isHintReserved: true,
+        hint: errors.price
+            ? {
+                  children: translate(errors.price.message as AdminLang),
+                  hasDots: true,
+                  title: translate(errors.price.message as AdminLang),
+              }
+            : {
+                  children: translate('createproduct.price.hint'),
+                  hasDots: true,
+                  title: translate('createproduct.price.hint'),
+              },
+    };
     const allowPromptsProps: FieldSetProps = {
         className: styles.CheckboxInverse,
         field: {
@@ -268,6 +291,7 @@ export const useCreateProductReference = () => {
                   descriptionCollectionProps(1, 'es'),
               ]
             : [multiLanguageProps, defaultReferenceProps, defaultDescriptionProps]),
+        priceProps,
         allowPromptsProps,
     ];
 

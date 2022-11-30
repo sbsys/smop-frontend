@@ -37,6 +37,7 @@ export interface CreateProductFormData {
     multiLanguage: boolean;
     referenceCollection: TitleCollectionForm[];
     descriptionCollection: TitleCollectionForm[];
+    price: number;
     allowPrompts: boolean;
     /* file */
     includePicture: boolean;
@@ -78,6 +79,11 @@ export const CreateProductSchema = yup.object({
             })
             .required()
     ),
+    price: yup
+        .number()
+        .typeError('createproduct.price.required' as AdminLang)
+        .required('createproduct.price.required' as AdminLang)
+        .min(0, 'createproduct.price.required' as AdminLang),
     allowPrompts: yup.boolean().required(),
     /* file */
     includePicture: yup.boolean().required(),

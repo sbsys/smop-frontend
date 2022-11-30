@@ -20,6 +20,7 @@ interface CreateProductProps {
     multiLanguage: boolean;
     referenceCollection: TitleCollection[];
     descriptionCollection: TitleCollection[];
+    price: number;
     allowPrompts: boolean;
     /* file */
     includePicture: boolean;
@@ -41,6 +42,8 @@ export const createProductService = async (props: CreateProductProps): Promise<A
 
     body.append('referenceCollection', JSON.stringify(props.referenceCollection));
     body.append('descriptionCollection', JSON.stringify(props.descriptionCollection));
+
+    body.append('price', JSON.stringify(props.price));
 
     body.append('allowPrompts', JSON.stringify(props.allowPrompts));
 

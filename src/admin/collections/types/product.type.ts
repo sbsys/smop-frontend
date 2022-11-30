@@ -59,4 +59,5 @@ export interface ProductDetailDTO {
     createdAt: Date;
     isActive: ProductState;
     isAvailable: boolean;
+    price: string;
 }

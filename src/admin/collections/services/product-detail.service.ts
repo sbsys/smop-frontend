@@ -88,6 +88,7 @@ const mock: ApiResponse<ProductDetailDTO> = {
         createdAt: new Date('2022-11-01T21:37:45.972Z'),
         isActive: 'active',
         isAvailable: true,
+        price: '12.0000',
     },
 };
 

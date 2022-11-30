@@ -40,6 +40,7 @@ export const productDetailSerializer = (data: any): ProductDetailDTO => {
         createdAt: new Date(product.createdAt),
         isActive: product.isActive ? 'active' : 'inactive',
         isAvailable: product.isAvailable,
+        price: product.price,
     };
 };
 

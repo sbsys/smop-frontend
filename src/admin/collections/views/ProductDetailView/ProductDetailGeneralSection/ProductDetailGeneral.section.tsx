@@ -91,6 +91,12 @@ const ProductDetailGeneralSection = () => {
                     <Legend title={product?.defaultDescription}>{product?.defaultDescription}</Legend>
                 )}
 
+                <Legend hasDots title={translate('headers.price')} className={styles.Title}>
+                    {translate('headers.price')}
+                </Legend>
+
+                <Legend title={`$ ${product?.price}`}>${product?.price}</Legend>
+
                 <Legend hasDots title={translate('productdetail.presentation')} className={styles.Title}>
                     {translate('productdetail.presentation')}
                 </Legend>

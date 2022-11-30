@@ -20,6 +20,7 @@ interface UpdateGeneralServiceProps {
     multiLanguage: boolean;
     referenceCollection: TitleCollection[];
     descriptionCollection: TitleCollection[];
+    price: number;
     allowPrompts: boolean;
     isActive: boolean;
     /* feature */
@@ -35,7 +36,7 @@ export const updateGeneralService = async (
         endpoint: `/shop/product/${productId}/general`,
         token: getCurrentUserToken(),
         method: 'PUT',
-        body: props,
+        body: { ...props, price: `${props.price}` },
         responseSerializer: async data => apiSerializer<{}>(data),
         errorSerializer: error =>
             apiOnErrorSideEffect<ApiResponse<{}>>(

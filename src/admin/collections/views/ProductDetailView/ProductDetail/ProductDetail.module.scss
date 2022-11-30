@@ -38,7 +38,7 @@
 
         & > section {
             @include bg-color(300);
-            @include padding(all xs split);
+            @include padding(all xs);
             @include rounded(all xs);
         }
     }

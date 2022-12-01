@@ -34,10 +34,13 @@ export const useCommerceMenuRemove = () => {
     const handleCommerceMenuRemove = async () => {
         showLoader();
 
-        const service = await updateLinkedProductListService(linkedCommerceSettings?.commerceId ?? '', {
-            titleId: selectedTitleToRemove?.titleId ?? 0,
-            productCollection: [],
-        });
+        const service = await updateLinkedProductListService(
+            linkedCommerceSettings?.commerceId ?? '',
+            selectedTitleToRemove?.titleId ?? 0,
+            {
+                collection: [],
+            }
+        );
 
         hideLoader();
 

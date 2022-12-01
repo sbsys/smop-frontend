@@ -10,13 +10,13 @@ import { useCommerceMenuContext } from '../CommerceMenuView';
 import { useLoader } from 'shared/hooks';
 import { useAdminNotify } from 'admin/core';
 /* services */
+import { mainTitleProductListService } from 'admin/collections/services';
 import { productLinkedListService } from 'admin/linked/services';
 /* types */
 import { TitleProductListItemDTO } from 'admin/collections';
-import { LinkMenuProduct } from 'admin/linked/types';
+import { LinkedMenuProduct } from 'admin/linked/types';
 /* assets */
 import { MdDangerous } from 'react-icons/md';
-import { mainTitleProductListService } from 'admin/collections/services';
 
 export const useLinkedTitleDetail = () => {
     /* states */
@@ -37,10 +37,7 @@ export const useLinkedTitleDetail = () => {
         [linkedTitleList, titleId]
     );
 
-    const [menuProductList, setMenuProductList] = useState<LinkMenuProduct>({
-        linked: [],
-        unlinked: [],
-    });
+    const [menuProductList, setMenuProductList] = useState<LinkedMenuProduct[]>([]);
 
     const [products, setProducts] = useState<TitleProductListItemDTO[]>([]);
 
@@ -48,13 +45,13 @@ export const useLinkedTitleDetail = () => {
         const list = products.slice();
 
         return list.reduce((prev, current) => {
-            const product = menuProductList.linked.find(linked => linked.productId === current.productId);
+            const product = menuProductList.find(linked => linked.productId === current.productId);
 
             if (!product) return prev;
 
             return [...prev, { ...current, price: product.price, url: product.url }];
         }, [] as (TitleProductListItemDTO & { price: number; url: string })[]);
-    }, [menuProductList.linked, products]);
+    }, [menuProductList, products]);
 
     const { showLoader, hideLoader } = useLoader();
 

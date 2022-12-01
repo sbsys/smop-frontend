@@ -21,16 +21,16 @@ export interface UpdateLinkedTitleProviderProps extends ChildrenProps {
 }
 
 export interface UpdateLinkedTitleFormData {
-    productCollection: (LinkProduct & { isSelected: boolean })[];
+    collection: LinkProduct[];
 }
 
 export const UpdateLinkedTitleSchema = yup
     .object({
-        productCollection: yup.array().of(
+        collection: yup.array().of(
             yup
                 .object({
-                    price: yup.mixed().when(['isSelected'], {
-                        is: (isSelected: boolean) => isSelected,
+                    price: yup.mixed().when(['isAvailable'], {
+                        is: (isAvailable: boolean) => isAvailable,
                         then: yup
                             .number()
                             .typeError('menuedit.price.required' as AdminLang)
@@ -41,7 +41,7 @@ export const UpdateLinkedTitleSchema = yup
                             .typeError('menuedit.price.required' as AdminLang)
                             .required('menuedit.price.required' as AdminLang),
                     }),
-                    isSelected: yup.boolean().required(),
+                    isAvailable: yup.boolean().required(),
                 })
                 .required()
         ),

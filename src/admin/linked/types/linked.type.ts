@@ -12,6 +12,7 @@ export interface MenuLinkedListItemDTO {
     numberMenuItems: number;
     numberGenericItems: number;
     isActive: TitleState;
+    url: string;
 }
 
 export interface MenuNotLinkedListItemDTO {
@@ -20,9 +21,9 @@ export interface MenuNotLinkedListItemDTO {
 }
 
 export interface LinkProduct {
-    titleId: number;
     productId: string;
     price: number;
+    isAvailable: boolean;
 }
 
 export interface MenuProduct {
@@ -35,4 +36,8 @@ export interface MenuProduct {
 export interface LinkMenuProduct {
     linked: MenuProduct[];
     unlinked: MenuProduct[];
+}
+
+export interface LinkedMenuProduct extends MenuProduct {
+    isAvailable: boolean;
 }

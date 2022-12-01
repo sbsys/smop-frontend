@@ -1,15 +1,13 @@
-import { LinkMenuProduct, MenuProduct } from '../types';
+import { LinkedMenuProduct } from '../types';
 
-export const productLinkedListItemSerializer = (data: any): MenuProduct => {
+export const productLinkedListItemSerializer = (data: any): LinkedMenuProduct => {
     return {
         ...data,
         price: Number.parseFloat(data.price ?? '0'),
     };
 };
 
-export const productLinkedListSerializer = (data: any): LinkMenuProduct => {
-    return {
-        linked: data.linked.map((item: any) => productLinkedListItemSerializer(item)),
-        unlinked: data.unlinked.map((item: any) => productLinkedListItemSerializer(item)),
-    };
+export const productLinkedListSerializer = (data: any): LinkedMenuProduct[] => {
+    console.log(data);
+    return data.products.map((item: any) => productLinkedListItemSerializer(item));
 };

@@ -48,6 +48,9 @@ const CommerceMenuDesktop = () => {
                                 span: 2,
                             },
                             {
+                                span: 1,
+                            },
+                            {
                                 children: (
                                     <Legend hasDots justify="center" title={translate('headers.amount')}>
                                         {translate('headers.amount')}
@@ -71,6 +74,9 @@ const CommerceMenuDesktop = () => {
                                         {item.defaultTitle}
                                     </Legend>
                                 ),
+                            },
+                            {
+                                children: <img src={item.url} alt={item.defaultTitle} crossOrigin="anonymous" />,
                             },
                             {
                                 children: (

@@ -1,21 +1,20 @@
 import { FC, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 /* context */
-import { useCommerceMenuContext } from '../CommerceMenu.context';
+/* import { useCommerceMenuContext } from '../CommerceMenu.context'; */
 /* components */
 import { Button } from 'shared/components';
 /* hooks */
 import { useAdminLang } from 'admin/core';
 /* assets */
-import { MdDelete, MdEdit, MdVisibility } from 'react-icons/md';
+import { /* MdDelete,  */ MdEdit, MdVisibility } from 'react-icons/md';
 /* styles */
 import styles from './CommerceMenuActions.module.scss';
 
 const CommerceMenuActions: FC<{ titleId: number }> = ({ titleId }) => {
-    const {
-        /* functions */
+    /* const {
         handleSelectTitleToRemove,
-    } = useCommerceMenuContext();
+    } = useCommerceMenuContext(); */
 
     const { translate } = useAdminLang();
 
@@ -23,14 +22,14 @@ const CommerceMenuActions: FC<{ titleId: number }> = ({ titleId }) => {
 
     return (
         <div className={styles.Actions}>
-            <Button
+            {/* <Button
                 className={styles.Delete}
                 onClick={() => handleSelectTitleToRemove(titleId)}
                 title={translate('actions.remove')}>
                 <i>
                     <MdDelete />
                 </i>
-            </Button>
+            </Button> */}
 
             <Button
                 className={styles.Edit}

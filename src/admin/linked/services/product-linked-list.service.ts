@@ -13,7 +13,7 @@ import { productLinkedListSerializer } from '../serializers';
 /* handlers */
 import { apiRequestHandler } from 'shared/handlers';
 /* types */
-import { LinkMenuProduct } from '../types';
+import { LinkedMenuProduct } from '../types';
 
 interface ProductLinkedListProps {}
 
@@ -21,22 +21,22 @@ export const productLinkedListService = async (
     commerceId: string,
     titleId: number,
     props?: ProductLinkedListProps
-): Promise<ApiResponse<LinkMenuProduct>> => {
-    return await apiRequestHandler<ApiResponse<LinkMenuProduct>>({
+): Promise<ApiResponse<LinkedMenuProduct[]>> => {
+    return await apiRequestHandler<ApiResponse<LinkedMenuProduct[]>>({
         instance: AdminApiService,
         endpoint: `/shop/${commerceId}/menu/${titleId}/product`,
         method: 'GET',
         token: getCurrentUserToken(),
-        responseSerializer: async data => apiSerializer<LinkMenuProduct>(data, productLinkedListSerializer),
+        responseSerializer: async data => apiSerializer<LinkedMenuProduct[]>(data, productLinkedListSerializer),
         errorSerializer: error =>
-            apiOnErrorSideEffect<ApiResponse<LinkMenuProduct>>(
+            apiOnErrorSideEffect<ApiResponse<LinkedMenuProduct[]>>(
                 error,
                 is403ErrorResponse,
                 async () =>
                     (await repeatRequestOnRefreshTokenService(() =>
                         productLinkedListService(commerceId, titleId, props)
-                    )) as ApiResponse<LinkMenuProduct>,
-                error => apiErrorSerializer<LinkMenuProduct>(error)
+                    )) as ApiResponse<LinkedMenuProduct[]>,
+                error => apiErrorSerializer<LinkedMenuProduct[]>(error)
             ),
     });
 };

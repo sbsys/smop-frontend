@@ -55,7 +55,7 @@
 
     .Actions {
         @include gap(all md);
-        @include padding(x xs);
+        @include padding(all xs);
         display: grid;
         grid-template-columns: repeat(2, 1fr);
 

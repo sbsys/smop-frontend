@@ -15,7 +15,7 @@ import { linkProductListService, menuNotLinkedListService, productLinkedListServ
 /* utils */
 import { yupResolver } from '@hookform/resolvers/yup';
 /* types */
-import { LinkMenuProduct, LinkProduct, MenuNotLinkedListItemDTO, MenuProduct } from 'admin/linked/types';
+import { LinkedMenuProduct, MenuNotLinkedListItemDTO, MenuProduct } from 'admin/linked/types';
 /* assets */
 import { MdCheckCircle, MdDangerous, MdWarning } from 'react-icons/md';
 /* styles */
@@ -65,10 +65,7 @@ export const useLinkTitle = () => {
 
     const [menus, setMenus] = useState<MenuNotLinkedListItemDTO[]>([]);
 
-    const [menuProductList, setMenuProductList] = useState<LinkMenuProduct>({
-        linked: [],
-        unlinked: [],
-    });
+    const [menuProductList, setMenuProductList] = useState<LinkedMenuProduct[]>([]);
 
     const { showLoader, hideLoader } = useLoader();
 
@@ -98,10 +95,7 @@ export const useLinkTitle = () => {
     }, [hideLoader, linkedCommerceSettings?.commerceId, notify, showLoader]);
 
     const getTitleProducts = useCallback(async () => {
-        setMenuProductList({
-            linked: [],
-            unlinked: [],
-        });
+        setMenuProductList([]);
 
         showLoader();
 
@@ -137,18 +131,7 @@ export const useLinkTitle = () => {
         showLoader();
 
         const service = await linkProductListService(linkedCommerceSettings?.commerceId ?? '', {
-            productCollection: data.productCollection.reduce((prev, current) => {
-                if (!current.isSelected) return prev;
-
-                return [
-                    ...prev,
-                    {
-                        titleId: current.titleId,
-                        productId: current.productId,
-                        price: current.price,
-                    },
-                ];
-            }, [] as LinkProduct[]),
+            productCollection: data.productCollection,
         });
 
         hideLoader();
@@ -212,7 +195,6 @@ export const useLinkTitle = () => {
     const productCollectionProps = (product: MenuProduct, index: number): FieldSetProps[] => {
         if (!watch(`productCollection.${index}.isSelected`)) setValue(`productCollection.${index}.price`, 0);
 
-        setValue(`productCollection.${index}.titleId`, watch('titleId'));
         setValue(`productCollection.${index}.productId`, product.productId);
 
         return [
@@ -274,7 +256,7 @@ export const useLinkTitle = () => {
     };
 
     const linkTitleFieldProps: FieldSetProps[] = [
-        ...menuProductList.unlinked.reduce((prev, current, index) => {
+        ...menuProductList.reduce((prev, current, index) => {
             return [...prev, ...productCollectionProps(current, index)];
         }, [] as FieldSetProps[]),
     ];

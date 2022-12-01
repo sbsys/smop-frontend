@@ -14,17 +14,17 @@ import { apiRequestHandler } from 'shared/handlers';
 import { LinkProduct } from '../types';
 
 interface UpdateLinkedProductListProps {
-    titleId: number;
-    productCollection: LinkProduct[];
+    collection: LinkProduct[];
 }
 
 export const updateLinkedProductListService = async (
     commerceId: string,
+    titleId: number,
     props: UpdateLinkedProductListProps
 ): Promise<ApiResponse<{}>> => {
     return await apiRequestHandler<ApiResponse<{}>>({
         instance: AdminApiService,
-        endpoint: `/shop/${commerceId}/menu/product`,
+        endpoint: `/shop/${commerceId}/menu/title/${titleId}`,
         method: 'PUT',
         token: getCurrentUserToken(),
         body: props,
@@ -35,7 +35,7 @@ export const updateLinkedProductListService = async (
                 is403ErrorResponse,
                 async () =>
                     (await repeatRequestOnRefreshTokenService(() =>
-                        updateLinkedProductListService(commerceId, props)
+                        updateLinkedProductListService(commerceId, titleId, props)
                     )) as ApiResponse<{}>,
                 error => apiErrorSerializer<{}>(error)
             ),

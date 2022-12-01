@@ -51,8 +51,12 @@
         }
     }
 
-    .Edit {
+    .MenuEdit {
         @include font-color(400, warning);
+
+        & > i {
+            @include flex(row, center, center);
+        }
 
         &:hover {
             @include font-color(300, warning);

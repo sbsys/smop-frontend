@@ -12,6 +12,7 @@ import { useAdminLang, useAdminSelector } from 'admin/core';
 import { CommerceState } from 'admin/commerces/types';
 /* assets */
 import { MdRestaurantMenu, MdThumbDown, MdThumbUp, MdVisibility } from 'react-icons/md';
+import { RiFileEditFill } from 'react-icons/ri';
 /* styles */
 import styles from './CommerceListActions.module.scss';
 
@@ -64,7 +65,18 @@ const CommerceListActions: FC<{ state: CommerceState; commerceId: string }> = ({
                 </i>
             </Button>
 
-            {profiles === 'admin' ? null : (
+            {profiles === 'admin' ? (
+                <Button
+                    className={styles.MenuEdit}
+                    onClick={() => navigate(`../${commerceId}/menu`)}
+                    title={translate('commercemenu.title')}>
+                    <i>
+                        <MdRestaurantMenu />
+
+                        <RiFileEditFill />
+                    </i>
+                </Button>
+            ) : (
                 <Button
                     className={styles.Menu}
                     onClick={() => navigate(`../${commerceId}/management/menu`)}

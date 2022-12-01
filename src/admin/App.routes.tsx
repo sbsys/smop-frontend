@@ -17,7 +17,13 @@ import { AuthLayout, authStoreSignIn, ResetPasswordView, selectAuthStore, SignIn
 /* tenants */
 import { CreateTenantView, TenantListView, TenantSettingsView, TenantsLayout } from './tenants';
 /* commerces */
-import { CommerceDetailView, CommerceListView, CommercesLayout, CreateCommerceView } from './commerces';
+import {
+    CommerceDetailView,
+    CommerceListView,
+    CommercesLayout,
+    CreateCommerceView,
+    MenuMigraterView,
+} from './commerces';
 /* users */
 import { CreateUserView, UserListView, UsersLayout } from './users';
 /* clients */
@@ -137,7 +143,7 @@ const AppRoutes: FC = () => {
                         <Route path="list" element={<CommerceListView />} />
 
                         <Route path=":commerceId/detail" element={<CommerceDetailView />} />
-                        <Route path=":commerceId/edit" element={<CommerceDetailView />} />
+                        <Route path=":commerceId/menu" element={<MenuMigraterView />} />
 
                         <Route path="create" element={<CreateCommerceView />} />
 

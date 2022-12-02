@@ -1,0 +1,39 @@
+@import 'styles';
+
+.MenuLayout {
+    @include flex;
+    @include gap(all sm);
+    overflow: hidden;
+
+    &.Extended {
+        flex-grow: 1;
+    }
+
+    .Header {
+        @include bg-color(400);
+        @include flex(row, center);
+        @include gap(all xs);
+        @include height(md, element);
+        @include padding(all xs);
+        @include rounded(all sm);
+
+        & > span {
+            @include font-weight(lg);
+            flex-grow: 1;
+        }
+
+        & > button {
+            @include font-size(lg);
+        }
+    }
+
+    .Accordion {
+        flex-grow: 1;
+    }
+
+    .Content {
+        @include padding(all xs);
+        flex-grow: 1;
+        overflow: hidden;
+    }
+}

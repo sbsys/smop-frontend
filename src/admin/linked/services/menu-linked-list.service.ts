@@ -23,7 +23,7 @@ export const menuLinkedListService = async (
 ): Promise<ApiResponse<MenuLinkedListItemDTO[]>> => {
     return await apiRequestHandler<ApiResponse<MenuLinkedListItemDTO[]>, FormData>({
         instance: AdminApiService,
-        endpoint: `/shop/${commerceId}/menu/linked`,
+        endpoint: `/shop/${commerceId}/menu`,
         method: 'GET',
         token: getCurrentUserToken(),
         responseSerializer: async data => apiSerializer<MenuLinkedListItemDTO[]>(data, menuLinkedListSerializer),

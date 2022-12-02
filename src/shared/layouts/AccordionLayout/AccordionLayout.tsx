@@ -19,15 +19,7 @@ const openToStrategy: Record<Position, string> = {
 
 const AccordionLayout = forwardRef<HTMLDivElement | null, AccordionLayoutProps>(
     (
-        {
-            className,
-            openTo = 'bottom',
-            accordion,
-            isAccordion,
-            isHoverable,
-            children,
-            ...rest
-        },
+        { className, classNameAccordion, openTo = 'bottom', accordion, isAccordion, isHoverable, children, ...rest },
         ref
     ) => {
         return (
@@ -43,10 +35,8 @@ const AccordionLayout = forwardRef<HTMLDivElement | null, AccordionLayoutProps>(
                 {typeof children === 'function' ? children() : children}
 
                 {(isAccordion || isHoverable) && (
-                    <div className={styles.Content}>
-                        {typeof accordion === 'function'
-                            ? accordion()
-                            : accordion}
+                    <div className={classNames(styles.Content, classNameAccordion)}>
+                        {typeof accordion === 'function' ? accordion() : accordion}
                     </div>
                 )}
             </div>

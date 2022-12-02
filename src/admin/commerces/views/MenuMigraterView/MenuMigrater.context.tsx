@@ -3,7 +3,22 @@ import { createContext, FC, useContext } from 'react';
 /* props */
 import { MenuMigraterContextProps, MenuMigraterProviderProps } from './MenuMigrater.props';
 
-const Context = createContext<MenuMigraterContextProps>({});
+const Context = createContext<MenuMigraterContextProps>({
+    /* states */
+    menuMerge: {
+        commerces: [],
+        menu: [],
+    },
+    isCurrentMenuTabOpen: false,
+    isMigraterTabOpen: false,
+    handleOpenCurrentMenuTab: () => {},
+    handleOpenMigraterTab: () => {},
+    isBreakPoint: false,
+    isCommerceMigraterSelected: false,
+    isGenericMigraterSelected: false,
+    handleSelectCommerceMigrater: () => {},
+    handleSelectGenericMigrater: () => {},
+});
 
 export const MenuMigraterProvider: FC<MenuMigraterProviderProps> = ({ context, children }) => {
     return (

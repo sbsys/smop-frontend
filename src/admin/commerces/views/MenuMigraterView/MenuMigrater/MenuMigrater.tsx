@@ -10,14 +10,10 @@ import styles from './MenuMigrater.module.scss';
 
 const MenuMigrater = () => {
     return (
-        <PanelLayout orientation="col" className={styles.MenuMigrater}>
-            <section className={styles.Extended}>
-                <CurrentMenu />
-            </section>
+        <PanelLayout className={styles.MenuMigrater}>
+            <CurrentMenu />
 
-            <section>
-                <Migrater />
-            </section>
+            <Migrater />
         </PanelLayout>
     );
 };

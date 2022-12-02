@@ -3,3 +3,22 @@
 .CurrentMenu {
     @include gap(all sm);
 }
+
+.NoCurrentMenu {
+    @include flex(col, center, center);
+    @include gap(all xl);
+    flex-grow: 1;
+    overflow: hidden;
+
+    & > span {
+        @include font-size(lg);
+        @include font-weight(lg);
+    }
+
+    & > img {
+        @include max-width(xl, component);
+        object-fit: contain;
+        overflow: hidden;
+        width: 100%;
+    }
+}

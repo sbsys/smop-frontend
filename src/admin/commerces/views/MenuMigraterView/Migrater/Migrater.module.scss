@@ -2,4 +2,30 @@
 
 .Migrater {
     @include gap(all sm);
+
+    .Header {
+        @include gap(all xs split);
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        overflow: hidden;
+
+        & > button {
+            @include bg-color(400);
+            @include border-width(all sm);
+            @include border-color(all 400 bg);
+            @include border-opacity(bottom 0);
+            @include padding(all xs);
+            @include rounded(top sm);
+            @include font-weight(sm);
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .TitleActive {
+            @include bg-color(200);
+            @include disabled;
+            @include font-weight(lg);
+            @include rounded(top sm);
+        }
+    }
 }

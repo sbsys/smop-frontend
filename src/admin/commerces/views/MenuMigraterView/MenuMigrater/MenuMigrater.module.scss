@@ -1,14 +1,13 @@
 @import 'styles';
 
 .MenuMigrater {
+    @include flex;
     @include gap(all sm);
+    @include margin(y md);
 
-    & > section {
-        @include flex;
-        overflow: hidden;
-    }
-
-    .Extended {
-        flex-grow: 1;
+    @include screen-width(xl) {
+        @include gap(x xl);
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
     }
 }

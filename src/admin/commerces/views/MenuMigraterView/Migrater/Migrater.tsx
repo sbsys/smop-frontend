@@ -17,7 +17,7 @@ import styles from './Migrater.module.scss';
 const Migrater = () => {
     const {
         /* states */
-        menuMerge,
+        menuMerge: { menu },
         isMigraterTabOpen,
         handleOpenMigraterTab,
         isGenericMigraterSelected,
@@ -47,7 +47,7 @@ const Migrater = () => {
                     </Button>
                 </div>
 
-                {isGenericMigraterSelected && <GenericMenuMigrater />}
+                {isGenericMigraterSelected && <GenericMenuMigrater menu={menu} />}
 
                 {isCommerceMigraterSelected && <CommerceMenuMigrater />}
             </PanelLayout>

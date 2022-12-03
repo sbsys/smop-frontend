@@ -50,6 +50,7 @@
 
         & > button {
             @include flex(row, center);
+            @include gap(all xs);
             overflow: hidden;
 
             & > span {
@@ -115,6 +116,51 @@
 
         & > input {
             text-align: right;
+        }
+    }
+}
+
+.Confirmation {
+    @include bg-color(200);
+    @include padding(all xs);
+    @include rounded(all xs);
+    @include width(2xl, component);
+    max-width: 100%;
+
+    & > section {
+        @include flex;
+        @include gap(all md);
+    }
+
+    .ConfirmationHeader {
+        @include flex(row, center, center);
+        @include font-weight(lg);
+        @include gap(all xs);
+    }
+
+    .ConfirmationContent {
+        @include flex;
+        @include gap(all md);
+        @include padding(x xs split);
+
+        & > span {
+            @include font-size(2xl);
+        }
+    }
+
+    .ConfirmationActions {
+        @include gap(all md);
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+
+        & > button {
+            @include flex(row, center);
+            @include gap(all xs);
+            overflow: hidden;
+
+            & > span {
+                flex-grow: 1;
+            }
         }
     }
 }

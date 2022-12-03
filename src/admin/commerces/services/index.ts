@@ -12,3 +12,4 @@ export * from './update-state.service';
 export * from './menu-merge-list.service';
 export * from './menu-current.service';
 export * from './menu-sample.service';
+export * from './set-menu-layout.service';

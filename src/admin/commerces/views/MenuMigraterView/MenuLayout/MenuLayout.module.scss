@@ -3,17 +3,17 @@
 .MenuLayout {
     @include flex;
     @include gap(all sm);
-    overflow: hidden;
 
     &.Extended {
         flex-grow: 1;
+        overflow: hidden;
     }
 
     .Header {
         @include bg-color(400);
         @include flex(row, center);
         @include gap(all xs);
-        @include height(md, element);
+        @include min-height(md, element);
         @include padding(all xs);
         @include rounded(all sm);
 

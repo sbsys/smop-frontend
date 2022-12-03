@@ -105,8 +105,8 @@ const ProductListDesktop = () => {
                             },
                             {
                                 children: (
-                                    <Legend justify="end" hasDots title={`$ ${item.price}`}>
-                                        ${item.price}
+                                    <Legend justify="end" hasDots title={`${item.price} USD`}>
+                                        {item.price} USD
                                     </Legend>
                                 ),
                             },

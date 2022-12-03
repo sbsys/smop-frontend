@@ -7,16 +7,15 @@
         @include gap(all xs split);
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        overflow: hidden;
 
         & > button {
             @include bg-color(400);
-            @include border-width(all sm);
             @include border-color(all 400 bg);
             @include border-opacity(bottom 0);
+            @include border-width(all sm);
+            @include font-weight(sm);
             @include padding(all xs);
             @include rounded(top sm);
-            @include font-weight(sm);
             cursor: pointer;
             overflow: hidden;
         }
@@ -26,6 +25,96 @@
             @include disabled;
             @include font-weight(lg);
             @include rounded(top sm);
+        }
+    }
+
+    & > form {
+        @include flex;
+        @include gap(all sm);
+        flex-grow: 1;
+        overflow: hidden;
+    }
+
+    .Content {
+        @include gap(all sm);
+        @include padding(y xs, right xs);
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .Actions {
+        @include gap(all sm);
+        @include padding(x xs);
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+
+        & > button {
+            @include flex(row, center);
+            overflow: hidden;
+
+            & > span {
+                flex-grow: 1;
+            }
+        }
+    }
+}
+
+.Checkbox {
+    @include bg-color(400);
+    @include bg-opacity(60);
+    @include padding(all xs);
+    @include rounded(top sm);
+    align-items: center;
+    flex-direction: row;
+    grid-column: span 3;
+
+    & > label {
+        overflow: visible;
+
+        & > img {
+            @include height(sm, element);
+            @include margin(x sm);
+            @include rounded(all sm);
+            @include width(sm, element);
+            object-fit: cover;
+            overflow: hidden;
+        }
+    }
+
+    & > span {
+        @include font-weight(lg);
+    }
+}
+
+.SimpleCheckbox {
+    align-items: center;
+    flex-direction: row;
+    grid-column: span 3;
+
+    /* @include screen-width(4xs) {
+        grid-column: span 2;
+    } */
+
+    & > label {
+        overflow: visible;
+        visibility: hidden;
+    }
+}
+
+.Price {
+    display: none;
+    grid-column: span 2;
+
+    @include screen-width(4xs) {
+        grid-column: span 1;
+    }
+
+    & > label {
+        @include font-weight(xl);
+        @include gap(all xs);
+
+        & > input {
+            text-align: right;
         }
     }
 }

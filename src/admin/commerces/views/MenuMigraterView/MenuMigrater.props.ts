@@ -20,3 +20,20 @@ export interface MenuMigraterContextProps {
 export interface MenuMigraterProviderProps extends ChildrenProps {
     context: MenuMigraterContextProps;
 }
+
+interface ProductItem {
+    productId: string;
+    price: number;
+    isSelected: boolean;
+}
+
+interface CollectionItem {
+    titleId: number;
+    items: ProductItem[];
+    isSelected: boolean;
+}
+
+export interface MenuMigraterForm {
+    type: 'merge' | 'replace';
+    collection: CollectionItem[];
+}

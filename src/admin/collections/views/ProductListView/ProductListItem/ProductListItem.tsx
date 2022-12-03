@@ -43,8 +43,8 @@ const ProductListItem: FC<ProductListItemDTO> = ({
                     </Legend>
                 </h4>
 
-                <Legend hasDots justify='end' title={`$ ${price}`}>
-                    ${price}
+                <Legend hasDots justify="end" title={`${price} USD`}>
+                    {price} USD
                 </Legend>
 
                 <Legend hasDots title={!createdAt ? '' : format(createdAt, 'MMM do, yyyy')}>

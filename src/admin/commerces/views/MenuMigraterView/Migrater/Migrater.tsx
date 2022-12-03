@@ -17,6 +17,7 @@ import styles from './Migrater.module.scss';
 const Migrater = () => {
     const {
         /* states */
+        menuMerge,
         isMigraterTabOpen,
         handleOpenMigraterTab,
         isGenericMigraterSelected,

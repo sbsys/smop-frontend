@@ -12,31 +12,31 @@ import { apiRequestHandler } from 'shared/handlers';
 /* utils */
 import { getCurrentUserToken, repeatRequestOnRefreshTokenService } from 'admin/auth';
 /* serializers */
-import {} from '../serializers';
+import { menuSampleSerializer } from '../serializers';
 /* types */
+import { MenuTitleListItemDTO } from '../types';
 
 interface MenuSampleProps {}
 
-export const menuSampleService = async (commerceId: string, props?: MenuSampleProps): Promise<ApiResponse<{}>> => {
-    return await apiRequestHandler<ApiResponse<{}>>({
+export const menuSampleService = async (
+    commerceId: string,
+    props?: MenuSampleProps
+): Promise<ApiResponse<MenuTitleListItemDTO[]>> => {
+    return await apiRequestHandler<ApiResponse<MenuTitleListItemDTO[]>>({
         instance: AdminApiService,
         endpoint: `/shop/${commerceId}/menu/sample`,
         token: getCurrentUserToken(),
         method: 'GET',
-        responseSerializer: async data =>
-            apiSerializer<{}>(data, data => {
-                console.log('MENUSAMPLE', data);
-                return {};
-            }),
+        responseSerializer: async data => apiSerializer<MenuTitleListItemDTO[]>(data, menuSampleSerializer),
         errorSerializer: error =>
-            apiOnErrorSideEffect<ApiResponse<{}>>(
+            apiOnErrorSideEffect<ApiResponse<MenuTitleListItemDTO[]>>(
                 error,
                 is403ErrorResponse,
                 async () =>
                     (await repeatRequestOnRefreshTokenService(() =>
                         menuSampleService(commerceId, props)
-                    )) as ApiResponse<{}>,
-                error => apiErrorSerializer<{}>(error)
+                    )) as ApiResponse<MenuTitleListItemDTO[]>,
+                error => apiErrorSerializer<MenuTitleListItemDTO[]>(error)
             ),
     });
 };

@@ -1,10 +1,11 @@
 /* props */
 import { ChildrenProps } from 'shared/props';
 /* types */
-import { MenuMergeDTO } from 'admin/commerces/types';
+import { MenuMergeDTO, MenuTitleListItemDTO } from 'admin/commerces/types';
 
 export interface MenuMigraterContextProps {
     /* states */
+    currentMenu: MenuTitleListItemDTO[];
     menuMerge: MenuMergeDTO;
     isCurrentMenuTabOpen: boolean;
     isMigraterTabOpen: boolean;

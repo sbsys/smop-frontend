@@ -16,6 +16,7 @@ import styles from './CurrentMenu.module.scss';
 const CurrentMenu = () => {
     const {
         /* states */
+        currentMenu,
         isCurrentMenuTabOpen,
         handleOpenCurrentMenuTab,
     } = useMenuMigraterContext();
@@ -27,8 +28,32 @@ const CurrentMenu = () => {
             onOpen={handleOpenCurrentMenuTab}
             title={translate('migrater.current')}
             isOpen={isCurrentMenuTabOpen}>
-            {false ? (
-                <div className={styles.CurrentMenu}>CurrentMenu Content</div>
+            {currentMenu.length > 0 ? (
+                <div className={styles.CurrentMenu}>
+                    {currentMenu.map((title, titleIndex) => (
+                        <div key={titleIndex}>
+                            <div>
+                                <img src={title.url} alt={title.title} crossOrigin="anonymous" />
+
+                                <Legend hasDots title={title.title}>
+                                    {title.title}
+                                </Legend>
+                            </div>
+
+                            <ul>
+                                {title.products.map((product, productIndex) => (
+                                    <li key={`${titleIndex}_${productIndex}`}>
+                                        <Legend hasDots title={product.defaultReference}>
+                                            {product.defaultReference}
+                                        </Legend>
+
+                                        <Legend title={`${product.price} USD`}>{product.price} USD</Legend>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
+                </div>
             ) : (
                 <div className={styles.NoCurrentMenu}>
                     <Legend title={translate('migrater.nocurrent')} justify="center">

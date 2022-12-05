@@ -11,13 +11,15 @@ import { menuMergeListService, menuSampleService } from 'admin/commerces/service
 /* utils */
 import { matchBreakPoint } from 'shared/utils';
 /* types */
-import { MenuMergeDTO } from 'admin/commerces/types';
+import { MenuMergeDTO, MenuTitleListItemDTO } from 'admin/commerces/types';
 /* assets */
 import { MdDangerous } from 'react-icons/md';
 
 export const useMenuMigrater = () => {
     /* states */
     const { commerceId } = useParams<{ commerceId: string }>();
+
+    const [currentMenu, setCurrentMenu] = useState<MenuTitleListItemDTO[]>([]);
 
     const [menuMerge, setMenuMerge] = useState<MenuMergeDTO>({
         commerces: [],
@@ -80,7 +82,7 @@ export const useMenuMigrater = () => {
                 timestamp: new Date(),
             });
 
-        /* setCommerces(service.data); */
+        setCurrentMenu(service.data);
     }, [commerceId, hideLoader, notify, showLoader]);
 
     const handlePostUpdateMenu = () => {
@@ -102,6 +104,7 @@ export const useMenuMigrater = () => {
     /* context */
     const context: MenuMigraterContextProps = {
         /* states */
+        currentMenu,
         menuMerge,
         isCurrentMenuTabOpen,
         isMigraterTabOpen,

@@ -5,6 +5,7 @@ import { MenuMigraterContextProps, MenuMigraterProviderProps } from './MenuMigra
 
 const Context = createContext<MenuMigraterContextProps>({
     /* states */
+    currentMenu: [],
     menuMerge: {
         commerces: [],
         menu: [],

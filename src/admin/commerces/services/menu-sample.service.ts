@@ -25,7 +25,7 @@ export const menuSampleService = async (commerceId: string, props?: MenuSamplePr
         method: 'GET',
         responseSerializer: async data =>
             apiSerializer<{}>(data, data => {
-                console.log(data);
+                console.log('MENUSAMPLE', data);
                 return {};
             }),
         errorSerializer: error =>

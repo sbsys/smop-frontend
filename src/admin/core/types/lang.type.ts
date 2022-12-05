@@ -66,11 +66,15 @@ export type AdminLang =
     | 'actions.activate'
     | 'actions.deactivate'
     | 'actions.repeatweekday'
+    | 'actions.merge'
+    | 'actions.replace'
     /* messages */
     | 'messages.activate'
     | 'messages.deactivate'
     | 'messages.nolinkedcommerce'
     | 'messages.remove'
+    | 'messages.merge'
+    | 'messages.replace'
     /* filter */
     | 'filter.name'
     | 'filter.status'
@@ -536,4 +540,6 @@ export type AdminLang =
     | 'menuedit.price.placeholder'
     | 'menuedit.price.hint'
     | 'menuedit.price.required'
-    | 'menuedit.price.min';
+    | 'menuedit.price.min'
+    /* menu migrater */
+    | `migrater.${'current' | 'nocurrent' | 'migrater' | 'generic' | 'commerce' | 'merge' | 'replace'}`;

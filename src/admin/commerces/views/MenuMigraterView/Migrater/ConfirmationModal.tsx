@@ -29,14 +29,14 @@ const ConfirmationModal: FC<{
         <ModalLayout isVisible={isConfirmationModal} rowAlignment="center" colAlignment="center" hasIndentation>
             <ScrollLayout orientation="col" classNameContent={styles.Confirmation}>
                 <section>
-                    <div className={styles.ConfirmationHeader} title={type}>
+                    <div className={styles.ConfirmationHeader} title={translate(`migrater.${type}`)}>
                         <i>{iconStrategy[type]}</i>
 
-                        <Legend hasDots>{type}</Legend>
+                        <Legend hasDots>{translate(`migrater.${type}`)}</Legend>
                     </div>
 
                     <div className={styles.ConfirmationContent}>
-                        <Legend justify="center">{`messages.${type}`}</Legend>
+                        <Legend justify="center">{translate(`messages.${type}`)}</Legend>
                     </div>
 
                     <div className={styles.ConfirmationActions}>
@@ -53,11 +53,11 @@ const ConfirmationModal: FC<{
                         <Button
                             type="button"
                             className={type === 'merge' ? ButtonStyles.FillSecondary : ButtonStyles.FillWarning}
-                            title={`actions.${type}`}
+                            title={translate(`actions.${type}`)}
                             onClick={onSubmit}>
                             <i>{iconStrategy[type]}</i>
                             <Legend hasDots justify="center">
-                                {`actions.${type}`}
+                                {translate(`actions.${type}`)}
                             </Legend>
                         </Button>
                     </div>

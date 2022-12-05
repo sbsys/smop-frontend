@@ -32,7 +32,7 @@ export const setMenuLayoutService = async (commerceId: string, props: SetMenuLay
         instance: AdminApiService,
         endpoint: `/shop/${commerceId}/menu/layout`,
         token: getCurrentUserToken(),
-        method: 'POST',
+        method: 'PUT',
         body: props,
         responseSerializer: async data => apiSerializer<{}>(data),
         errorSerializer: error =>

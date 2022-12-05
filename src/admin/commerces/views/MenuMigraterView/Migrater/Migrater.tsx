@@ -9,6 +9,8 @@ import { MenuLayout } from '../MenuLayout';
 import { Button, Legend } from 'shared/components';
 import GenericMenuMigrater from './GenericMenuMigrater';
 import CommerceMenuMigrater from './CommerceMenuMigrater';
+/* hooks */
+import { useAdminLang } from 'admin/core';
 /* utils */
 import { classNames } from 'shared/utils';
 /* styles */
@@ -26,23 +28,27 @@ const Migrater = () => {
         handleSelectCommerceMigrater,
     } = useMenuMigraterContext();
 
+    const { translate } = useAdminLang();
+
     return (
-        <MenuLayout onOpen={handleOpenMigraterTab} title="Migrater" isOpen={isMigraterTabOpen}>
+        <MenuLayout onOpen={handleOpenMigraterTab} title={translate('migrater.migrater')} isOpen={isMigraterTabOpen}>
             <PanelLayout orientation="col" className={styles.Migrater}>
                 <div className={styles.Header}>
                     <Button
                         className={classNames(isGenericMigraterSelected && styles.TitleActive)}
+                        title={translate('migrater.generic')}
                         onClick={handleSelectGenericMigrater}>
                         <Legend hasDots justify="center">
-                            Generic menu migrater
+                            {translate('migrater.generic')}
                         </Legend>
                     </Button>
 
                     <Button
                         className={classNames(isCommerceMigraterSelected && styles.TitleActive)}
+                        title={translate('migrater.commerce')}
                         onClick={handleSelectCommerceMigrater}>
                         <Legend hasDots justify="center">
-                            Commerce menu migrator
+                            {translate('migrater.commerce')}
                         </Legend>
                     </Button>
                 </div>

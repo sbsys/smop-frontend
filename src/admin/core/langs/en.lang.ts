@@ -66,11 +66,15 @@ export const en: Record<AdminLang, string> = {
     'actions.activate': 'Activate',
     'actions.deactivate': 'Deactivate',
     'actions.repeatweekday': 'Repeat first day on the week',
+    'actions.merge': 'Merge',
+    'actions.replace': 'Replace',
     /* messages */
     'messages.activate': 'Are you sure you want to activate?',
     'messages.deactivate': 'Are you sure you want to deactivate?',
     'messages.nolinkedcommerce': 'No linked commerce yet...',
     'messages.remove': 'Are you sure you want to remove?',
+    'messages.merge': 'Are you sure you want to merge?',
+    'messages.replace': 'Are you sure you want to replace?',
     /* filter */
     'filter.name': 'filter by name',
     'filter.status': 'filter by status',
@@ -540,4 +544,12 @@ export const en: Record<AdminLang, string> = {
     'menuedit.price.hint': 'selected product price',
     'menuedit.price.required': 'product price is required',
     'menuedit.price.min': 'select at least one product',
+    /* menu migrater */
+    'migrater.current': 'Current menu',
+    'migrater.nocurrent': 'No menu yet',
+    'migrater.migrater': 'Migrate menu',
+    'migrater.generic': 'Generic menu',
+    'migrater.commerce': 'Commerce menu',
+    'migrater.merge': 'Merge menu',
+    'migrater.replace': 'Replace menu',
 };

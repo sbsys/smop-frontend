@@ -15,6 +15,7 @@ export interface MenuMigraterContextProps {
     isGenericMigraterSelected: boolean;
     handleSelectCommerceMigrater: () => void;
     handleSelectGenericMigrater: () => void;
+    handlePostUpdateMenu: () => void;
 }
 
 export interface MenuMigraterProviderProps extends ChildrenProps {

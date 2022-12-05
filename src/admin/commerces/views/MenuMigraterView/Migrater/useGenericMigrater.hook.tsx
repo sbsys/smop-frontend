@@ -2,6 +2,8 @@
 import { useCallback, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+/* context */
+import { useMenuMigraterContext } from '../MenuMigrater.context';
 /* props */
 import { FieldSetProps, useAdminNotify } from 'admin/core';
 import { MenuMigraterForm } from '../MenuMigrater.props';
@@ -16,7 +18,7 @@ import { setMenuLayoutService } from 'admin/commerces/services';
 /* types */
 import { MenuTitleListItemDTO, TitleProductListItemDTO } from 'admin/commerces/types';
 /* assets */
-import { MdDangerous, MdWarning } from 'react-icons/md';
+import { MdCheckCircle, MdDangerous, MdWarning } from 'react-icons/md';
 /* styles */
 import styles from './Migrater.module.scss';
 
@@ -24,7 +26,9 @@ export const useGenericMigrater = (menu: MenuTitleListItemDTO[]) => {
     /* states */
     const { commerceId } = useParams<{ commerceId: string }>();
 
-    const { register, setValue, trigger, getValues } = useForm<MenuMigraterForm>({
+    const { handleOpenCurrentMenuTab, handleSelectGenericMigrater, handlePostUpdateMenu } = useMenuMigraterContext();
+
+    const { register, setValue, trigger, getValues, reset } = useForm<MenuMigraterForm>({
         mode: 'all',
         /* resolver: yupResolver(), */
     });
@@ -39,6 +43,8 @@ export const useGenericMigrater = (menu: MenuTitleListItemDTO[]) => {
     const handleSubmit = async () => {
         showLoader();
 
+        hideConfirmationModal();
+
         if (!(await trigger(['type', 'collection'], { shouldFocus: true }))) {
             hideLoader();
 
@@ -52,7 +58,7 @@ export const useGenericMigrater = (menu: MenuTitleListItemDTO[]) => {
                     return [
                         ...prev,
                         {
-                            titleId,
+                            titleId: `${titleId}`,
                             items: items.reduce((prevItem: any[], { isSelected: isItemSelected, ...item }) => {
                                 if (isItemSelected) {
                                     return [...prevItem, item];
@@ -91,6 +97,21 @@ export const useGenericMigrater = (menu: MenuTitleListItemDTO[]) => {
                 text: service.message,
                 timestamp: new Date(),
             });
+
+        handlePostUpdateMenu();
+
+        notify('success', {
+            title: 'Success',
+            icon: <MdCheckCircle />,
+            text: service.message,
+            timestamp: new Date(),
+        });
+
+        reset();
+
+        handleSelectGenericMigrater();
+
+        handleOpenCurrentMenuTab();
     };
 
     const handleMergeMenu = () => {

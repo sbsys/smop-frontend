@@ -18,6 +18,7 @@ const Context = createContext<MenuMigraterContextProps>({
     isGenericMigraterSelected: false,
     handleSelectCommerceMigrater: () => {},
     handleSelectGenericMigrater: () => {},
+    handlePostUpdateMenu: () => {},
 });
 
 export const MenuMigraterProvider: FC<MenuMigraterProviderProps> = ({ context, children }) => {

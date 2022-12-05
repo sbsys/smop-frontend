@@ -7,7 +7,7 @@ import { MenuMigraterContextProps } from './MenuMigrater.props';
 import { useLoader, useMinWidth } from 'shared/hooks';
 import { useAdminNotify } from 'admin/core';
 /* services */
-import { menuCurrentService, menuMergeListService } from 'admin/commerces/services';
+import { menuMergeListService, menuSampleService } from 'admin/commerces/services';
 /* utils */
 import { matchBreakPoint } from 'shared/utils';
 /* types */
@@ -68,7 +68,7 @@ export const useMenuMigrater = () => {
     const getMenuCurrent = useCallback(async () => {
         showLoader();
 
-        const service = await menuCurrentService(commerceId ?? '0');
+        const service = await menuSampleService(commerceId ?? '0');
 
         hideLoader();
 
@@ -82,6 +82,13 @@ export const useMenuMigrater = () => {
 
         /* setCommerces(service.data); */
     }, [commerceId, hideLoader, notify, showLoader]);
+
+    const handlePostUpdateMenu = () => {
+        setMenuMerge({ commerces: [], menu: [] });
+
+        getMenuMergeList();
+        getMenuCurrent();
+    };
 
     /* reactivity */
     useEffect(() => {
@@ -105,6 +112,7 @@ export const useMenuMigrater = () => {
         isCommerceMigraterSelected,
         handleSelectGenericMigrater,
         handleSelectCommerceMigrater,
+        handlePostUpdateMenu,
     };
 
     return { context };

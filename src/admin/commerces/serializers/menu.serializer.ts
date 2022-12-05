@@ -9,6 +9,7 @@ export const menuMergeListItemSerializer = (data: any): MenuTitleListItemDTO => 
 };
 
 export const menuMergeListSerializer = (data: any): MenuMergeDTO => {
+    console.log("COMMERCES", data);
     return {
         commerces: [],
         menu: data.sampleMenu.map((item: any) => menuMergeListItemSerializer(item)),

@@ -6,7 +6,8 @@ import { useGenericMigrater } from './useGenericMigrater.hook';
 import { ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
-import { FieldSet } from 'admin/core';
+import { FieldSet, useAdminLang } from 'admin/core';
+import ConfirmationModal from './ConfirmationModal';
 /* types */
 import { MenuTitleListItemDTO } from 'admin/commerces/types';
 /* assets */
@@ -14,7 +15,6 @@ import { TbGitMerge, TbReplace } from 'react-icons/tb';
 /* styles */
 import { ButtonStyles } from 'shared/styles';
 import styles from './Migrater.module.scss';
-import ConfirmationModal from './ConfirmationModal';
 
 const GenericMenuMigrater: FC<{ menu: MenuTitleListItemDTO[] }> = ({ menu }) => {
     const {
@@ -26,6 +26,8 @@ const GenericMenuMigrater: FC<{ menu: MenuTitleListItemDTO[] }> = ({ menu }) => 
         handleCancelSubmit,
         handleSubmit,
     } = useGenericMigrater(menu);
+
+    const { translate } = useAdminLang();
 
     return (
         <>
@@ -43,13 +45,13 @@ const GenericMenuMigrater: FC<{ menu: MenuTitleListItemDTO[] }> = ({ menu }) => 
                         className={ButtonStyles.FillSecondary}
                         onClick={handleMergeMenu}
                         type="button"
-                        title={'Merge'}>
+                        title={translate('actions.merge')}>
                         <i>
                             <TbGitMerge />
                         </i>
 
                         <Legend hasDots justify="center">
-                            Merge menu
+                            {translate('actions.merge')}
                         </Legend>
                     </Button>
 
@@ -57,13 +59,13 @@ const GenericMenuMigrater: FC<{ menu: MenuTitleListItemDTO[] }> = ({ menu }) => 
                         className={ButtonStyles.FillWarning}
                         onClick={handleReplaceMenu}
                         type="button"
-                        title={'Merge'}>
+                        title={translate('actions.replace')}>
                         <i>
                             <TbReplace />
                         </i>
 
                         <Legend hasDots justify="center">
-                            Replace menu
+                            {translate('actions.replace')}
                         </Legend>
                     </Button>
                 </div>

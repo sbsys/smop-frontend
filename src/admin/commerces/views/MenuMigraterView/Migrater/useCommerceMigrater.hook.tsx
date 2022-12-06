@@ -40,6 +40,8 @@ export const useCommerceMigrater = () => {
     const getCommerceMenu = useCallback(async () => {
         if (!selectedCommerce) return;
 
+        setMenu([]);
+
         showLoader();
 
         const service = await menuSampleService(selectedCommerce);

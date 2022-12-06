@@ -7,17 +7,19 @@ import { MenuMigraterContextProps } from './MenuMigrater.props';
 import { useLoader, useMinWidth } from 'shared/hooks';
 import { useAdminNotify } from 'admin/core';
 /* services */
-import { menuMergeListService, menuSampleService } from 'admin/commerces/services';
+import { commerceDetailService, menuMergeListService, menuSampleService } from 'admin/commerces/services';
 /* utils */
 import { matchBreakPoint } from 'shared/utils';
 /* types */
-import { MenuMergeDTO, MenuTitleListItemDTO } from 'admin/commerces/types';
+import { CommerceDetailDTO, MenuMergeDTO, MenuTitleListItemDTO } from 'admin/commerces/types';
 /* assets */
 import { MdDangerous } from 'react-icons/md';
 
 export const useMenuMigrater = () => {
     /* states */
     const { commerceId } = useParams<{ commerceId: string }>();
+
+    const [commerce, setCommerce] = useState<CommerceDetailDTO | null>(null);
 
     const [currentMenu, setCurrentMenu] = useState<MenuTitleListItemDTO[]>([]);
 
@@ -49,6 +51,24 @@ export const useMenuMigrater = () => {
     const { notify } = useAdminNotify();
 
     /* functions */
+    const getCommerceDetail = useCallback(async () => {
+        showLoader();
+
+        const service = await commerceDetailService({ commerceId: commerceId ?? '' });
+
+        hideLoader();
+
+        if (service.error)
+            return notify('danger', {
+                title: 'Error',
+                icon: <MdDangerous />,
+                text: service.message,
+                timestamp: new Date(),
+            });
+
+        setCommerce(service.data);
+    }, [commerceId, hideLoader, notify, showLoader]);
+
     const getMenuMergeList = useCallback(async () => {
         showLoader();
 
@@ -94,6 +114,10 @@ export const useMenuMigrater = () => {
 
     /* reactivity */
     useEffect(() => {
+        getCommerceDetail();
+    }, [getCommerceDetail]);
+
+    useEffect(() => {
         getMenuMergeList();
     }, [getMenuMergeList]);
 
@@ -104,6 +128,7 @@ export const useMenuMigrater = () => {
     /* context */
     const context: MenuMigraterContextProps = {
         /* states */
+        commerce,
         currentMenu,
         menuMerge,
         isCurrentMenuTabOpen,

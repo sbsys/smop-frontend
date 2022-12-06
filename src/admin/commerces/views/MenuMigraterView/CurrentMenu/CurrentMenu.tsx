@@ -10,7 +10,7 @@ import { Legend } from 'shared/components';
 /* hooks */
 import { useAdminLang } from 'admin/core';
 /* utils */
-/* import { amountFormat } from 'shared/utils'; */
+import { classNames } from 'shared/utils';
 /* assets */
 import { FeaturesSrc } from 'assets';
 /* styles */
@@ -19,6 +19,7 @@ import styles from './CurrentMenu.module.scss';
 const CurrentMenu = () => {
     const {
         /* states */
+        commerce,
         currentMenu,
         isCurrentMenuTabOpen,
         handleOpenCurrentMenuTab,
@@ -29,7 +30,7 @@ const CurrentMenu = () => {
     return (
         <MenuLayout
             onOpen={handleOpenCurrentMenuTab}
-            title={translate('migrater.current')}
+            title={classNames(commerce?.referenceName, commerce?.referenceName && '::', translate('migrater.current'))}
             isOpen={isCurrentMenuTabOpen}>
             {currentMenu.length > 0 ? (
                 <ScrollLayout orientation="col">

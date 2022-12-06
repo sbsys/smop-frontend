@@ -56,7 +56,7 @@ const GenericMenuMigrater: FC<{ menu: MenuTitleListItemDTO[] }> = ({ menu }) => 
                     </Button>
 
                     <Button
-                        className={ButtonStyles.FillWarning}
+                        className={ButtonStyles.FillSuccess}
                         onClick={handleReplaceMenu}
                         type="button"
                         title={translate('actions.replace')}>

@@ -52,7 +52,7 @@ const ConfirmationModal: FC<{
 
                         <Button
                             type="button"
-                            className={type === 'merge' ? ButtonStyles.FillSecondary : ButtonStyles.FillWarning}
+                            className={type === 'merge' ? ButtonStyles.FillSecondary : ButtonStyles.FillSuccess}
                             title={translate(`actions.${type}`)}
                             onClick={onSubmit}>
                             <i>{iconStrategy[type]}</i>

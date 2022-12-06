@@ -11,7 +11,12 @@ export interface MenuTitleListItemDTO {
     products: TitleProductListItemDTO[];
 }
 
+export interface MenuCommerceListItemDTO {
+    commerceId: string;
+    referenceName: string;
+}
+
 export interface MenuMergeDTO {
-    commerces: [];
+    commerces: MenuCommerceListItemDTO[];
     menu: MenuTitleListItemDTO[];
 }

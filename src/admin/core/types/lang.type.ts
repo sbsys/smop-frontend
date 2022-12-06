@@ -542,4 +542,12 @@ export type AdminLang =
     | 'menuedit.price.required'
     | 'menuedit.price.min'
     /* menu migrater */
-    | `migrater.${'current' | 'nocurrent' | 'migrater' | 'generic' | 'commerce' | 'merge' | 'replace'}`;
+    | `migrater.${
+          | 'current'
+          | 'nocurrent'
+          | 'migrater'
+          | 'generic'
+          | 'commerce'
+          | 'merge'
+          | 'replace'
+          | `commerce.${'title' | 'placeholder' | 'hint' | 'nocommerces' | 'noselected' | 'nomenu'}`}`;

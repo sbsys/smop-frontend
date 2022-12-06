@@ -552,4 +552,10 @@ export const es: Record<AdminLang, string> = {
     'migrater.commerce': 'Menú de comercio',
     'migrater.merge': 'Fusionar menú',
     'migrater.replace': 'Reemplazar menú',
+    'migrater.commerce.title': 'Comercio para migrar menú',
+    'migrater.commerce.placeholder': 'Seleccione el comercio',
+    'migrater.commerce.hint': 'seleccione un comercio para migrar menú',
+    'migrater.commerce.nocommerces': 'Todavía no hay comercios con menú',
+    'migrater.commerce.noselected': 'Por favor seleccione un comercio para migrar menú',
+    'migrater.commerce.nomenu': 'El comercio seleccionado no tiene menú',
 };

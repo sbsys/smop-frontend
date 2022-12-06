@@ -164,3 +164,52 @@
         }
     }
 }
+
+.Commerce {
+    @include gap(all sm);
+
+    .NoCommerces {
+        @include flex(col, center, center);
+        @include gap(all xl);
+        flex-grow: 1;
+        overflow: hidden;
+
+        & > span {
+            @include font-size(lg);
+            @include font-weight(lg);
+        }
+
+        & > img {
+            @include max-width(xl, component);
+            object-fit: contain;
+            overflow: hidden;
+            width: 100%;
+        }
+    }
+
+    .CommerceHeader {
+        @include flex;
+        @include gap(all xs);
+        @include max-width(xl, component);
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+
+        & > h3 {
+            @include font-weight(lg);
+        }
+    }
+
+    & > span {
+        @include font-weight(lg);
+        margin-bottom: auto;
+        margin-top: auto;
+    }
+
+    & > form {
+        @include flex;
+        @include gap(all sm);
+        flex-grow: 1;
+        overflow: hidden;
+    }
+}

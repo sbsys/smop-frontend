@@ -552,4 +552,10 @@ export const en: Record<AdminLang, string> = {
     'migrater.commerce': 'Commerce menu',
     'migrater.merge': 'Merge menu',
     'migrater.replace': 'Replace menu',
+    'migrater.commerce.title': 'Commerce to migrate menu',
+    'migrater.commerce.placeholder': 'Select commerce',
+    'migrater.commerce.hint': 'select a commerce to migrate menu',
+    'migrater.commerce.nocommerces': 'No commerces with menu yet',
+    'migrater.commerce.noselected': 'Please select a commerce to migrate menu',
+    'migrater.commerce.nomenu': "Selected commerce doesn't have menu",
 };

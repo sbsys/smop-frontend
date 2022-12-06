@@ -3,11 +3,14 @@ import { memo } from 'react';
 /* context */
 import { useMenuMigraterContext } from '../MenuMigrater.context';
 /* layouts */
+import { ScrollLayout } from 'shared/layouts';
 import { MenuLayout } from '../MenuLayout';
 /* components */
 import { Legend } from 'shared/components';
 /* hooks */
 import { useAdminLang } from 'admin/core';
+/* utils */
+/* import { amountFormat } from 'shared/utils'; */
 /* assets */
 import { FeaturesSrc } from 'assets';
 /* styles */
@@ -29,31 +32,35 @@ const CurrentMenu = () => {
             title={translate('migrater.current')}
             isOpen={isCurrentMenuTabOpen}>
             {currentMenu.length > 0 ? (
-                <div className={styles.CurrentMenu}>
-                    {currentMenu.map((title, titleIndex) => (
-                        <div key={titleIndex}>
-                            <div>
-                                <img src={title.url} alt={title.title} crossOrigin="anonymous" />
+                <ScrollLayout orientation="col">
+                    <div className={styles.CurrentMenu}>
+                        {currentMenu.map((title, titleIndex) => (
+                            <div key={titleIndex}>
+                                <div>
+                                    <img src={title.url} alt={title.title} crossOrigin="anonymous" />
 
-                                <Legend hasDots title={title.title}>
-                                    {title.title}
-                                </Legend>
+                                    <Legend hasDots title={title.title}>
+                                        {title.title}
+                                    </Legend>
+                                </div>
+
+                                <ul>
+                                    {title.products.map((product, productIndex) => (
+                                        <li key={`${titleIndex}_${productIndex}`}>
+                                            <Legend hasDots title={product.defaultReference}>
+                                                {product.defaultReference}
+                                            </Legend>
+
+                                            {/* <Legend title={`${amountFormat(product.price, 4)} USD`} justify="end">
+                                                {amountFormat(product.price, 4)} USD
+                                            </Legend> */}
+                                        </li>
+                                    ))}
+                                </ul>
                             </div>
-
-                            <ul>
-                                {title.products.map((product, productIndex) => (
-                                    <li key={`${titleIndex}_${productIndex}`}>
-                                        <Legend hasDots title={product.defaultReference}>
-                                            {product.defaultReference}
-                                        </Legend>
-
-                                        <Legend title={`${product.price} USD`}>{product.price} USD</Legend>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    ))}
-                </div>
+                        ))}
+                    </div>
+                </ScrollLayout>
             ) : (
                 <div className={styles.NoCurrentMenu}>
                     <Legend title={translate('migrater.nocurrent')} justify="center">

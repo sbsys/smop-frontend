@@ -1,7 +1,61 @@
 @import 'styles';
 
 .CurrentMenu {
+    @include flex;
     @include gap(all sm);
+    @include padding(y xs, right xs);
+
+    & > div {
+        @include flex;
+        @include gap(all sm);
+
+        & > div {
+            @include flex(row, center);
+            @include gap(all md);
+
+            & > img {
+                @include height(xl, element);
+                @include min-width(xl, element);
+                @include rounded(all sm);
+                @include width(xl, element);
+                object-fit: cover;
+                overflow: hidden;
+            }
+
+            & > span {
+                @include font-weight(lg);
+            }
+        }
+
+        ul {
+            @include flex;
+            @include gap(all sm);
+            @include padding(x xs);
+
+            & > li {
+                @include gap(all xs);
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+
+                & > span:first-of-type {
+                    grid-column: span 3;
+
+                    /* @include screen-width(4xs) {
+                        grid-column: span 2;
+                    } */
+                }
+
+                /* & > span:last-of-type {
+                    @include font-weight(lg);
+                    grid-column: span 2;
+
+                    @include screen-width(4xs) {
+                        grid-column: span 1;
+                    }
+                } */
+            }
+        }
+    }
 }
 
 .NoCurrentMenu {

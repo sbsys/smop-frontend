@@ -66,14 +66,14 @@ export const es: Record<AdminLang, string> = {
     'actions.activate': 'Activar',
     'actions.deactivate': 'Desactivar',
     'actions.repeatweekday': 'Repetir primer día',
-    'actions.merge': 'Unir',
+    'actions.merge': 'Fusionar',
     'actions.replace': 'Reemplazar',
     /* messages */
     'messages.activate': '¿Está seguro de que desea activarlo?',
     'messages.deactivate': '¿Está seguro de que desea desactivarlo?',
     'messages.nolinkedcommerce': 'Ningún comercio vinculado todavía...',
     'messages.remove': '¿Está seguro de que desea eliminarlo?',
-    'messages.merge': '¿Está seguro de que desea unir?',
+    'messages.merge': '¿Está seguro de que desea fusionar?',
     'messages.replace': '¿Está seguro de que desea reemplazar?',
     /* filter */
     'filter.name': 'filtrar por nombre',
@@ -550,6 +550,6 @@ export const es: Record<AdminLang, string> = {
     'migrater.migrater': 'Migrar menú',
     'migrater.generic': 'Menú genérico',
     'migrater.commerce': 'Menú de comercio',
-    'migrater.merge': 'Unir menú',
+    'migrater.merge': 'Fusionar menú',
     'migrater.replace': 'Reemplazar menú',
 };

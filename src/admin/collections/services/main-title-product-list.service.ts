@@ -9,7 +9,7 @@ import {
 } from 'admin/core';
 import { getCurrentUserToken, repeatRequestOnRefreshTokenService } from 'admin/auth';
 /* serializers */
-import { titleProductListSerializer } from '../serializers';
+import { mainTitleProductListSerializer } from '../serializers';
 /* handlers */
 import { apiRequestHandler } from 'shared/handlers';
 /* types */
@@ -30,7 +30,8 @@ export const mainTitleProductListService = async (
         endpoint: `/shop/main-title/${titleId}/product`,
         token: getCurrentUserToken(),
         method: 'GET',
-        responseSerializer: async data => apiSerializer<TitleProductListItemDTO[]>(data, titleProductListSerializer),
+        responseSerializer: async data =>
+            apiSerializer<TitleProductListItemDTO[]>(data, mainTitleProductListSerializer),
         errorSerializer: error =>
             apiOnErrorSideEffect<ApiResponse<TitleProductListItemDTO[]>>(
                 error,

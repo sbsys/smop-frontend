@@ -54,3 +54,14 @@ export const titleProductListItemSerializer = (data: any): TitleProductListItemD
 export const titleProductListSerializer = (data: any): TitleProductListItemDTO[] => {
     return (data.items as any[]).map(item => titleProductListItemSerializer(item));
 };
+
+export const mainTitleProductListItemSerializer = (data: any): TitleProductListItemDTO => {
+    return {
+        ...data.product,
+        isActive: data.product.isActive ? 'active' : 'inactive',
+    };
+};
+
+export const mainTitleProductListSerializer = (data: any): TitleProductListItemDTO[] => {
+    return (data.items as any[]).map(item => mainTitleProductListItemSerializer(item));
+};

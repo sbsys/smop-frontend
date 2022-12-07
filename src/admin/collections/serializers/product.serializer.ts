@@ -46,8 +46,8 @@ export const productDetailSerializer = (data: any): ProductDetailDTO => {
 
 export const titleProductListItemSerializer = (data: any): TitleProductListItemDTO => {
     return {
-        ...data.product,
-        isActive: data.product.isActive ? 'active' : 'inactive',
+        ...data,
+        isActive: data.isActive ? 'active' : 'inactive',
     };
 };
 

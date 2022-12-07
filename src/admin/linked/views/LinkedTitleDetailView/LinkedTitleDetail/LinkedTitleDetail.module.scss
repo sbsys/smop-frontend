@@ -55,6 +55,11 @@
                 white-space: nowrap;
             }
         }
+
+        .Disabled {
+            @include bg-color(400);
+            @include opacity(80);
+        }
     }
 
     .Actions {

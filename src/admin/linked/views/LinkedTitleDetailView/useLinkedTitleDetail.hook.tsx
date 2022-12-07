@@ -13,7 +13,7 @@ import { useAdminNotify } from 'admin/core';
 import { mainTitleProductListService } from 'admin/collections/services';
 import { productLinkedListService } from 'admin/linked/services';
 /* types */
-import { TitleProductListItemDTO } from 'admin/collections';
+import { ProductState, TitleProductListItemDTO } from 'admin/collections';
 import { LinkedMenuProduct } from 'admin/linked/types';
 /* assets */
 import { MdDangerous } from 'react-icons/md';
@@ -49,7 +49,15 @@ export const useLinkedTitleDetail = () => {
 
             if (!product) return prev;
 
-            return [...prev, { ...current, price: product.price, url: product.url }];
+            return [
+                ...prev,
+                {
+                    ...current,
+                    isActive: (product.isAvailable ? 'active' : 'inactive') as ProductState,
+                    price: product.price,
+                    url: product.url,
+                },
+            ];
         }, [] as (TitleProductListItemDTO & { price: number; url: string })[]);
     }, [menuProductList, products]);
 

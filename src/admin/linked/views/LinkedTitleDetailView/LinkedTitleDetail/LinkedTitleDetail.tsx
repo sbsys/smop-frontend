@@ -10,7 +10,7 @@ import { Button, Legend } from 'shared/components';
 /* hooks */
 import { useAdminLang } from 'admin/core';
 /* utils */
-import { amountFormat } from 'shared/utils';
+import { amountFormat, classNames } from 'shared/utils';
 /* assets */
 import { MdVisibility } from 'react-icons/md';
 /* styles */
@@ -64,10 +64,11 @@ const LinkedTitleDetail = () => {
                 <ScrollLayout orientation="col">
                     <ul className={styles.List}>
                         {productList.map((product, index) => (
-                            <li key={index}>
+                            <li key={index} className={classNames(product.isActive === 'inactive' && styles.Disabled)}>
                                 <img src={product.url} alt={product.defaultReference} crossOrigin="anonymous" />
 
                                 <Legend hasDots title={product.defaultReference}>
+                                    {product.isActive === 'inactive' && '(disabled) '}
                                     {product.defaultReference}
                                 </Legend>
 

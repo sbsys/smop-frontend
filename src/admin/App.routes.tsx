@@ -26,8 +26,6 @@ import {
 } from './commerces';
 /* users */
 import { CreateUserView, UserListView, UsersLayout } from './users';
-/* clients */
-import { SchemaLayout } from './clients';
 /* collections */
 import {
     AddonsTitleListView,
@@ -48,6 +46,8 @@ import {
     LinkTitleView,
     UpdateLinkedTitleView,
 } from './linked';
+/* clients */
+import { SchemaLayout, CommerceListView as ClientsCommerceListView } from './clients';
 
 const AppRoutes: FC = () => {
     const { isAuth, token } = useAdminSelector(selectAuthStore);
@@ -96,7 +96,7 @@ const AppRoutes: FC = () => {
 
     return (
         <Routes>
-            <Route index element={<Navigate to={'admin'} replace />} />
+            {/* <Route index element={<Navigate to={'admin'} replace />} /> */}
 
             <Route path="admin" element={<AdminLayout />}>
                 <Route index element={<Navigate to={isAuth ? 'dashboard' : 'auth'} replace />} />
@@ -191,7 +191,7 @@ const AppRoutes: FC = () => {
 
             {/* client side app */}
             <Route path=":schema" element={<SchemaLayout />}>
-                <Route index element={<span>Schemas List</span>} />
+                <Route index element={<ClientsCommerceListView />} />
 
                 <Route path=":commerces" element={<span>Restaurant</span>} />
             </Route>

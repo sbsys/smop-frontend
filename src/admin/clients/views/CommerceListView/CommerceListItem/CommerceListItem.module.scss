@@ -1,0 +1,29 @@
+@import 'styles';
+
+.ListItem {
+    @include flex;
+    @include gap(all sm);
+    @include padding(all sm);
+
+    .Title {
+        @include font-weight(lg);
+    }
+
+    .Header {
+        @include flex;
+
+        & > h2 {
+            @include font-weight(lg);
+            @include font-size(lg);
+            overflow: hidden;
+        }
+
+        & > span {
+            @include font-size(sm);
+            @include bg-color(100);
+            @include font-color(900);
+            @include rounded(all md);
+            @include padding(all sm split);
+        }
+    }
+}

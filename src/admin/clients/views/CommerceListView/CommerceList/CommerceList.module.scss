@@ -1,0 +1,83 @@
+@import 'styles';
+
+.CommerceList {
+    @include gap(all sm);
+
+    .Branding {
+        @include flex(row);
+        position: relative;
+
+        & > img:first-of-type {
+            @include margin(x xs split);
+            @include rounded(all xs);
+            aspect-ratio: 2 / 1;
+            margin-bottom: calc(size(2xl, element) / 2);
+            object-fit: cover;
+            overflow: hidden;
+            width: 100%;
+
+            @include screen-width(6xs) {
+                aspect-ratio: 3 / 1;
+            }
+
+            @include screen-width(xs) {
+                aspect-ratio: 4 / 1;
+            }
+
+            @include screen-width(md) {
+                aspect-ratio: 5 / 1;
+            }
+
+            @include screen-width(lg) {
+                aspect-ratio: 6 / 1;
+            }
+        }
+
+        & > img:last-of-type {
+            @include border-color(all 200 bg);
+            @include border-width(all sm);
+            @include height(2xl, element);
+            @include margin(left xs);
+            @include rounded(all md split);
+            @include width(2xl, element);
+            bottom: 0;
+            object-fit: cover;
+            overflow: hidden;
+            position: absolute;
+        }
+    }
+
+    .List {
+        @include flex;
+        @include padding(all xs);
+
+        & > ul {
+            @include flex;
+            @include gap(all sm);
+
+            @include screen-width(2xs) {
+                @include gap(all md);
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            @include screen-width(lg) {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            @include screen-width(2xl) {
+                @include gap(x lg);
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            & > li {
+                @include bg-color(300);
+                @include interactable;
+                @include rounded(all sm);
+                cursor: pointer;
+                list-style: none;
+                overflow: hidden;
+            }
+        }
+    }
+}

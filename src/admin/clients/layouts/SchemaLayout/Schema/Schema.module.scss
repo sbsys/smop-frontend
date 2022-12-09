@@ -1,13 +1,17 @@
 @import 'styles';
 
 .Schema {
-    @include gap(all md);
+    @include generate-theme($clients-theme);
+}
+
+.Schema {
+    @include gap(all sm);
     @include max-width(2xl, view);
     margin: 0 auto;
     width: 100%;
 
     .Content {
         @include flex;
-        @include padding(x xs);
+        @include padding(all xs);
     }
 }

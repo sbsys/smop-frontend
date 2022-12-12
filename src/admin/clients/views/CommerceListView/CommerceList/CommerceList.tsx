@@ -8,8 +8,14 @@ import { CommerceListItem } from '../CommerceListItem';
 import { TenantCoverSrc, TenantProfileSrc } from 'assets';
 /* styles */
 import styles from './CommerceList.module.scss';
+import { useCommerceListContext } from '../CommerceList.context';
 
 const CommerceList = () => {
+    const {
+        /* functions */
+        handleSelectCommerce,
+    } = useCommerceListContext();
+
     return (
         <PanelLayout orientation="col" className={styles.CommerceList}>
             <section className={styles.Branding}>
@@ -21,8 +27,8 @@ const CommerceList = () => {
             <ScrollLayout orientation="col">
                 <section className={styles.List}>
                     <ul>
-                        {[...Array(50)].map((_, index) => (
-                            <li key={index}>
+                        {[...Array(10)].map((_, index) => (
+                            <li key={index} onClick={handleSelectCommerce('commerceId')}>
                                 <CommerceListItem />
                             </li>
                         ))}

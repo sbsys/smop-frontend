@@ -13,17 +13,26 @@
         @include flex;
 
         & > h2 {
-            @include font-weight(lg);
             @include font-size(lg);
+            @include font-weight(lg);
             overflow: hidden;
         }
 
         & > span {
+            @include bg-opacity(10);
             @include font-size(sm);
-            @include bg-color(100);
-            @include font-color(900);
-            @include rounded(all md);
             @include padding(all sm split);
+            @include rounded(all md);
+        }
+
+        .Online {
+            @include bg-color(400, success);
+            @include font-color(600, success);
+        }
+
+        .Offline {
+            @include bg-color(400, danger);
+            @include font-color(600, danger);
         }
     }
 }

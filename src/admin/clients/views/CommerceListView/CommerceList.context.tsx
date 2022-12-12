@@ -3,7 +3,10 @@ import { createContext, FC, useContext } from 'react';
 /* props */
 import { CommerceListContextProps, CommerceListProviderProps } from './CommerceList.props';
 
-const Context = createContext<CommerceListContextProps>({});
+const Context = createContext<CommerceListContextProps>({
+    /* functions */
+    handleSelectCommerce: () => () => {},
+});
 
 export const CommerceListProvider: FC<CommerceListProviderProps> = ({ children, context }) => {
     return (

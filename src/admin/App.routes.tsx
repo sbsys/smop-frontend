@@ -47,7 +47,11 @@ import {
     UpdateLinkedTitleView,
 } from './linked';
 /* clients */
-import { SchemaLayout, CommerceListView as ClientsCommerceListView } from './clients';
+import {
+    SchemaLayout,
+    CommerceDetailView as ClientsCommerceDetailView,
+    CommerceListView as ClientsCommerceListView,
+} from './clients';
 
 const AppRoutes: FC = () => {
     const { isAuth, token } = useAdminSelector(selectAuthStore);
@@ -193,7 +197,7 @@ const AppRoutes: FC = () => {
             <Route path=":schema" element={<SchemaLayout />}>
                 <Route index element={<ClientsCommerceListView />} />
 
-                <Route path=":commerces" element={<span>Restaurant</span>} />
+                <Route path=":commerceId" element={<ClientsCommerceDetailView />} />
             </Route>
 
             <Route path="*" element={<span>404</span>} />

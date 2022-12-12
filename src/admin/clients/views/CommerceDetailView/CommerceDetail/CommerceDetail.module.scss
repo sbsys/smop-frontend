@@ -1,0 +1,56 @@
+@import 'styles';
+
+.CommerceDetail {
+    @include gap(all md);
+
+    .Header {
+        @include flex(row, center, flex-end);
+        @include gap(all md);
+
+        .Menu {
+            @include screen-width(sm) {
+                display: none;
+            }
+        }
+
+        .Cart {
+            overflow: hidden;
+        }
+    }
+
+    .Content {
+        @include flex;
+
+        @include screen-width(sm) {
+            display: grid;
+            grid-template-columns: size(md, component) repeat(2, 1fr);
+        }
+
+        @include screen-width(2xl) {
+            grid-template-columns: size(md, component) repeat(2, 1fr) size(md, component);
+        }
+
+        .Menu {
+            display: none;
+            overflow: hidden;
+
+            @include screen-width(sm) {
+                @include flex;
+            }
+        }
+
+        .Main {
+            @include screen-width(sm) {
+                grid-column: span 2;
+            }
+        }
+
+        .Cart {
+            display: none;
+
+            @include screen-width(2xl) {
+                @include flex;
+            }
+        }
+    }
+}

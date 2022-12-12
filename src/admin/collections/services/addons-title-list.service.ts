@@ -85,7 +85,7 @@ export const addonsTitleListService = async (
 
     return await apiRequestHandler<ApiResponse<TitleListItemDTO[]>>({
         instance: AdminApiService,
-        endpoint: '/shop/accesory-title',
+        endpoint: '/shop/complement-title',
         token: getCurrentUserToken(),
         method: 'GET',
         responseSerializer: async data => apiSerializer<TitleListItemDTO[]>(data, titleListSerializer),

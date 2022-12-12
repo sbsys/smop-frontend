@@ -30,7 +30,7 @@ export const updateAddonTitleService = async (
 
     return await apiRequestHandler<ApiResponse<{}>>({
         instance: AdminApiService,
-        endpoint: `/shop/accesory-title/${titleId}`,
+        endpoint: `/shop/complement-title/${titleId}`,
         token: getCurrentUserToken(),
         method: 'PUT',
         body: props,

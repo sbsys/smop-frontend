@@ -26,7 +26,7 @@ export const createAddonTitleService = async (props: CreateAddonTitleProps): Pro
 
     return await apiRequestHandler<ApiResponse<{}>>({
         instance: AdminApiService,
-        endpoint: '/shop/accesory-title',
+        endpoint: '/shop/complement-title',
         token: getCurrentUserToken(),
         method: 'POST',
         body: props,

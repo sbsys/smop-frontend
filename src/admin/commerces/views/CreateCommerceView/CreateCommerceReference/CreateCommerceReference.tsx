@@ -31,11 +31,7 @@ const CreateCommerceReference = () => {
                     ))}
                 </div>
 
-                <MapContainer
-                    center={[geolocation.lat, geolocation.lng]}
-                    zoom={11}
-                    scrollWheelZoom={false}
-                    className={styles.Map}>
+                <MapContainer center={[geolocation.lat, geolocation.lng]} zoom={10} className={styles.Map}>
                     <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
                     <DraggableMarker lat={geolocation.lat} lng={geolocation.lng} getPosition={handleSetGeolocation} />

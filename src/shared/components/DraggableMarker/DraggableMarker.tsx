@@ -18,7 +18,15 @@ const DraggableMarker: FC<
 
     const markerRef = useRef<MarkerProps | null>(null);
 
-    const map = useMapEvents({});
+    const map = useMapEvents(
+        isDraggable
+            ? {
+                  click(event) {
+                      setPosition(event.latlng);
+                  },
+              }
+            : {}
+    );
 
     const eventHandlers = useMemo(
         () => ({

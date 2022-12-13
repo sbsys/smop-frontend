@@ -59,8 +59,8 @@ export const useCreateCommerceReference = () => {
 
     const geolocation = useMemo(() => {
         return {
-            lat: watch('geolocation.latitude') || 0,
-            lng: watch('geolocation.longitude') || 0,
+            lat: watch('geolocation.latitude') || 40,
+            lng: watch('geolocation.longitude') || -100,
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [watch('geolocation.latitude'), watch('geolocation.longitude')]);

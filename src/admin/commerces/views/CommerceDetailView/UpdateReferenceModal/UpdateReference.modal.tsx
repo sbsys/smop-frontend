@@ -50,14 +50,13 @@ const UpdateReferenceModal = () => {
 
                         <MapContainer
                             center={[commerce?.geolocation.latitude ?? 0, commerce?.geolocation.longitude ?? 0]}
-                            zoom={15}
-                            scrollWheelZoom={false}
+                            zoom={10}
                             className={styles.Map}>
                             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
                             <DraggableMarker
-                                lat={commerce?.geolocation.latitude ?? 0}
-                                lng={commerce?.geolocation.longitude ?? 0}
+                                lat={commerce?.geolocation.latitude ?? 40}
+                                lng={commerce?.geolocation.longitude ?? -100}
                                 getPosition={handleSetGeolocation}
                             />
                         </MapContainer>

@@ -3,8 +3,8 @@ import { memo } from 'react';
 /* context */
 import { useCommerceDetailContext } from '../CommerceDetail.context';
 /* components */
-import { Circle, MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
-import { Button, Legend } from 'shared/components';
+import { Circle, MapContainer, Popup, TileLayer } from 'react-leaflet';
+import { Button, DraggableMarker, Legend } from 'shared/components';
 /* hooks */
 import { useAdminLang } from 'admin/core';
 /* utils */
@@ -124,22 +124,25 @@ const CommerceReferenceSection = () => {
                 {commerce?.geolocation.latitude && commerce?.geolocation.longitude && (
                     <MapContainer
                         center={[commerce?.geolocation.latitude ?? 0, commerce?.geolocation.longitude ?? 0]}
-                        zoom={12}
-                        scrollWheelZoom={false}
+                        zoom={10}
                         className={styles.Map}>
                         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-                        <Marker position={[commerce?.geolocation.latitude ?? 0, commerce?.geolocation.longitude ?? 0]}>
+                        <DraggableMarker
+                            isDraggable={false}
+                            lat={commerce?.geolocation.latitude ?? 40}
+                            lng={commerce?.geolocation.longitude ?? -100}
+                            getPosition={() => {}}>
                             <Popup>
                                 <Legend title={commerce?.address} hasDots>
                                     {commerce?.address}
                                 </Legend>
                             </Popup>
-                        </Marker>
+                        </DraggableMarker>
 
                         {meters && (
                             <Circle
-                                center={[commerce?.geolocation.latitude ?? 0, commerce?.geolocation.longitude ?? 0]}
+                                center={[commerce?.geolocation.latitude ?? 40, commerce?.geolocation.longitude ?? -100]}
                                 radius={meters}
                             />
                         )}

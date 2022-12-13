@@ -5,15 +5,15 @@ import { ChildrenProps } from 'shared/props';
 /* utils */
 import * as yup from 'yup';
 /* types */
-import { TitleCollectionForm, TitleListItemDTO } from 'admin/collections/types';
+import { TitleCollectionForm, ComplementTitleListItemDTO } from 'admin/collections/types';
 import { AdminLang, FieldSetProps } from 'admin/core';
 
 export interface AddonsTitleListContextProps {
     /* states */
-    addonsTitleList: TitleListItemDTO[];
-    selectedTitle: TitleListItemDTO | null;
-    selectedTitleToUpdate: TitleListItemDTO | null;
-    selectedTitleToUpdateState: TitleListItemDTO | null;
+    addonsTitleList: ComplementTitleListItemDTO[];
+    selectedTitle: ComplementTitleListItemDTO | null;
+    selectedTitleToUpdate: ComplementTitleListItemDTO | null;
+    selectedTitleToUpdateState: ComplementTitleListItemDTO | null;
     isDropFilter: boolean;
     showDropFilter: () => void;
     hideDropFilter: () => void;

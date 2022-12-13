@@ -1,3 +1,5 @@
+import { ComplementType } from 'admin/collections';
+
 export type WeekDay = 'sunday' | 'monday' | 'tuesday' | 'wenesday' | 'thursday' | 'friday' | 'saturday';
 
 export type AdminLang =
@@ -91,11 +93,13 @@ export type AdminLang =
     | 'headers.profile'
     | 'headers.contacts'
     | 'headers.price'
+    | 'headers.type'
     /* status */
     | 'status.active'
     | 'status.inactive'
     /* types */
     | 'types.addon'
+    | `types.${ComplementType}`
     /* nav links */
     | 'links.dashboard'
     | 'links.home'
@@ -417,7 +421,7 @@ export type AdminLang =
     /* addon title detail */
     | 'addontitledetail.title'
     | 'addontitledetail.collection'
-    | 'addontitledetail.created'
+    | 'addontitledetail.type'
     | 'addontitledetail.products'
     /* addon title edit */
     | 'addontitleedit.title'

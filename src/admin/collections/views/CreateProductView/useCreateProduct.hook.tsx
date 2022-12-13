@@ -119,7 +119,7 @@ export const useCreateProduct = () => {
                 text: service.message,
             });
 
-        setAddonTitleList(service.data);
+        setAddonTitleList(service.data as unknown as TitleListItemDTO[]);
     }, [hideLoader, notify, showLoader]);
 
     /* reactivity */

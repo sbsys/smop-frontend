@@ -11,8 +11,9 @@ import { ModalLayout, PanelLayout, ScrollLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
 /* utils */
-import { format } from 'date-fns';
 import { classNames } from 'shared/utils';
+/* types */
+import { ComplementType } from 'admin/collections/types';
 /* assets */
 import { MdCheck, MdClose, MdInfo } from 'react-icons/md';
 /* styles */
@@ -73,12 +74,12 @@ const AddonsTitleModal = () => {
                         <Legend title={selectedTitle?.defaultTitle}>{selectedTitle?.defaultTitle}</Legend>
                     )}
 
-                    <Legend hasDots title={translate('addontitledetail.created')} className={styles.Title}>
-                        {translate('addontitledetail.created')}
+                    <Legend hasDots title={translate('addontitledetail.type')} className={styles.Title}>
+                        {translate('addontitledetail.type')}
                     </Legend>
 
-                    <Legend title={!selectedTitle?.createdAt ? '' : format(selectedTitle.createdAt, 'MMM do, yyyy')}>
-                        {!selectedTitle?.createdAt ? '' : format(selectedTitle.createdAt, 'MMM do, yyyy')}
+                    <Legend title={translate(`types.${selectedTitle?.type as ComplementType}`)}>
+                        {translate(`types.${selectedTitle?.type as ComplementType}`)}
                     </Legend>
 
                     {productList.length > 0 && (

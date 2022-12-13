@@ -30,3 +30,9 @@ export interface MainTitleListItemDTO extends TitleListItemDTO {
     servedOn: string;
     url: string;
 }
+
+export type ComplementType = 'single' | 'multiple' | 'combo';
+
+export interface ComplementTitleListItemDTO extends Omit<TitleListItemDTO, 'createdAt' | 'updatedAt'> {
+    type: ComplementType;
+}

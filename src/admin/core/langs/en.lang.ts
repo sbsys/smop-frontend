@@ -91,11 +91,15 @@ export const en: Record<AdminLang, string> = {
     'headers.profile': 'Profile',
     'headers.contacts': 'Contacts',
     'headers.price': 'Selling price',
+    'headers.type': 'Selection type',
     /* status */
     'status.active': 'Active',
     'status.inactive': 'Inactive',
     /* types */
     'types.addon': 'Mark as addon',
+    'types.single': 'Single',
+    'types.multiple': 'Multiple',
+    'types.combo': 'Combo',
     /* nav links */
     'links.dashboard': 'Dashboard',
     'links.home': 'Home',
@@ -413,23 +417,23 @@ export const en: Record<AdminLang, string> = {
     'createmaintitle.image.size': 'file picture size up to 10MB',
     'createmaintitle.image.type': 'file picture type allowed: jpg / png',
     /* addon title list */
-    'addontitlelist.title': 'Addon title list',
-    'addontitlelist.updatestatus': 'Update addon title status',
+    'addontitlelist.title': 'Complement list',
+    'addontitlelist.updatestatus': 'Update complement status',
     /* addon title detail */
-    'addontitledetail.title': 'Addon title detail',
-    'addontitledetail.collection': 'Addon title name',
-    'addontitledetail.created': 'Creation date',
-    'addontitledetail.products': 'Addon title product list',
+    'addontitledetail.title': 'Complement detail',
+    'addontitledetail.collection': 'Complement name',
+    'addontitledetail.type': 'Complement type',
+    'addontitledetail.products': 'Complement product list',
     /* addon title edit */
-    'addontitleedit.title': 'Edit addon title',
-    'addontitleedit.collection.placeholder': 'Addon title name',
-    'addontitleedit.collection.hint': 'update addon title name',
-    'addontitleedit.collection.required': 'addon title name is required',
+    'addontitleedit.title': 'Edit complement',
+    'addontitleedit.collection.placeholder': 'Complement name',
+    'addontitleedit.collection.hint': 'update complement name',
+    'addontitleedit.collection.required': 'complement name is required',
     /* create addon title */
-    'createaddontitle.title': 'Create addon title',
-    'createaddontitle.collection.placeholder': 'Addon title name',
-    'createaddontitle.collection.hint': 'addon title name',
-    'createaddontitle.collection.required': 'addon title name is required',
+    'createaddontitle.title': 'Create complement',
+    'createaddontitle.collection.placeholder': 'Complement name',
+    'createaddontitle.collection.hint': 'complement name',
+    'createaddontitle.collection.required': 'complement name is required',
     /* product list view */
     'productlist.title': 'Product list',
     'productlist.updatestatus': 'Update product status',

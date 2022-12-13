@@ -10,11 +10,11 @@ import { FieldSetProps, useAdminLang, useAdminNotify } from 'admin/core';
 /* services */
 import { addonsTitleListService } from 'admin/collections/services';
 /* utils */
-import { isDate, parse } from 'date-fns';
-import { isAfterOrEqual, isBeforeOrEqual, matchBreakPoint } from 'shared/utils';
+import { parse } from 'date-fns';
+import { matchBreakPoint } from 'shared/utils';
 import { MdDangerous } from 'react-icons/md';
 /* types */
-import { TitleListItemDTO, TitleState } from 'admin/collections/types';
+import { ComplementTitleListItemDTO, TitleState } from 'admin/collections/types';
 import { FieldStyles } from 'shared/styles';
 
 interface AddonsTitleListFilterForm {
@@ -28,10 +28,12 @@ export const useAddonsTitleList = () => {
     /* states */
     const { handleSubmit, register, setValue } = useForm<AddonsTitleListFilterForm>();
 
-    const [titles, setTitles] = useState<TitleListItemDTO[]>([]);
-    const [selectedTitle, setSelectedTitle] = useState<TitleListItemDTO | null>(null);
-    const [selectedTitleToUpdate, setSelectedTitleToUpdate] = useState<TitleListItemDTO | null>(null);
-    const [selectedTitleToUpdateState, setSelectedTitleToUpdateState] = useState<TitleListItemDTO | null>(null);
+    const [titles, setTitles] = useState<ComplementTitleListItemDTO[]>([]);
+    const [selectedTitle, setSelectedTitle] = useState<ComplementTitleListItemDTO | null>(null);
+    const [selectedTitleToUpdate, setSelectedTitleToUpdate] = useState<ComplementTitleListItemDTO | null>(null);
+    const [selectedTitleToUpdateState, setSelectedTitleToUpdateState] = useState<ComplementTitleListItemDTO | null>(
+        null
+    );
 
     const [filter, setFilter] = useState<AddonsTitleListFilterForm | null>(null);
 
@@ -63,16 +65,6 @@ export const useAddonsTitleList = () => {
             );
 
         if (filter?.state) list = list.filter(mainTitle => mainTitle.isActive === filter.state);
-
-        if (isDate(filter?.fromDate))
-            list = list.filter(mainTitle =>
-                !mainTitle.createdAt ? true : isAfterOrEqual(mainTitle.createdAt, filter?.fromDate as Date)
-            );
-
-        if (isDate(filter?.toDate))
-            list = list.filter(mainTitle =>
-                !mainTitle.createdAt ? true : isBeforeOrEqual(mainTitle.createdAt, filter?.toDate as Date)
-            );
 
         return list;
     }, [titles, filter]);
@@ -191,35 +183,7 @@ export const useAddonsTitleList = () => {
         },
     };
 
-    const fromDateField: FieldSetProps = {
-        field: {
-            className: FieldStyles.OutlinePrimary,
-            placeholder: translate('filter.fromdate'),
-            strategy: 'date',
-            ...register('fromDate'),
-        },
-        isHintReserved: true,
-        hint: {
-            hasDots: true,
-            children: translate('filter.fromdate'),
-        },
-    };
-
-    const toDateField: FieldSetProps = {
-        field: {
-            className: FieldStyles.OutlinePrimary,
-            placeholder: translate('filter.todate'),
-            strategy: 'date',
-            ...register('toDate'),
-        },
-        isHintReserved: true,
-        hint: {
-            hasDots: true,
-            children: translate('filter.todate'),
-        },
-    };
-
-    const filterFormFields: FieldSetProps[] = [referenceNameField, stateProps, fromDateField, toDateField];
+    const filterFormFields: FieldSetProps[] = [referenceNameField, stateProps];
 
     /* context */
     const context: AddonsTitleListContextProps = {

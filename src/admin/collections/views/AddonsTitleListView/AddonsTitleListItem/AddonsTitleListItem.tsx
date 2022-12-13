@@ -9,21 +9,19 @@ import { AddonsTitleListActions } from '../AddonsTitleListActions';
 /* hooks */
 import { useActive, useClickOutside, useKeyDownEvent } from 'shared/hooks';
 import { useAdminLang } from 'admin/core';
-/* utils */
-import { format } from 'date-fns';
 /* types */
-import { TitleListItemDTO } from 'admin/collections/types';
+import { ComplementTitleListItemDTO } from 'admin/collections/types';
 /* assets */
 import { MdMoreVert } from 'react-icons/md';
 /* styles */
 import styles from './AddonsTitleListItem.module.scss';
 
-const AddonsTitleListItem: FC<TitleListItemDTO> = ({
+const AddonsTitleListItem: FC<ComplementTitleListItemDTO> = ({
     titleId,
     defaultTitle,
     titleCollection,
-    createdAt,
     isActive,
+    type,
     totalProducts,
 }) => {
     const { translate, lang } = useAdminLang();
@@ -40,13 +38,13 @@ const AddonsTitleListItem: FC<TitleListItemDTO> = ({
                 <h4>
                     <Legend
                         hasDots
-                        title={titleCollection.find(collection => collection.lang === lang)?.ref ?? defaultTitle}>
-                        {titleCollection.find(collection => collection.lang === lang)?.ref ?? defaultTitle}
+                        title={titleCollection?.find(collection => collection.lang === lang)?.ref ?? defaultTitle}>
+                        {titleCollection?.find(collection => collection.lang === lang)?.ref ?? defaultTitle}
                     </Legend>
                 </h4>
 
-                <Legend hasDots title={!createdAt ? '' : format(createdAt, 'MMM do, yyyy')}>
-                    {!createdAt ? '' : format(createdAt, 'MMM do, yyyy')}
+                <Legend hasDots title={translate(`types.${type}`)}>
+                    {translate(`types.${type}`)}
                 </Legend>
 
                 <Legend hasDots title={translate('headers.amount')}>

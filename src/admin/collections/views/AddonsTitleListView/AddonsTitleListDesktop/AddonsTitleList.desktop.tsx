@@ -11,8 +11,6 @@ import { Legend } from 'shared/components';
 import { AddonsTitleListFilter } from '../AddonsTitleListFilter';
 import { AddonsTitleListState } from '../AddonsTitleListState';
 import { AddonsTitleListActions, NewAddonsTitleAction } from '../AddonsTitleListActions';
-/* utils */
-import { format } from 'date-fns';
 /* styles */
 import styles from './AddonsTitleList.module.scss';
 
@@ -64,7 +62,7 @@ const AddonsTitleListDesktop = () => {
                             {
                                 children: (
                                     <Legend hasDots justify="center" title={translate('headers.created')}>
-                                        {translate('headers.created')}
+                                        {translate('headers.type')}
                                     </Legend>
                                 ),
                                 span: 2,
@@ -94,10 +92,10 @@ const AddonsTitleListDesktop = () => {
                                     <Legend
                                         hasDots
                                         title={
-                                            item.titleCollection.find(collection => collection.lang === lang)?.ref ??
+                                            item.titleCollection?.find(collection => collection.lang === lang)?.ref ??
                                             item.defaultTitle
                                         }>
-                                        {item.titleCollection.find(collection => collection.lang === lang)?.ref ??
+                                        {item.titleCollection?.find(collection => collection.lang === lang)?.ref ??
                                             item.defaultTitle}
                                     </Legend>
                                 ),
@@ -115,11 +113,8 @@ const AddonsTitleListDesktop = () => {
                             },
                             {
                                 children: (
-                                    <Legend
-                                        hasDots
-                                        justify="center"
-                                        title={!item.createdAt ? '' : format(item.createdAt, 'MMM do, yyyy')}>
-                                        {!item.createdAt ? '' : format(item.createdAt, 'MMM do, yyyy')}
+                                    <Legend hasDots justify="center" title={translate(`types.${item.type}`)}>
+                                        {translate(`types.${item.type}`)}
                                     </Legend>
                                 ),
                             },

@@ -91,11 +91,15 @@ export const es: Record<AdminLang, string> = {
     'headers.profile': 'Perfil',
     'headers.contacts': 'Contactos',
     'headers.price': 'Precio de venta',
+    'headers.type': 'Tipo de selección',
     /* status */
     'status.active': 'Activo',
     'status.inactive': 'Inactivo',
     /* types */
     'types.addon': 'Marcar como complemento',
+    'types.single': 'única',
+    'types.multiple': 'Múltiple',
+    'types.combo': 'Combo',
     /* nav links */
     'links.dashboard': 'Dashboard',
     'links.home': 'Inicio',
@@ -413,23 +417,23 @@ export const es: Record<AdminLang, string> = {
     'createmaintitle.image.size': 'tamaño de archivo de imagen de hasta 10 MB',
     'createmaintitle.image.type': 'tipo de archivo de imagen permitido: jpg / png',
     /* addon title list */
-    'addontitlelist.title': 'Lista de título de complemento',
-    'addontitlelist.updatestatus': 'Actualizar el estado del título de complemento',
+    'addontitlelist.title': 'Lista de complementos',
+    'addontitlelist.updatestatus': 'Actualizar el estado del complemento',
     /* addon title detail */
-    'addontitledetail.title': 'Detalle del título de complemento',
-    'addontitledetail.collection': 'Nombre del título de complemento',
-    'addontitledetail.created': 'Fecha de creación',
-    'addontitledetail.products': 'Lista de productos del título de complemento',
+    'addontitledetail.title': 'Detalle del complemento',
+    'addontitledetail.collection': 'Nombre del complemento',
+    'addontitledetail.type': 'Tipo del complemento',
+    'addontitledetail.products': 'Lista de productos del complemento',
     /* addon title edit */
-    'addontitleedit.title': 'Editar título de complemento',
-    'addontitleedit.collection.placeholder': 'Nombre del título de complemento',
-    'addontitleedit.collection.hint': 'actualizar el nombre del título de complemento',
-    'addontitleedit.collection.required': 'se requiere el nombre del título de complemento',
+    'addontitleedit.title': 'Editar complemento',
+    'addontitleedit.collection.placeholder': 'Nombre del complemento',
+    'addontitleedit.collection.hint': 'actualizar el nombre del complemento',
+    'addontitleedit.collection.required': 'se requiere el nombre del complemento',
     /* create addon title */
-    'createaddontitle.title': 'Crear título de complemento',
-    'createaddontitle.collection.placeholder': 'Nombre del título de complemento',
-    'createaddontitle.collection.hint': 'nombre del título de complemento',
-    'createaddontitle.collection.required': 'se requiere el nombre del título de complemento',
+    'createaddontitle.title': 'Crear complemento',
+    'createaddontitle.collection.placeholder': 'Nombre del complemento',
+    'createaddontitle.collection.hint': 'nombre del complemento',
+    'createaddontitle.collection.required': 'se requiere el nombre del complemento',
     /* product list view */
     'productlist.title': 'Lista de productos',
     'productlist.updatestatus': 'Actualizar estado del producto',

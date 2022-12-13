@@ -84,7 +84,7 @@ export const useProductDetail = () => {
                 text: service.message,
             });
 
-        setAddonTitleList(service.data);
+        setAddonTitleList(service.data as unknown as TitleListItemDTO[]);
     }, [hideLoader, notify, showLoader]);
 
     const handleGoBack = () => navigate(-1);

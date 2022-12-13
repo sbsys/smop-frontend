@@ -6,7 +6,7 @@ import { AdminLang, FieldSetProps } from 'admin/core';
 /* utils */
 import * as yup from 'yup';
 /* types */
-import { TitleCollectionForm } from 'admin/collections/types';
+import { ComplementTypeId, TitleCollectionForm } from 'admin/collections/types';
 
 export interface CreateAddonTitleContextProps {
     /* functions */
@@ -24,6 +24,7 @@ export interface CreateAddonTitleFormData {
     defaultTitle: string;
     titleCollection: TitleCollectionForm[];
     multiLanguage: boolean;
+    complementType: ComplementTypeId;
 }
 
 export const CreateAddonTitleSchema = yup
@@ -42,5 +43,9 @@ export const CreateAddonTitleSchema = yup
                 .required()
         ),
         multiLanguage: yup.boolean().required(),
+        complementType: yup
+            .number()
+            .typeError('createaddontitle.type.required')
+            .integer('createaddontitle.type.required'),
     })
     .required();

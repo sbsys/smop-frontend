@@ -11,12 +11,13 @@ import { getCurrentUserToken, repeatRequestOnRefreshTokenService } from 'admin/a
 /* handlers */
 import { apiRequestHandler } from 'shared/handlers';
 /* types */
-import { TitleCollection } from '../types';
+import { ComplementTypeId, TitleCollection } from '../types';
 
 interface CreateAddonTitleProps {
     defaultTitle: string;
     titleCollection: TitleCollection[];
     multiLanguage: boolean;
+    complementType: ComplementTypeId;
 }
 
 export const createAddonTitleService = async (props: CreateAddonTitleProps): Promise<ApiResponse<{}>> => {

@@ -32,6 +32,19 @@ export interface MainTitleListItemDTO extends TitleListItemDTO {
 }
 
 export type ComplementType = 'single' | 'multiple' | 'combo';
+export type ComplementTypeId = 1 | 2 | 3;
+
+export const ComplementTypeToIdMap: Record<ComplementType, ComplementTypeId> = {
+    single: 1,
+    multiple: 2,
+    combo: 3,
+};
+
+export const ComplementIdToTypeMap: Record<ComplementTypeId, ComplementType> = {
+    1: 'single',
+    2: 'multiple',
+    3: 'combo',
+};
 
 export interface ComplementTitleListItemDTO extends Omit<TitleListItemDTO, 'createdAt' | 'updatedAt'> {
     type: ComplementType;

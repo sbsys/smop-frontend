@@ -20,6 +20,7 @@ import { MdBookmarkAdded, MdDangerous } from 'react-icons/md';
 /* styles */
 import { FieldStyles } from 'shared/styles';
 import styles from './CreateAddonTitle.module.scss';
+import { ComplementIdToTypeMap, ComplementTypeId } from 'admin/collections/types';
 
 export const useCreateAddonTitle = () => {
     /* states */
@@ -165,11 +166,30 @@ export const useCreateAddonTitle = () => {
                       },
         };
     };
+    const complementTypeProps: FieldSetProps = {
+        field: {
+            className: errors.complementType ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
+            strategy: 'select',
+            placeholder: translate('createaddontitle.type.placeholder' as AdminLang),
+            options: [...Array(3)].map((_, index) => ({
+                label: translate(`types.${ComplementIdToTypeMap[(index + 1) as ComplementTypeId]}`),
+                value: index + 1,
+            })),
+            ...register('complementType'),
+        },
+        isHintReserved: true,
+        hint: {
+            children: translate((errors.complementType?.message ?? 'createaddontitle.type.hint') as AdminLang),
+            hasDots: true,
+            title: translate((errors.complementType?.message ?? 'createaddontitle.type.hint') as AdminLang),
+        },
+    };
 
     const createAddonTitleFieldProps: FieldSetProps[] = [
         ...(watch('multiLanguage')
             ? [multiLanguageProps, titleCollectionProps(0, 'en'), titleCollectionProps(1, 'es')]
             : [defaultTitleProps, multiLanguageProps]),
+        complementTypeProps,
     ];
 
     /* context */

@@ -45,9 +45,13 @@ export interface CreateProductFormData {
     /* collections */
     mainCollection: TitleRefCollection[];
     markAsAddon: boolean;
-    accesoryCollection: TitleRefCollection[];
+    secondaryCollection: TitleRefCollection[];
     multipleChoice: TitleRefCollection[];
     singleChoice: TitleRefCollection[];
+    isAccuItems: boolean;
+    maxAccuItems: number;
+    isCombo: boolean;
+    comboChoice: TitleRefCollection[];
 }
 
 export const CreateProductSchema = yup.object({
@@ -111,7 +115,7 @@ export const CreateProductSchema = yup.object({
         })
     ),
     markAsAddon: yup.boolean().required(),
-    accesoryCollection: yup.mixed().when(['markAsAddon'], {
+    secondaryCollection: yup.mixed().when(['markAsAddon'], {
         is: (markAsAddon: boolean) => markAsAddon,
         then: yup
             .array()
@@ -144,4 +148,35 @@ export const CreateProductSchema = yup.object({
             titleId: yup.number().required(),
         })
     ),
+    isAccuItems: yup.boolean().required(),
+    maxAccuItems: yup
+        .number()
+        .typeError('createproduct.maxaccuitems.required')
+        .integer('createproduct.maxaccuitems.required')
+        .min(1, 'createproduct.maxaccuitems.min')
+        .max(10, 'createproduct.maxaccuitems.max'),
+    isCombo: yup.boolean().required(),
+    comboChoice: yup.mixed().when(['isCombo'], {
+        is: (isCombo: boolean) => isCombo,
+        then: yup
+            .array()
+            .of(
+                yup.object({
+                    titleId: yup
+                        .number()
+                        .typeError('createproduct.combo.required' as AdminLang)
+                        .required('createproduct.combo.required' as AdminLang),
+                })
+            )
+            .required('createproduct.combo.required' as AdminLang)
+            .min(1, 'createproduct.combo.required' as AdminLang),
+        otherwise: yup.array().of(
+            yup.object({
+                titleId: yup
+                    .number()
+                    .typeError('createproduct.combo.required' as AdminLang)
+                    .required('createproduct.combo.required' as AdminLang),
+            })
+        ),
+    }),
 });

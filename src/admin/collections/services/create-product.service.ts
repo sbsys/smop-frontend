@@ -28,7 +28,7 @@ interface CreateProductProps {
     /* collections */
     mainCollection: TitleRefCollection[];
     markAsAddon: boolean;
-    accesoryCollection: TitleRefCollection[];
+    secondaryCollection: TitleRefCollection[];
     multipleChoice: TitleRefCollection[];
     singleChoice: TitleRefCollection[];
 }
@@ -59,8 +59,8 @@ export const createProductService = async (props: CreateProductProps): Promise<A
 
     body.append('markAsAddon', JSON.stringify(props.markAsAddon));
 
-    if (props.markAsAddon && props.accesoryCollection.length > 0) {
-        body.append('accesoryCollection', JSON.stringify(props.accesoryCollection));
+    if (props.markAsAddon && props.secondaryCollection.length > 0) {
+        body.append('secondaryCollection', JSON.stringify(props.secondaryCollection));
     }
 
     if (props.multipleChoice.length > 0) {

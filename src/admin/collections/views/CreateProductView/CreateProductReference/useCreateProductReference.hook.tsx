@@ -135,7 +135,6 @@ export const useCreateProductReference = () => {
     const multiLanguageProps: FieldSetProps = {
         className: styles.CheckboxInverse,
         field: {
-            className: errors.multiLanguage ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'checkbox',
             placeholder: translate('commons.allowmultilanguage'),
             ...register('multiLanguage'),
@@ -260,7 +259,6 @@ export const useCreateProductReference = () => {
     const allowPromptsProps: FieldSetProps = {
         className: styles.CheckboxInverse,
         field: {
-            className: errors.allowPrompts ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'checkbox',
             placeholder: translate('createproduct.allowprompts.hint'),
             ...register('allowPrompts'),
@@ -298,7 +296,6 @@ export const useCreateProductReference = () => {
     const includePictureProps: FieldSetProps = {
         className: styles.CheckboxInverse,
         field: {
-            className: errors.includePicture ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             strategy: 'checkbox',
             placeholder: translate('createproduct.image.title'),
             ...register('includePicture'),

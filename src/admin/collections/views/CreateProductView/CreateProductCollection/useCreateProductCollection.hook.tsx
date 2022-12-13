@@ -7,13 +7,13 @@ import { CreateProductFormData } from '../CreateProduct.props';
 /* context */
 import { useCreateProductContext } from '../CreateProduct.context';
 /* components */
-import { Button, SelectFieldOptionProps } from 'shared/components';
+import { Button, Legend, SelectFieldOptionProps } from 'shared/components';
 /* types */
 import { MainTitleListItemDTO, TitleListItemDTO } from 'admin/collections/types';
 /* assets */
 import { MdAddCircle } from 'react-icons/md';
 /* styles */
-import { ButtonStyles, FieldStyles } from 'shared/styles';
+import { FieldStyles } from 'shared/styles';
 import styles from './CreateProductCollection.module.scss';
 
 export const useCreateProductCollection = () => {
@@ -123,6 +123,13 @@ export const useCreateProductCollection = () => {
     }, [watch('markAsAddon')]);
 
     useEffect(() => {
+        if (watch('isAccuItems')) return;
+
+        setValue('maxAccuItems', 10);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [watch('isAccuItems')]);
+
+    useEffect(() => {
         setValue(
             'mainCollection',
             mainCollection.map(main => ({ titleId: main.titleId }))
@@ -131,11 +138,11 @@ export const useCreateProductCollection = () => {
 
     useEffect(() => {
         setValue(
-            'accesoryCollection',
+            'secondaryCollection',
             addonCollection.map(addon => ({ titleId: addon.titleId }))
         );
 
-        trigger('accesoryCollection');
+        trigger('secondaryCollection');
     }, [addonCollection, setValue, trigger]);
 
     useEffect(() => {
@@ -175,9 +182,11 @@ export const useCreateProductCollection = () => {
             afterContent: (
                 <Button
                     onClick={handleAddToMainCollection}
-                    className={ButtonStyles.Plain}
+                    className={styles.AddAction}
                     type="button"
                     title={translate('actions.add')}>
+                    <Legend>{translate('actions.add')}</Legend>
+
                     <i>
                         <MdAddCircle />
                     </i>
@@ -209,7 +218,6 @@ export const useCreateProductCollection = () => {
     const markAsAddonProps: FieldSetProps = {
         className: styles.CheckboxInverse,
         field: {
-            className: FieldStyles.OutlinePrimary,
             strategy: 'checkbox',
             placeholder: translate('createproduct.addon.title'),
             ...register('markAsAddon'),
@@ -221,18 +229,20 @@ export const useCreateProductCollection = () => {
             title: translate('createproduct.addon.title'),
         },
     };
-    const accesoryCollectionProps: FieldSetProps = {
+    const secondaryCollectionProps: FieldSetProps = {
         field: {
-            className: errors.accesoryCollection ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
+            className: errors.secondaryCollection ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             placeholder: translate('createproduct.addon.placeholder'),
             value: selectedAddonCollection,
             onChange: (event: any) => setSelectedAddonCollection(event.target.value),
             afterContent: (
                 <Button
                     onClick={handleAddToAddonCollection}
-                    className={ButtonStyles.Plain}
+                    className={styles.AddAction}
                     type="button"
                     title={translate('actions.add')}>
+                    <Legend>{translate('actions.add')}</Legend>
+
                     <i>
                         <MdAddCircle />
                     </i>
@@ -259,17 +269,50 @@ export const useCreateProductCollection = () => {
             }, [] as SelectFieldOptionProps[]),
         },
         isHintReserved: true,
-        hint: errors.accesoryCollection
+        hint: errors.secondaryCollection
             ? {
                   hasDots: true,
-                  title: translate(errors.accesoryCollection.message as AdminLang),
-                  children: translate(errors.accesoryCollection.message as AdminLang),
+                  title: translate(errors.secondaryCollection.message as AdminLang),
+                  children: translate(errors.secondaryCollection.message as AdminLang),
               }
             : {
                   hasDots: true,
                   title: translate('createproduct.addon.hint'),
                   children: translate('createproduct.addon.hint'),
               },
+    };
+    /* accu items */
+    const isAccuItemsProps: FieldSetProps = {
+        className: styles.CheckboxInverse,
+        field: {
+            strategy: 'checkbox',
+            placeholder: translate('createproduct.maxaccuitems.title' as AdminLang),
+            ...register('isAccuItems'),
+        },
+        isHintReserved: true,
+        hint: {
+            children: translate('createproduct.maxaccuitems.title' as AdminLang),
+            hasDots: true,
+            title: translate('createproduct.maxaccuitems.title' as AdminLang),
+        },
+    };
+    const maxAccuItemsProps: FieldSetProps = {
+        field: {
+            className: errors.maxAccuItems ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
+            strategy: 'number',
+            min: 1,
+            max: 10,
+            step: 1,
+            defaultValue: 10,
+            placeholder: translate('createproduct.maxaccuitems.placeholder' as AdminLang),
+            ...register('maxAccuItems'),
+        },
+        isHintReserved: true,
+        hint: {
+            children: translate((errors.maxAccuItems?.message ?? 'createproduct.maxaccuitems.hint') as AdminLang),
+            hasDots: true,
+            title: translate((errors.maxAccuItems?.message ?? 'createproduct.maxaccuitems.hint') as AdminLang),
+        },
     };
 
     /* multiple choice collection */
@@ -294,9 +337,11 @@ export const useCreateProductCollection = () => {
             afterContent: (
                 <Button
                     onClick={handleAddToMultipleChoiceCollection}
-                    className={ButtonStyles.Plain}
+                    className={styles.AddAction}
                     type="button"
                     title={translate('actions.add')}>
+                    <Legend>{translate('actions.add')}</Legend>
+
                     <i>
                         <MdAddCircle />
                     </i>
@@ -351,9 +396,11 @@ export const useCreateProductCollection = () => {
             afterContent: (
                 <Button
                     onClick={handleAddToSingleChoiceCollection}
-                    className={ButtonStyles.Plain}
+                    className={styles.AddAction}
                     type="button"
                     title={translate('actions.add')}>
+                    <Legend>{translate('actions.add')}</Legend>
+
                     <i>
                         <MdAddCircle />
                     </i>
@@ -386,12 +433,76 @@ export const useCreateProductCollection = () => {
             children: translate('createproduct.single.hint'),
         },
     };
+    /* combo choice collection */
+    const comboChoiceCollectionTitleProps: FieldSetProps = {
+        className: styles.TitleProps,
+        field: {
+            disabled: true,
+        },
+        isHintReserved: true,
+        hint: {
+            children: translate('createproduct.combo.title' as AdminLang),
+            hasDots: true,
+            title: translate('createproduct.combo.title' as AdminLang),
+        },
+    };
+    const comboChoiceCollectionProps: FieldSetProps = {
+        field: {
+            className: FieldStyles.OutlinePrimary,
+            placeholder: translate('createproduct.combo.placeholder' as AdminLang),
+            /* value: selectedComboChoiceCollection,
+            onChange: (event: any) => setSelectedComboChoiceCollection(event.target.value), */
+            afterContent: (
+                <Button
+                    /* onClick={handleAddToComboChoiceCollection} */
+                    className={styles.AddAction}
+                    type="button"
+                    title={translate('actions.add')}>
+                    <Legend>{translate('actions.add')}</Legend>
+
+                    <i>
+                        <MdAddCircle />
+                    </i>
+                </Button>
+            ),
+            strategy: 'select',
+            /* options: comboTitleList.reduce((prev, current) => {
+                if (
+                    [...addonCollection, ...multipleChoiceCollection, ...singleChoiceCollection, ...comboCollection].find(
+                        selected => `${selected.titleId}` === `${current.titleId}`
+                    )
+                )
+                    return prev;
+
+                return [
+                    ...prev,
+                    {
+                        label:
+                            current.titleCollection.find(collection => collection.lang === lang)?.ref ??
+                            current.defaultTitle,
+                        value: current.titleId,
+                    },
+                ];
+            }, [] as SelectFieldOptionProps[]), */
+        },
+        isHintReserved: true,
+        hint: {
+            hasDots: true,
+            title: translate('createproduct.combo.hint' as AdminLang),
+            children: translate('createproduct.combo.hint' as AdminLang),
+        },
+    };
 
     const createProductMainCollectionFields: FieldSetProps[] = [mainCollectionTitleProps, mainCollectionProps];
 
     const createProductAccesoryCollectionFields: FieldSetProps[] = [
         markAsAddonProps,
-        ...(watch('markAsAddon') ? [accesoryCollectionProps] : []),
+        ...(watch('markAsAddon') ? [secondaryCollectionProps] : []),
+    ];
+
+    const createProductAccuItemsFields: FieldSetProps[] = [
+        isAccuItemsProps,
+        ...(watch('isAccuItems') ? [maxAccuItemsProps] : []),
     ];
 
     const createProductMultipleChoiceCollectionFields: FieldSetProps[] = [
@@ -404,12 +515,18 @@ export const useCreateProductCollection = () => {
         singleChoiceCollectionProps,
     ];
 
+    const createProductComboChoiceCollectionFields: FieldSetProps[] = [
+        comboChoiceCollectionTitleProps,
+        comboChoiceCollectionProps,
+    ];
+
     return {
         createProductMainCollectionFields,
         mainCollection,
         handleRemoveFromMainCollection,
         markAsAddon: watch('markAsAddon'),
         createProductAccesoryCollectionFields,
+        createProductAccuItemsFields,
         addonCollection,
         handleRemoveFromAddonCollection,
         createProductMultipleChoiceCollectionFields,
@@ -418,5 +535,6 @@ export const useCreateProductCollection = () => {
         createProductSingleChoiceCollectionFields,
         singleChoiceCollection,
         handleRemoveFromSingleChoiceCollection,
+        createProductComboChoiceCollectionFields,
     };
 };

@@ -26,11 +26,11 @@
     }
 
     .TabHeader {
-        @include gap(all xs);
+        @include gap(all md);
         @include padding(bottom sm);
 
         @include screen-width(sm) {
-            justify-content: center;
+            justify-content: space-around;
         }
     }
 
@@ -40,6 +40,7 @@
         @include border-width(bottom sm);
         @include font-weight(lg);
         @include min-width(sm, component);
+        @include padding(x xs);
         overflow: hidden;
 
         &Active {

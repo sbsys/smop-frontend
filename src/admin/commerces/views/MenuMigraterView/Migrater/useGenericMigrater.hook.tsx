@@ -53,7 +53,7 @@ export const useGenericMigrater = (menu: MenuTitleListItemDTO[]) => {
 
         const data = {
             type: getValues().type,
-            collection: getValues().collection.reduce((prev: any[], { isSelected, titleId, items }) => {
+            collection: getValues().collection?.reduce((prev: any[], { isSelected, titleId, items }) => {
                 if (isSelected) {
                     return [
                         ...prev,
@@ -73,7 +73,7 @@ export const useGenericMigrater = (menu: MenuTitleListItemDTO[]) => {
             }, []),
         };
 
-        if (data.collection.length === 0) {
+        if (data.collection?.length === 0) {
             hideLoader();
 
             notify('warning', {

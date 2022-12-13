@@ -13,6 +13,8 @@ import CommerceMenuMigrater from './CommerceMenuMigrater';
 import { useAdminLang } from 'admin/core';
 /* utils */
 import { classNames } from 'shared/utils';
+/* assets */
+import { FeaturesSrc } from 'assets';
 /* styles */
 import styles from './Migrater.module.scss';
 
@@ -53,7 +55,21 @@ const Migrater = () => {
                     </Button>
                 </div>
 
-                {isGenericMigraterSelected && <GenericMenuMigrater menu={menu} />}
+                {isGenericMigraterSelected && (
+                    <>
+                        {menu.length > 0 ? (
+                            <GenericMenuMigrater menu={menu} />
+                        ) : (
+                            <div className={styles.NoCommerces}>
+                                <Legend title={translate('migrater.nocurrent')} justify="center">
+                                    {translate('migrater.nocurrent')}
+                                </Legend>
+
+                                <img src={FeaturesSrc} alt={translate('migrater.nocurrent')} />
+                            </div>
+                        )}
+                    </>
+                )}
 
                 {isCommerceMigraterSelected && <CommerceMenuMigrater />}
             </PanelLayout>

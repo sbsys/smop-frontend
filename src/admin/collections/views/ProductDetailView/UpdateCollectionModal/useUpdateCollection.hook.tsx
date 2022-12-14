@@ -33,6 +33,12 @@ export interface UpdateCollectionFormData {
 
 const UpdateCollectionSchema = yup.object({
     /* collections */
+    maxAccuItems: yup
+        .number()
+        .typeError('productedit.maxaccuitems.required')
+        .integer('productedit.maxaccuitems.required')
+        .min(1, 'productedit.maxaccuitems.min')
+        .max(10, 'productedit.maxaccuitems.max'),
     mainCollection: yup.array().of(
         yup.object({
             titleId: yup.number().required(),
@@ -59,6 +65,30 @@ const UpdateCollectionSchema = yup.object({
                     .number()
                     .typeError('productedit.addon.required' as AdminLang)
                     .required('productedit.addon.required' as AdminLang),
+            })
+        ),
+    }),
+    isCombo: yup.boolean().required(),
+    comboChoice: yup.mixed().when(['isCombo'], {
+        is: (isCombo: boolean) => isCombo,
+        then: yup
+            .array()
+            .of(
+                yup.object({
+                    titleId: yup
+                        .number()
+                        .typeError('productedit.combo.required' as AdminLang)
+                        .required('productedit.combo.required' as AdminLang),
+                })
+            )
+            .required('productedit.combo.required' as AdminLang)
+            .min(1, 'productedit.combo.required' as AdminLang),
+        otherwise: yup.array().of(
+            yup.object({
+                titleId: yup
+                    .number()
+                    .typeError('productedit.combo.required' as AdminLang)
+                    .required('productedit.combo.required' as AdminLang),
             })
         ),
     }),
@@ -120,6 +150,9 @@ export const useUpdateCollection = () => {
     const [selectedAccesoryCollection, setSelectedAccesoryCollection] = useState<number | ''>('');
     const [accesoryCollection, setAccesoryCollection] = useState<ComplementTitleListItemDTO[]>([]);
 
+    const [selectedComboCollection, setSelectedComboCollection] = useState<number | ''>('');
+    const [comboCollection, setComboCollection] = useState<ComplementTitleListItemDTO[]>([]);
+
     const [multipleChoiceCollection, setMultipleChoiceCollection] = useState<ComplementTitleListItemDTO[]>([]);
     const [singleChoiceCollection, setSingleChoiceCollection] = useState<ComplementTitleListItemDTO[]>([]);
 
@@ -137,6 +170,22 @@ export const useUpdateCollection = () => {
 
     const handleRemoveFromAccesoryCollection = (titleId: number) => () => {
         setAccesoryCollection(prev => [...prev.filter(current => current.titleId !== titleId)]);
+    };
+
+    const handleAddToComboCollection = () => {
+        if (!selectedComboCollection) return;
+
+        const selected = addonTitleList.find(current => `${current.titleId}` === `${selectedComboCollection}`);
+
+        if (!selected) return;
+
+        setComboCollection(prev => [...prev, selected]);
+
+        setSelectedComboCollection('');
+    };
+
+    const handleRemoveFromComboCollection = (titleId: number) => () => {
+        setComboCollection(prev => [...prev.filter(current => current.titleId !== titleId)]);
     };
 
     /* functions */
@@ -189,15 +238,15 @@ export const useUpdateCollection = () => {
     useEffect(() => {
         if (!isUpdateCollection) return;
 
-        setValue('markAsAddon', product?.markAsAddon ?? true);
+        setValue('markAsAddon', product?.markAsAddon ?? false);
     }, [isUpdateCollection, product?.markAsAddon, setValue]);
 
     useEffect(() => {
-        if (watch('markAsAddon')) return;
+        if (watch('markAsAddon')) return setValue('isCombo', false);
 
         setAccesoryCollection([]);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [watch('markAsAddon')]);
+    }, [setValue, watch('markAsAddon')]);
 
     useEffect(() => {
         if (!isUpdateCollection) return;
@@ -210,6 +259,31 @@ export const useUpdateCollection = () => {
 
         setAccesoryCollection(defaultCollection);
     }, [isUpdateCollection, addonTitleList, product?.accesoryCollection]);
+
+    useEffect(() => {
+        if (!isUpdateCollection) return;
+
+        setValue('isCombo', product?.isCombo ?? false);
+    }, [isUpdateCollection, product?.isCombo, setValue]);
+
+    useEffect(() => {
+        if (watch('isCombo')) return setValue('markAsAddon', false);
+
+        setComboCollection([]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [setValue, watch('isCombo')]);
+
+    useEffect(() => {
+        if (!isUpdateCollection) return;
+
+        if (!product?.comboChoice.length) return;
+
+        const defaultCollection = addonTitleList.filter(accesoryTitle =>
+            product.comboChoice.find(comboChoice => comboChoice.titleId === accesoryTitle.titleId)
+        );
+
+        setComboCollection(defaultCollection);
+    }, [addonTitleList, isUpdateCollection, product?.comboChoice]);
 
     useEffect(() => {
         if (!isUpdateCollection) return;
@@ -252,6 +326,25 @@ export const useUpdateCollection = () => {
     }, [accesoryCollection, setValue, trigger]);
 
     /* props */
+    const maxAccuItemsProps: FieldSetProps = {
+        field: {
+            className: errors.maxAccuItems ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
+            strategy: 'number',
+            min: 1,
+            max: 10,
+            step: 1,
+            defaultValue: product?.maxAccuItems ?? 10,
+            placeholder: translate('productedit.maxaccuitems.placeholder' as AdminLang),
+            ...register('maxAccuItems'),
+        },
+        isHintReserved: true,
+        hint: {
+            children: translate((errors.maxAccuItems?.message ?? 'productedit.maxaccuitems.hint') as AdminLang),
+            hasDots: true,
+            title: translate((errors.maxAccuItems?.message ?? 'productedit.maxaccuitems.hint') as AdminLang),
+        },
+    };
+
     /* main collection */
     const mainCollectionTitleProps: FieldSetProps = {
         className: styles.TitleProps,
@@ -369,12 +462,82 @@ export const useUpdateCollection = () => {
                   children: translate('productedit.addon.hint'),
               },
     };
+    /* combo choice */
+    const isComboProps: FieldSetProps = {
+        className: styles.CheckboxInverse,
+        field: {
+            strategy: 'checkbox',
+            placeholder: translate('productedit.combo.hint' as AdminLang),
+            ...register('isCombo'),
+        },
+        isHintReserved: true,
+        hint: {
+            children: translate('productedit.combo.hint' as AdminLang),
+            hasDots: true,
+            title: translate('productedit.combo.hint' as AdminLang),
+        },
+    };
+    const comboChoiceProps: FieldSetProps = {
+        field: {
+            className: errors.comboChoice ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
+            placeholder: translate('productedit.combo.placeholder' as AdminLang),
+            value: selectedComboCollection,
+            onChange: (event: any) => setSelectedComboCollection(event.target.value),
+            afterContent: (
+                <Button
+                    onClick={handleAddToComboCollection}
+                    className={ButtonStyles.Plain}
+                    type="button"
+                    title={translate('actions.add')}>
+                    <i>
+                        <MdAddCircle />
+                    </i>
+                </Button>
+            ),
+            strategy: 'select',
+            options: addonTitleList
+                .filter(title => title.type === 'combo')
+                .reduce((prev, current) => {
+                    if (
+                        [...accesoryCollection, ...comboCollection].find(
+                            selected => `${selected.titleId}` === `${current.titleId}`
+                        )
+                    )
+                        return prev;
 
-    const updateMainCollectionFields: FieldSetProps[] = [mainCollectionTitleProps, mainCollectionProps];
+                    return [
+                        ...prev,
+                        {
+                            label:
+                                current.titleCollection.find(collection => collection.lang === lang)?.ref ??
+                                current.defaultTitle,
+                            value: current.titleId,
+                        },
+                    ];
+                }, [] as SelectFieldOptionProps[]),
+        },
+        isHintReserved: true,
+        hint: {
+            hasDots: true,
+            title: translate((errors.accesoryCollection?.message ?? 'productedit.combo.hint') as AdminLang),
+            children: translate((errors.accesoryCollection?.message ?? 'productedit.combo.hint') as AdminLang),
+        },
+    };
+
+    const updateMainCollectionFields: FieldSetProps[] = [
+        maxAccuItemsProps,
+        mainCollectionTitleProps,
+        mainCollectionProps,
+    ];
 
     const updateAccesoryCollectionFields: FieldSetProps[] = [
         markAsAddonProps,
         ...(watch('markAsAddon') ? [accesoryCollectionProps] : []),
+    ];
+
+    const updateComboCollectionFields: FieldSetProps[] = [
+        isComboProps,
+        ...(watch('isCombo') ? [comboChoiceProps] : []),
     ];
 
     return {
@@ -387,5 +550,9 @@ export const useUpdateCollection = () => {
         updateAccesoryCollectionFields,
         accesoryCollection,
         handleRemoveFromAccesoryCollection,
+        markAsCombo: watch('isCombo'),
+        updateComboCollectionFields,
+        comboCollection,
+        handleRemoveFromComboCollection,
     };
 };

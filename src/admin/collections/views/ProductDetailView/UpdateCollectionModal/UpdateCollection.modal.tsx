@@ -31,6 +31,10 @@ const UpdateCollectionModal = () => {
         updateAccesoryCollectionFields,
         accesoryCollection,
         handleRemoveFromAccesoryCollection,
+        markAsCombo,
+        updateComboCollectionFields,
+        comboCollection,
+        handleRemoveFromComboCollection,
     } = useUpdateCollection();
 
     const { translate, lang } = useAdminLang();
@@ -69,9 +73,9 @@ const UpdateCollectionModal = () => {
                             <FieldSet {...field} key={index} />
                         ))}
 
-                        {markAsAddon && (
-                            <div className={styles.TitleCollection}>
-                                {accesoryCollection.map((accesory, index) => (
+                        <div className={styles.TitleCollection}>
+                            {markAsAddon &&
+                                accesoryCollection.map((accesory, index) => (
                                     <Fragment key={index}>
                                         <Badge onRemove={handleRemoveFromAccesoryCollection(accesory.titleId)}>
                                             <Legend hasDots>
@@ -81,8 +85,25 @@ const UpdateCollectionModal = () => {
                                         </Badge>
                                     </Fragment>
                                 ))}
-                            </div>
-                        )}
+                        </div>
+
+                        {updateComboCollectionFields.map((field, index) => (
+                            <FieldSet {...field} key={index} />
+                        ))}
+
+                        <div className={styles.TitleCollection}>
+                            {markAsCombo &&
+                                comboCollection.map((accesory, index) => (
+                                    <Fragment key={index}>
+                                        <Badge onRemove={handleRemoveFromComboCollection(accesory.titleId)}>
+                                            <Legend hasDots>
+                                                {accesory.titleCollection.find(collection => collection.lang === lang)
+                                                    ?.ref ?? accesory.defaultTitle}
+                                            </Legend>
+                                        </Badge>
+                                    </Fragment>
+                                ))}
+                        </div>
                     </div>
 
                     <div className={styles.Actions}>

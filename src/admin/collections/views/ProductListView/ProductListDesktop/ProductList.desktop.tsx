@@ -97,8 +97,11 @@ const ProductListDesktop = () => {
                                 children: (
                                     <Legend
                                         hasDots
-                                        title={`${item.markAsAddon ? '(addon) ' : ''}${item.defaultReference}`}>
+                                        title={`${item.markAsAddon ? '(addon) ' : item.isCombo ? '(combo) ' : ''}${
+                                            item.defaultReference
+                                        }`}>
                                         <>{item.markAsAddon && '(addon) '}</>
+                                        <>{item.isCombo && '(combo) '}</>
                                         <>{item.defaultReference}</>
                                     </Legend>
                                 ),

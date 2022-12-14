@@ -9,7 +9,7 @@ import { useCreateProductContext } from '../CreateProduct.context';
 /* components */
 import { Button, Legend, SelectFieldOptionProps } from 'shared/components';
 /* types */
-import { MainTitleListItemDTO, TitleListItemDTO } from 'admin/collections/types';
+import { MainTitleListItemDTO, ComplementTitleListItemDTO } from 'admin/collections/types';
 /* assets */
 import { MdAddCircle } from 'react-icons/md';
 /* styles */
@@ -54,7 +54,7 @@ export const useCreateProductCollection = () => {
 
     /* accesory */
     const [selectedAddonCollection, setSelectedAddonCollection] = useState<number | ''>('');
-    const [addonCollection, setAddonCollection] = useState<TitleListItemDTO[]>([]);
+    const [addonCollection, setAddonCollection] = useState<ComplementTitleListItemDTO[]>([]);
 
     const handleAddToAddonCollection = () => {
         if (!selectedAddonCollection) return;
@@ -74,7 +74,7 @@ export const useCreateProductCollection = () => {
 
     /* multiple choice */
     const [selectedMultipleChoiceCollection, setSelectedMultipleChoiceCollection] = useState<number | ''>('');
-    const [multipleChoiceCollection, setMultipleChoiceCollection] = useState<TitleListItemDTO[]>([]);
+    const [multipleChoiceCollection, setMultipleChoiceCollection] = useState<ComplementTitleListItemDTO[]>([]);
 
     const handleAddToMultipleChoiceCollection = () => {
         if (!selectedMultipleChoiceCollection) return;
@@ -94,7 +94,7 @@ export const useCreateProductCollection = () => {
 
     /* single choice */
     const [selectedSingleChoiceCollection, setSelectedSingleChoiceCollection] = useState<number | ''>('');
-    const [singleChoiceCollection, setSingleChoiceCollection] = useState<TitleListItemDTO[]>([]);
+    const [singleChoiceCollection, setSingleChoiceCollection] = useState<ComplementTitleListItemDTO[]>([]);
 
     const handleAddToSingleChoiceCollection = () => {
         if (!selectedSingleChoiceCollection) return;
@@ -112,22 +112,35 @@ export const useCreateProductCollection = () => {
         setSingleChoiceCollection(prev => [...prev.filter(current => current.titleId !== titleId)]);
     };
 
+    /* combo choice */
+    const [selectedComboChoiceCollection, setSelectedComboChoiceCollection] = useState<number | ''>('');
+    const [comboChoiceCollection, setComboChoiceCollection] = useState<ComplementTitleListItemDTO[]>([]);
+
+    const handleAddToComboChoiceCollection = () => {
+        if (!selectedComboChoiceCollection) return;
+
+        const selected = addonTitleList.find(current => `${current.titleId}` === `${selectedComboChoiceCollection}`);
+
+        if (!selected) return;
+
+        setComboChoiceCollection(prev => [...prev, selected]);
+
+        setSelectedComboChoiceCollection('');
+    };
+
+    const handleRemoveFromComboChoiceCollection = (titleId: number) => () => {
+        setComboChoiceCollection(prev => [...prev.filter(current => current.titleId !== titleId)]);
+    };
+
     const { translate, lang } = useAdminLang();
 
     /* reactivity */
-    useEffect(() => {
-        if (watch('markAsAddon')) return;
-
-        setAddonCollection([]);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [watch('markAsAddon')]);
-
     useEffect(() => {
         if (watch('isAccuItems')) return;
 
         setValue('maxAccuItems', 10);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [watch('isAccuItems')]);
+    }, [setValue, watch('isAccuItems')]);
 
     useEffect(() => {
         setValue(
@@ -135,6 +148,13 @@ export const useCreateProductCollection = () => {
             mainCollection.map(main => ({ titleId: main.titleId }))
         );
     }, [mainCollection, setValue]);
+
+    useEffect(() => {
+        if (watch('markAsAddon')) return setValue('isCombo', false);
+
+        setAddonCollection([]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [setValue, watch('markAsAddon')]);
 
     useEffect(() => {
         setValue(
@@ -158,6 +178,20 @@ export const useCreateProductCollection = () => {
             singleChoiceCollection.map(addon => ({ titleId: addon.titleId }))
         );
     }, [singleChoiceCollection, setValue]);
+
+    useEffect(() => {
+        if (watch('isCombo')) return setValue('markAsAddon', false);
+
+        setComboChoiceCollection([]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [setValue, watch('isCombo')]);
+
+    useEffect(() => {
+        setValue(
+            'comboChoice',
+            comboChoiceCollection.map(addon => ({ titleId: addon.titleId }))
+        );
+    }, [comboChoiceCollection, setValue]);
 
     /* props */
     /* main collection */
@@ -251,9 +285,12 @@ export const useCreateProductCollection = () => {
             strategy: 'select',
             options: addonTitleList.reduce((prev, current) => {
                 if (
-                    [...addonCollection, ...multipleChoiceCollection, ...singleChoiceCollection].find(
-                        selected => `${selected.titleId}` === `${current.titleId}`
-                    )
+                    [
+                        ...addonCollection,
+                        ...multipleChoiceCollection,
+                        ...singleChoiceCollection,
+                        ...comboChoiceCollection,
+                    ].find(selected => `${selected.titleId}` === `${current.titleId}`)
                 )
                     return prev;
 
@@ -348,24 +385,26 @@ export const useCreateProductCollection = () => {
                 </Button>
             ),
             strategy: 'select',
-            options: addonTitleList.reduce((prev, current) => {
-                if (
-                    [...addonCollection, ...multipleChoiceCollection, ...singleChoiceCollection].find(
-                        selected => `${selected.titleId}` === `${current.titleId}`
+            options: addonTitleList
+                .filter(title => title.type === 'multiple')
+                .reduce((prev, current) => {
+                    if (
+                        [...addonCollection, ...multipleChoiceCollection].find(
+                            selected => `${selected.titleId}` === `${current.titleId}`
+                        )
                     )
-                )
-                    return prev;
+                        return prev;
 
-                return [
-                    ...prev,
-                    {
-                        label:
-                            current.titleCollection.find(collection => collection.lang === lang)?.ref ??
-                            current.defaultTitle,
-                        value: current.titleId,
-                    },
-                ];
-            }, [] as SelectFieldOptionProps[]),
+                    return [
+                        ...prev,
+                        {
+                            label:
+                                current.titleCollection.find(collection => collection.lang === lang)?.ref ??
+                                current.defaultTitle,
+                            value: current.titleId,
+                        },
+                    ];
+                }, [] as SelectFieldOptionProps[]),
         },
         isHintReserved: true,
         hint: {
@@ -407,24 +446,26 @@ export const useCreateProductCollection = () => {
                 </Button>
             ),
             strategy: 'select',
-            options: addonTitleList.reduce((prev, current) => {
-                if (
-                    [...addonCollection, ...multipleChoiceCollection, ...singleChoiceCollection].find(
-                        selected => `${selected.titleId}` === `${current.titleId}`
+            options: addonTitleList
+                .filter(title => title.type === 'single')
+                .reduce((prev, current) => {
+                    if (
+                        [...addonCollection, ...singleChoiceCollection].find(
+                            selected => `${selected.titleId}` === `${current.titleId}`
+                        )
                     )
-                )
-                    return prev;
+                        return prev;
 
-                return [
-                    ...prev,
-                    {
-                        label:
-                            current.titleCollection.find(collection => collection.lang === lang)?.ref ??
-                            current.defaultTitle,
-                        value: current.titleId,
-                    },
-                ];
-            }, [] as SelectFieldOptionProps[]),
+                    return [
+                        ...prev,
+                        {
+                            label:
+                                current.titleCollection.find(collection => collection.lang === lang)?.ref ??
+                                current.defaultTitle,
+                            value: current.titleId,
+                        },
+                    ];
+                }, [] as SelectFieldOptionProps[]),
         },
         isHintReserved: true,
         hint: {
@@ -434,10 +475,11 @@ export const useCreateProductCollection = () => {
         },
     };
     /* combo choice collection */
-    const comboChoiceCollectionTitleProps: FieldSetProps = {
-        className: styles.TitleProps,
+    const isComboProps: FieldSetProps = {
+        className: styles.CheckboxInverse,
         field: {
-            disabled: true,
+            strategy: 'checkbox',
+            ...register('isCombo'),
         },
         isHintReserved: true,
         hint: {
@@ -448,13 +490,13 @@ export const useCreateProductCollection = () => {
     };
     const comboChoiceCollectionProps: FieldSetProps = {
         field: {
-            className: FieldStyles.OutlinePrimary,
+            className: errors.comboChoice ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             placeholder: translate('createproduct.combo.placeholder' as AdminLang),
-            /* value: selectedComboChoiceCollection,
-            onChange: (event: any) => setSelectedComboChoiceCollection(event.target.value), */
+            value: selectedComboChoiceCollection,
+            onChange: (event: any) => setSelectedComboChoiceCollection(event.target.value),
             afterContent: (
                 <Button
-                    /* onClick={handleAddToComboChoiceCollection} */
+                    onClick={handleAddToComboChoiceCollection}
                     className={styles.AddAction}
                     type="button"
                     title={translate('actions.add')}>
@@ -466,30 +508,32 @@ export const useCreateProductCollection = () => {
                 </Button>
             ),
             strategy: 'select',
-            /* options: comboTitleList.reduce((prev, current) => {
-                if (
-                    [...addonCollection, ...multipleChoiceCollection, ...singleChoiceCollection, ...comboCollection].find(
-                        selected => `${selected.titleId}` === `${current.titleId}`
+            options: addonTitleList
+                .filter(title => title.type === 'combo')
+                .reduce((prev, current) => {
+                    if (
+                        [...addonCollection, ...comboChoiceCollection].find(
+                            selected => `${selected.titleId}` === `${current.titleId}`
+                        )
                     )
-                )
-                    return prev;
+                        return prev;
 
-                return [
-                    ...prev,
-                    {
-                        label:
-                            current.titleCollection.find(collection => collection.lang === lang)?.ref ??
-                            current.defaultTitle,
-                        value: current.titleId,
-                    },
-                ];
-            }, [] as SelectFieldOptionProps[]), */
+                    return [
+                        ...prev,
+                        {
+                            label:
+                                current.titleCollection.find(collection => collection.lang === lang)?.ref ??
+                                current.defaultTitle,
+                            value: current.titleId,
+                        },
+                    ];
+                }, [] as SelectFieldOptionProps[]),
         },
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: translate('createproduct.combo.hint' as AdminLang),
-            children: translate('createproduct.combo.hint' as AdminLang),
+            title: translate((errors.comboChoice?.message ?? 'createproduct.combo.hint') as AdminLang),
+            children: translate((errors.comboChoice?.message ?? 'createproduct.combo.hint') as AdminLang),
         },
     };
 
@@ -516,8 +560,8 @@ export const useCreateProductCollection = () => {
     ];
 
     const createProductComboChoiceCollectionFields: FieldSetProps[] = [
-        comboChoiceCollectionTitleProps,
-        comboChoiceCollectionProps,
+        isComboProps,
+        ...(watch('isCombo') ? [comboChoiceCollectionProps] : []),
     ];
 
     return {
@@ -535,6 +579,9 @@ export const useCreateProductCollection = () => {
         createProductSingleChoiceCollectionFields,
         singleChoiceCollection,
         handleRemoveFromSingleChoiceCollection,
+        markAsCombo: watch('isCombo'),
         createProductComboChoiceCollectionFields,
+        comboChoiceCollection,
+        handleRemoveFromComboChoiceCollection,
     };
 };

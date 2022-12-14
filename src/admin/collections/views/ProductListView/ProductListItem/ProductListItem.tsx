@@ -23,6 +23,7 @@ const ProductListItem: FC<ProductListItemDTO> = ({
     defaultReference,
     price,
     markAsAddon,
+    isCombo,
     createdAt,
     isActive,
 }) => {
@@ -38,17 +39,20 @@ const ProductListItem: FC<ProductListItemDTO> = ({
         <div className={styles.ListItem}>
             <div className={styles.Title}>
                 <h4>
-                    <Legend hasDots title={`${markAsAddon ? '(addon) ' : ''}${defaultReference}`}>
+                    <Legend
+                        hasDots
+                        title={`${markAsAddon ? '(addon) ' : isCombo ? '(combo) ' : ''}${defaultReference}`}>
                         {defaultReference}
                     </Legend>
                 </h4>
 
-                <Legend hasDots justify="end" title={`${price} USD`}>
+                <Legend hasDots title={`${price} USD`}>
                     {price} USD
                 </Legend>
 
                 <Legend hasDots title={!createdAt ? '' : format(createdAt, 'MMM do, yyyy')}>
                     <>{markAsAddon && '(addon) '}</>
+                    <>{isCombo && '(combo) '}</>
                     <>{!createdAt ? '' : format(createdAt, 'MMM do, yyyy')}</>
                 </Legend>
             </div>

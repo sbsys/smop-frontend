@@ -12,7 +12,7 @@ import { useAdminNotify } from 'admin/core';
 /* services */
 import { addonsTitleListService, createProductService, mainTitleListService } from 'admin/collections/services';
 /* types */
-import { MainTitleListItemDTO, TitleListItemDTO } from 'admin/collections/types';
+import { ComplementTitleListItemDTO, MainTitleListItemDTO } from 'admin/collections/types';
 /* utils */
 import { yupResolver } from '@hookform/resolvers/yup';
 /* assets */
@@ -21,7 +21,7 @@ import { MdCheckCircle, MdError } from 'react-icons/md';
 export const useCreateProduct = () => {
     /* states */
     const [mainTitleList, setMainTitleList] = useState<MainTitleListItemDTO[]>([]);
-    const [addonTitleList, setAddonTitleList] = useState<TitleListItemDTO[]>([]);
+    const [addonTitleList, setAddonTitleList] = useState<ComplementTitleListItemDTO[]>([]);
 
     const formMethods = useForm<CreateProductFormData>({
         mode: 'all',
@@ -119,7 +119,7 @@ export const useCreateProduct = () => {
                 text: service.message,
             });
 
-        setAddonTitleList(service.data as unknown as TitleListItemDTO[]);
+        setAddonTitleList(service.data);
     }, [hideLoader, notify, showLoader]);
 
     /* reactivity */

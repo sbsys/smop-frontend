@@ -39,7 +39,10 @@ const CreateProductCollection = () => {
         singleChoiceCollection,
         handleRemoveFromSingleChoiceCollection,
         /* combo choice */
+        markAsCombo,
         createProductComboChoiceCollectionFields,
+        comboChoiceCollection,
+        handleRemoveFromComboChoiceCollection,
     } = useCreateProductCollection();
 
     const { translate, lang } = useAdminLang();
@@ -70,6 +73,12 @@ const CreateProductCollection = () => {
                             ))}
                         </div>
 
+                        {createProductAccuItemsFields.map((field, index) => (
+                            <FieldSet {...field} key={index} />
+                        ))}
+
+                        <div className={styles.TitleCollection}></div>
+
                         {createProductAccesoryCollectionFields.map((field, index) => (
                             <FieldSet {...field} key={index} />
                         ))}
@@ -87,10 +96,6 @@ const CreateProductCollection = () => {
                                     </Fragment>
                                 ))}
                         </div>
-
-                        {createProductAccuItemsFields.map((field, index) => (
-                            <FieldSet {...field} key={index} />
-                        ))}
                     </div>
 
                     <div className={styles.Fields}>
@@ -137,16 +142,18 @@ const CreateProductCollection = () => {
                         ))}
 
                         <div className={styles.TitleCollection}>
-                            {/* {comboChoiceCollection.map((comboChoice, index) => (
-                                <Fragment key={index}>
-                                    <Badge onRemove={handleRemoveFromComboChoiceCollection(comboChoice.titleId)}>
-                                        <Legend hasDots>
-                                            {comboChoice.titleCollection.find(collection => collection.lang === lang)
-                                                ?.ref ?? comboChoice.defaultTitle}
-                                        </Legend>
-                                    </Badge>
-                                </Fragment>
-                            ))} */}
+                            {markAsCombo &&
+                                comboChoiceCollection.map((comboChoice, index) => (
+                                    <Fragment key={index}>
+                                        <Badge onRemove={handleRemoveFromComboChoiceCollection(comboChoice.titleId)}>
+                                            <Legend hasDots>
+                                                {comboChoice.titleCollection.find(
+                                                    collection => collection.lang === lang
+                                                )?.ref ?? comboChoice.defaultTitle}
+                                            </Legend>
+                                        </Badge>
+                                    </Fragment>
+                                ))}
                         </div>
                     </div>
                 </div>

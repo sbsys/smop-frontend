@@ -6,6 +6,8 @@ export interface ProductListItemDTO {
     productId: string;
     defaultReference: string;
     markAsAddon: boolean;
+    isCombo: boolean;
+    maxAccuItems: number;
     isActive: ProductState;
     createdAt: Date;
     url: string;

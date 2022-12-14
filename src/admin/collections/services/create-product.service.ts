@@ -29,8 +29,11 @@ interface CreateProductProps {
     mainCollection: TitleRefCollection[];
     markAsAddon: boolean;
     secondaryCollection: TitleRefCollection[];
+    isAccuItems: boolean;
+    maxAccuItems: number;
     multipleChoice: TitleRefCollection[];
     singleChoice: TitleRefCollection[];
+    comboChoice: TitleRefCollection[];
 }
 
 export const createProductService = async (props: CreateProductProps): Promise<ApiResponse<{}>> => {
@@ -63,12 +66,22 @@ export const createProductService = async (props: CreateProductProps): Promise<A
         body.append('secondaryCollection', JSON.stringify(props.secondaryCollection));
     }
 
+    body.append('isAccuItems', JSON.stringify(props.isAccuItems));
+
+    body.append('maxAccuItems', JSON.stringify(props.maxAccuItems));
+
     if (props.multipleChoice.length > 0) {
         body.append('multipleChoice', JSON.stringify(props.multipleChoice));
     }
 
     if (props.singleChoice.length > 0) {
         body.append('singleChoice', JSON.stringify(props.singleChoice));
+    }
+
+    body.append('isCombo', JSON.stringify(props.comboChoice.length > 0));
+
+    if (props.comboChoice.length > 0) {
+        body.append('comboChoice', JSON.stringify(props.comboChoice));
     }
 
     return await apiRequestHandler<ApiResponse<{}>, FormData>({

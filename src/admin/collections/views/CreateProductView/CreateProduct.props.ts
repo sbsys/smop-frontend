@@ -8,16 +8,16 @@ import * as yup from 'yup';
 /* types */
 import { AdminLang } from 'admin/core';
 import {
+    ComplementTitleListItemDTO,
     MainTitleListItemDTO,
     TitleCollectionForm,
-    TitleListItemDTO,
     TitleRefCollection,
 } from 'admin/collections/types';
 
 export interface CreateProductContextProps {
     /* states */
     mainTitleList: MainTitleListItemDTO[];
-    addonTitleList: TitleListItemDTO[];
+    addonTitleList: ComplementTitleListItemDTO[];
     tabRef: MutableRefObject<TabsLayoutRef | null>;
     /* functions */
     handleCreateProductSubmit: (e?: BaseSyntheticEvent) => Promise<void>;
@@ -46,11 +46,11 @@ export interface CreateProductFormData {
     mainCollection: TitleRefCollection[];
     markAsAddon: boolean;
     secondaryCollection: TitleRefCollection[];
-    multipleChoice: TitleRefCollection[];
-    singleChoice: TitleRefCollection[];
     isAccuItems: boolean;
     maxAccuItems: number;
     isCombo: boolean;
+    multipleChoice: TitleRefCollection[];
+    singleChoice: TitleRefCollection[];
     comboChoice: TitleRefCollection[];
 }
 
@@ -138,6 +138,14 @@ export const CreateProductSchema = yup.object({
             })
         ),
     }),
+    isAccuItems: yup.boolean().required(),
+    maxAccuItems: yup
+        .number()
+        .typeError('createproduct.maxaccuitems.required')
+        .integer('createproduct.maxaccuitems.required')
+        .min(1, 'createproduct.maxaccuitems.min')
+        .max(10, 'createproduct.maxaccuitems.max'),
+    isCombo: yup.boolean().required(),
     multipleChoice: yup.array().of(
         yup.object({
             titleId: yup.number().required(),
@@ -148,14 +156,6 @@ export const CreateProductSchema = yup.object({
             titleId: yup.number().required(),
         })
     ),
-    isAccuItems: yup.boolean().required(),
-    maxAccuItems: yup
-        .number()
-        .typeError('createproduct.maxaccuitems.required')
-        .integer('createproduct.maxaccuitems.required')
-        .min(1, 'createproduct.maxaccuitems.min')
-        .max(10, 'createproduct.maxaccuitems.max'),
-    isCombo: yup.boolean().required(),
     comboChoice: yup.mixed().when(['isCombo'], {
         is: (isCombo: boolean) => isCombo,
         then: yup

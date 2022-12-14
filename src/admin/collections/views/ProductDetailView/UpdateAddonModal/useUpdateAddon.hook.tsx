@@ -6,7 +6,7 @@ import { FieldSetProps, useAdminLang, useAdminNotify } from 'admin/core';
 /* context */
 import { useProductDetailContext } from '../ProductDetail.context';
 /* components */
-import { Button, SelectFieldOptionProps } from 'shared/components';
+import { Button, Legend, SelectFieldOptionProps } from 'shared/components';
 /* hooks */
 import { useLoader } from 'shared/hooks';
 /* services */
@@ -19,7 +19,7 @@ import { ComplementTitleListItemDTO, TitleRefCollection } from 'admin/collection
 /* assets */
 import { MdAddCircle, MdCheckCircle, MdError } from 'react-icons/md';
 /* styles */
-import { ButtonStyles, FieldStyles } from 'shared/styles';
+import { FieldStyles } from 'shared/styles';
 import styles from './UpdateAddon.module.scss';
 
 export interface UpdateAddonFormData {
@@ -214,33 +214,37 @@ export const useUpdateAddon = () => {
             afterContent: (
                 <Button
                     onClick={handleAddToMultipleChoiceCollection}
-                    className={ButtonStyles.Plain}
+                    className={styles.AddAction}
                     type="button"
                     title={translate('actions.add')}>
+                    <Legend>{translate('actions.add')}</Legend>
+
                     <i>
                         <MdAddCircle />
                     </i>
                 </Button>
             ),
             strategy: 'select',
-            options: addonTitleList.reduce((prev, current) => {
-                if (
-                    [...accesoryCollection, ...multipleChoiceCollection, ...singleChoiceCollection].find(
-                        selected => `${selected.titleId}` === `${current.titleId}`
+            options: addonTitleList
+                .filter(title => title.type === 'multiple')
+                .reduce((prev, current) => {
+                    if (
+                        [...accesoryCollection, ...multipleChoiceCollection].find(
+                            selected => `${selected.titleId}` === `${current.titleId}`
+                        )
                     )
-                )
-                    return prev;
+                        return prev;
 
-                return [
-                    ...prev,
-                    {
-                        label:
-                            current.titleCollection.find(collection => collection.lang === lang)?.ref ??
-                            current.defaultTitle,
-                        value: current.titleId,
-                    },
-                ];
-            }, [] as SelectFieldOptionProps[]),
+                    return [
+                        ...prev,
+                        {
+                            label:
+                                current.titleCollection.find(collection => collection.lang === lang)?.ref ??
+                                current.defaultTitle,
+                            value: current.titleId,
+                        },
+                    ];
+                }, [] as SelectFieldOptionProps[]),
         },
         isHintReserved: true,
         hint: {
@@ -271,33 +275,37 @@ export const useUpdateAddon = () => {
             afterContent: (
                 <Button
                     onClick={handleAddToSingleChoiceCollection}
-                    className={ButtonStyles.Plain}
+                    className={styles.AddAction}
                     type="button"
                     title={translate('actions.add')}>
+                    <Legend>{translate('actions.add')}</Legend>
+
                     <i>
                         <MdAddCircle />
                     </i>
                 </Button>
             ),
             strategy: 'select',
-            options: addonTitleList.reduce((prev, current) => {
-                if (
-                    [...accesoryCollection, ...multipleChoiceCollection, ...singleChoiceCollection].find(
-                        selected => `${selected.titleId}` === `${current.titleId}`
+            options: addonTitleList
+                .filter(title => title.type === 'single')
+                .reduce((prev, current) => {
+                    if (
+                        [...accesoryCollection, ...singleChoiceCollection].find(
+                            selected => `${selected.titleId}` === `${current.titleId}`
+                        )
                     )
-                )
-                    return prev;
+                        return prev;
 
-                return [
-                    ...prev,
-                    {
-                        label:
-                            current.titleCollection.find(collection => collection.lang === lang)?.ref ??
-                            current.defaultTitle,
-                        value: current.titleId,
-                    },
-                ];
-            }, [] as SelectFieldOptionProps[]),
+                    return [
+                        ...prev,
+                        {
+                            label:
+                                current.titleCollection.find(collection => collection.lang === lang)?.ref ??
+                                current.defaultTitle,
+                            value: current.titleId,
+                        },
+                    ];
+                }, [] as SelectFieldOptionProps[]),
         },
         isHintReserved: true,
         hint: {

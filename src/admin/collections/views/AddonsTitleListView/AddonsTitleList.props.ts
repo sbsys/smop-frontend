@@ -5,7 +5,7 @@ import { ChildrenProps } from 'shared/props';
 /* utils */
 import * as yup from 'yup';
 /* types */
-import { TitleCollectionForm, ComplementTitleListItemDTO } from 'admin/collections/types';
+import { TitleCollectionForm, ComplementTitleListItemDTO, ComplementTypeId } from 'admin/collections/types';
 import { AdminLang, FieldSetProps } from 'admin/core';
 
 export interface AddonsTitleListContextProps {
@@ -40,6 +40,7 @@ export interface UpdateAddonTitleFormData {
     defaultTitle: string;
     titleCollection: TitleCollectionForm[];
     multiLanguage: boolean;
+    complementType: ComplementTypeId;
 }
 
 export const UpdateAddonTitleSchema = yup
@@ -58,5 +59,6 @@ export const UpdateAddonTitleSchema = yup
                 .required()
         ),
         multiLanguage: yup.boolean().required(),
+        complementType: yup.number().typeError('addontitleedit.type.required').integer('addontitleedit.type.required'),
     })
     .required();

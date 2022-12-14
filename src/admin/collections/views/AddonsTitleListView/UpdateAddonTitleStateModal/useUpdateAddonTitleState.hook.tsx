@@ -5,6 +5,8 @@ import { useLoader } from 'shared/hooks';
 import { useAdminNotify } from 'admin/core';
 /* services */
 import { updateAddonTitleService } from 'admin/collections/services';
+/* types */
+import { ComplementTypeToIdMap } from 'admin/collections/types';
 /* assets */
 import { MdCheckCircle, MdDangerous } from 'react-icons/md';
 
@@ -33,6 +35,7 @@ export const useUpdateAddonTitleState = () => {
             multiLanguage: selectedTitleToUpdateState?.multiLanguage ?? true,
             titleCollection: selectedTitleToUpdateState?.titleCollection ?? [],
             isActive: selectedTitleToUpdateState?.isActive !== 'active',
+            complementType: ComplementTypeToIdMap[selectedTitleToUpdateState?.type ?? 'single'],
         });
 
         hideLoader();

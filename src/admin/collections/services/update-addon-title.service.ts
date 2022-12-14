@@ -11,13 +11,14 @@ import { getCurrentUserToken, repeatRequestOnRefreshTokenService } from 'admin/a
 /* handlers */
 import { apiRequestHandler } from 'shared/handlers';
 /* types */
-import { TitleCollection } from '../types';
+import { ComplementTypeId, TitleCollection } from '../types';
 
 interface UpdateAddonTitleProps {
     defaultTitle: string;
     titleCollection: TitleCollection[];
     multiLanguage: boolean;
     isActive: boolean;
+    complementType: ComplementTypeId;
 }
 
 export const updateAddonTitleService = async (

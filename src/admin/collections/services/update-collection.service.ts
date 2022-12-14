@@ -17,6 +17,9 @@ interface UpdateCollectionServiceProps {
     mainCollection: TitleRefCollection[];
     markAsAddon: boolean;
     accesoryCollection: TitleRefCollection[];
+    maxAccuItems: number;
+    isCombo: boolean;
+    comboChoice: TitleRefCollection[];
 }
 
 export const updateCollectionService = async (

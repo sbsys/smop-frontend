@@ -26,6 +26,9 @@ export interface UpdateCollectionFormData {
     mainCollection: TitleRefCollection[];
     markAsAddon: boolean;
     accesoryCollection: TitleRefCollection[];
+    maxAccuItems: number;
+    isCombo: boolean;
+    comboChoice: TitleRefCollection[];
 }
 
 const UpdateCollectionSchema = yup.object({

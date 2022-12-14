@@ -5,7 +5,7 @@ import { useProductDetailContext } from '../ProductDetail.context';
 /* components */
 import { Button, Legend } from 'shared/components';
 /* hooks */
-import { useAdminLang, AdminLang } from 'admin/core';
+import { useAdminLang } from 'admin/core';
 /* utils */
 import { classNames } from 'shared/utils';
 /* assets */
@@ -104,12 +104,6 @@ const ProductDetailGeneralSection = () => {
                 </Legend>
 
                 <Legend title={`${product?.price} USD`}>{product?.price} USD</Legend>
-
-                <Legend hasDots title={translate('productdetail.maxaccuitems' as AdminLang)} className={styles.Title}>
-                    {translate('productdetail.maxaccuitems' as AdminLang)}
-                </Legend>
-
-                <Legend>{product?.maxAccuItems}</Legend>
 
                 <Legend hasDots title={translate('productdetail.presentation')} className={styles.Title}>
                     {translate('productdetail.presentation')}

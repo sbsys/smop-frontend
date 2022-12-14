@@ -5,7 +5,7 @@ import { useProductDetailContext } from '../ProductDetail.context';
 /* components */
 import { Button, Legend } from 'shared/components';
 /* hooks */
-import { useAdminLang } from 'admin/core';
+import { useAdminLang, AdminLang } from 'admin/core';
 /* utils */
 import { classNames } from 'shared/utils';
 /* assets */
@@ -65,12 +65,20 @@ const ProductDetailGeneralSection = () => {
                             <Legend key={index} title={reference.ref}>
                                 <span className={styles.Title}>{reference.lang.toUpperCase()}: </span>
 
-                                <span>{reference.ref}</span>
+                                <span>
+                                    <>{product.markAsAddon && '(addon) '}</>
+                                    <>{product.isCombo && '(combo) '}</>
+                                    <>{reference.ref}</>
+                                </span>
                             </Legend>
                         ))}
                     </>
                 ) : (
-                    <Legend title={product?.defaultReference}>{product?.defaultReference}</Legend>
+                    <Legend title={product?.defaultReference}>
+                        <>{product?.markAsAddon && '(addon) '}</>
+                        <>{product?.isCombo && '(combo) '}</>
+                        <>{product?.defaultReference}</>
+                    </Legend>
                 )}
 
                 <Legend hasDots title={translate('productdetail.description')} className={styles.Title}>
@@ -96,6 +104,12 @@ const ProductDetailGeneralSection = () => {
                 </Legend>
 
                 <Legend title={`${product?.price} USD`}>{product?.price} USD</Legend>
+
+                <Legend hasDots title={translate('productdetail.maxaccuitems' as AdminLang)} className={styles.Title}>
+                    {translate('productdetail.maxaccuitems' as AdminLang)}
+                </Legend>
+
+                <Legend>{product?.maxAccuItems}</Legend>
 
                 <Legend hasDots title={translate('productdetail.presentation')} className={styles.Title}>
                     {translate('productdetail.presentation')}

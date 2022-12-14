@@ -26,15 +26,16 @@ export const productDetailSerializer = (data: any): ProductDetailDTO => {
         descriptionCollection: product.descriptionCollection,
         allowPrompts: product.allowPrompts,
         /* file */
-        /* includePicture: boolean; */
-        /* image: FileList; */
         url: product.url,
         /* collections */
-        mainCollection: product.menu.map((main: any) => ({ titleId: main.titleId })),
+        mainCollection: product.menu?.map((main: any) => ({ titleId: main.titleId })) ?? [],
+        maxAccuItems: product.maxAccuItems,
         markAsAddon: product.markAsAddon,
-        accesoryCollection: product.accesories.map((accesory: any) => ({ titleId: accesory.titleId })),
-        multipleChoice: product.multiples.map((multiple: any) => ({ titleId: multiple.titleId })),
-        singleChoice: product.singles.map((single: any) => ({ titleId: single.titleId })),
+        accesoryCollection: product.complements?.map((accesory: any) => ({ titleId: accesory.titleId })) ?? [],
+        multipleChoice: product.multiples?.map((multiple: any) => ({ titleId: multiple.titleId })) ?? [],
+        singleChoice: product.singles?.map((single: any) => ({ titleId: single.titleId })) ?? [],
+        isCombo: product.isCombo,
+        comboChoice: product.combos?.map((combo: any) => ({ titleId: combo.titleId })) ?? [],
         /* others */
         feature: product.feature[0],
         createdAt: new Date(product.createdAt),

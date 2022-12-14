@@ -15,7 +15,7 @@ import { updateCollectionService } from 'admin/collections/services';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 /* types */
-import { MainTitleListItemDTO, TitleListItemDTO, TitleRefCollection } from 'admin/collections/types';
+import { MainTitleListItemDTO, ComplementTitleListItemDTO, TitleRefCollection } from 'admin/collections/types';
 /* assets */
 import { MdAddCircle, MdCheckCircle, MdError } from 'react-icons/md';
 /* styles */
@@ -115,10 +115,10 @@ export const useUpdateCollection = () => {
 
     /* accesory */
     const [selectedAccesoryCollection, setSelectedAccesoryCollection] = useState<number | ''>('');
-    const [accesoryCollection, setAccesoryCollection] = useState<TitleListItemDTO[]>([]);
+    const [accesoryCollection, setAccesoryCollection] = useState<ComplementTitleListItemDTO[]>([]);
 
-    const [multipleChoiceCollection, setMultipleChoiceCollection] = useState<TitleListItemDTO[]>([]);
-    const [singleChoiceCollection, setSingleChoiceCollection] = useState<TitleListItemDTO[]>([]);
+    const [multipleChoiceCollection, setMultipleChoiceCollection] = useState<ComplementTitleListItemDTO[]>([]);
+    const [singleChoiceCollection, setSingleChoiceCollection] = useState<ComplementTitleListItemDTO[]>([]);
 
     const handleAddToAccesoryCollection = () => {
         if (!selectedAccesoryCollection) return;

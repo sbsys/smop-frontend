@@ -9,7 +9,7 @@ import { useAdminNotify } from 'admin/core';
 /* services */
 import { addonsTitleListService, mainTitleListService, productDetailService } from 'admin/collections/services';
 /* types */
-import { MainTitleListItemDTO, ProductDetailDTO, TitleListItemDTO } from 'admin/collections/types';
+import { MainTitleListItemDTO, ProductDetailDTO, ComplementTitleListItemDTO } from 'admin/collections/types';
 /* assets */
 import { MdDangerous, MdError } from 'react-icons/md';
 
@@ -21,7 +21,7 @@ export const useProductDetail = () => {
     const [product, setProduct] = useState<ProductDetailDTO | null>(null);
 
     const [mainTitleList, setMainTitleList] = useState<MainTitleListItemDTO[]>([]);
-    const [addonTitleList, setAddonTitleList] = useState<TitleListItemDTO[]>([]);
+    const [addonTitleList, setAddonTitleList] = useState<ComplementTitleListItemDTO[]>([]);
 
     const [isUpdateGeneral, showUpdateGeneral, hideUpdateGeneral] = useActive();
     const [isUpdatePicture, showUpdatePicture, hideUpdatePicture] = useActive();
@@ -84,7 +84,7 @@ export const useProductDetail = () => {
                 text: service.message,
             });
 
-        setAddonTitleList(service.data as unknown as TitleListItemDTO[]);
+        setAddonTitleList(service.data);
     }, [hideLoader, notify, showLoader]);
 
     const handleGoBack = () => navigate(-1);

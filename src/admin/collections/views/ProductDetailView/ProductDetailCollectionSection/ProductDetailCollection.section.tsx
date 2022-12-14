@@ -6,7 +6,7 @@ import { useProductDetailContext } from '../ProductDetail.context';
 import { Button, Legend } from 'shared/components';
 import { Badge, useAdminLang } from 'admin/core';
 /* types */
-import { MainTitleListItemDTO, TitleListItemDTO } from 'admin/collections/types';
+import { MainTitleListItemDTO, ComplementTitleListItemDTO } from 'admin/collections/types';
 /* assets */
 import { MdEdit } from 'react-icons/md';
 /* styles */
@@ -44,7 +44,7 @@ const ProductDetailCollectionSection = () => {
             <div className={styles.Content}>
                 {(product?.mainCollection.length ?? 0) > 0 ? (
                     <>
-                        <Legend hasDots title={translate('productdetail.main')} className={styles.Title}>
+                        <Legend title={translate('productdetail.main')} className={styles.Title}>
                             {translate('productdetail.main')}
                         </Legend>
 
@@ -78,7 +78,7 @@ const ProductDetailCollectionSection = () => {
 
                 {(product?.accesoryCollection.length ?? 0) > 0 ? (
                     <>
-                        <Legend hasDots title={translate('productdetail.addon')} className={styles.Title}>
+                        <Legend title={translate('productdetail.addon')} className={styles.Title}>
                             {translate('productdetail.addon')}
                         </Legend>
 
@@ -91,7 +91,7 @@ const ProductDetailCollectionSection = () => {
                                         ) !== undefined
                                             ? [...prev, current]
                                             : prev,
-                                    [] as TitleListItemDTO[]
+                                    [] as ComplementTitleListItemDTO[]
                                 )
                                 .map((title, index) => (
                                     <Fragment key={index}>

@@ -1,13 +1,13 @@
 /* props */
 import { ChildrenProps } from 'shared/props';
 /* types */
-import { MainTitleListItemDTO, ProductDetailDTO, TitleListItemDTO } from 'admin/collections/types';
+import { MainTitleListItemDTO, ProductDetailDTO, ComplementTitleListItemDTO } from 'admin/collections/types';
 
 export interface ProductDetailContextProps {
     /* states */
     product: ProductDetailDTO | null;
     mainTitleList: MainTitleListItemDTO[];
-    addonTitleList: TitleListItemDTO[];
+    addonTitleList: ComplementTitleListItemDTO[];
     isUpdateGeneral: boolean;
     showUpdateGeneral: () => void;
     hideUpdateGeneral: () => void;

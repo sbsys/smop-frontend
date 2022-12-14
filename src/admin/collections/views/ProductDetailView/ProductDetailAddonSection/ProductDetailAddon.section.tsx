@@ -4,9 +4,9 @@ import { Fragment, memo } from 'react';
 import { useProductDetailContext } from '../ProductDetail.context';
 /* components */
 import { Button, Legend } from 'shared/components';
-import { Badge, useAdminLang } from 'admin/core';
+import { AdminLang, Badge, useAdminLang } from 'admin/core';
 /* types */
-import { TitleListItemDTO } from 'admin/collections/types';
+import { ComplementTitleListItemDTO } from 'admin/collections/types';
 /* assets */
 import { MdEdit } from 'react-icons/md';
 /* styles */
@@ -43,7 +43,7 @@ const ProductDetailAddonSection = () => {
             <div className={styles.Content}>
                 {(product?.multipleChoice.length ?? 0) > 0 ? (
                     <>
-                        <Legend hasDots title={translate('productdetail.multiple')} className={styles.Title}>
+                        <Legend title={translate('productdetail.multiple')} className={styles.Title}>
                             {translate('productdetail.multiple')}
                         </Legend>
 
@@ -56,7 +56,7 @@ const ProductDetailAddonSection = () => {
                                         ) !== undefined
                                             ? [...prev, current]
                                             : prev,
-                                    [] as TitleListItemDTO[]
+                                    [] as ComplementTitleListItemDTO[]
                                 )
                                 .map((title, index) => (
                                     <Fragment key={index}>
@@ -82,7 +82,7 @@ const ProductDetailAddonSection = () => {
 
                 {(product?.singleChoice.length ?? 0) > 0 ? (
                     <>
-                        <Legend hasDots title={translate('productdetail.single')} className={styles.Title}>
+                        <Legend title={translate('productdetail.single')} className={styles.Title}>
                             {translate('productdetail.single')}
                         </Legend>
 
@@ -94,7 +94,7 @@ const ProductDetailAddonSection = () => {
                                         undefined
                                             ? [...prev, current]
                                             : prev,
-                                    [] as TitleListItemDTO[]
+                                    [] as ComplementTitleListItemDTO[]
                                 )
                                 .map((title, index) => (
                                     <Fragment key={index}>
@@ -115,6 +115,44 @@ const ProductDetailAddonSection = () => {
                         title={translate('productdetail.nosingle')}
                         className={styles.Title}>
                         {translate('productdetail.nosingle')}
+                    </Legend>
+                )}
+
+                {(product?.comboChoice.length ?? 0) > 0 ? (
+                    <>
+                        <Legend title={translate('productdetail.combo' as AdminLang)} className={styles.Title}>
+                            {translate('productdetail.combo' as AdminLang)}
+                        </Legend>
+
+                        <div className={styles.TitleCollection}>
+                            {addonTitleList
+                                .reduce(
+                                    (prev, current) =>
+                                        product?.comboChoice.find(multiple => multiple.titleId === current.titleId) !==
+                                        undefined
+                                            ? [...prev, current]
+                                            : prev,
+                                    [] as ComplementTitleListItemDTO[]
+                                )
+                                .map((title, index) => (
+                                    <Fragment key={index}>
+                                        <Badge>
+                                            <Legend hasDots>
+                                                {title.titleCollection.find(collection => collection.lang === lang)
+                                                    ?.ref ?? title.defaultTitle}
+                                            </Legend>
+                                        </Badge>
+                                    </Fragment>
+                                ))}
+                        </div>
+                    </>
+                ) : (
+                    <Legend
+                        hasDots
+                        justify="center"
+                        title={translate('productdetail.nocombo' as AdminLang)}
+                        className={styles.Title}>
+                        {translate('productdetail.nocombo' as AdminLang)}
                     </Legend>
                 )}
             </div>

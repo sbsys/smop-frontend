@@ -15,7 +15,7 @@ import { updateAddonService } from 'admin/collections/services';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 /* types */
-import { TitleListItemDTO, TitleRefCollection } from 'admin/collections/types';
+import { ComplementTitleListItemDTO, TitleRefCollection } from 'admin/collections/types';
 /* assets */
 import { MdAddCircle, MdCheckCircle, MdError } from 'react-icons/md';
 /* styles */
@@ -64,11 +64,11 @@ export const useUpdateAddon = () => {
     });
 
     /* accesory */
-    const [accesoryCollection, setAccesoryCollection] = useState<TitleListItemDTO[]>([]);
+    const [accesoryCollection, setAccesoryCollection] = useState<ComplementTitleListItemDTO[]>([]);
 
     /* multiple choice */
     const [selectedMultipleChoiceCollection, setSelectedMultipleChoiceCollection] = useState<number | ''>('');
-    const [multipleChoiceCollection, setMultipleChoiceCollection] = useState<TitleListItemDTO[]>([]);
+    const [multipleChoiceCollection, setMultipleChoiceCollection] = useState<ComplementTitleListItemDTO[]>([]);
 
     const handleAddToMultipleChoiceCollection = () => {
         if (!selectedMultipleChoiceCollection) return;
@@ -88,7 +88,7 @@ export const useUpdateAddon = () => {
 
     /* single choice */
     const [selectedSingleChoiceCollection, setSelectedSingleChoiceCollection] = useState<number | ''>('');
-    const [singleChoiceCollection, setSingleChoiceCollection] = useState<TitleListItemDTO[]>([]);
+    const [singleChoiceCollection, setSingleChoiceCollection] = useState<ComplementTitleListItemDTO[]>([]);
 
     const handleAddToSingleChoiceCollection = () => {
         if (!selectedSingleChoiceCollection) return;

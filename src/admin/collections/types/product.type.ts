@@ -52,10 +52,13 @@ export interface ProductDetailDTO {
     url: string;
     /* collections */
     mainCollection: TitleRefCollection[];
+    maxAccuItems: number;
     markAsAddon: boolean;
     accesoryCollection: TitleRefCollection[];
     multipleChoice: TitleRefCollection[];
     singleChoice: TitleRefCollection[];
+    isCombo: boolean;
+    comboChoice: TitleRefCollection[];
     /* others */
     feature: ProductFeature;
     createdAt: Date;

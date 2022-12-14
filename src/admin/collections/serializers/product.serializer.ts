@@ -10,7 +10,6 @@ export const productListItemSerializer = (data: any): ProductListItemDTO => {
 };
 
 export const productListSerializer = (data: any): ProductListItemDTO[] => {
-    console.log(data);
     return (data.products as any[]).map(item => productListItemSerializer(item));
 };
 

@@ -16,7 +16,7 @@ import { TitleRefCollection } from '../types';
 interface UpdateCollectionServiceProps {
     mainCollection: TitleRefCollection[];
     markAsAddon: boolean;
-    accesoryCollection: TitleRefCollection[];
+    secondaryCollection: TitleRefCollection[];
     maxAccuItems: number;
     isCombo: boolean;
     comboChoice: TitleRefCollection[];

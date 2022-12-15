@@ -6,7 +6,7 @@ import { AdminLang, FieldSetProps, useAdminLang, useAdminNotify } from 'admin/co
 /* context */
 import { useProductDetailContext } from '../ProductDetail.context';
 /* components */
-import { Button, SelectFieldOptionProps } from 'shared/components';
+import { Button, Legend, SelectFieldOptionProps } from 'shared/components';
 /* hooks */
 import { useLoader } from 'shared/hooks';
 /* services */
@@ -19,13 +19,13 @@ import { MainTitleListItemDTO, ComplementTitleListItemDTO, TitleRefCollection } 
 /* assets */
 import { MdAddCircle, MdCheckCircle, MdError } from 'react-icons/md';
 /* styles */
-import { ButtonStyles, FieldStyles } from 'shared/styles';
+import { FieldStyles } from 'shared/styles';
 import styles from './UpdateCollection.module.scss';
 
 export interface UpdateCollectionFormData {
     mainCollection: TitleRefCollection[];
     markAsAddon: boolean;
-    accesoryCollection: TitleRefCollection[];
+    secondaryCollection: TitleRefCollection[];
     maxAccuItems: number;
     isCombo: boolean;
     comboChoice: TitleRefCollection[];
@@ -45,7 +45,7 @@ const UpdateCollectionSchema = yup.object({
         })
     ),
     markAsAddon: yup.boolean().required(),
-    accesoryCollection: yup.mixed().when(['markAsAddon'], {
+    secondaryCollection: yup.mixed().when(['markAsAddon'], {
         is: (markAsAddon: boolean) => markAsAddon,
         then: yup
             .array()
@@ -318,12 +318,21 @@ export const useUpdateCollection = () => {
 
     useEffect(() => {
         setValue(
-            'accesoryCollection',
+            'secondaryCollection',
             accesoryCollection.map(accesory => ({ titleId: accesory.titleId }))
         );
 
-        trigger('accesoryCollection');
+        trigger('secondaryCollection');
     }, [accesoryCollection, setValue, trigger]);
+
+    useEffect(() => {
+        setValue(
+            'comboChoice',
+            comboCollection.map(combo => ({ titleId: combo.titleId }))
+        );
+
+        trigger('comboChoice');
+    }, [comboCollection, setValue, trigger]);
 
     /* props */
     const maxAccuItemsProps: FieldSetProps = {
@@ -367,9 +376,11 @@ export const useUpdateCollection = () => {
             afterContent: (
                 <Button
                     onClick={handleAddToMainCollection}
-                    className={ButtonStyles.Plain}
+                    className={styles.AddAction}
                     type="button"
                     title={translate('actions.add')}>
+                    <Legend>{translate('actions.add')}</Legend>
+
                     <i>
                         <MdAddCircle />
                     </i>
@@ -414,16 +425,18 @@ export const useUpdateCollection = () => {
     };
     const accesoryCollectionProps: FieldSetProps = {
         field: {
-            className: errors.accesoryCollection ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
+            className: errors.secondaryCollection ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
             placeholder: translate('productedit.addon.placeholder'),
             value: selectedAccesoryCollection,
             onChange: (event: any) => setSelectedAccesoryCollection(event.target.value),
             afterContent: (
                 <Button
                     onClick={handleAddToAccesoryCollection}
-                    className={ButtonStyles.Plain}
+                    className={styles.AddAction}
                     type="button"
                     title={translate('actions.add')}>
+                    <Legend>{translate('actions.add')}</Legend>
+
                     <i>
                         <MdAddCircle />
                     </i>
@@ -432,9 +445,12 @@ export const useUpdateCollection = () => {
             strategy: 'select',
             options: addonTitleList.reduce((prev, current) => {
                 if (
-                    [...accesoryCollection, ...multipleChoiceCollection, ...singleChoiceCollection].find(
-                        selected => `${selected.titleId}` === `${current.titleId}`
-                    )
+                    [
+                        ...accesoryCollection,
+                        ...multipleChoiceCollection,
+                        ...singleChoiceCollection,
+                        ...comboCollection,
+                    ].find(selected => `${selected.titleId}` === `${current.titleId}`)
                 )
                     return prev;
 
@@ -450,11 +466,11 @@ export const useUpdateCollection = () => {
             }, [] as SelectFieldOptionProps[]),
         },
         isHintReserved: true,
-        hint: errors.accesoryCollection
+        hint: errors.secondaryCollection
             ? {
                   hasDots: true,
-                  title: translate(errors.accesoryCollection.message as AdminLang),
-                  children: translate(errors.accesoryCollection.message as AdminLang),
+                  title: translate(errors.secondaryCollection.message as AdminLang),
+                  children: translate(errors.secondaryCollection.message as AdminLang),
               }
             : {
                   hasDots: true,
@@ -486,9 +502,11 @@ export const useUpdateCollection = () => {
             afterContent: (
                 <Button
                     onClick={handleAddToComboCollection}
-                    className={ButtonStyles.Plain}
+                    className={styles.AddAction}
                     type="button"
                     title={translate('actions.add')}>
+                    <Legend>{translate('actions.add')}</Legend>
+
                     <i>
                         <MdAddCircle />
                     </i>
@@ -519,8 +537,8 @@ export const useUpdateCollection = () => {
         isHintReserved: true,
         hint: {
             hasDots: true,
-            title: translate((errors.accesoryCollection?.message ?? 'productedit.combo.hint') as AdminLang),
-            children: translate((errors.accesoryCollection?.message ?? 'productedit.combo.hint') as AdminLang),
+            title: translate((errors.comboChoice?.message ?? 'productedit.combo.hint') as AdminLang),
+            children: translate((errors.comboChoice?.message ?? 'productedit.combo.hint') as AdminLang),
         },
     };
 

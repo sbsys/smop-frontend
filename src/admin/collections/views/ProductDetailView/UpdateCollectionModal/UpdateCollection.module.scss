@@ -61,3 +61,10 @@
         @include font-weight(lg);
     }
 }
+
+.AddAction {
+    @include flex(row, center);
+    @include gap(all xs split);
+    @include interactable;
+    @include margin(x xs split);
+}

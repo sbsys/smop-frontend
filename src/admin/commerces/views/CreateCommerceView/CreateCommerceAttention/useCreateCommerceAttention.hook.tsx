@@ -123,110 +123,152 @@ export const useCreateCommerceAttention = () => {
         [translate]
     );
 
-    const serviceHoursFields = (index: number, attention: 'onsite' | 'delivery'): FieldSetProps[] => {
-        const dayService = DayServiceValue[index];
+    const serviceHoursFields = useCallback(
+        (index: number, attention: 'onsite' | 'delivery'): FieldSetProps[] => {
+            const dayService = DayServiceValue[index];
 
-        setValue(`serviceHours.${attention}.${index}.dayId`, dayService?.dayId);
-        setValue(`serviceHours.${attention}.${index}.key`, dayService?.key);
+            setValue(`serviceHours.${attention}.${index}.dayId`, dayService?.dayId);
+            setValue(`serviceHours.${attention}.${index}.key`, dayService?.key);
 
-        return [
-            {
-                className: styles.Checkbox,
-                field: {
-                    strategy: 'checkbox',
-                    defaultChecked: dayService?.enabled,
-                    ...register(`serviceHours.${attention}.${index}.enabled`),
+            const handleRemoveTime = () => {
+                unregister(`serviceHours.${attention}.${index}.schedules`);
+
+                setScheduleCountByDay(prev => {
+                    const newScheduleCount = prev[attention][dayService?.dayId] - 1;
+
+                    prev[attention][dayService?.dayId] = newScheduleCount;
+                    return { ...prev };
+                });
+            };
+
+            const handleAddTime = () =>
+                setScheduleCountByDay(prev => {
+                    const newScheduleCount = prev[attention][dayService?.dayId] + 1;
+
+                    prev[attention][dayService?.dayId] = newScheduleCount;
+                    return { ...prev };
+                });
+
+            return [
+                {
+                    key: `serviceHours.${attention}.${index}.enabled`,
+                    className: styles.Checkbox,
+                    field: {
+                        strategy: 'checkbox',
+                        defaultChecked: dayService?.enabled,
+                        disabled: !!errors.serviceHours?.[attention]?.[index]?.schedules,
+                        ...register(`serviceHours.${attention}.${index}.enabled`),
+                    },
+                    isHintReserved: true,
+                    hint: {
+                        hasDots: true,
+                        title: translate(`day.${dayService?.key.toLowerCase() as WeekDay}`),
+                        children: (
+                            <div className={styles.DayActions}>
+                                <label htmlFor={`serviceHours.${attention}.${index}.enabled`}>
+                                    {
+                                        <Legend hasDots>
+                                            {translate(`day.${dayService?.key.toLowerCase() as WeekDay}`)}
+                                        </Legend>
+                                    }
+                                </label>
+
+                                <Button
+                                    {...(scheduleCountByDay[attention][dayService?.dayId] > 1
+                                        ? removeScheduleProps(handleRemoveTime)
+                                        : addScheduleProps(handleAddTime))}
+                                    disabled={!watch(`serviceHours.${attention}.${index}.enabled`)}
+                                />
+                            </div>
+                        ),
+                    },
                 },
-                isHintReserved: true,
-                hint: {
-                    hasDots: true,
-                    title: translate(`day.${dayService?.key.toLowerCase() as WeekDay}`),
-                    children: (
-                        <div className={styles.DayActions}>
-                            <label htmlFor={`serviceHours.${attention}.${index}.enabled`}>
-                                <Legend hasDots>{translate(`day.${dayService?.key.toLowerCase() as WeekDay}`)}</Legend>
-                            </label>
-
-                            <Button
-                                {...(scheduleCountByDay[attention][dayService?.dayId] > 1
-                                    ? removeScheduleProps(() =>
-                                          setScheduleCountByDay(prev => {
-                                              unregister(`serviceHours.${attention}.${index}.schedules`);
-
-                                              prev[attention][dayService?.dayId] =
-                                                  prev[attention][dayService?.dayId] - 1;
-                                              return { ...prev };
-                                          })
-                                      )
-                                    : addScheduleProps(() =>
-                                          setScheduleCountByDay(prev => {
-                                              prev[attention][dayService?.dayId] =
-                                                  prev[attention][dayService?.dayId] + 1;
-                                              return { ...prev };
-                                          })
-                                      ))}
-                                disabled={!watch(`serviceHours.${attention}.${index}.enabled`)}
-                            />
-                        </div>
-                    ),
-                },
-            },
-            ...[...Array(scheduleCountByDay[attention][dayService?.dayId] ?? 1)]
-                .map((_, scheduleIndex) => {
-                    return [
-                        {
-                            disabled: !watch(`serviceHours.${attention}.${index}.enabled`),
-                            field: {
-                                className: errors.serviceHours?.[attention]?.[index]?.schedules?.[scheduleIndex]
-                                    ?.opening
-                                    ? FieldStyles.OutlineDanger
-                                    : FieldStyles.OutlinePrimary,
-                                placeholder: translate('day.opening'),
-                                defaultValue: '00:00',
-                                ...register(`serviceHours.${attention}.${index}.schedules.${scheduleIndex}.opening`),
+                ...[...Array(scheduleCountByDay[attention][dayService?.dayId] ?? 1)]
+                    .map((_, scheduleIndex) => {
+                        return [
+                            {
+                                key: `serviceHours.${attention}.${index}.schedules.${scheduleIndex}.opening`,
+                                disabled: !watch(`serviceHours.${attention}.${index}.enabled`),
+                                field: {
+                                    className: errors.serviceHours?.[attention]?.[index]?.schedules?.[scheduleIndex]
+                                        ?.opening
+                                        ? FieldStyles.OutlineDanger
+                                        : FieldStyles.OutlinePrimary,
+                                    placeholder: translate('day.opening'),
+                                    defaultValue: '08:00',
+                                    ...register(
+                                        `serviceHours.${attention}.${index}.schedules.${scheduleIndex}.opening`,
+                                        {
+                                            onChange: () =>
+                                                trigger(
+                                                    `serviceHours.${attention}.${index}.schedules.${scheduleIndex}`
+                                                ),
+                                        }
+                                    ),
+                                },
+                                isHintReserved: true,
+                                hint: {
+                                    hasDots: true,
+                                    title: translate(
+                                        (errors.serviceHours?.[attention]?.[index]?.schedules?.[scheduleIndex]?.opening
+                                            ?.message as AdminLang) ?? 'createcommerce.opening.hint'
+                                    ),
+                                    children: translate(
+                                        (errors.serviceHours?.[attention]?.[index]?.schedules?.[scheduleIndex]?.opening
+                                            ?.message as AdminLang) ?? 'createcommerce.opening.hint'
+                                    ),
+                                },
                             },
-                            isHintReserved: true,
-                            hint: {
-                                hasDots: true,
-                                title: translate(
-                                    (errors.serviceHours?.[attention]?.[index]?.schedules?.[scheduleIndex]?.opening
-                                        ?.message as AdminLang) ?? 'createcommerce.opening.hint'
-                                ),
-                                children: translate(
-                                    (errors.serviceHours?.[attention]?.[index]?.schedules?.[scheduleIndex]?.opening
-                                        ?.message as AdminLang) ?? 'createcommerce.opening.hint'
-                                ),
+                            {
+                                key: `serviceHours.${attention}.${index}.schedules.${scheduleIndex}.closing`,
+                                disabled: !watch(`serviceHours.${attention}.${index}.enabled`),
+                                field: {
+                                    className: errors.serviceHours?.[attention]?.[index]?.schedules?.[scheduleIndex]
+                                        ?.closing
+                                        ? FieldStyles.OutlineDanger
+                                        : FieldStyles.OutlinePrimary,
+                                    placeholder: translate('day.closing'),
+                                    defaultValue: '17:00',
+                                    ...register(
+                                        `serviceHours.${attention}.${index}.schedules.${scheduleIndex}.closing`,
+                                        {
+                                            onChange: () =>
+                                                trigger(
+                                                    `serviceHours.${attention}.${index}.schedules.${scheduleIndex}`
+                                                ),
+                                        }
+                                    ),
+                                },
+                                isHintReserved: true,
+                                hint: {
+                                    hasDots: true,
+                                    title: translate(
+                                        (errors.serviceHours?.[attention]?.[index]?.schedules?.[scheduleIndex]?.closing
+                                            ?.message as AdminLang) ?? 'createcommerce.closing.hint'
+                                    ),
+                                    children: translate(
+                                        (errors.serviceHours?.[attention]?.[index]?.schedules?.[scheduleIndex]?.closing
+                                            ?.message as AdminLang) ?? 'createcommerce.closing.hint'
+                                    ),
+                                },
                             },
-                        },
-                        {
-                            disabled: !watch(`serviceHours.${attention}.${index}.enabled`),
-                            field: {
-                                className: errors.serviceHours?.[attention]?.[index]?.schedules?.[scheduleIndex]
-                                    ?.closing
-                                    ? FieldStyles.OutlineDanger
-                                    : FieldStyles.OutlinePrimary,
-                                placeholder: translate('day.closing'),
-                                defaultValue: '00:00',
-                                ...register(`serviceHours.${attention}.${index}.schedules.${scheduleIndex}.closing`),
-                            },
-                            isHintReserved: true,
-                            hint: {
-                                hasDots: true,
-                                title: translate(
-                                    (errors.serviceHours?.[attention]?.[index]?.schedules?.[scheduleIndex]?.closing
-                                        ?.message as AdminLang) ?? 'createcommerce.closing.hint'
-                                ),
-                                children: translate(
-                                    (errors.serviceHours?.[attention]?.[index]?.schedules?.[scheduleIndex]?.closing
-                                        ?.message as AdminLang) ?? 'createcommerce.closing.hint'
-                                ),
-                            },
-                        },
-                    ];
-                })
-                .reduce((prev, current) => [...prev, ...current]),
-        ];
-    };
+                        ];
+                    })
+                    .reduce((prev, current) => [...prev, ...current]),
+            ];
+        },
+        [
+            addScheduleProps,
+            errors.serviceHours,
+            register,
+            removeScheduleProps,
+            scheduleCountByDay,
+            setValue,
+            translate,
+            unregister,
+            watch,
+        ]
+    );
     const onsitePreparationTimeField = (): FieldSetProps[] => {
         return [
             {

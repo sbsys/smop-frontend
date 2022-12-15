@@ -52,8 +52,8 @@ const CreateCommerceAttention = () => {
                         </div>
 
                         <div className={styles.ServiceHours}>
-                            {createCommerceAttentionServiceHoursOnsiteFormFields.map((field, index) => (
-                                <FieldSet {...field} key={index} />
+                            {createCommerceAttentionServiceHoursOnsiteFormFields.map(field => (
+                                <FieldSet {...field} />
                             ))}
                         </div>
 

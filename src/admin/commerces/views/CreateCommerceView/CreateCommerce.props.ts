@@ -16,6 +16,7 @@ import {
 import { TabsLayoutRef } from 'shared/layouts';
 /* utils */
 import * as yup from 'yup';
+import { isAfter, isBefore } from 'date-fns';
 
 export interface CreateCommerceContextProps {
     /* states */
@@ -60,6 +61,29 @@ export interface CreateCommerceForm {
     deliveringZone: boolean;
 }
 
+const serviceHours = yup.array(
+    yup
+        .object({
+            schedules: yup.array().of(
+                yup.object({
+                    opening: yup
+                        .string()
+                        .matches(/^(\d{2}):([0-5])([0-9])$/, 'createcommerce.opening.format')
+                        .test('overlap', 'createcommerce.opening.overlap', (value, schema) => {
+                            return isBefore(new Date(`2020T${value}`), new Date(`2020T${schema.parent.closing}`));
+                        }),
+                    closing: yup
+                        .string()
+                        .matches(/^(\d{2}):([0-5])([0-9])$/, 'createcommerce.closing.format')
+                        .test('overlap', 'createcommerce.closing.overlap', (value, schema) => {
+                            return isAfter(new Date(`2020T${value}`), new Date(`2020T${schema.parent.opening}`));
+                        }),
+                })
+            ),
+        })
+        .required()
+);
+
 export const CreateCommerceSchema = yup
     .object({
         /* references */
@@ -100,38 +124,8 @@ export const CreateCommerceSchema = yup
         /* attention */
         serviceHours: yup
             .object({
-                onsite: yup.array(
-                    yup
-                        .object({
-                            schedules: yup.array().of(
-                                yup.object({
-                                    opening: yup
-                                        .string()
-                                        .matches(/^(\d{2}):([0-5])([0-9])$/, 'createcommerce.opening.format'),
-                                    closing: yup
-                                        .string()
-                                        .matches(/^(\d{2}):([0-5])([0-9])$/, 'createcommerce.closing.format'),
-                                })
-                            ),
-                        })
-                        .required()
-                ),
-                delivery: yup.array(
-                    yup
-                        .object({
-                            schedules: yup.array().of(
-                                yup.object({
-                                    opening: yup
-                                        .string()
-                                        .matches(/^(\d{2}):([0-5])([0-9])$/, 'createcommerce.opening.format'),
-                                    closing: yup
-                                        .string()
-                                        .matches(/^(\d{2}):([0-5])([0-9])$/, 'createcommerce.closing.format'),
-                                })
-                            ),
-                        })
-                        .required()
-                ),
+                onsite: serviceHours,
+                delivery: serviceHours,
             })
             .required(),
         onsitePreparationTime: yup

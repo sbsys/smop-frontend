@@ -55,15 +55,15 @@ const ProductListDesktop = () => {
                                 span: 3,
                             },
                             {
+                                span: 1,
+                            },
+                            {
                                 children: (
                                     <Legend hasDots justify="end" title={translate('headers.price')}>
                                         {translate('headers.price')}
                                     </Legend>
                                 ),
                                 span: 2,
-                            },
-                            {
-                                span: 1,
                             },
                             {
                                 children: (
@@ -107,14 +107,14 @@ const ProductListDesktop = () => {
                                 ),
                             },
                             {
+                                children: <img src={item.url} alt={item.defaultReference} crossOrigin="anonymous" />,
+                            },
+                            {
                                 children: (
                                     <Legend justify="end" hasDots title={`${item.price} USD`}>
                                         {item.price} USD
                                     </Legend>
                                 ),
-                            },
-                            {
-                                children: <img src={item.url} alt={item.defaultReference} crossOrigin="anonymous" />,
                             },
                             {
                                 children: (

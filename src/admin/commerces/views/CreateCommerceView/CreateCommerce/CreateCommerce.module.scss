@@ -32,7 +32,7 @@
         @include padding(bottom sm);
 
         @include screen-width(sm) {
-            justify-content: center;
+            justify-content: space-around;
         }
     }
 
@@ -41,12 +41,15 @@
         @include border-opacity(bottom 0);
         @include border-width(bottom sm);
         @include font-weight(lg);
-        @include min-width(sm, component);
-        overflow: hidden;
+        @include padding(x xs);
 
         &Active {
             @include border-opacity(bottom 100);
             @include font-color(400, secondary);
+        }
+
+        & > span {
+            white-space: nowrap;
         }
     }
 

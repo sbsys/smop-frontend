@@ -70,9 +70,7 @@ const CreateCommerce = () => {
                                 <Button
                                     className={classNames(styles.TabItem, isCurrentTab && styles.TabItemActive)}
                                     type="button">
-                                    <Legend justify="center">
-                                        1 - <>{translate('createcommerce.references')}</>
-                                    </Legend>
+                                    <Legend>{translate('createcommerce.references')}</Legend>
                                 </Button>
                             ),
                             body: <CreateCommerceReference />,
@@ -82,9 +80,7 @@ const CreateCommerce = () => {
                                 <Button
                                     className={classNames(styles.TabItem, isCurrentTab && styles.TabItemActive)}
                                     type="button">
-                                    <Legend justify="center">
-                                        2 - <>{translate('createcommerce.settings')}</>
-                                    </Legend>
+                                    <Legend>{translate('createcommerce.settings')}</Legend>
                                 </Button>
                             ),
                             body: (
@@ -124,9 +120,7 @@ const CreateCommerce = () => {
                                 <Button
                                     className={classNames(styles.TabItem, isCurrentTab && styles.TabItemActive)}
                                     type="button">
-                                    <Legend justify="center">
-                                        3 - <>{translate('createcommerce.attention')}</>
-                                    </Legend>
+                                    <Legend>{translate('createcommerce.attention')}</Legend>
                                 </Button>
                             ),
                             body: <CreateCommerceAttention />,

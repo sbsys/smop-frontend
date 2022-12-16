@@ -5,10 +5,14 @@ import { useCreateCommerceContext } from '../CreateCommerce.context';
 /* custom hook */
 import { useCreateCommerceAttention } from './useCreateCommerceAttention.hook';
 /* layouts */
-import { ScrollLayout } from 'shared/layouts';
+import { PanelLayout, ScrollLayout, TabProps, TabsLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
-import { FieldSet, useAdminLang } from 'admin/core';
+import { AdminLang, FieldSet, useAdminLang } from 'admin/core';
+/* utils */
+import { classNames } from 'shared/utils';
+/* types */
+import { Attention } from 'admin/commerces/types';
 /* styles */
 import { ButtonStyles } from 'shared/styles';
 import styles from './CreateCommerceAttention.module.scss';
@@ -19,110 +23,93 @@ const CreateCommerceAttention = () => {
         handlePrevTab,
     } = useCreateCommerceContext();
 
-    const {
-        createCommerceAttentionServiceHoursOnsiteFormFields,
-        createCommerceAttentionOnsitePreparationTimeFormFields,
-        createCommerceAttentionServiceHoursDeliveryFormFields,
-        createCommerceAttentionDeliveryPreparationTimeFormFields,
-        handleRepeatSunday,
-    } = useCreateCommerceAttention();
+    const { createCommerceServiceHoursStrategy, handleRepeatSunday, createCommercePreparationTimeStrategy } =
+        useCreateCommerceAttention();
 
     const { translate } = useAdminLang();
 
     return (
-        <ScrollLayout orientation="col">
-            <div className={styles.Attention}>
-                <div className={styles.Content}>
-                    <div>
-                        <div className={styles.AttentionHeader}>
-                            <h3 title={translate('createcommerce.onsite')}>
-                                <Legend hasDots justify="center">
-                                    {translate('createcommerce.onsite')}
-                                </Legend>
-                            </h3>
-
+        <PanelLayout orientation="col" className={styles.Attention}>
+            <TabsLayout
+                className={styles.Tab}
+                classNameHeader={styles.TabHeader}
+                tabs={[
+                    ...Object.keys(createCommerceServiceHoursStrategy).map(key => ({
+                        header: ({ isCurrentTab, setCurrentTab }: TabProps) => (
                             <Button
                                 type="button"
-                                className={ButtonStyles.FillSecondary}
-                                onClick={() => handleRepeatSunday('onsite')}>
-                                <Legend hasDots justify="center">
-                                    {translate('actions.repeatweekday')}
-                                </Legend>
+                                className={classNames(styles.TabHeaderItem, isCurrentTab && styles.TabHeaderItemActive)}
+                                onClick={() => setCurrentTab()}
+                                title={translate(`createcommerce.${key}` as AdminLang)}>
+                                <Legend justify="center">{translate(`createcommerce.${key}` as AdminLang)}</Legend>
                             </Button>
-                        </div>
+                        ),
+                        body: (
+                            <PanelLayout orientation="col" className={styles.Content}>
+                                <Button
+                                    type="button"
+                                    className={ButtonStyles.FillSecondary}
+                                    onClick={() => handleRepeatSunday(key as Attention)}>
+                                    <Legend hasDots justify="center">
+                                        {translate('actions.repeatweekday')}
+                                    </Legend>
+                                </Button>
 
-                        <div className={styles.ServiceHours}>
-                            {createCommerceAttentionServiceHoursOnsiteFormFields.map(field => (
-                                <FieldSet {...field} />
-                            ))}
-                        </div>
-
-                        <h3 title={translate('createcommerce.onsitepreparation')}>
-                            <Legend hasDots>{translate('createcommerce.onsitepreparation')}</Legend>
-                        </h3>
-
-                        <div className={styles.PreparationTime}>
-                            {createCommerceAttentionOnsitePreparationTimeFormFields.map((field, index) => (
-                                <FieldSet {...field} key={index} />
-                            ))}
-                        </div>
-                    </div>
-
-                    <div>
-                        <div className={styles.AttentionHeader}>
-                            <h3 title={translate('createcommerce.delivery')}>
-                                <Legend hasDots justify="center">
-                                    {translate('createcommerce.delivery')}
-                                </Legend>
-                            </h3>
-
+                                <ScrollLayout orientation="col">
+                                    <div className={styles.ServiceHours}>
+                                        {createCommerceServiceHoursStrategy[key as Attention].map(field => (
+                                            <FieldSet {...field} />
+                                        ))}
+                                    </div>
+                                </ScrollLayout>
+                            </PanelLayout>
+                        ),
+                    })),
+                    {
+                        header: ({ isCurrentTab, setCurrentTab }: TabProps) => (
                             <Button
                                 type="button"
-                                className={ButtonStyles.FillSecondary}
-                                onClick={() => handleRepeatSunday('delivery')}>
-                                <Legend hasDots justify="center">
-                                    {translate('actions.repeatweekday')}
-                                </Legend>
+                                className={classNames(styles.TabHeaderItem, isCurrentTab && styles.TabHeaderItemActive)}
+                                onClick={() => setCurrentTab()}
+                                title={translate('createcommerce.preparation' as AdminLang)}>
+                                <Legend justify="center">{translate('createcommerce.preparation' as AdminLang)}</Legend>
                             </Button>
-                        </div>
+                        ),
+                        body: (
+                            <PanelLayout orientation="col" className={styles.Content}>
+                                <ScrollLayout orientation="col">
+                                    <div className={styles.ServiceHours}>
+                                        {Object.keys(createCommercePreparationTimeStrategy).map(key =>
+                                            createCommercePreparationTimeStrategy[key as Attention].map(
+                                                (field, index) => <FieldSet {...field} key={`${key}_${index}`} />
+                                            )
+                                        )}
+                                    </div>
+                                </ScrollLayout>
+                            </PanelLayout>
+                        ),
+                    },
+                ]}
+            />
 
-                        <div className={styles.ServiceHours}>
-                            {createCommerceAttentionServiceHoursDeliveryFormFields.map((field, index) => (
-                                <FieldSet {...field} key={index} />
-                            ))}
-                        </div>
+            <div className={styles.Actions}>
+                <Button
+                    type="button"
+                    className={ButtonStyles.OutlineNone}
+                    title={translate('actions.prevstep')}
+                    onClick={handlePrevTab}>
+                    <Legend hasDots justify="center">
+                        {translate('actions.prevstep')}
+                    </Legend>
+                </Button>
 
-                        <h3 title={translate('createcommerce.deliverypreparation')}>
-                            <Legend hasDots>{translate('createcommerce.deliverypreparation')}</Legend>
-                        </h3>
-
-                        <div className={styles.PreparationTime}>
-                            {createCommerceAttentionDeliveryPreparationTimeFormFields.map((field, index) => (
-                                <FieldSet {...field} key={index} />
-                            ))}
-                        </div>
-                    </div>
-                </div>
-
-                <div className={styles.Actions}>
-                    <Button
-                        type="button"
-                        className={ButtonStyles.OutlineNone}
-                        title={translate('actions.prevstep')}
-                        onClick={handlePrevTab}>
-                        <Legend hasDots justify="center">
-                            {translate('actions.prevstep')}
-                        </Legend>
-                    </Button>
-
-                    <Button type="submit" className={ButtonStyles.FillSecondary} title={translate('actions.save')}>
-                        <Legend hasDots justify="center">
-                            {translate('actions.save')}
-                        </Legend>
-                    </Button>
-                </div>
+                <Button type="submit" className={ButtonStyles.FillSecondary} title={translate('actions.save')}>
+                    <Legend hasDots justify="center">
+                        {translate('actions.save')}
+                    </Legend>
+                </Button>
             </div>
-        </ScrollLayout>
+        </PanelLayout>
     );
 };
 

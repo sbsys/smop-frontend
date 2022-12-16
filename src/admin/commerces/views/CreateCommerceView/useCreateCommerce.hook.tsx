@@ -16,7 +16,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { CountryListItemDTO } from 'admin/commerces/types';
 /* assets */
 import { MdCheckCircle, MdError } from 'react-icons/md';
-import { validateServiceSchedule } from 'admin/commerces/utils';
 
 export const useCreateCommerce = () => {
     /* states */
@@ -38,7 +37,6 @@ export const useCreateCommerce = () => {
 
     /* functions */
     const handleCreateCommerceSubmit = formMethods.handleSubmit(async data => {
-        return console.log(validateServiceSchedule(data.serviceHours.onsite));
         showLoader();
 
         const service = await createCommerceService(data);

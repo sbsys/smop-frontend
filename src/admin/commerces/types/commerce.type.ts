@@ -107,9 +107,13 @@ export interface ServiceHours {
     delivery: DayService[];
 }
 
+export type Attention = 'onsite' | 'delivery' | 'curbside' | 'pickup';
+
 export interface ExtendedServiceHours {
     onsite: ExtendedDayService[];
     delivery: ExtendedDayService[];
+    curbside: ExtendedDayService[];
+    pickup: ExtendedDayService[];
 }
 
 export interface PreparationTime {

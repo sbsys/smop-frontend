@@ -483,14 +483,13 @@ export const useUpdateCollection = () => {
         className: styles.CheckboxInverse,
         field: {
             strategy: 'checkbox',
-            placeholder: translate('productedit.combo.hint' as AdminLang),
             ...register('isCombo'),
         },
         isHintReserved: true,
         hint: {
-            children: translate('productedit.combo.hint' as AdminLang),
+            children: translate('productedit.combo.title' as AdminLang),
             hasDots: true,
-            title: translate('productedit.combo.hint' as AdminLang),
+            title: translate('productedit.combo.title' as AdminLang),
         },
     };
     const comboChoiceProps: FieldSetProps = {

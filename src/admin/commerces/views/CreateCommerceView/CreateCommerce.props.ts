@@ -126,6 +126,8 @@ export const CreateCommerceSchema = yup
             .object({
                 onsite: serviceHours,
                 delivery: serviceHours,
+                curbside: serviceHours,
+                pickup: serviceHours,
             })
             .required(),
         onsitePreparationTime: yup

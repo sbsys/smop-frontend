@@ -14,12 +14,20 @@ import { updateAttentionService } from 'admin/commerces/services';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 /* types */
-import { DayServiceValue, ExtendedDayService, ExtendedServiceHours, PreparationTime } from 'admin/commerces/types';
+import {
+    Attention,
+    DayServiceValue,
+    ExtendedDayService,
+    ExtendedServiceHours,
+    PreparationTime,
+} from 'admin/commerces/types';
 /* assets */
 import { MdAdd, MdCheckCircle, MdError, MdRemove } from 'react-icons/md';
 /* styles */
 import { ButtonStyles, FieldStyles } from 'shared/styles';
 import styles from './UpdateAttention.module.scss';
+import { isAfter, isBefore } from 'date-fns';
+import { classNames } from 'shared/utils';
 
 export interface UpdateAttentionForm {
     serviceHours: ExtendedServiceHours;
@@ -27,42 +35,37 @@ export interface UpdateAttentionForm {
     deliveryPreparationTime: PreparationTime;
 }
 
+const serviceHours = yup.array(
+    yup
+        .object({
+            schedules: yup.array().of(
+                yup.object({
+                    opening: yup
+                        .string()
+                        .matches(/^(\d{2}):([0-5])([0-9])$/, 'commerceedit.opening.format')
+                        .test('overlap', 'commerceedit.opening.overlap', (value, schema) => {
+                            return isBefore(new Date(`2020T${value}`), new Date(`2020T${schema.parent.closing}`));
+                        }),
+                    closing: yup
+                        .string()
+                        .matches(/^(\d{2}):([0-5])([0-9])$/, 'commerceedit.closing.format')
+                        .test('overlap', 'commerceedit.closing.overlap', (value, schema) => {
+                            return isAfter(new Date(`2020T${value}`), new Date(`2020T${schema.parent.opening}`));
+                        }),
+                })
+            ),
+        })
+        .required()
+);
+
 export const UpdateAttentionSchema = yup
     .object({
         serviceHours: yup
             .object({
-                onsite: yup.array(
-                    yup
-                        .object({
-                            schedules: yup.array().of(
-                                yup.object({
-                                    opening: yup
-                                        .string()
-                                        .matches(/^(\d{2}):([0-5])([0-9])$/, 'commerceedit.opening.format'),
-                                    closing: yup
-                                        .string()
-                                        .matches(/^(\d{2}):([0-5])([0-9])$/, 'commerceedit.closing.format'),
-                                })
-                            ),
-                        })
-                        .required()
-                ),
-                delivery: yup.array(
-                    yup
-                        .object({
-                            schedules: yup.array().of(
-                                yup.object({
-                                    opening: yup
-                                        .string()
-                                        .matches(/^(\d{2}):([0-5])([0-9])$/, 'commerceedit.opening.format'),
-                                    closing: yup
-                                        .string()
-                                        .matches(/^(\d{2}):([0-5])([0-9])$/, 'commerceedit.closing.format'),
-                                })
-                            ),
-                        })
-                        .required()
-                ),
+                onsite: serviceHours,
+                delivery: serviceHours,
+                curbside: serviceHours,
+                pickup: serviceHours,
             })
             .required(),
         onsitePreparationTime: yup
@@ -131,9 +134,13 @@ export const useUpdateAttention = () => {
     const [scheduleCountByDay, setScheduleCountByDay] = useState<{
         onsite: { [index: string]: number };
         delivery: { [index: string]: number };
+        curbside: { [index: string]: number };
+        pickup: { [index: string]: number };
     }>({
         onsite: { 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1, 7: 1 },
         delivery: { 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1, 7: 1 },
+        curbside: { 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1, 7: 1 },
+        pickup: { 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1, 7: 1 },
     });
 
     const { translate } = useAdminLang();
@@ -175,7 +182,7 @@ export const useUpdateAttention = () => {
     };
 
     const handleRepeatSunday = useCallback(
-        async (attention: 'onsite' | 'delivery') => {
+        async (attention: Attention) => {
             if (
                 !(await trigger(
                     [
@@ -225,34 +232,26 @@ export const useUpdateAttention = () => {
 
     /* reactivity */
     useEffect(() => {
-        if (!isUpdateAttention) return;
+        if (!isUpdateAttention || !commerce?.serviceHours) return;
 
         unregister();
 
-        commerce?.serviceHours.onsite.forEach((onsite, index) => {
-            setValue(`serviceHours.onsite.${index}.enabled`, onsite.enabled);
+        Object.keys(commerce.serviceHours).forEach(key => {
+            const currentServiceHours = commerce.serviceHours[key as Attention];
 
-            setValue(`serviceHours.onsite.${index}.schedules`, onsite.schedules);
+            currentServiceHours.forEach((service, index) => {
+                setValue(`serviceHours.${key as Attention}.${index}.enabled`, service.enabled);
 
-            setScheduleCountByDay(prev => {
-                prev.onsite[onsite.dayId] = onsite.schedules.length;
+                setValue(`serviceHours.${key as Attention}.${index}.schedules`, service.schedules);
 
-                return { ...prev };
+                setScheduleCountByDay(prev => {
+                    prev[key as Attention][service.dayId] = service.schedules.length;
+
+                    return { ...prev };
+                });
             });
         });
-
-        commerce?.serviceHours.delivery.forEach((delivery, index) => {
-            setValue(`serviceHours.delivery.${index}.enabled`, delivery.enabled);
-
-            setValue(`serviceHours.delivery.${index}.schedules`, delivery.schedules);
-
-            setScheduleCountByDay(prev => {
-                prev.delivery[delivery.dayId] = delivery.schedules.length;
-
-                return { ...prev };
-            });
-        });
-    }, [commerce?.serviceHours.delivery, commerce?.serviceHours.onsite, isUpdateAttention, setValue, unregister]);
+    }, [commerce?.serviceHours, isUpdateAttention, setValue, unregister]);
 
     /* props */
     const addScheduleProps = useCallback(
@@ -293,18 +292,42 @@ export const useUpdateAttention = () => {
     );
 
     const serviceHoursFields = useCallback(
-        (index: number, attention: 'onsite' | 'delivery'): FieldSetProps[] => {
+        (index: number, attention: Attention): FieldSetProps[] => {
             const dayService = commerce?.serviceHours[attention][index] as ExtendedDayService;
 
             setValue(`serviceHours.${attention}.${index}.dayId`, dayService?.dayId);
             setValue(`serviceHours.${attention}.${index}.key`, dayService?.key);
 
+            const handleRemoveTime = () => {
+                unregister(`serviceHours.${attention}.${index}.schedules`);
+
+                setScheduleCountByDay(prev => {
+                    const newScheduleCount = prev[attention][dayService?.dayId] - 1;
+
+                    prev[attention][dayService?.dayId] = newScheduleCount;
+                    return { ...prev };
+                });
+            };
+
+            const handleAddTime = () =>
+                setScheduleCountByDay(prev => {
+                    const newScheduleCount = prev[attention][dayService?.dayId] + 1;
+
+                    prev[attention][dayService?.dayId] = newScheduleCount;
+                    return { ...prev };
+                });
+
             return [
                 {
-                    className: styles.Checkbox,
+                    key: `serviceHours.${attention}.${index}.enabled`,
+                    className: classNames(styles.Checkbox, styles.LastServiceHours),
+                    style: {
+                        gridRow: `span ${scheduleCountByDay[attention][dayService?.dayId] ?? 1}`,
+                    },
                     field: {
                         strategy: 'checkbox',
                         id: `serviceHours.${attention}.${index}.enabled`,
+                        disabled: !!errors.serviceHours?.[attention]?.[index]?.schedules,
                         ...register(`serviceHours.${attention}.${index}.enabled`),
                     },
                     isHintReserved: true,
@@ -320,22 +343,8 @@ export const useUpdateAttention = () => {
 
                                 <Button
                                     {...(scheduleCountByDay[attention][dayService?.dayId] > 1
-                                        ? removeScheduleProps(() =>
-                                              setScheduleCountByDay(prev => {
-                                                  unregister(`serviceHours.${attention}.${index}.schedules`);
-
-                                                  prev[attention][dayService?.dayId] =
-                                                      prev[attention][dayService?.dayId] - 1;
-                                                  return { ...prev };
-                                              })
-                                          )
-                                        : addScheduleProps(() =>
-                                              setScheduleCountByDay(prev => {
-                                                  prev[attention][dayService?.dayId] =
-                                                      prev[attention][dayService?.dayId] + 1;
-                                                  return { ...prev };
-                                              })
-                                          ))}
+                                        ? removeScheduleProps(handleRemoveTime)
+                                        : addScheduleProps(handleAddTime))}
                                     disabled={!watch(`serviceHours.${attention}.${index}.enabled`)}
                                 />
                             </div>
@@ -344,17 +353,34 @@ export const useUpdateAttention = () => {
                 },
                 ...[...Array(scheduleCountByDay[attention][dayService?.dayId] ?? 1)]
                     .map((_, scheduleIndex) => {
+                        const isLastServiceHours =
+                            (scheduleCountByDay[attention][dayService?.dayId] ?? 1) - 1 === scheduleIndex;
+
+                        const isNotFirstOpening: boolean = scheduleIndex > 0;
+
                         return [
                             {
+                                key: `serviceHours.${attention}.${index}.schedules.${scheduleIndex}.opening`,
                                 disabled: !watch(`serviceHours.${attention}.${index}.enabled`),
+                                className: classNames(
+                                    isLastServiceHours && styles.LastServiceHours,
+                                    isNotFirstOpening && styles.NotFirstOpening
+                                ),
                                 field: {
                                     className: errors.serviceHours?.[attention]?.[index]?.schedules?.[scheduleIndex]
                                         ?.opening
                                         ? FieldStyles.OutlineDanger
                                         : FieldStyles.OutlinePrimary,
                                     placeholder: translate('day.opening'),
+                                    defaultValue: '08:00',
                                     ...register(
-                                        `serviceHours.${attention}.${index}.schedules.${scheduleIndex}.opening`
+                                        `serviceHours.${attention}.${index}.schedules.${scheduleIndex}.opening`,
+                                        {
+                                            onChange: () =>
+                                                trigger(
+                                                    `serviceHours.${attention}.${index}.schedules.${scheduleIndex}.closing`
+                                                ),
+                                        }
                                     ),
                                 },
                                 isHintReserved: true,
@@ -371,15 +397,24 @@ export const useUpdateAttention = () => {
                                 },
                             },
                             {
+                                key: `serviceHours.${attention}.${index}.schedules.${scheduleIndex}.closing`,
                                 disabled: !watch(`serviceHours.${attention}.${index}.enabled`),
+                                className: classNames(isLastServiceHours && styles.LastServiceHours),
                                 field: {
                                     className: errors.serviceHours?.[attention]?.[index]?.schedules?.[scheduleIndex]
                                         ?.closing
                                         ? FieldStyles.OutlineDanger
                                         : FieldStyles.OutlinePrimary,
                                     placeholder: translate('day.closing'),
+                                    defaultValue: '17:00',
                                     ...register(
-                                        `serviceHours.${attention}.${index}.schedules.${scheduleIndex}.closing`
+                                        `serviceHours.${attention}.${index}.schedules.${scheduleIndex}.closing`,
+                                        {
+                                            onChange: () =>
+                                                trigger(
+                                                    `serviceHours.${attention}.${index}.schedules.${scheduleIndex}.opening`
+                                                ),
+                                        }
                                     ),
                                 },
                                 isHintReserved: true,
@@ -409,111 +444,101 @@ export const useUpdateAttention = () => {
             scheduleCountByDay,
             setValue,
             translate,
+            trigger,
             unregister,
             watch,
         ]
     );
-    const onsitePreparationTimeField = (): FieldSetProps[] => {
+    const preparationTimeField = (attention: /* Attention */ 'delivery' | 'onsite'): FieldSetProps[] => {
         return [
             {
+                className: classNames(styles.Title, styles.LastServiceHours),
                 field: {
-                    className: errors.onsitePreparationTime?.hours
+                    disabled: true,
+                },
+                isHintReserved: true,
+                hint: {
+                    hasDots: true,
+                    title: translate(`commerceedit.${attention}preparation` as AdminLang),
+                    children: translate(`commerceedit.${attention}preparation` as AdminLang),
+                },
+            },
+            {
+                className: styles.LastServiceHours,
+                field: {
+                    className: errors[`${attention}PreparationTime`]?.hours
                         ? FieldStyles.OutlineDanger
                         : FieldStyles.OutlinePrimary,
                     strategy: 'decimal',
                     min: 0,
                     step: 1,
+                    defaultValue: commerce?.[`${attention}PreparationTime`]?.hours ?? 0,
                     placeholder: translate('commerceedit.hours.placeholder'),
-                    defaultValue: commerce?.onsitePreparationTime.hours,
-                    ...register('onsitePreparationTime.hours'),
+                    ...register(`${attention}PreparationTime.hours`),
                 },
                 isHintReserved: true,
                 hint: {
                     hasDots: true,
                     title: translate(
-                        (errors.onsitePreparationTime?.hours?.message as AdminLang) ?? 'commerceedit.hours.hint'
+                        (errors[`${attention}PreparationTime`]?.hours?.message as AdminLang) ??
+                            'commerceedit.hours.hint'
                     ),
                     children: translate(
-                        (errors.onsitePreparationTime?.hours?.message as AdminLang) ?? 'commerceedit.hours.hint'
+                        (errors[`${attention}PreparationTime`]?.hours?.message as AdminLang) ??
+                            'commerceedit.hours.hint'
                     ),
                 },
             },
             {
+                className: styles.LastServiceHours,
                 field: {
-                    className: errors.onsitePreparationTime?.minutes
+                    className: errors[`${attention}PreparationTime`]?.minutes
                         ? FieldStyles.OutlineDanger
                         : FieldStyles.OutlinePrimary,
                     strategy: 'decimal',
                     min: 0,
                     max: 59,
                     step: 1,
+                    defaultValue: commerce?.[`${attention}PreparationTime`]?.minutes ?? 0,
                     placeholder: translate('commerceedit.minutes.placeholder'),
-                    defaultValue: commerce?.onsitePreparationTime.minutes,
-                    ...register('onsitePreparationTime.minutes'),
+                    ...register(`${attention}PreparationTime.minutes`),
                 },
                 isHintReserved: true,
                 hint: {
                     hasDots: true,
                     title: translate(
-                        (errors.onsitePreparationTime?.minutes?.message as AdminLang) ?? 'commerceedit.minutes.hint'
+                        (errors[`${attention}PreparationTime`]?.minutes?.message as AdminLang) ??
+                            'commerceedit.minutes.hint'
                     ),
                     children: translate(
-                        (errors.onsitePreparationTime?.minutes?.message as AdminLang) ?? 'commerceedit.minutes.hint'
+                        (errors[`${attention}PreparationTime`]?.minutes?.message as AdminLang) ??
+                            'commerceedit.minutes.hint'
                     ),
                 },
             },
         ];
     };
-    const deliveryPreparationTimeField = (): FieldSetProps[] => {
-        return [
-            {
-                field: {
-                    className: errors.deliveryPreparationTime?.hours
-                        ? FieldStyles.OutlineDanger
-                        : FieldStyles.OutlinePrimary,
-                    strategy: 'decimal',
-                    min: 0,
-                    step: 1,
-                    placeholder: translate('commerceedit.hours.placeholder'),
-                    defaultValue: commerce?.deliveryPreparationTime.hours,
-                    ...register('deliveryPreparationTime.hours'),
-                },
-                isHintReserved: true,
-                hint: {
-                    hasDots: true,
-                    title: translate(
-                        (errors.deliveryPreparationTime?.hours?.message as AdminLang) ?? 'commerceedit.hours.hint'
-                    ),
-                    children: translate(
-                        (errors.deliveryPreparationTime?.hours?.message as AdminLang) ?? 'commerceedit.hours.hint'
-                    ),
-                },
-            },
-            {
-                field: {
-                    className: errors.deliveryPreparationTime?.minutes
-                        ? FieldStyles.OutlineDanger
-                        : FieldStyles.OutlinePrimary,
-                    strategy: 'decimal',
-                    min: 0,
-                    max: 59,
-                    step: 1,
-                    placeholder: translate('commerceedit.minutes.placeholder'),
-                    defaultValue: commerce?.deliveryPreparationTime.minutes,
-                    ...register('deliveryPreparationTime.minutes'),
-                },
-                isHintReserved: true,
-                hint: {
-                    hasDots: true,
-                    title: translate(
-                        (errors.deliveryPreparationTime?.minutes?.message as AdminLang) ?? 'commerceedit.minutes.hint'
-                    ),
-                    children: translate(
-                        (errors.deliveryPreparationTime?.minutes?.message as AdminLang) ?? 'commerceedit.minutes.hint'
-                    ),
-                },
-            },
-        ];
+
+    const updateAttentionServiceHoursStrategy: Record<Attention, FieldSetProps[]> = {
+        onsite: [...Array(DayServiceValue.length)]
+            .map((_, index) => serviceHoursFields(index, 'onsite'))
+            .reduce((prev, current) => [...prev, ...current]),
+        delivery: [...Array(DayServiceValue.length)]
+            .map((_, index) => serviceHoursFields(index, 'delivery'))
+            .reduce((prev, current) => [...prev, ...current]),
+        curbside: [...Array(DayServiceValue.length)]
+            .map((_, index) => serviceHoursFields(index, 'curbside'))
+            .reduce((prev, current) => [...prev, ...current]),
+        pickup: [...Array(DayServiceValue.length)]
+            .map((_, index) => serviceHoursFields(index, 'pickup'))
+            .reduce((prev, current) => [...prev, ...current]),
+    };
+
+    const updateAttentionPreparationTimeStrategy: Record<Attention, FieldSetProps[]> = {
+        onsite: preparationTimeField('onsite'),
+        delivery: preparationTimeField('delivery'),
+        curbside: [],
+        pickup: [],
     };
 
     const updateAttentionServiceHoursOnsiteFormFields: FieldSetProps[] = [
@@ -522,7 +547,7 @@ export const useUpdateAttention = () => {
             .reduce((prev, current) => [...prev, ...current]),
     ];
 
-    const updateAttentionOnsitePreparationTimeFormFields: FieldSetProps[] = [...onsitePreparationTimeField()];
+    const updateAttentionOnsitePreparationTimeFormFields: FieldSetProps[] = [...preparationTimeField('onsite')];
 
     const updateAttentionServiceHoursDeliveryFormFields: FieldSetProps[] = [
         ...[...Array(commerce?.serviceHours.delivery.length)]
@@ -530,12 +555,14 @@ export const useUpdateAttention = () => {
             .reduce((prev, current) => [...prev, ...current]),
     ];
 
-    const updateAttentionDeliveryPreparationTimeFormFields: FieldSetProps[] = [...deliveryPreparationTimeField()];
+    const updateAttentionDeliveryPreparationTimeFormFields: FieldSetProps[] = [...preparationTimeField('delivery')];
 
     return {
         handleUpdateAttention,
         handleResetUpdateAttentionForm,
         handleRepeatSunday,
+        updateAttentionServiceHoursStrategy,
+        updateAttentionPreparationTimeStrategy,
         updateAttentionServiceHoursOnsiteFormFields,
         updateAttentionOnsitePreparationTimeFormFields,
         updateAttentionServiceHoursDeliveryFormFields,

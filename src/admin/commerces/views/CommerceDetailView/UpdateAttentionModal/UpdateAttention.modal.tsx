@@ -5,10 +5,14 @@ import { useUpdateAttention } from './useUpdateAttention.hook';
 /* context */
 import { useCommerceDetailContext } from '../CommerceDetail.context';
 /* layouts */
-import { ModalLayout, PanelLayout, ScrollLayout } from 'shared/layouts';
+import { ModalLayout, PanelLayout, ScrollLayout, TabProps, TabsLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
-import { FieldSet, useAdminLang } from 'admin/core';
+import { AdminLang, FieldSet, useAdminLang } from 'admin/core';
+/* utils */
+import { classNames } from 'shared/utils';
+/* types */
+import { Attention } from 'admin/commerces/types';
 /* assets */
 import { MdWarning } from 'react-icons/md';
 /* styles */
@@ -26,10 +30,8 @@ const UpdateAttentionModal = () => {
         handleUpdateAttention,
         handleResetUpdateAttentionForm,
         handleRepeatSunday,
-        updateAttentionServiceHoursOnsiteFormFields,
-        updateAttentionOnsitePreparationTimeFormFields,
-        updateAttentionServiceHoursDeliveryFormFields,
-        updateAttentionDeliveryPreparationTimeFormFields,
+        updateAttentionServiceHoursStrategy,
+        updateAttentionPreparationTimeStrategy,
     } = useUpdateAttention();
 
     const { translate } = useAdminLang();
@@ -46,81 +48,79 @@ const UpdateAttentionModal = () => {
                         <Legend hasDots>{translate('commerceedit.attention')}</Legend>
                     </div>
 
-                    <ScrollLayout orientation="col">
-                        <div className={styles.Content}>
-                            <div>
-                                <div className={styles.ContentHeader}>
-                                    <h3 title={translate('commerceedit.onsite')}>
-                                        <Legend hasDots justify="center">
-                                            {translate('commerceedit.onsite')}
-                                        </Legend>
-                                    </h3>
-
+                    <TabsLayout
+                        className={styles.Tab}
+                        classNameHeader={styles.TabHeader}
+                        tabs={[
+                            ...Object.keys(updateAttentionServiceHoursStrategy).map(key => ({
+                                header: ({ isCurrentTab, setCurrentTab }: TabProps) => (
                                     <Button
                                         type="button"
-                                        className={ButtonStyles.FillSecondary}
-                                        onClick={() => handleRepeatSunday('onsite')}
-                                        title={translate('actions.repeatweekday')}>
-                                        <Legend hasDots justify="center">
-                                            {translate('actions.repeatweekday')}
+                                        className={classNames(
+                                            styles.TabHeaderItem,
+                                            isCurrentTab && styles.TabHeaderItemActive
+                                        )}
+                                        onClick={() => setCurrentTab()}
+                                        title={translate(`commerceedit.${key}` as AdminLang)}>
+                                        <Legend justify="center">
+                                            {translate(`commerceedit.${key}` as AdminLang)}
                                         </Legend>
                                     </Button>
-                                </div>
+                                ),
+                                body: (
+                                    <PanelLayout orientation="col" className={styles.Content}>
+                                        <Button
+                                            type="button"
+                                            className={ButtonStyles.FillSecondary}
+                                            onClick={() => handleRepeatSunday(key as Attention)}>
+                                            <Legend hasDots justify="center">
+                                                {translate('actions.repeatweekday')}
+                                            </Legend>
+                                        </Button>
 
-                                <div className={styles.ServiceHours}>
-                                    {updateAttentionServiceHoursOnsiteFormFields.map((field, index) => (
-                                        <FieldSet {...field} key={`onsite_${index}`} />
-                                    ))}
-                                </div>
-
-                                <h3 title={translate('commerceedit.onsitepreparation')}>
-                                    <Legend hasDots>{translate('commerceedit.onsitepreparation')}</Legend>
-                                </h3>
-
-                                <div className={styles.PreparationTime}>
-                                    {updateAttentionOnsitePreparationTimeFormFields.map((field, index) => (
-                                        <FieldSet {...field} key={index} />
-                                    ))}
-                                </div>
-                            </div>
-
-                            <div>
-                                <div className={styles.ContentHeader}>
-                                    <h3 title={translate('commerceedit.delivery')}>
-                                        <Legend hasDots justify="center">
-                                            {translate('commerceedit.delivery')}
-                                        </Legend>
-                                    </h3>
-
+                                        <ScrollLayout orientation="col">
+                                            <div className={styles.ServiceHours}>
+                                                {updateAttentionServiceHoursStrategy[key as Attention].map(field => (
+                                                    <FieldSet {...field} />
+                                                ))}
+                                            </div>
+                                        </ScrollLayout>
+                                    </PanelLayout>
+                                ),
+                            })),
+                            {
+                                header: ({ isCurrentTab, setCurrentTab }: TabProps) => (
                                     <Button
                                         type="button"
-                                        className={ButtonStyles.FillSecondary}
-                                        onClick={() => handleRepeatSunday('delivery')}
-                                        title={translate('actions.repeatweekday')}>
-                                        <Legend hasDots justify="center">
-                                            {translate('actions.repeatweekday')}
+                                        className={classNames(
+                                            styles.TabHeaderItem,
+                                            isCurrentTab && styles.TabHeaderItemActive
+                                        )}
+                                        onClick={() => setCurrentTab()}
+                                        title={translate('commerceedit.preparation' as AdminLang)}>
+                                        <Legend justify="center">
+                                            {translate('commerceedit.preparation' as AdminLang)}
                                         </Legend>
                                     </Button>
-                                </div>
-
-                                <div className={styles.ServiceHours}>
-                                    {updateAttentionServiceHoursDeliveryFormFields.map((field, index) => (
-                                        <FieldSet {...field} key={`delivery_${index}`} />
-                                    ))}
-                                </div>
-
-                                <h3 title={translate('commerceedit.deliverypreparation')}>
-                                    <Legend hasDots>{translate('commerceedit.deliverypreparation')}</Legend>
-                                </h3>
-
-                                <div className={styles.PreparationTime}>
-                                    {updateAttentionDeliveryPreparationTimeFormFields.map((field, index) => (
-                                        <FieldSet {...field} key={index} />
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    </ScrollLayout>
+                                ),
+                                body: (
+                                    <PanelLayout orientation="col" className={styles.Content}>
+                                        <ScrollLayout orientation="col">
+                                            <div className={styles.ServiceHours}>
+                                                {Object.keys(updateAttentionPreparationTimeStrategy).map(key =>
+                                                    updateAttentionPreparationTimeStrategy[key as Attention].map(
+                                                        (field, index) => (
+                                                            <FieldSet {...field} key={`${key}_${index}`} />
+                                                        )
+                                                    )
+                                                )}
+                                            </div>
+                                        </ScrollLayout>
+                                    </PanelLayout>
+                                ),
+                            },
+                        ]}
+                    />
 
                     <div className={styles.Actions}>
                         <Button

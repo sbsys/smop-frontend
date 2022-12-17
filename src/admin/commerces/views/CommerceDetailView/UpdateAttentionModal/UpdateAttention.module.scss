@@ -23,65 +23,74 @@
         @include gap(all xs);
     }
 
-    .Content {
-        @include gap(x md, y md);
-        @include padding(all xs);
-        display: grid;
-        grid-template-columns: repeat(1, 1fr);
+    .TabHeader {
+        @include gap(all md);
+        @include padding(bottom sm);
+    }
 
-        @include screen-width(lg) {
-            @include gap(x xl);
-            grid-template-columns: repeat(2, 1fr);
+    .TabHeaderItem {
+        @include border-color(bottom 400 primary);
+        @include border-opacity(bottom 0);
+        @include border-width(bottom sm);
+        @include font-weight(lg);
+        @include interactable;
+        @include padding(x xs);
+        margin: 0 auto;
+
+        &Active {
+            @include border-opacity(bottom 100);
+            @include font-color(400, primary);
         }
 
-        .ContentHeader,
-        & > div {
-            @include flex;
-            overflow: hidden;
-
-            & > h3 {
-                @include font-weight(lg);
-
-                &:nth-child(n + 2) {
-                    @include border-color(top 600 bg);
-                    @include border-opacity(top 60);
-                    @include border-width(top sm);
-                    @include margin(top xl);
-                    @include padding(top xs);
-                    border-style: dotted;
-                }
-            }
-        }
-
-        .ContentHeader {
-            @include gap(all xs);
-            @include margin(bottom md);
-
-            /* @include screen-width(2xs) {
-                @include flex(row, center, space-between);
-            } */
-
-            /* & > h3 {
-                overflow: hidden;
-            } */
-
-            & > button {
-                @include margin(x xs);
-            }
+        & > span {
+            white-space: nowrap;
         }
     }
 
-    .ServiceHours {
-        @include gap(all xs);
-        display: grid;
-        grid-template-columns: repeat(1, 1fr);
+    .Content {
+        @include gap(all md);
 
-        @include screen-width(2xs) {
-            grid-template-columns: repeat(2, 1fr);
+        & > button {
+            margin: 0 auto;
+            max-width: 100%;
+        }
 
-            /* & > fieldset:nth-child(3n + 1) {
-                grid-column: span 2;
-            } */
+        .ServiceHours {
+            @include max-width(lg, view);
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            margin: 0 auto;
+            width: 100%;
+
+            & > fieldset {
+                @include padding(all xs);
+            }
+
+            @include screen-width(2xs) {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            @include screen-width(md) {
+                @include gap(y sm);
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .LastServiceHours {
+                @include screen-width(md) {
+                    @include border-color(bottom 800 none);
+                    @include border-width(bottom sm);
+                    @include padding(bottom lg);
+                    border-style: dashed;
+                }
+            }
+
+            .NotFirstOpening {
+                @include margin(top md);
+
+                @include screen-width(2xs) {
+                    @include margin(top none);
+                }
+            }
         }
     }
 
@@ -108,15 +117,24 @@
 
 .Checkbox {
     flex-direction: row;
+    align-items: center;
+
+    &:nth-child(n + 2) {
+        @include margin(top md);
+        @include shadow(top sm);
+    }
 
     @include screen-width(2xs) {
         grid-column: span 2;
     }
 
-    &:nth-child(n + 2) {
-        @include margin(top md);
-        @include padding(top xs);
-        @include shadow(top sm);
+    @include screen-width(md) {
+        grid-column: span 1;
+
+        &:nth-child(n) {
+            @include margin(top none);
+            @include shadow(right none);
+        }
     }
 
     & > label {
@@ -134,15 +152,9 @@
     }
 }
 
-.CheckboxInverse {
-    flex-direction: row-reverse;
-    justify-content: flex-end;
-}
-
 .DayActions {
-    @include flex(row, center);
+    @include flex(row, center, space-between);
     @include gap(all sm);
-    justify-content: space-between;
 
     & > label {
         overflow: hidden;
@@ -151,6 +163,26 @@
     & > button {
         @include flex(row, center);
         @include gap(all xs);
-        @include margin(all xs split);
+    }
+}
+
+.Title {
+    flex-direction: row;
+    align-items: center;
+
+    & > label {
+        display: none;
+    }
+
+    & > span {
+        @include font-weight(lg);
+    }
+
+    @include screen-width(2xs) {
+        grid-column: span 2;
+    }
+
+    @include screen-width(md) {
+        grid-column: span 1;
     }
 }

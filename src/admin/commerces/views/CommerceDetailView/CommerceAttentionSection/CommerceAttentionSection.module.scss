@@ -24,6 +24,11 @@
 
         & > span:nth-child(4n) {
             @include margin(bottom md);
+            flex-grow: 1;
+        }
+
+        & > table {
+            flex-grow: 0;
         }
     }
 

@@ -7,7 +7,7 @@ import { TableLayout } from 'shared/layouts';
 /* components */
 import { Button, Legend } from 'shared/components';
 /* hooks */
-import { useAdminLang, WeekDay } from 'admin/core';
+import { AdminLang, useAdminLang, WeekDay } from 'admin/core';
 /* utils */
 import { classNames } from 'shared/utils';
 /* assets */
@@ -121,6 +121,72 @@ const CommerceAttentionSection = () => {
                         {' & '}
                         {commerce?.onsitePreparationTime.minutes} {translate('time.minutes')}
                     </Legend>
+
+                    <Legend className={styles.Title} hasDots title={translate('commercedetail.pickup' as AdminLang)}>
+                        {translate('commercedetail.pickup' as AdminLang)}
+                    </Legend>
+
+                    <TableLayout
+                        className={styles.Table}
+                        header={{
+                            columns: [
+                                {
+                                    children: <Legend hasDots>{translate('day.opening')}</Legend>,
+                                },
+                                {
+                                    children: <Legend hasDots>{translate('day.closing')}</Legend>,
+                                },
+                                {
+                                    children: <Legend hasDots>{translate('day.weekday')}</Legend>,
+                                },
+                                {
+                                    span: 1,
+                                },
+                            ],
+                        }}
+                        body={commerce?.serviceHours.pickup.map(item => ({
+                            columns: [
+                                {
+                                    children: (
+                                        <div>
+                                            {item.schedules.map((schedule, index) => (
+                                                <Legend key={index} hasDots>
+                                                    {schedule.opening}
+                                                </Legend>
+                                            ))}
+                                        </div>
+                                    ),
+                                },
+                                {
+                                    children: (
+                                        <div>
+                                            {item.schedules.map((schedule, index) => (
+                                                <Legend key={index} hasDots>
+                                                    {schedule.closing}
+                                                </Legend>
+                                            ))}
+                                        </div>
+                                    ),
+                                },
+                                {
+                                    children: (
+                                        <Legend hasDots>{translate(`day.${item.key.toLowerCase() as WeekDay}`)}</Legend>
+                                    ),
+                                },
+                                {
+                                    children: (
+                                        <i
+                                            className={classNames(
+                                                styles.Icon,
+                                                item.enabled ? styles.Active : styles.Inactive
+                                            )}>
+                                            {item.enabled ? <MdCheckCircle /> : <IoMdCloseCircle />}
+                                        </i>
+                                    ),
+                                },
+                            ],
+                        }))}
+                    />
                 </div>
 
                 <div className={styles.Times}>
@@ -199,6 +265,72 @@ const CommerceAttentionSection = () => {
                         {' & '}
                         {commerce?.deliveryPreparationTime.minutes} {translate('time.minutes')}
                     </Legend>
+
+                    <Legend className={styles.Title} hasDots title={translate('commercedetail.curbside' as AdminLang)}>
+                        {translate('commercedetail.curbside' as AdminLang)}
+                    </Legend>
+
+                    <TableLayout
+                        className={styles.Table}
+                        header={{
+                            columns: [
+                                {
+                                    children: <Legend hasDots>{translate('day.opening')}</Legend>,
+                                },
+                                {
+                                    children: <Legend hasDots>{translate('day.closing')}</Legend>,
+                                },
+                                {
+                                    children: <Legend hasDots>{translate('day.weekday')}</Legend>,
+                                },
+                                {
+                                    span: 1,
+                                },
+                            ],
+                        }}
+                        body={commerce?.serviceHours.curbside.map(item => ({
+                            columns: [
+                                {
+                                    children: (
+                                        <div>
+                                            {item.schedules.map((schedule, index) => (
+                                                <Legend key={index} hasDots>
+                                                    {schedule.opening}
+                                                </Legend>
+                                            ))}
+                                        </div>
+                                    ),
+                                },
+                                {
+                                    children: (
+                                        <div>
+                                            {item.schedules.map((schedule, index) => (
+                                                <Legend key={index} hasDots>
+                                                    {schedule.closing}
+                                                </Legend>
+                                            ))}
+                                        </div>
+                                    ),
+                                },
+                                {
+                                    children: (
+                                        <Legend hasDots>{translate(`day.${item.key.toLowerCase() as WeekDay}`)}</Legend>
+                                    ),
+                                },
+                                {
+                                    children: (
+                                        <i
+                                            className={classNames(
+                                                styles.Icon,
+                                                item.enabled ? styles.Active : styles.Inactive
+                                            )}>
+                                            {item.enabled ? <MdCheckCircle /> : <IoMdCloseCircle />}
+                                        </i>
+                                    ),
+                                },
+                            ],
+                        }))}
+                    />
                 </div>
             </div>
         </section>

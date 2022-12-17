@@ -21,6 +21,10 @@
         @include flex;
         @include gap(all xs);
         overflow: hidden;
+
+        & > span:nth-child(4n) {
+            @include margin(bottom md);
+        }
     }
 
     .Table {

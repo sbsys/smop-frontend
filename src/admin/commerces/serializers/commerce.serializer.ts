@@ -10,9 +10,17 @@ export const commerceListItemSerializer = (data: any): CommerceListItemDTO => {
 };
 
 export const commerceDetailSerializer = (data: any): CommerceDetailDTO => {
+    const commerce = data.commerce;
+
     return {
-        ...data.commerce,
-        optionalAddress: data.commerce.optionalAddress !== '-' ? data.commerce.optionalAddress : '',
-        createdAt: new Date(data.commerce.createdAt),
+        ...commerce,
+        serviceHours: {
+            onsite: commerce.serviceHours.onsite ?? [],
+            delivery: commerce.serviceHours.delivery ?? [],
+            curbside: commerce.serviceHours.curbside ?? [],
+            pickup: commerce.serviceHours.pickup ?? [],
+        },
+        optionalAddress: commerce.optionalAddress !== '-' ? commerce.optionalAddress : '',
+        createdAt: new Date(commerce.createdAt),
     } as CommerceDetailDTO;
 };

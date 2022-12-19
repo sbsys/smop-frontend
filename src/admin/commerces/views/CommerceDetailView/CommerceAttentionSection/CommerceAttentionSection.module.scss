@@ -27,9 +27,13 @@
             flex-grow: 1;
         }
 
-        & > table {
+        /* & > table {
             flex-grow: 0;
-        }
+
+            &:first-of-type {
+                flex-grow: 1;
+            }
+        } */
     }
 
     .Table {

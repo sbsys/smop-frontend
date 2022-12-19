@@ -239,7 +239,7 @@ export const useUpdateAttention = () => {
         Object.keys(commerce.serviceHours).forEach(key => {
             const currentServiceHours = commerce.serviceHours[key as Attention];
 
-            currentServiceHours.forEach((service, index) => {
+            currentServiceHours?.forEach((service, index) => {
                 setValue(`serviceHours.${key as Attention}.${index}.enabled`, service.enabled);
 
                 setValue(`serviceHours.${key as Attention}.${index}.schedules`, service.schedules);
@@ -293,7 +293,7 @@ export const useUpdateAttention = () => {
 
     const serviceHoursFields = useCallback(
         (index: number, attention: Attention): FieldSetProps[] => {
-            const dayService = commerce?.serviceHours[attention][index] as ExtendedDayService;
+            const dayService = commerce?.serviceHours[attention]?.[index] as ExtendedDayService;
 
             setValue(`serviceHours.${attention}.${index}.dayId`, dayService?.dayId);
             setValue(`serviceHours.${attention}.${index}.key`, dayService?.key);
@@ -332,12 +332,12 @@ export const useUpdateAttention = () => {
                     },
                     isHintReserved: true,
                     hint: {
-                        title: translate(`day.${dayService?.key.toLowerCase() as WeekDay}`),
+                        title: translate(`day.${dayService?.key?.toLowerCase() as WeekDay}`),
                         children: (
                             <div className={styles.DayActions}>
                                 <label htmlFor={`serviceHours.${attention}.${index}.enabled`}>
                                     <Legend hasDots>
-                                        {translate(`day.${dayService?.key.toLowerCase() as WeekDay}`)}
+                                        {translate(`day.${dayService?.key?.toLowerCase() as WeekDay}`)}
                                     </Legend>
                                 </label>
 
@@ -544,7 +544,7 @@ export const useUpdateAttention = () => {
     const updateAttentionServiceHoursOnsiteFormFields: FieldSetProps[] = [
         ...[...Array(commerce?.serviceHours.onsite.length)]
             .map((_, index) => serviceHoursFields(index, 'onsite'))
-            .reduce((prev, current) => [...prev, ...current]),
+            .reduce((prev, current) => [...prev, ...current], [] as FieldSetProps[]),
     ];
 
     const updateAttentionOnsitePreparationTimeFormFields: FieldSetProps[] = [...preparationTimeField('onsite')];
@@ -552,7 +552,7 @@ export const useUpdateAttention = () => {
     const updateAttentionServiceHoursDeliveryFormFields: FieldSetProps[] = [
         ...[...Array(commerce?.serviceHours.delivery.length)]
             .map((_, index) => serviceHoursFields(index, 'delivery'))
-            .reduce((prev, current) => [...prev, ...current]),
+            .reduce((prev, current) => [...prev, ...current], [] as FieldSetProps[]),
     ];
 
     const updateAttentionDeliveryPreparationTimeFormFields: FieldSetProps[] = [...preparationTimeField('delivery')];

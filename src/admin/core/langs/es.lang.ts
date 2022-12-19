@@ -173,6 +173,7 @@ export const es: Record<AdminLang, string> = {
     'orgdetail.settings': 'Configuración',
     'orgdetail.decimals': 'Decimales',
     'orgdetail.languages': 'Idiomas aceptados',
+    'orgdetail.link': 'Enlace para los clientes de la organización',
     'orgdetail.branding': 'Marca',
     /* organization edit */
     'orgedit.references': 'Actualizar referencias',

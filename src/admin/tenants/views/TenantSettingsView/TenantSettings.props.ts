@@ -6,6 +6,7 @@ import { OrganizationSettingsDTO } from 'admin/tenants/types';
 export interface TenantSettingsContextProps {
     /* states */
     settings: OrganizationSettingsDTO | null;
+    orgLink: string;
     isUpdateReference: boolean;
     showUpdateReference: () => void;
     hideUpdateReference: () => void;
@@ -17,6 +18,8 @@ export interface TenantSettingsContextProps {
     hideUpdateBranding: () => void;
     /* functions */
     getOrganizationSettings: () => Promise<void>;
+    getOrganizationLink: () => Promise<void>;
+    handleCopyToClipboard: () => void;
     /* props */
 }
 

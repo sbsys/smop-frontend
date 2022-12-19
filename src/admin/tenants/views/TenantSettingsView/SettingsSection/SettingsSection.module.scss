@@ -27,4 +27,32 @@
             @include opacity(100);
         }
     }
+
+    .Customers {
+        @include padding(x xs);
+        @include gap(all xs);
+    }
+
+    .Link {
+        @include flex(row, center, center);
+        @include gap(all xs);
+
+        & > a {
+            flex-grow: 0;
+            overflow: hidden;
+        }
+    }
+
+    .Generator {
+        @include bg-color(400);
+        @include flex(row, center, space-between);
+        @include gap(all sm);
+        @include interactable(0.125s, 1.005, 0.995, 0.995);
+        @include padding(x xs split);
+        @include rounded(all xs);
+
+        & > i {
+            @include font-size(2xl);
+        }
+    }
 }

@@ -26,5 +26,9 @@
                 overflow: hidden;
             }
         }
+
+        & > div:nth-child(n + 2) {
+            @include padding(x sm);
+        }
     }
 }

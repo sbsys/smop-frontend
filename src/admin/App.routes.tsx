@@ -100,7 +100,7 @@ const AppRoutes: FC = () => {
 
     return (
         <Routes>
-            {/* <Route index element={<Navigate to={'admin'} replace />} /> */}
+            <Route index element={<Navigate to={'admin'} replace />} />
 
             <Route path="admin" element={<AdminLayout />}>
                 <Route index element={<Navigate to={isAuth ? 'dashboard' : 'auth'} replace />} />

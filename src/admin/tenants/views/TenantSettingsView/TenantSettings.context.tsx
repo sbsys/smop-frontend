@@ -6,6 +6,7 @@ import { TenantSettingsContextProps, TenantSettingsProviderProps } from './Tenan
 const TenantSettingsContext = createContext<TenantSettingsContextProps>({
     /* states */
     settings: null,
+    orgLink: '',
     isUpdateReference: false,
     showUpdateReference: () => {},
     hideUpdateReference: () => {},
@@ -17,6 +18,8 @@ const TenantSettingsContext = createContext<TenantSettingsContextProps>({
     hideUpdateBranding: () => {},
     /* functions */
     getOrganizationSettings: () => new Promise(resolve => resolve()),
+    getOrganizationLink: () => new Promise(resolve => resolve()),
+    handleCopyToClipboard: () => {},
     /* props */
 });
 

@@ -44,7 +44,7 @@ const AdminApp: FC = () => {
                 <Suspense fallback={<span>Loading...</span>}>
                     <Provider store={adminStore}>
                         <Notification
-                            duration={8000}
+                            duration={5000}
                             element={
                                 <AdminNotification rowAlignment="start" colAlignment="end" direction="bottom-top">
                                     {props => <AdminNotify {...(props as NotificationElement<AdminNotifyProps>)} />}

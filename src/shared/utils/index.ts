@@ -5,3 +5,4 @@ export * from './custom-event.util';
 export * from './compare-dates.util';
 export * from './number-format.util';
 export * from './longitude.util';
+export * from './copy-to-clipboard.util';

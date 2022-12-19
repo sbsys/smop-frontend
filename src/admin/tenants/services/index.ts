@@ -5,3 +5,4 @@ export * from './update-reference.service';
 export * from './update-settings.service';
 export * from './update-branding.service';
 export * from './get-organization-settings.service';
+export * from './get-organization-link.service';

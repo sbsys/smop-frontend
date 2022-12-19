@@ -173,6 +173,7 @@ export type AdminLang =
     | 'orgdetail.settings'
     | 'orgdetail.decimals'
     | 'orgdetail.languages'
+    | 'orgdetail.link'
     | 'orgdetail.branding'
     /* organization edit */
     | 'orgedit.references'

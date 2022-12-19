@@ -23,9 +23,7 @@ export const getOrganizationLinkService = async (props?: GetOrganizationLinkProp
         method: 'GET',
         responseSerializer: async data =>
             apiSerializer<string>(data, data => {
-                console.log(data);
-
-                return '';
+                return data.addressKey ?? '';
             }),
         errorSerializer: error =>
             apiOnErrorSideEffect<ApiResponse<string>>(

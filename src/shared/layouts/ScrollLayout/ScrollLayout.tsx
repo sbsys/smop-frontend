@@ -1,5 +1,5 @@
 /* react */
-import { forwardRef, memo } from 'react';
+import { forwardRef, memo, useRef, WheelEvent } from 'react';
 /* props */
 import { ScrollLayoutProps } from './ScrollLayout.props';
 /* layouts */
@@ -18,6 +18,17 @@ const orientationStrategy: Record<Orientation, string> = {
 
 const ScrollLayout = forwardRef<HTMLDivElement | null, ScrollLayoutProps>(
     ({ classNameContent, orientation, children, ...rest }, ref) => {
+        const scrollRef = useRef<HTMLDivElement | null>(null);
+
+        const handleRowScroll = (event: WheelEvent<HTMLDivElement>) => {
+            if (!scrollRef.current) return;
+
+            scrollRef.current.scrollBy({
+                behavior: 'auto',
+                left: event.deltaY,
+            });
+        };
+
         return (
             <PanelLayout orientation={orientation} ref={ref} {...rest}>
                 <div
@@ -25,7 +36,9 @@ const ScrollLayout = forwardRef<HTMLDivElement | null, ScrollLayoutProps>(
                         styles.ScrollLayout,
                         orientation && orientationStrategy[orientation],
                         classNameContent
-                    )}>
+                    )}
+                    ref={orientation === 'row' ? scrollRef : undefined}
+                    onWheel={orientation === 'row' ? handleRowScroll : undefined}>
                     {typeof children === 'function' ? children() : children}
                 </div>
             </PanelLayout>

@@ -7,7 +7,7 @@ import { SchemaLayoutContextProps } from './SchemaLayout.props';
 import { clientsStoreSetOrganization } from 'admin/clients/store';
 /* hooks */
 import { useLoader } from 'shared/hooks';
-import { useAdminNotify, useClientsDispatch } from 'admin/core';
+import { useClientsDispatch, useClientsNotify } from 'admin/core';
 /* services */
 import { getOrgPublisherDetailService } from 'admin/clients/services';
 /* assets */
@@ -19,7 +19,7 @@ export const useSchemaLayout = () => {
 
     const [isOrganization, setIsOrganization] = useState<boolean>(false);
 
-    const { notify } = useAdminNotify();
+    const { notify } = useClientsNotify();
 
     const { showLoader, hideLoader } = useLoader();
 

@@ -3,7 +3,10 @@ import { createContext, FC, useContext } from 'react';
 /* props */
 import { CommerceDetailContextProps, CommerceDetailProviderProps } from './CommerceDetail.props';
 
-const Context = createContext<CommerceDetailContextProps>({});
+const Context = createContext<CommerceDetailContextProps>({
+    /* states */
+    isCommerce: false,
+});
 
 export const CommerceDetailProvider: FC<CommerceDetailProviderProps> = ({ context, children }) => {
     return (

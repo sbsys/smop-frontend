@@ -17,3 +17,5 @@ export const useAdminNotify = () => {
         unnotify: removeNotification,
     };
 };
+
+export const useClientsNotify = useAdminNotify;

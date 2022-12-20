@@ -147,9 +147,13 @@ export const useUpdateSetting = () => {
         if (isUpdateSetting) {
             setValue('typeOrder.0.enabled', commerce?.typeOrder[0].enabled ?? false);
             setValue('typeOrder.1.enabled', commerce?.typeOrder[1].enabled ?? false);
+
+            setValue('typeCharge.0.value', commerce?.typeCharge[0].value ?? 0);
+            setValue('typeCharge.1.value', commerce?.typeCharge[1].value ?? 0);
+
             trigger();
         }
-    }, [commerce?.typeOrder, isUpdateSetting, setValue, trigger]);
+    }, [commerce?.typeCharge, commerce?.typeOrder, isUpdateSetting, setValue, trigger]);
 
     /* props */
     const orderOnlineField: FieldSetProps = {

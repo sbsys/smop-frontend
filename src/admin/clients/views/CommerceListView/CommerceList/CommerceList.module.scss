@@ -52,25 +52,27 @@
         @include padding(all xs);
 
         & > ul {
-            @include flex;
             @include gap(all sm);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, size(xl, component)), 1fr));
+
+            &.Under3 {
+                @include screen-width(lg) {
+                    grid-template-columns: repeat(auto-fit, size(xl, component));
+                    justify-content: center;
+                }
+            }
 
             @include screen-width(2xs) {
                 @include gap(all md);
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            @include screen-width(lg) {
-                grid-template-columns: repeat(3, 1fr);
             }
 
             @include screen-width(2xl) {
                 @include gap(x lg);
-                grid-template-columns: repeat(4, 1fr);
             }
 
             & > li {
+                @include flex;
                 @include bg-color(300);
                 @include interactable;
                 @include rounded(all sm);

@@ -9,6 +9,10 @@ export type AdminLang =
     /* commons */
     | 'commons.multilanguage'
     | 'commons.allowmultilanguage'
+    | 'commons.online'
+    | 'commons.offline'
+    | 'commons.shipment'
+    | 'commons.address'
     /* profiles */
     | 'profiles.root'
     | 'profiles.admin'

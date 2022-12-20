@@ -3,7 +3,10 @@ import { createContext, FC, useContext } from 'react';
 /* props */
 import { SchemaLayoutContextProps, SchemaLayoutProviderProps } from './SchemaLayout.props';
 
-export const SchemaLayoutContext = createContext<SchemaLayoutContextProps>({});
+export const SchemaLayoutContext = createContext<SchemaLayoutContextProps>({
+    /* states */
+    isOrganization: false,
+});
 
 export const SchemaLayoutProvider: FC<SchemaLayoutProviderProps> = ({ context, children }) => {
     return (

@@ -34,3 +34,5 @@ export const useAdminLang = () => {
         translate,
     };
 };
+
+export const useClientsLang = useAdminLang;

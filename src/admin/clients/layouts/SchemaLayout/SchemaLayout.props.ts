@@ -1,7 +1,10 @@
 /* props */
 import { ChildrenProps } from 'shared/props';
 
-export interface SchemaLayoutContextProps {}
+export interface SchemaLayoutContextProps {
+    /* states */
+    isOrganization: boolean;
+}
 
 export interface SchemaLayoutProviderProps extends ChildrenProps {
     context: SchemaLayoutContextProps;

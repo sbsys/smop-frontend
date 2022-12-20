@@ -1,5 +1,5 @@
 /* react */
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 /* props */
 import { SchemaLayoutContextProps } from './SchemaLayout.props';
@@ -16,6 +16,8 @@ import { MdDangerous } from 'react-icons/md';
 export const useSchemaLayout = () => {
     /* states */
     const { schema } = useParams<{ schema: string }>();
+
+    const [isOrganization, setIsOrganization] = useState<boolean>(false);
 
     const { notify } = useAdminNotify();
 
@@ -40,6 +42,8 @@ export const useSchemaLayout = () => {
             });
 
         dispatch(clientsStoreSetOrganization(service.data));
+
+        setIsOrganization(true);
     }, [dispatch, hideLoader, notify, schema, showLoader]);
 
     /* reactivity */
@@ -48,7 +52,10 @@ export const useSchemaLayout = () => {
     }, [getOrgPublisherDetail]);
 
     /* context */
-    const context: SchemaLayoutContextProps = {};
+    const context: SchemaLayoutContextProps = {
+        /* states */
+        isOrganization,
+    };
 
     return { context };
 };

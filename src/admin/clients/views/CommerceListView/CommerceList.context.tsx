@@ -2,8 +2,12 @@
 import { createContext, FC, useContext } from 'react';
 /* props */
 import { CommerceListContextProps, CommerceListProviderProps } from './CommerceList.props';
+/* types */
+import { OrganizationDetail } from 'admin/clients/types';
 
 const Context = createContext<CommerceListContextProps>({
+    /* states */
+    organization: {} as OrganizationDetail,
     /* functions */
     handleSelectCommerce: () => () => {},
 });

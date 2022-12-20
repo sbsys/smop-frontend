@@ -7,6 +7,10 @@ export const es: Record<AdminLang, string> = {
     /* commons */
     'commons.multilanguage': 'Multilenguaje',
     'commons.allowmultilanguage': '¿Permitir multilenguaje?',
+    'commons.online': 'Pedidos en línea',
+    'commons.offline': 'Sin pedidos en línea',
+    'commons.shipment': 'Envío',
+    'commons.address': 'Dirección',
     /* profiles */
     'profiles.root': 'Super usuario',
     'profiles.admin': 'Administrador',

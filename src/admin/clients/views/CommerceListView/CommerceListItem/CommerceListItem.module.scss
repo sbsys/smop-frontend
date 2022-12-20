@@ -4,6 +4,7 @@
     @include flex;
     @include gap(all sm);
     @include padding(all sm);
+    flex-grow: 1;
 
     .Title {
         @include font-weight(lg);
@@ -34,5 +35,11 @@
             @include bg-color(400, danger);
             @include font-color(600, danger);
         }
+    }
+
+    & > span:last-of-type {
+        @include padding(x xs);
+        text-align: justify;
+        transform: scale(0.95);
     }
 }

@@ -17,4 +17,6 @@ export type AdminStoreDispatch = typeof adminStore.dispatch;
 
 export const useAdminDispatch: () => AdminStoreDispatch = useDispatch;
 export const useClientsDispatch = useAdminDispatch;
+
 export const useAdminSelector: TypedUseSelectorHook<AdminStoreState> = useSelector;
+export const useClientsSelector = useAdminSelector;

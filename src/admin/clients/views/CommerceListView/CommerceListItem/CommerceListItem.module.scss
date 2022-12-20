@@ -3,7 +3,6 @@
 .ListItem {
     @include flex;
     @include gap(all sm);
-    @include padding(all sm);
     flex-grow: 1;
 
     .Title {
@@ -12,15 +11,19 @@
 
     .Header {
         @include flex;
+        @include gap(all xs);
+        @include padding(x sm, top sm);
 
         & > h2 {
             @include font-size(lg);
             @include font-weight(lg);
+            letter-spacing: 0.1em;
             overflow: hidden;
+            text-transform: uppercase;
         }
 
         & > span {
-            @include bg-opacity(10);
+            @include bg-opacity(20);
             @include font-size(sm);
             @include padding(all sm split);
             @include rounded(all md);
@@ -37,9 +40,22 @@
         }
     }
 
-    & > span:last-of-type {
-        @include padding(x xs);
-        text-align: justify;
-        transform: scale(0.95);
+    .Content {
+        @include flex;
+        @include gap(all sm);
+        @include padding(x sm);
+        flex-grow: 1;
+
+        .Address {
+            @include height(lg, element);
+            overflow: hidden;
+            text-align: justify;
+        }
+    }
+
+    .Footer {
+        @include bg-color(900, none);
+        @include font-color(100);
+        @include padding(all xs split);
     }
 }

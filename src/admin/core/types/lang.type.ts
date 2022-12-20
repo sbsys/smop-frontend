@@ -13,6 +13,7 @@ export type AdminLang =
     | 'commons.offline'
     | 'commons.shipment'
     | 'commons.address'
+    | 'commons.phone'
     /* profiles */
     | 'profiles.root'
     | 'profiles.admin'

@@ -24,6 +24,10 @@ export type ChargeDescription = {
     value: number;
 };
 
+export type ServicePhone = {
+    phone: string;
+};
+
 export interface CommerceListItem {
     commerceId: string;
     referenceName: string;
@@ -32,6 +36,7 @@ export interface CommerceListItem {
     orderOnline: boolean;
     /* type charge */
     typeCharge: ChargeDescription[];
+    servicePhones: ServicePhone[];
 }
 
 export interface OrganizationDetail {

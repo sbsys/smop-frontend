@@ -8,6 +8,7 @@ export const organizationDetailSerializer = (data: any): OrganizationDetail => {
         commerces:
             org.commerces?.map((commerce: any) => ({
                 ...commerce,
+                servicePhones: commerce.servicePhones?.map((servicePhone: any) => ({ ...servicePhone })) ?? [],
                 minAmountDelivery: Number.parseFloat(commerce.minAmountDelivery ?? '0'),
                 typeCharge:
                     commerce.typeCharge?.map((charge: any) => ({

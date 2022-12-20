@@ -1,2 +1,2 @@
 /* import/export */
-export {};
+export * from './organization.type';

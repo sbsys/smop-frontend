@@ -2,6 +2,7 @@
 
 .CommerceSideMenu {
     @include gap(all xs);
+    @include padding(y xs);
 
     & > a,
     & > span {
@@ -28,11 +29,12 @@
 
         &Active {
             @include disabled;
+            transform: scale(1.05);
         }
 
         &Active,
         &:hover {
-            @include shadow(all 2xl inset);
+            @include shadow(left xl inset);
             @include shadow-color(all 500 secondary);
         }
 
@@ -47,8 +49,8 @@
 
         & > i > svg {
             @include font-color(500, secondary);
-            height: 100%;
-            width: 100%;
+            height: 75%;
+            width: 75%;
         }
     }
 

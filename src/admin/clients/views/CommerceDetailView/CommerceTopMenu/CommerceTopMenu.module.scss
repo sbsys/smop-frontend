@@ -30,6 +30,7 @@
         @include flex(row, center);
         @include gap(all sm);
         @include padding(all xs);
+        margin: 0 auto;
 
         & > li {
             list-style: none;

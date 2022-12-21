@@ -15,15 +15,13 @@
     }
 
     .MenuLink {
-        @include bg-color(500, secondary);
-        @include border-color(all 600 secondary);
-        @include border-width(all sm);
         @include flex(row, center);
-        @include font-color(100);
         @include font-weight(lg);
         @include gap(all sm);
         @include interactable;
         @include rounded(all sm);
+        @include shadow(all xs inset);
+        @include shadow-color(all 100 secondary);
         overflow: hidden;
         text-decoration: none;
         transition: all 0.3s ease-in-out;
@@ -34,18 +32,21 @@
 
         &Active,
         &:hover {
-            @include font-color(50);
+            @include shadow(all 2xl inset);
+            @include shadow-color(all 500 secondary);
         }
 
         & > i,
         & > img {
-            @include bg-color(600, secondary);
+            @include shadow(all 2xl inset);
+            @include shadow-color(all 500 secondary);
             @include height(lg, element);
             @include width(lg, element);
             object-fit: cover;
         }
 
         & > i > svg {
+            @include font-color(500, secondary);
             height: 100%;
             width: 100%;
         }

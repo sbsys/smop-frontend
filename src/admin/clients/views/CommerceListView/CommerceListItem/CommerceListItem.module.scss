@@ -3,6 +3,8 @@
 .ListItem {
     @include flex;
     @include gap(all sm);
+    @include shadow(all xs inset);
+    @include shadow-color(all 50 secondary);
     flex-grow: 1;
 
     .Title {
@@ -23,20 +25,20 @@
         }
 
         & > span {
-            @include bg-opacity(20);
             @include font-size(sm);
             @include padding(all sm split);
             @include rounded(all md);
+            @include shadow(all sm inset);
         }
 
         .Online {
-            @include bg-color(400, success);
-            @include font-color(600, success);
+            @include font-color(700, success);
+            @include shadow-color(all 300 success);
         }
 
         .Offline {
-            @include bg-color(400, danger);
-            @include font-color(600, danger);
+            @include font-color(700, danger);
+            @include shadow-color(all 300 danger);
         }
     }
 

@@ -1,0 +1,38 @@
+@import 'styles';
+
+.CommerceTopMenu {
+    @include gap(all sm);
+    align-items: center;
+
+    .MenuLink {
+        @include flex;
+        @include padding(all xs);
+        @include rounded(all sm);
+        text-decoration: none;
+
+        &Active {
+            @include disabled;
+            @include shadow(all sm inset);
+            @include shadow-color(all 100 secondary);
+        }
+
+        &Active,
+        &:hover {
+            @include font-color(500, secondary);
+        }
+
+        & > i {
+            @include font-size(2xl);
+        }
+    }
+
+    .MenuList {
+        @include flex(row, center);
+        @include gap(all sm);
+        @include padding(all xs);
+
+        & > li {
+            list-style: none;
+        }
+    }
+}

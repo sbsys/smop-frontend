@@ -4,17 +4,10 @@
     @include gap(all md);
 
     .Header {
-        @include flex(row, center, flex-end);
-        @include gap(all md);
+        @include flex;
 
-        .Menu {
-            @include screen-width(sm) {
-                display: none;
-            }
-        }
-
-        .Cart {
-            overflow: hidden;
+        @include screen-width(sm) {
+            display: none;
         }
     }
 

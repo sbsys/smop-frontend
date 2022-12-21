@@ -5,6 +5,7 @@ import { useCommerceDetailContext } from '../CommerceDetail.context';
 /* layouts */
 import { PanelLayout } from 'shared/layouts';
 /* components */
+import { CommerceTopMenu } from '../CommerceTopMenu';
 import { CommerceSideMenu } from '../CommerceSideMenu';
 /* styles */
 import styles from './CommerceDetail.module.scss';
@@ -20,11 +21,7 @@ const CommerceDetail = () => {
     return (
         <PanelLayout orientation="col" className={styles.CommerceDetail}>
             <div className={styles.Header}>
-                <PanelLayout orientation="row" className={styles.Menu}>
-                    Menu mobile
-                </PanelLayout>
-
-                <div className={styles.Cart}>Cart</div>
+                <CommerceTopMenu />
             </div>
 
             <PanelLayout className={styles.Content}>

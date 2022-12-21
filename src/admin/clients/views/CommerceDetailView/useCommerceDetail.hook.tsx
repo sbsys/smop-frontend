@@ -4,12 +4,14 @@ import { useParams } from 'react-router-dom';
 /* props */
 import { CommerceDetailContextProps } from './CommerceDetail.props';
 /* store */
-import { clientsStoreSetCurrentCommerce, selectOrganization } from 'admin/clients/store';
+import { clientsStoreSetCurrentCommerce, selectCurrentCommerce, selectOrganization } from 'admin/clients/store';
 /* hooks */
 import { useLoader } from 'shared/hooks';
 import { useClientsDispatch, useClientsNotify, useClientsSelector } from 'admin/core';
 /* services */
 import { getCommerceDetailService } from 'admin/clients/services';
+/* types */
+import { CommerceDetail } from 'admin/clients/types';
 /* assets */
 import { MdDangerous } from 'react-icons/md';
 
@@ -20,6 +22,8 @@ export const useCommerceDetail = () => {
     const { commerceId } = useParams<{ commerceId: string }>();
 
     const [isCommerce, setIsCommerce] = useState<boolean>(false);
+
+    const commerce = useClientsSelector(selectCurrentCommerce);
 
     const { notify } = useClientsNotify();
 
@@ -51,12 +55,17 @@ export const useCommerceDetail = () => {
     /* reactivity */
     useEffect(() => {
         getCommerceDetail();
-    }, [getCommerceDetail]);
+
+        return () => {
+            dispatch(clientsStoreSetCurrentCommerce({} as CommerceDetail));
+        };
+    }, [dispatch, getCommerceDetail]);
 
     /* context */
     const context: CommerceDetailContextProps = {
         /* states */
         isCommerce,
+        commerce,
     };
 
     return { context };

@@ -14,6 +14,7 @@ export type AdminLang =
     | 'commons.shipment'
     | 'commons.address'
     | 'commons.phone'
+    | 'commons.menu'
     /* profiles */
     | 'profiles.root'
     | 'profiles.admin'

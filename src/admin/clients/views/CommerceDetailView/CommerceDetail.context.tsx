@@ -2,10 +2,13 @@
 import { createContext, FC, useContext } from 'react';
 /* props */
 import { CommerceDetailContextProps, CommerceDetailProviderProps } from './CommerceDetail.props';
+/* types */
+import { CommerceDetail } from 'admin/clients/types';
 
 const Context = createContext<CommerceDetailContextProps>({
     /* states */
     isCommerce: false,
+    commerce: {} as CommerceDetail,
 });
 
 export const CommerceDetailProvider: FC<CommerceDetailProviderProps> = ({ context, children }) => {

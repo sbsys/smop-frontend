@@ -1,0 +1,59 @@
+@import 'styles';
+
+.CommerceSideMenu {
+    @include gap(all xs);
+
+    & > a,
+    & > span {
+        @include margin(x xs);
+    }
+
+    & > span {
+        @include font-size(lg);
+        @include font-weight(lg);
+        @include margin(top md);
+    }
+
+    .MenuLink {
+        @include bg-color(500, secondary);
+        @include border-color(all 600 secondary);
+        @include border-width(all sm);
+        @include flex(row, center);
+        @include font-color(100);
+        @include font-weight(lg);
+        @include gap(all sm);
+        @include interactable;
+        @include rounded(all sm);
+        overflow: hidden;
+        text-decoration: none;
+        transition: all 0.3s ease-in-out;
+
+        &Active {
+            @include disabled;
+        }
+
+        &Active,
+        &:hover {
+            @include font-color(50);
+        }
+
+        & > i,
+        & > img {
+            @include bg-color(600, secondary);
+            @include height(lg, element);
+            @include width(lg, element);
+            object-fit: cover;
+        }
+
+        & > i > svg {
+            height: 100%;
+            width: 100%;
+        }
+    }
+
+    .MenuList {
+        @include flex;
+        @include gap(all sm);
+        @include padding(all xs);
+    }
+}

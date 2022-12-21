@@ -12,6 +12,7 @@ export const en: Record<AdminLang, string> = {
     'commons.shipment': 'Shipment',
     'commons.address': 'Address',
     'commons.phone': 'Service phone',
+    'commons.menu': 'Menu',
     /* profiles */
     'profiles.root': 'Root',
     'profiles.admin': 'Administrator',

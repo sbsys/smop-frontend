@@ -12,6 +12,7 @@ export const es: Record<AdminLang, string> = {
     'commons.shipment': 'Envío',
     'commons.address': 'Dirección',
     'commons.phone': 'Teléfono de servicio',
+    'commons.menu': 'Menú',
     /* profiles */
     'profiles.root': 'Super usuario',
     'profiles.admin': 'Administrador',

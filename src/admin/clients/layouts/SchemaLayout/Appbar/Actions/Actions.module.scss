@@ -1,5 +1,14 @@
 @import 'styles';
 
 .Action {
+    @include bg-color(100);
+    @include bg-opacity(0);
     @include interactable;
+    @include padding(all xs);
+    @include rounded(all sm);
+    position: relative;
+
+    &:hover {
+        @include bg-opacity(10);
+    }
 }

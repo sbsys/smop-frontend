@@ -3,8 +3,6 @@
 .ListItem {
     @include flex;
     @include gap(all sm);
-    @include shadow(all xs inset);
-    @include shadow-color(all 50 secondary);
     flex-grow: 1;
 
     .Title {
@@ -28,7 +26,7 @@
             @include font-size(sm);
             @include padding(all sm split);
             @include rounded(all md);
-            @include shadow(all sm inset);
+            @include shadow(all md inset);
         }
 
         .Online {
@@ -56,7 +54,7 @@
     }
 
     .Footer {
-        @include bg-color(900, none);
+        @include bg-color(500);
         @include font-color(100);
         @include padding(all xs split);
     }

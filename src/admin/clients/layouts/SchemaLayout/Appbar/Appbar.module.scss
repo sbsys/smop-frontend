@@ -1,6 +1,11 @@
 @import 'styles';
 
 .Appbar {
-    @include flex(row, center, space-between);
-    @include padding(all xs);
+    @include bg-color(400, primary);
+    @include flex(row, center, flex-end);
+    @include font-color(50);
+    @include gap(all lg);
+    @include margin(x xs);
+    @include padding(all sm);
+    @include rounded(bottom sm);
 }

@@ -11,11 +11,10 @@
     }
 
     .Header {
-        @include font-color(700, primary);
+        @include bg-color(400, primary);
+        @include font-color(50);
         @include padding(all xs);
         @include rounded(all sm);
-        @include shadow(all xl inset);
-        @include shadow-color(all 500 primary);
 
         & > h2,
         & > h3 {

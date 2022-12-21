@@ -1,17 +1,16 @@
 /* react */
 import { memo } from 'react';
 /* components */
-import { Button } from 'shared/components';
+import { ShoppingCart } from './ShoppingCart';
 import { Actions } from './Actions';
+/* assets */
 /* styles */
 import styles from './Appbar.module.scss';
 
 const Appbar = () => {
     return (
         <div className={styles.Appbar}>
-            <Button>
-                <i>LOGO</i>
-            </Button>
+            <ShoppingCart />
 
             <Actions />
         </div>

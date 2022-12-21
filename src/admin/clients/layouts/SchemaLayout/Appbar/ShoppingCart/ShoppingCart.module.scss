@@ -1,0 +1,27 @@
+@import 'styles';
+
+.ShoppingCart {
+    @include bg-color(100);
+    @include bg-opacity(0);
+    @include font-size(xl);
+    @include interactable;
+    @include padding(all xs);
+    @include rounded(all sm);
+    position: relative;
+
+    &:hover {
+        @include bg-opacity(10);
+    }
+
+    .Badge {
+        @include bg-color(400, secondary);
+        @include bg-opacity(30);
+        @include font-size(md);
+        @include padding(all xs split);
+        @include rounded(all md);
+        position: absolute;
+        right: 0;
+        top: 0;
+        transform: translate(25%, -25%);
+    }
+}

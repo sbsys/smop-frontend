@@ -197,7 +197,9 @@ const AppRoutes: FC = () => {
             <Route path=":schema" element={<SchemaLayout />}>
                 <Route index element={<ClientsCommerceListView />} />
 
-                <Route path=":commerceId" element={<ClientsCommerceDetailView />} />
+                <Route path=":commerceId" element={<ClientsCommerceDetailView />}>
+                    <Route path="menu/:titleId" element={<>Title</>} />
+                </Route>
             </Route>
 
             <Route path="*" element={<span>404</span>} />

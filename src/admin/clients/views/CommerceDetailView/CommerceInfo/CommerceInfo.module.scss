@@ -1,0 +1,33 @@
+@import 'styles';
+
+.CommerceInfo {
+    @include flex;
+    @include gap(all sm);
+    @include padding(y xs);
+
+    & > section {
+        @include flex;
+        @include gap(all sm);
+    }
+
+    .Header {
+        @include font-color(700, primary);
+        @include padding(all xs);
+        @include rounded(all sm);
+        @include shadow(all xl inset);
+        @include shadow-color(all 500 primary);
+
+        & > h2,
+        & > h3 {
+            @include font-weight(lg);
+        }
+
+        & > h2 {
+            @include font-size(xl);
+        }
+
+        & > h3 {
+            @include font-size(lg);
+        }
+    }
+}

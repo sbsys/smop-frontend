@@ -17,7 +17,8 @@
         }
 
         &Active,
-        &:hover {
+        &:hover,
+        & > i {
             @include font-color(500, secondary);
         }
 

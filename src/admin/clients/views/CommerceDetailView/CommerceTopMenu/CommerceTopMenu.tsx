@@ -30,6 +30,7 @@ const CommerceTopMenu = () => {
         <PanelLayout orientation="row" className={styles.CommerceTopMenu}>
             <NavLink
                 to=""
+                end
                 title={referenceName}
                 className={({ isActive }) => classNames(styles.MenuLink, isActive && styles.MenuLinkActive)}>
                 <i>

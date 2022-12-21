@@ -12,7 +12,7 @@ import { useClientsLang } from 'admin/core';
 /* utils */
 import { classNames } from 'shared/utils';
 /* assets */
-import { MdHome } from 'react-icons/md';
+import { MdStore } from 'react-icons/md';
 /* styles */
 import styles from './CommerceSideMenu.module.scss';
 
@@ -31,9 +31,10 @@ const CommerceSideMenu = () => {
             <NavLink
                 to=""
                 title={referenceName}
+                end={true}
                 className={({ isActive }) => classNames(styles.MenuLink, isActive && styles.MenuLinkActive)}>
                 <i>
-                    <MdHome />
+                    <MdStore />
                 </i>
 
                 <Legend hasDots>{referenceName}</Legend>

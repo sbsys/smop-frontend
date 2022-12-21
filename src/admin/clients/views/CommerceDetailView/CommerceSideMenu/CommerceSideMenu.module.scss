@@ -36,6 +36,7 @@
         &:hover {
             @include shadow(left xl inset);
             @include shadow-color(all 500 secondary);
+            @include font-color(500, secondary);
         }
 
         & > i,

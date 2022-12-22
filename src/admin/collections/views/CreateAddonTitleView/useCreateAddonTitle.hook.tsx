@@ -51,6 +51,9 @@ export const useCreateAddonTitle = () => {
         if (data.multiLanguage) data.defaultTitle = data.titleCollection[0].refs;
         else data.titleCollection = [];
 
+        if (data.complementType === 1) data.maxAccuSubItem = 1;
+        if (data.complementType === 2) data.maxAccuSubItem = 0;
+
         const service = await createAddonTitleService({
             ...data,
             titleCollection: data.titleCollection.map(title => ({
@@ -184,12 +187,32 @@ export const useCreateAddonTitle = () => {
             title: translate((errors.complementType?.message ?? 'createaddontitle.type.hint') as AdminLang),
         },
     };
+    const maxAccuSubItemProps: FieldSetProps = {
+        field: {
+            className: errors.maxAccuSubItem ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
+            strategy: 'number',
+            min: 2,
+            max: 10,
+            defaultValue: 2,
+            placeholder: translate('createaddontitle.maxaccusubitem.placeholder' as AdminLang),
+            ...register('maxAccuSubItem'),
+        },
+        isHintReserved: true,
+        hint: {
+            children: translate(
+                (errors.maxAccuSubItem?.message ?? 'createaddontitle.maxaccusubitem.hint') as AdminLang
+            ),
+            hasDots: true,
+            title: translate((errors.maxAccuSubItem?.message ?? 'createaddontitle.maxaccusubitem.hint') as AdminLang),
+        },
+    };
 
     const createAddonTitleFieldProps: FieldSetProps[] = [
         ...(watch('multiLanguage')
             ? [multiLanguageProps, titleCollectionProps(0, 'en'), titleCollectionProps(1, 'es')]
             : [defaultTitleProps, multiLanguageProps]),
         complementTypeProps,
+        ...(`${watch('complementType')}` === '3' ? [maxAccuSubItemProps] : []),
     ];
 
     /* context */

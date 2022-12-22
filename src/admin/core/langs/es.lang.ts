@@ -456,6 +456,11 @@ export const es: Record<AdminLang, string> = {
     'createaddontitle.type.placeholder': 'Tipo del complemento',
     'createaddontitle.type.hint': 'tipo del complemento',
     'createaddontitle.type.required': 'se requiere el tipo del complemento',
+    'createaddontitle.maxaccusubitem.placeholder': 'Máxima acumulación de los sub elementos',
+    'createaddontitle.maxaccusubitem.hint': 'máxima acumulación de los sub elementos',
+    'createaddontitle.maxaccusubitem.required': 'la máxima acumulación de los sub elementos es requerida',
+    'createaddontitle.maxaccusubitem.min': 'cantidad mínima: 2',
+    'createaddontitle.maxaccusubitem.max': 'cantidad máxima: 10',
     /* product list view */
     'productlist.title': 'Lista de productos',
     'productlist.updatestatus': 'Actualizar estado del producto',

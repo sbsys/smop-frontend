@@ -456,6 +456,11 @@ export const en: Record<AdminLang, string> = {
     'createaddontitle.type.placeholder': 'Choose complement type',
     'createaddontitle.type.hint': 'complement type',
     'createaddontitle.type.required': 'complement type is required',
+    'createaddontitle.maxaccusubitem.placeholder': 'Max accumulated sub items',
+    'createaddontitle.maxaccusubitem.hint': 'max accumulated sub items',
+    'createaddontitle.maxaccusubitem.required': 'max accumulated sub items is required',
+    'createaddontitle.maxaccusubitem.min': 'Min value: 2',
+    'createaddontitle.maxaccusubitem.max': 'Max value: 10',
     /* product list view */
     'productlist.title': 'Product list',
     'productlist.updatestatus': 'Update product status',

@@ -455,6 +455,11 @@ export type AdminLang =
     | 'createaddontitle.type.placeholder'
     | 'createaddontitle.type.hint'
     | 'createaddontitle.type.required'
+    | 'createaddontitle.maxaccusubitem.placeholder'
+    | 'createaddontitle.maxaccusubitem.hint'
+    | 'createaddontitle.maxaccusubitem.required'
+    | 'createaddontitle.maxaccusubitem.min'
+    | 'createaddontitle.maxaccusubitem.max'
     /* product list view */
     | 'productlist.title'
     | 'productlist.updatestatus'

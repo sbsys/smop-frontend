@@ -15,7 +15,7 @@
 
     .Badge {
         @include bg-color(400, secondary);
-        @include bg-opacity(30);
+        @include bg-opacity(60);
         @include font-size(md);
         @include padding(all xs split);
         @include rounded(all md);
@@ -23,5 +23,9 @@
         right: 0;
         top: 0;
         transform: translate(25%, -25%);
+
+        &:hover {
+            @include bg-opacity(100);
+        }
     }
 }

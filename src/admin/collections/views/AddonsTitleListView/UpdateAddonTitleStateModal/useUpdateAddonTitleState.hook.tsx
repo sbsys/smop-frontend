@@ -36,6 +36,13 @@ export const useUpdateAddonTitleState = () => {
             titleCollection: selectedTitleToUpdateState?.titleCollection ?? [],
             isActive: selectedTitleToUpdateState?.isActive !== 'active',
             complementType: ComplementTypeToIdMap[selectedTitleToUpdateState?.type ?? 'single'],
+            maxAccuSubItem:
+                selectedTitleToUpdateState?.maxAccuSubItem ??
+                (selectedTitleToUpdateState?.type === 'single'
+                    ? 1
+                    : selectedTitleToUpdateState?.type === 'multiple'
+                    ? 0
+                    : 2),
         });
 
         hideLoader();

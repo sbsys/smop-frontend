@@ -18,6 +18,7 @@ interface CreateAddonTitleProps {
     titleCollection: TitleCollection[];
     multiLanguage: boolean;
     complementType: ComplementTypeId;
+    maxAccuSubItem: number;
 }
 
 export const createAddonTitleService = async (props: CreateAddonTitleProps): Promise<ApiResponse<{}>> => {

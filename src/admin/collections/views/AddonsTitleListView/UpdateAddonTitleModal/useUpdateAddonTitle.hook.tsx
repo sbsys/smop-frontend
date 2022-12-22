@@ -61,6 +61,9 @@ export const useUpdateAddonTitle = () => {
         if (data.multiLanguage) data.defaultTitle = data.titleCollection[0].refs;
         else data.titleCollection = [];
 
+        if (data.complementType === 1) data.maxAccuSubItem = 1;
+        if (data.complementType === 2) data.maxAccuSubItem = 0;
+
         const service = await updateAddonTitleService(selectedTitleToUpdate?.titleId ?? 0, {
             ...data,
             titleCollection: data.titleCollection.map(title => ({
@@ -99,6 +102,8 @@ export const useUpdateAddonTitle = () => {
         setValue('multiLanguage', selectedTitleToUpdate.multiLanguage);
 
         setValue('complementType', ComplementTypeToIdMap[selectedTitleToUpdate.type]);
+
+        setValue('maxAccuSubItem', selectedTitleToUpdate.maxAccuSubItem);
 
         if (!selectedTitleToUpdate.multiLanguage) return;
 
@@ -202,6 +207,23 @@ export const useUpdateAddonTitle = () => {
             title: translate((errors.complementType?.message ?? 'addontitleedit.type.hint') as AdminLang),
         },
     };
+    const maxAccuSubItemProps: FieldSetProps = {
+        field: {
+            className: errors.maxAccuSubItem ? FieldStyles.OutlineDanger : FieldStyles.OutlinePrimary,
+            strategy: 'number',
+            min: 2,
+            max: 10,
+            defaultValue: 2,
+            placeholder: translate('addontitleedit.maxaccusubitem.placeholder' as AdminLang),
+            ...register('maxAccuSubItem'),
+        },
+        isHintReserved: true,
+        hint: {
+            children: translate((errors.maxAccuSubItem?.message ?? 'addontitleedit.maxaccusubitem.hint') as AdminLang),
+            hasDots: true,
+            title: translate((errors.maxAccuSubItem?.message ?? 'addontitleedit.maxaccusubitem.hint') as AdminLang),
+        },
+    };
 
     const UpdateAddonTitleFieldProps: FieldSetProps[] = [
         ...(watch('multiLanguage')
@@ -215,6 +237,7 @@ export const useUpdateAddonTitle = () => {
               ]
             : [defaultTitleProps, multiLanguageProps]),
         complementTypeProps,
+        ...(`${watch('complementType')}` === '3' ? [maxAccuSubItemProps] : []),
     ];
 
     return { handleCancelUpdateAddonTitle, handleUpdateAddonTitle, UpdateAddonTitleFieldProps };

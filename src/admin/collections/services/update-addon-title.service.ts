@@ -19,6 +19,7 @@ interface UpdateAddonTitleProps {
     multiLanguage: boolean;
     isActive: boolean;
     complementType: ComplementTypeId;
+    maxAccuSubItem: number;
 }
 
 export const updateAddonTitleService = async (

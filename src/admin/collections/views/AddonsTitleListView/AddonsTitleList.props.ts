@@ -41,6 +41,7 @@ export interface UpdateAddonTitleFormData {
     titleCollection: TitleCollectionForm[];
     multiLanguage: boolean;
     complementType: ComplementTypeId;
+    maxAccuSubItem: number;
 }
 
 export const UpdateAddonTitleSchema = yup
@@ -60,5 +61,15 @@ export const UpdateAddonTitleSchema = yup
         ),
         multiLanguage: yup.boolean().required(),
         complementType: yup.number().typeError('addontitleedit.type.required').integer('addontitleedit.type.required'),
+        maxAccuSubItem: yup.mixed().when('complementType', {
+            is: (complementType: number) => complementType === 3,
+            then: yup
+                .number()
+                .typeError('addontitleedit.maxaccusubitem.required' as AdminLang)
+                .required('addontitleedit.maxaccusubitem.required' as AdminLang)
+                .min(2, 'addontitleedit.maxaccusubitem.min' as AdminLang)
+                .max(10, 'addontitleedit.maxaccusubitem.max' as AdminLang),
+            otherwise: yup.number().optional(),
+        }),
     })
     .required();

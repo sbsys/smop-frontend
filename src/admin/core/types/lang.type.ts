@@ -447,6 +447,11 @@ export type AdminLang =
     | 'addontitleedit.type.placeholder'
     | 'addontitleedit.type.hint'
     | 'addontitleedit.type.required'
+    | 'addontitleedit.maxaccusubitem.placeholder'
+    | 'addontitleedit.maxaccusubitem.hint'
+    | 'addontitleedit.maxaccusubitem.required'
+    | 'addontitleedit.maxaccusubitem.min'
+    | 'addontitleedit.maxaccusubitem.max'
     /* create addon title */
     | 'createaddontitle.title'
     | 'createaddontitle.collection.placeholder'

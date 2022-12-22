@@ -439,6 +439,7 @@ export const es: Record<AdminLang, string> = {
     'addontitledetail.collection': 'Nombre del complemento',
     'addontitledetail.type': 'Tipo del complemento',
     'addontitledetail.products': 'Lista de productos del complemento',
+    'addontitledetail.maxaccusubitem': 'Máxima acumulación de los sub elementos',
     /* addon title edit */
     'addontitleedit.title': 'Editar complemento',
     'addontitleedit.collection.placeholder': 'Nombre del complemento',

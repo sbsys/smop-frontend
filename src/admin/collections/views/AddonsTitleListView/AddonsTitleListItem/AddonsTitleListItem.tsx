@@ -23,6 +23,7 @@ const AddonsTitleListItem: FC<ComplementTitleListItemDTO> = ({
     isActive,
     type,
     totalProducts,
+    maxAccuSubItem,
 }) => {
     const { translate, lang } = useAdminLang();
 
@@ -45,6 +46,7 @@ const AddonsTitleListItem: FC<ComplementTitleListItemDTO> = ({
 
                 <Legend hasDots title={translate(`types.${type}`)}>
                     {translate(`types.${type}`)}
+                    {type === 'combo' && ` (${maxAccuSubItem})`}
                 </Legend>
 
                 <Legend hasDots title={translate('headers.amount')}>

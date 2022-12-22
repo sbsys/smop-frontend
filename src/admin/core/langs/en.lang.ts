@@ -439,6 +439,7 @@ export const en: Record<AdminLang, string> = {
     'addontitledetail.collection': 'Complement name',
     'addontitledetail.type': 'Complement type',
     'addontitledetail.products': 'Complement product list',
+    'addontitledetail.maxaccusubitem': 'Max accumulated sub items',
     /* addon title edit */
     'addontitleedit.title': 'Edit complement',
     'addontitleedit.collection.placeholder': 'Complement name',

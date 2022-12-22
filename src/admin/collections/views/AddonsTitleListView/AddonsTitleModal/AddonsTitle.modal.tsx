@@ -82,6 +82,19 @@ const AddonsTitleModal = () => {
                         {translate(`types.${selectedTitle?.type as ComplementType}`)}
                     </Legend>
 
+                    {selectedTitle?.type === 'combo' && (
+                        <>
+                            <Legend
+                                hasDots
+                                title={translate('addontitledetail.maxaccusubitem')}
+                                className={styles.Title}>
+                                {translate('addontitledetail.maxaccusubitem')}
+                            </Legend>
+
+                            <Legend title={`${selectedTitle.maxAccuSubItem}`}>{selectedTitle.maxAccuSubItem}</Legend>
+                        </>
+                    )}
+
                     {productList.length > 0 && (
                         <>
                             <Legend hasDots title={translate('addontitledetail.products')} className={styles.Title}>

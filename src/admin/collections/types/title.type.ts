@@ -48,4 +48,5 @@ export const ComplementIdToTypeMap: Record<ComplementTypeId, ComplementType> = {
 
 export interface ComplementTitleListItemDTO extends Omit<TitleListItemDTO, 'createdAt' | 'updatedAt'> {
     type: ComplementType;
+    maxAccuSubItem: number;
 }

@@ -438,6 +438,7 @@ export type AdminLang =
     | 'addontitledetail.collection'
     | 'addontitledetail.type'
     | 'addontitledetail.products'
+    | 'addontitledetail.maxaccusubitem'
     /* addon title edit */
     | 'addontitleedit.title'
     | 'addontitleedit.collection.placeholder'

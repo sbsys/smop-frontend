@@ -22,6 +22,10 @@
 
         .Title {
             @include font-weight(lg);
+
+            & ~ span:not(.Title) {
+                @include margin(x xs);
+            }
         }
 
         .Boolean {

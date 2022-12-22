@@ -141,8 +141,10 @@ const ProductDetailCollectionSection = () => {
                                     <Fragment key={index}>
                                         <Badge>
                                             <Legend hasDots>
-                                                {title.titleCollection.find(collection => collection.lang === lang)
-                                                    ?.ref ?? title.defaultTitle}
+                                                {`${
+                                                    title.titleCollection.find(collection => collection.lang === lang)
+                                                        ?.ref ?? title.defaultTitle
+                                                } (up to ${title.maxAccuSubItem})`}
                                             </Legend>
                                         </Badge>
                                     </Fragment>

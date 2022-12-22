@@ -147,9 +147,11 @@ const CreateProductCollection = () => {
                                     <Fragment key={index}>
                                         <Badge onRemove={handleRemoveFromComboChoiceCollection(comboChoice.titleId)}>
                                             <Legend hasDots>
-                                                {comboChoice.titleCollection.find(
-                                                    collection => collection.lang === lang
-                                                )?.ref ?? comboChoice.defaultTitle}
+                                                {`${
+                                                    comboChoice.titleCollection.find(
+                                                        collection => collection.lang === lang
+                                                    )?.ref ?? comboChoice.defaultTitle
+                                                } (up to ${comboChoice.maxAccuSubItem})`}
                                             </Legend>
                                         </Badge>
                                     </Fragment>

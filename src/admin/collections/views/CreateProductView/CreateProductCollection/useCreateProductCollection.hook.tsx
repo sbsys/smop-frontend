@@ -521,9 +521,10 @@ export const useCreateProductCollection = () => {
                     return [
                         ...prev,
                         {
-                            label:
+                            label: `${
                                 current.titleCollection.find(collection => collection.lang === lang)?.ref ??
-                                current.defaultTitle,
+                                current.defaultTitle
+                            } (up to ${current.maxAccuSubItem})`,
                             value: current.titleId,
                         },
                     ];

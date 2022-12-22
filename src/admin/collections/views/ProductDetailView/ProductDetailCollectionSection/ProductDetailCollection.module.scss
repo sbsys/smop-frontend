@@ -27,7 +27,7 @@
         .TitleCollection {
             @include flex(row, center);
             @include gap(all xs);
-            @include margin(top sm, bottom md);
+            @include margin(top sm, bottom md, x xs);
             flex-wrap: wrap;
 
             & > span {

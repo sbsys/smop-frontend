@@ -97,8 +97,11 @@ const UpdateCollectionModal = () => {
                                     <Fragment key={index}>
                                         <Badge onRemove={handleRemoveFromComboCollection(accesory.titleId)}>
                                             <Legend hasDots>
-                                                {accesory.titleCollection.find(collection => collection.lang === lang)
-                                                    ?.ref ?? accesory.defaultTitle}
+                                                {`${
+                                                    accesory.titleCollection.find(
+                                                        collection => collection.lang === lang
+                                                    )?.ref ?? accesory.defaultTitle
+                                                } (up to ${accesory.maxAccuSubItem})`}
                                             </Legend>
                                         </Badge>
                                     </Fragment>

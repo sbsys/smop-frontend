@@ -15,7 +15,7 @@ export const productListSerializer = (data: any): ProductListItemDTO[] => {
 
 export const productDetailSerializer = (data: any): ProductDetailDTO => {
     const product = data.product[0];
-console.log(product);
+
     return {
         productId: product.productId,
         /* references */

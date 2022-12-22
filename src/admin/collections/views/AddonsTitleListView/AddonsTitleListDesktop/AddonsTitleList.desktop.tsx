@@ -115,7 +115,7 @@ const AddonsTitleListDesktop = () => {
                                 children: (
                                     <Legend hasDots justify="center" title={translate(`types.${item.type}`)}>
                                         {translate(`types.${item.type}`)}
-                                        {item.type === 'combo' && ` (${item.maxAccuSubItem})`}
+                                        {item.type === 'combo' && ` (up to ${item.maxAccuSubItem})`}
                                     </Legend>
                                 ),
                             },

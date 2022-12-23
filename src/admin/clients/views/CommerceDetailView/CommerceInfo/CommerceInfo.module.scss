@@ -2,12 +2,17 @@
 
 .CommerceInfo {
     @include flex;
-    @include gap(all sm);
+    @include gap(all md);
     @include padding(y xs);
 
     & > section {
         @include flex;
         @include gap(all sm);
+    }
+
+    .Title {
+        @include font-weight(lg);
+        font-style: italic;
     }
 
     .Header {
@@ -28,5 +33,110 @@
         & > h3 {
             @include font-size(lg);
         }
+    }
+
+    .Content {
+        @include flex;
+        @include gap(all sm);
+        @include padding(all xs);
+
+        @include screen-width(lg) {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include screen-width(xl) {
+            @include gap(all md);
+        }
+
+        & > div {
+            @include bg-color(300);
+            @include flex;
+            @include gap(all sm);
+            @include padding(all sm);
+            @include rounded(all sm);
+        }
+    }
+
+    .Group {
+        @include flex;
+        @include gap(all sm);
+
+        & > span:not(:first-of-type) {
+            @include margin(x sm);
+        }
+    }
+
+    .Map {
+        aspect-ratio: 1;
+
+        @include screen-width(6xs) {
+            aspect-ratio: 2 / 1;
+        }
+
+        @include screen-width(md) {
+            aspect-ratio: 3 / 1;
+        }
+
+        @include screen-width(lg) {
+            grid-column: span 2;
+        }
+    }
+
+    .MapArea {
+        @include fill-color(400, secondary);
+        @include stroke-color(400, secondary);
+    }
+
+    .Marker {
+        @include font-color(400, primary);
+    }
+
+    .OrderOnline {
+        @include flex(row, center, space-between);
+        @include gap(all xs);
+
+        & > span {
+            flex-grow: 1;
+        }
+
+        & > i {
+            @include font-size(2xl);
+
+            &.Online {
+                @include font-color(400, success);
+            }
+
+            &.Offline {
+                @include font-color(400, danger);
+            }
+        }
+    }
+
+    .Accordion {
+        @include gap(all sm);
+        align-self: start;
+
+        & > div > div > table {
+            & > thead,
+            & > tbody {
+                & > tr {
+                    & > th,
+                    & > td {
+                        & > span {
+                            flex-grow: 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .AccordionControl {
+        @include bg-color(400);
+        @include font-size(2xl);
+        @include interactable;
+        @include padding(all xs split);
+        @include rounded(all lg);
     }
 }

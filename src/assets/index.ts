@@ -5,5 +5,7 @@ import TenantCoverSrc from './imgs/tenant-cover.jpeg';
 import TenantProfileSrc from './imgs/tenant-profile.jpg';
 import FeaturesSrc from './imgs/features.png';
 
+import LocationSrc, { ReactComponent as LocationIcon } from './icons/location.svg';
+
 /* export */
-export { OrgsLogoSrc, OrgsLogo, OrgsBGSrc, TenantCoverSrc, TenantProfileSrc, FeaturesSrc };
+export { OrgsLogoSrc, OrgsLogo, OrgsBGSrc, TenantCoverSrc, TenantProfileSrc, FeaturesSrc, LocationSrc, LocationIcon };

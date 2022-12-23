@@ -11,7 +11,7 @@ export const es: Record<AdminLang, string> = {
     'commons.offline': 'Sin pedidos en línea',
     'commons.shipment': 'Envío',
     'commons.address': 'Dirección',
-    'commons.phone': 'Teléfono de servicio',
+    'commons.phone': 'Teléfono(s) de servicio',
     'commons.menu': 'Menú',
     /* profiles */
     'profiles.root': 'Super usuario',

@@ -17,7 +17,7 @@ import { MdDangerous } from 'react-icons/md';
 
 export const useCommerceDetail = () => {
     /* states */
-    const { schema } = useClientsSelector(selectOrganization);
+    const org = useClientsSelector(selectOrganization);
 
     const { commerceId } = useParams<{ commerceId: string }>();
 
@@ -35,7 +35,7 @@ export const useCommerceDetail = () => {
     const getCommerceDetail = useCallback(async () => {
         showLoader();
 
-        const service = await getCommerceDetailService(schema, commerceId ?? '');
+        const service = await getCommerceDetailService(org?.schema ?? '', commerceId ?? '');
 
         hideLoader();
 
@@ -50,7 +50,7 @@ export const useCommerceDetail = () => {
         dispatch(clientsStoreSetCurrentCommerce(service.data));
 
         setIsCommerce(true);
-    }, [commerceId, dispatch, hideLoader, notify, schema, showLoader]);
+    }, [commerceId, dispatch, hideLoader, notify, org?.schema, showLoader]);
 
     /* reactivity */
     useEffect(() => {

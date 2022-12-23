@@ -19,10 +19,10 @@ import styles from './CommerceSideMenu.module.scss';
 const CommerceSideMenu = () => {
     const {
         /* states */
-        commerce: { referenceName, menu },
+        commerce,
     } = useCommerceDetailContext();
 
-    const hasMenu = useMemo(() => menu.length > 0, [menu.length]);
+    const hasMenu = useMemo(() => (commerce?.menu?.length ?? 0) > 0, [commerce?.menu?.length]);
 
     const { lang, translate } = useClientsLang();
 
@@ -30,14 +30,14 @@ const CommerceSideMenu = () => {
         <PanelLayout orientation="col" className={styles.CommerceSideMenu}>
             <NavLink
                 to=""
-                title={referenceName}
+                title={commerce?.referenceName}
                 end={true}
                 className={({ isActive }) => classNames(styles.MenuLink, isActive && styles.MenuLinkActive)}>
                 <i>
                     <MdStore />
                 </i>
 
-                <Legend hasDots>{referenceName}</Legend>
+                <Legend hasDots>{commerce?.referenceName}</Legend>
             </NavLink>
 
             <Legend hasDots justify="center" title={translate('commons.menu')}>
@@ -47,7 +47,7 @@ const CommerceSideMenu = () => {
             {hasMenu ? (
                 <ScrollLayout orientation="col">
                     <ul className={styles.MenuList}>
-                        {menu.map((item, index) => (
+                        {commerce?.menu.map((item, index) => (
                             <li
                                 key={index}
                                 title={

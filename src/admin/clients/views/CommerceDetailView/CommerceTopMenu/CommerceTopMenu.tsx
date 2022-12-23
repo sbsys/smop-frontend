@@ -19,10 +19,10 @@ import styles from './CommerceTopMenu.module.scss';
 const CommerceTopMenu = () => {
     const {
         /* states */
-        commerce: { referenceName, menu },
+        commerce,
     } = useCommerceDetailContext();
 
-    const hasMenu = useMemo(() => menu.length > 0, [menu.length]);
+    const hasMenu = useMemo(() => (commerce?.menu?.length ?? 0) > 0, [commerce?.menu?.length]);
 
     const { lang } = useClientsLang();
 
@@ -31,7 +31,7 @@ const CommerceTopMenu = () => {
             <NavLink
                 to=""
                 end
-                title={referenceName}
+                title={commerce?.referenceName}
                 className={({ isActive }) => classNames(styles.MenuLink, isActive && styles.MenuLinkActive)}>
                 <i>
                     <MdHome />
@@ -41,7 +41,7 @@ const CommerceTopMenu = () => {
             {hasMenu ? (
                 <ScrollLayout orientation="row">
                     <ul className={styles.MenuList}>
-                        {menu.map((item, index) => (
+                        {commerce?.menu.map((item, index) => (
                             <li
                                 key={index}
                                 title={

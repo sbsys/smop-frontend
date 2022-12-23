@@ -14,28 +14,35 @@ import styles from './CommerceList.module.scss';
 const CommerceList = () => {
     const {
         /* states */
-        organization: { files, commerces },
+        organization,
         /* functions */
         handleSelectCommerce,
     } = useCommerceListContext();
 
-    const hasCommerces = useMemo(() => commerces.length > 0, [commerces.length]);
+    const hasCommerces = useMemo(() => (organization?.commerces?.length ?? 0) > 0, [organization?.commerces?.length]);
 
-    const isUnder3Commerces = useMemo(() => commerces.length < 3, [commerces.length]);
+    const isUnder3Commerces = useMemo(
+        () => (organization?.commerces?.length ?? 0) < 3,
+        [organization?.commerces?.length]
+    );
 
     return (
         <PanelLayout orientation="col" className={styles.CommerceList}>
             <section className={styles.Branding}>
-                <img crossOrigin="anonymous" src={files.find(file => file.isCover)?.url} alt="cover" />
+                <img crossOrigin="anonymous" src={organization?.files?.find(file => file.isCover)?.url} alt="cover" />
 
-                <img crossOrigin="anonymous" src={files.find(file => !file.isCover)?.url} alt="profile" />
+                <img
+                    crossOrigin="anonymous"
+                    src={organization?.files?.find(file => !file.isCover)?.url}
+                    alt="profile"
+                />
             </section>
 
             {hasCommerces ? (
                 <ScrollLayout orientation="col">
                     <section className={styles.List}>
                         <ul className={classNames(isUnder3Commerces && styles.Under3)}>
-                            {commerces.map((commerce, index) => (
+                            {organization?.commerces?.map((commerce, index) => (
                                 <li key={index} onClick={handleSelectCommerce(commerce.commerceId)}>
                                     <CommerceListItem {...commerce} />
                                 </li>

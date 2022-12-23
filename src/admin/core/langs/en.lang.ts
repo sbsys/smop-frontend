@@ -11,7 +11,7 @@ export const en: Record<AdminLang, string> = {
     'commons.offline': 'No online orders',
     'commons.shipment': 'Shipment',
     'commons.address': 'Address',
-    'commons.phone': 'Service phone',
+    'commons.phone': 'Service phone(s)',
     'commons.menu': 'Menu',
     /* profiles */
     'profiles.root': 'Root',

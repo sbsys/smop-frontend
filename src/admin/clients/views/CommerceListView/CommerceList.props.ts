@@ -5,7 +5,7 @@ import { OrganizationDetail } from 'admin/clients/types';
 
 export interface CommerceListContextProps {
     /* states */
-    organization: OrganizationDetail;
+    organization: OrganizationDetail | null;
     /* functions */
     handleSelectCommerce: (commerceId: string) => () => void;
 }

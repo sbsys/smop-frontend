@@ -5,13 +5,13 @@ import { AdminStoreState } from 'admin/core';
 import { CommerceDetail, OrganizationDetail } from '../types';
 
 interface ClientsState {
-    organization: OrganizationDetail;
-    currentCommerce: CommerceDetail;
+    organization: OrganizationDetail | null;
+    currentCommerce: CommerceDetail | null;
 }
 
 const initialState: ClientsState = {
-    organization: {} as OrganizationDetail,
-    currentCommerce: {} as CommerceDetail,
+    organization: null,
+    currentCommerce: null,
 };
 
 const ClientsSlice = createSlice({

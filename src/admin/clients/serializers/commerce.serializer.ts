@@ -16,6 +16,7 @@ export const commerceDetailSerializer = (data: any): CommerceDetail => {
     return {
         ...commerce,
         /* general */
+        optionalAddress: commerce.optionalAddress !== '-' ? commerce.optionalAddress : '',
         globalRaiting: Number.parseFloat(commerce.globalRaiting ?? '0'),
         /* service */
         serviceHours,

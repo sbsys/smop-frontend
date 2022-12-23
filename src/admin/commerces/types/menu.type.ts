@@ -2,6 +2,7 @@ export interface TitleProductListItemDTO {
     productId: string;
     defaultReference: string;
     price: number;
+    isActive: boolean;
 }
 
 export interface MenuTitleListItemDTO {

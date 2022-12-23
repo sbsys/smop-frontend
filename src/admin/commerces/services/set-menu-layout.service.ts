@@ -15,6 +15,7 @@ import { getCurrentUserToken, repeatRequestOnRefreshTokenService } from 'admin/a
 interface ProductItemDTO {
     productId: string;
     price: number;
+    isActive: boolean;
 }
 
 interface CollectionItemDTO {

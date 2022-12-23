@@ -27,6 +27,7 @@ export interface MenuMigraterProviderProps extends ChildrenProps {
 interface ProductItem {
     productId: string;
     price: number;
+    isActive: boolean;
     isSelected: boolean;
 }
 

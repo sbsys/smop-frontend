@@ -131,6 +131,7 @@ export const useGenericMigrater = (menu: MenuTitleListItemDTO[]) => {
     const productProps = useCallback(
         (product: TitleProductListItemDTO, productIndex: number, titleIndex: number): FieldSetProps[] => {
             setValue(`collection.${titleIndex}.items.${productIndex}.productId`, product.productId);
+            setValue(`collection.${titleIndex}.items.${productIndex}.isActive`, product.isActive);
 
             return [
                 {

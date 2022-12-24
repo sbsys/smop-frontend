@@ -1,5 +1,5 @@
 /* react */
-import { FC, memo } from 'react';
+import { forwardRef, memo } from 'react';
 /* props */
 import { LegendProps } from './Legend.props';
 /* utils */
@@ -14,28 +14,22 @@ const justifyStyles: Record<string, string> = {
     end: styles.End,
 };
 
-const Legend: FC<LegendProps> = ({
-    className,
-    classNameContent,
-    justify,
-    hasDots,
-    children,
-    ...rest
-}) => {
-    return (
-        <span
-            className={classNames(
-                styles.Legend,
-                justify && justifyStyles[justify],
-                hasDots && styles.Dots,
-                className
-            )}
-            {...rest}>
-            <span className={classNameContent}>
-                {typeof children === 'function' ? children() : children}
+const Legend = forwardRef<HTMLSpanElement | null, LegendProps>(
+    ({ className, classNameContent, justify, hasDots, children, ...rest }, ref) => {
+        return (
+            <span
+                className={classNames(
+                    styles.Legend,
+                    justify && justifyStyles[justify],
+                    hasDots && styles.Dots,
+                    className
+                )}
+                ref={ref}
+                {...rest}>
+                <span className={classNameContent}>{typeof children === 'function' ? children() : children}</span>
             </span>
-        </span>
-    );
-};
+        );
+    }
+);
 
 export default memo(Legend);

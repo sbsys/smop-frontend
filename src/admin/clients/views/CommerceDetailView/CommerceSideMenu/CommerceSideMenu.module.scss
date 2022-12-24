@@ -2,7 +2,6 @@
 
 .CommerceSideMenu {
     @include gap(all xs);
-    @include padding(y xs);
 
     & > a,
     & > span {

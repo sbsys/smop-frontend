@@ -1,5 +1,5 @@
 /* react */
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 /* context */
 import { useSchemaLayoutContext } from '../SchemaLayout.context';
@@ -15,6 +15,14 @@ const Schema = () => {
         /* states */
         isOrganization,
     } = useSchemaLayoutContext();
+
+    useEffect(() => {
+        document.body.classList.add(styles.SchemaTheme);
+
+        return () => {
+            document.body.classList.remove(styles.SchemaTheme);
+        };
+    }, []);
 
     return (
         <PanelLayout className={styles.Schema} orientation="col">

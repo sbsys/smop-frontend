@@ -1,12 +1,13 @@
 /* react */
-import { memo, useCallback, useMemo, useState } from 'react';
-import { Circle, MapContainer, Popup, TileLayer } from 'react-leaflet';
+import { Fragment, memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { Circle, Polyline, MapContainer, Popup, TileLayer } from 'react-leaflet';
 /* context */
 import { useCommerceDetailContext } from '../CommerceDetail.context';
 /* layouts */
-import { AccordionLayout, ScrollLayout, TableLayout } from 'shared/layouts';
+import { ScrollLayout } from 'shared/layouts';
 /* components */
-import { Button, DraggableMarker, Legend } from 'shared/components';
+import { DraggableMarker, Legend } from 'shared/components';
+import ServiceHoursTable from './ServiceHoursTable';
 /* hooks */
 import { useClientsLang } from 'admin/core';
 /* utils */
@@ -14,7 +15,7 @@ import { amountFormat, classNames, milesToMeters } from 'shared/utils';
 /* types */
 import { ServiceHours } from 'admin/clients/types';
 /* assets */
-import { MdArrowDropDown, MdArrowDropUp, MdCheckCircle, MdStore } from 'react-icons/md';
+import { MdCheckCircle, MdMyLocation, MdStore } from 'react-icons/md';
 import { IoMdCloseCircle } from 'react-icons/io';
 /* styles */
 import styles from './CommerceInfo.module.scss';
@@ -27,26 +28,27 @@ const CommerceInfo = () => {
 
     const meters = useMemo(() => milesToMeters(commerce?.deliveryArea ?? 0), [commerce?.deliveryArea]);
 
-    const [isAttentionOpened, setAttentionOpened] = useState<Record<keyof ServiceHours, boolean>>({
-        pickup: false,
-        curbside: false,
-        delivery: false,
-        onsite: false,
+    const [geolocation, setGeolocation] = useState<{
+        lat: number;
+        lng: number;
+    }>({
+        lat: 40,
+        lng: -100,
     });
 
-    const handleToggleAttention = useCallback(
-        (key: keyof ServiceHours) => () => {
-            setAttentionOpened(prev => {
-                const aux = { ...prev };
-                aux[key] = !aux[key];
-
-                return aux;
-            });
-        },
-        []
-    );
-
     const { translate } = useClientsLang();
+
+    /* functions */
+    const getCurrentGeolocation = useCallback(() => {
+        navigator.geolocation.getCurrentPosition(({ coords }) => {
+            setGeolocation({ lat: coords.latitude, lng: coords.longitude });
+        });
+    }, []);
+
+    /* reactivity */
+    useEffect(() => {
+        getCurrentGeolocation();
+    }, [getCurrentGeolocation]);
 
     return (
         <ScrollLayout orientation="col">
@@ -138,10 +140,22 @@ const CommerceInfo = () => {
                         {commerce?.geolocation.latitude && commerce?.geolocation.longitude && (
                             <MapContainer
                                 center={[commerce?.geolocation.latitude ?? 0, commerce?.geolocation.longitude ?? 0]}
-                                zoom={10}
-                                scrollWheelZoom={false}
+                                zoom={15}
                                 className={styles.Map}>
                                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+
+                                {geolocation.lat !== 40 && geolocation.lng !== -100 && (
+                                    <Polyline
+                                        className={styles.MapLine}
+                                        positions={[
+                                            [
+                                                commerce?.geolocation.latitude ?? 40,
+                                                commerce?.geolocation.longitude ?? -100,
+                                            ],
+                                            [geolocation.lat, geolocation.lng],
+                                        ]}
+                                    />
+                                )}
 
                                 <DraggableMarker
                                     isDraggable={false}
@@ -149,6 +163,8 @@ const CommerceInfo = () => {
                                     lng={commerce?.geolocation.longitude ?? -100}
                                     getPosition={() => {}}
                                     icon={<MdStore />}
+                                    iconSize={[28, 28]}
+                                    iconAnchor={[14, 14]}
                                     className={styles.Marker}>
                                     <Popup>
                                         <Legend title={commerce?.address}>{commerce?.address}</Legend>
@@ -165,6 +181,18 @@ const CommerceInfo = () => {
                                         radius={meters}
                                     />
                                 )}
+
+                                <DraggableMarker
+                                    isDraggable={false}
+                                    isFlyingTo={false}
+                                    lat={geolocation.lat}
+                                    lng={geolocation.lng}
+                                    getPosition={() => {}}
+                                    icon={<MdMyLocation />}
+                                    iconSize={[24, 24]}
+                                    iconAnchor={[12, 12]}
+                                    className={styles.CurrentPosition}
+                                />
                             </MapContainer>
                         )}
                     </div>
@@ -202,6 +230,34 @@ const CommerceInfo = () => {
                             </Legend>
                         </div>
 
+                        <div className={styles.Group}>
+                            <Legend justify="center" hasDots title={translate('commercedetail.onsitepreparation')}>
+                                <span className={styles.Title}>{translate('commercedetail.onsitepreparation')}</span>
+                            </Legend>
+
+                            <Legend justify="center" hasDots>
+                                <span>{commerce?.onsitePreparationTime.hours}</span>
+                                <span> {translate('time.hours')}</span>
+                                <span> & </span>
+                                <span>{commerce?.onsitePreparationTime.minutes}</span>
+                                <span> {translate('time.minutes')}</span>
+                            </Legend>
+                        </div>
+
+                        <div className={styles.Group}>
+                            <Legend justify="center" hasDots title={translate('commercedetail.deliverypreparation')}>
+                                <span className={styles.Title}>{translate('commercedetail.deliverypreparation')}</span>
+                            </Legend>
+
+                            <Legend justify="center" hasDots>
+                                <span>{commerce?.deliveryPreparationTime.hours}</span>
+                                <span> {translate('time.hours')}</span>
+                                <span> & </span>
+                                <span>{commerce?.deliveryPreparationTime.minutes}</span>
+                                <span> {translate('time.minutes')}</span>
+                            </Legend>
+                        </div>
+
                         {commerce?.serviceHours &&
                             (
                                 Object.keys({
@@ -210,84 +266,24 @@ const CommerceInfo = () => {
                                     delivery: commerce.serviceHours.delivery,
                                     onsite: commerce.serviceHours.onsite,
                                 }) as (keyof ServiceHours)[]
-                            ).map((key, keyIndex) => {
-                                const serviceHours = commerce.serviceHours[key];
+                            ).map((serviceHoursKey, keyIndex) => {
+                                const serviceHours = commerce.serviceHours[serviceHoursKey];
 
                                 return (
-                                    <AccordionLayout
-                                        key={keyIndex}
-                                        className={classNames(styles.Accordion, styles.AccordionActive)}
-                                        isAccordion={isAttentionOpened[key]}
-                                        accordion={serviceHours.map((serviceHour, serviceIndex) => (
-                                            <div key={serviceIndex}>
-                                                <TableLayout
-                                                    header={{
-                                                        columns: [
-                                                            {
-                                                                children: (
-                                                                    <Legend
-                                                                        hasDots
-                                                                        title={translate(`day.${serviceHour.key}`)}>
-                                                                        {translate(`day.${serviceHour.key}`)}
-                                                                    </Legend>
-                                                                ),
-                                                                span: 2,
-                                                            },
-                                                        ],
-                                                    }}
-                                                    body={serviceHour.schedules.map(schedule => ({
-                                                        columns: [
-                                                            {
-                                                                children: (
-                                                                    <Legend
-                                                                        justify="center"
-                                                                        hasDots
-                                                                        title={schedule.opening}>
-                                                                        {schedule.opening}
-                                                                    </Legend>
-                                                                ),
-                                                                span: 1,
-                                                            },
-                                                            {
-                                                                children: (
-                                                                    <Legend
-                                                                        justify="center"
-                                                                        hasDots
-                                                                        title={schedule.closing}>
-                                                                        {schedule.closing}
-                                                                    </Legend>
-                                                                ),
-                                                                span: 1,
-                                                            },
-                                                        ],
-                                                    }))}
-                                                />
-                                            </div>
-                                        ))}>
-                                        <div className={styles.OrderOnline} title={translate(`commercedetail.${key}`)}>
-                                            <Legend
-                                                className={styles.Title}
-                                                hasDots
-                                                title={translate(`commercedetail.${key}`)}>
-                                                {translate(`commercedetail.${key}`)}
-                                            </Legend>
+                                    <Fragment key={keyIndex}>
+                                        <ServiceHoursTable
+                                            serviceHoursKey={serviceHoursKey}
+                                            isEnabled={
+                                                commerce.typeOrder.find(typeOrder => {
+                                                    const curentTypeOrder: keyof ServiceHours =
+                                                        typeOrder.type === 'dine-in' ? 'onsite' : typeOrder.type;
 
-                                            <i
-                                                className={classNames(
-                                                    isAttentionOpened[key] ? styles.Online : styles.Offline
-                                                )}>
-                                                {isAttentionOpened[key] ? <MdCheckCircle /> : <IoMdCloseCircle />}
-                                            </i>
-
-                                            <Button
-                                                className={styles.AccordionControl}
-                                                onClick={handleToggleAttention(key)}>
-                                                <i>
-                                                    {isAttentionOpened[key] ? <MdArrowDropUp /> : <MdArrowDropDown />}
-                                                </i>
-                                            </Button>
-                                        </div>
-                                    </AccordionLayout>
+                                                    return curentTypeOrder === serviceHoursKey;
+                                                })?.enabled ?? false
+                                            }
+                                            serviceHours={serviceHours}
+                                        />
+                                    </Fragment>
                                 );
                             })}
                     </div>

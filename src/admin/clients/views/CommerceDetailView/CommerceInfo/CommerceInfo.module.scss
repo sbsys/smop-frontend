@@ -3,7 +3,6 @@
 .CommerceInfo {
     @include flex;
     @include gap(all md);
-    @include padding(y xs);
 
     & > section {
         @include flex;
@@ -20,6 +19,9 @@
         @include font-color(50);
         @include padding(all xs);
         @include rounded(all sm);
+        position: sticky;
+        top: 0;
+        z-index: 3;
 
         & > h2,
         & > h3 {
@@ -92,6 +94,16 @@
         @include font-color(400, primary);
     }
 
+    .CurrentPosition {
+        @include font-color(900);
+        animation: CurrentPosition 3s infinite;
+    }
+
+    .MapLine {
+        @include font-opacity(60);
+        @include stroke-color(400, secondary);
+    }
+
     .OrderOnline {
         @include flex(row, center, space-between);
         @include gap(all xs);
@@ -115,7 +127,6 @@
 
     .Accordion {
         @include gap(all sm);
-        align-self: start;
 
         & > div > div > table {
             & > thead,
@@ -130,13 +141,30 @@
                 }
             }
         }
+
+        @include screen-width(lg) {
+            align-self: start;
+        }
+
+        &Content {
+            @include gap(all sm);
+        }
     }
 
     .AccordionControl {
         @include bg-color(400);
         @include font-size(2xl);
         @include interactable;
-        @include padding(all xs split);
-        @include rounded(all lg);
+        @include padding(all xs);
+        @include rounded(all xl);
+    }
+}
+
+@keyframes CurrentPosition {
+    0% {
+        @include font-opacity(0);
+    }
+    75% {
+        @include font-opacity(100);
     }
 }

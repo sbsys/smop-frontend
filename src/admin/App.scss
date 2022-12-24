@@ -5,11 +5,11 @@
 }
 
 html {
-    @include font-size(xs, text);
+    @include font-size(sm, text);
 
-    @include screen-height(xs) {
+    /* @include screen-height(xs) {
         @include font-size(sm, text);
-    }
+    } */
 
     @include screen-height(md) {
         @include font-size(md, text);

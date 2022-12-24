@@ -2,6 +2,7 @@
 
 .CommerceTopMenu {
     @include gap(all sm);
+    @include padding(x xs);
     align-items: center;
 
     .MenuLink {

@@ -6,10 +6,7 @@ import { ChildrenProps } from 'shared/props';
 import { Alignment } from 'shared/types';
 
 export interface LegendProps
-    extends Omit<
-            DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>,
-            'children'
-        >,
+    extends Omit<DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>, 'children' | 'ref'>,
         ChildrenProps {
     justify?: Alignment;
     hasDots?: boolean;

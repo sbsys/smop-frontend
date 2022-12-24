@@ -22,13 +22,18 @@ type IconProps = {
 };
 
 const DraggableMarker: FC<
-    Position & { getPosition: (latitude: number, longitude: number) => void; isDraggable?: boolean } & IconProps &
+    Position & {
+        getPosition: (latitude: number, longitude: number) => void;
+        isDraggable?: boolean;
+        isFlyingTo?: boolean;
+    } & IconProps &
         ChildrenProps
 > = ({
     lat,
     lng,
     getPosition,
     isDraggable = true,
+    isFlyingTo = true,
     className,
     icon = <MdLocationPin />,
     iconSize = [32, 32],
@@ -81,8 +86,8 @@ const DraggableMarker: FC<
     useEffect(() => {
         setPosition({ lat, lng });
 
-        map.flyTo({ lat, lng }, map.getZoom());
-    }, [lat, lng, map]);
+        if (isFlyingTo) map.flyTo({ lat, lng }, map.getZoom());
+    }, [isFlyingTo, lat, lng, map]);
 
     return (
         <Marker

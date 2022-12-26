@@ -20,7 +20,7 @@ const ProductListItem: FC<TitleProductListItem> = ({
     descriptionCollection,
     price,
 }) => {
-    const { lang } = useClientsLang();
+    const { lang, translate } = useClientsLang();
 
     return (
         <div className={styles.ProductListItem}>
@@ -47,15 +47,15 @@ const ProductListItem: FC<TitleProductListItem> = ({
             )}`}</Legend>
 
             <div className={styles.Actions}>
-                <div>
-                    <Legend justify="center">On cart</Legend>
+                <div title={`${translate('cart.on')}: ${'0'}`}>
+                    <Legend justify="center">{translate('cart.on')}</Legend>
 
                     <Legend justify="center">0</Legend>
                 </div>
 
-                <Button className={ButtonStyles.FillPrimary}>
+                <Button className={ButtonStyles.FillPrimary} title={`${translate('cart.add')}`}>
                     <Legend hasDots justify="center">
-                        Add to cart
+                        {translate('cart.add')}
                     </Legend>
 
                     <i>

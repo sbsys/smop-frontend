@@ -614,4 +614,8 @@ export const es: Record<AdminLang, string> = {
     'migrater.commerce.nocommerces': 'Todavía no hay comercios con menú',
     'migrater.commerce.noselected': 'Por favor seleccione un comercio para migrar menú',
     'migrater.commerce.nomenu': 'El comercio seleccionado no tiene menú',
+    /* publisher */
+    'cart.on': 'En el carrito',
+    'cart.add': 'Agregar al carrito',
+    'cart.remove': 'Eliminar del carrito',
 };

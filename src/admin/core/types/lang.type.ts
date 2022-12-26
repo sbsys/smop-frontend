@@ -606,4 +606,6 @@ export type AdminLang =
           | 'commerce'
           | 'merge'
           | 'replace'
-          | `commerce.${'title' | 'placeholder' | 'hint' | 'nocommerces' | 'noselected' | 'nomenu'}`}`;
+          | `commerce.${'title' | 'placeholder' | 'hint' | 'nocommerces' | 'noselected' | 'nomenu'}`}`
+    /* publisher */
+    | `cart.${'on' | 'add' | 'remove'}`;

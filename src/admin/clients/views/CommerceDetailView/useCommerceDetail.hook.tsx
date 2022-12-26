@@ -4,14 +4,17 @@ import { useParams } from 'react-router-dom';
 /* props */
 import { CommerceDetailContextProps } from './CommerceDetail.props';
 /* store */
-import { clientsStoreSetCurrentCommerce, selectCurrentCommerce, selectOrganization } from 'admin/clients/store';
+import {
+    clientsStoreCleanUpSelectedCommerce,
+    clientsStoreSetCurrentCommerce,
+    selectCurrentCommerce,
+    selectOrganization,
+} from 'admin/clients/store';
 /* hooks */
 import { useLoader } from 'shared/hooks';
 import { useClientsDispatch, useClientsNotify, useClientsSelector } from 'admin/core';
 /* services */
 import { getCommerceDetailService } from 'admin/clients/services';
-/* types */
-import { CommerceDetail } from 'admin/clients/types';
 /* assets */
 import { MdDangerous } from 'react-icons/md';
 
@@ -57,7 +60,7 @@ export const useCommerceDetail = () => {
         getCommerceDetail();
 
         return () => {
-            dispatch(clientsStoreSetCurrentCommerce({} as CommerceDetail));
+            dispatch(clientsStoreCleanUpSelectedCommerce());
         };
     }, [dispatch, getCommerceDetail]);
 

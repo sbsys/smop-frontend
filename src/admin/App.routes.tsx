@@ -51,6 +51,7 @@ import {
     SchemaLayout,
     CommerceDetailView as ClientsCommerceDetailView,
     CommerceListView as ClientsCommerceListView,
+    TitleProductListView,
 } from './clients';
 
 const AppRoutes: FC = () => {
@@ -198,7 +199,7 @@ const AppRoutes: FC = () => {
                 <Route index element={<ClientsCommerceListView />} />
 
                 <Route path=":commerceId" element={<ClientsCommerceDetailView />}>
-                    <Route path="menu/:titleId" element={<>Title</>} />
+                    <Route path="menu/:titleId" element={<TitleProductListView />} />
                 </Route>
             </Route>
 

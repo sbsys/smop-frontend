@@ -1,0 +1,50 @@
+@import 'styles';
+
+.TitleProductList {
+    @include gap(all md);
+
+    .Header {
+        @include bg-color(400, primary);
+        @include font-color(50);
+        @include padding(all xs);
+        @include rounded(all sm);
+
+        & > h3 {
+            @include font-weight(lg);
+        }
+
+        & > h3 {
+            @include font-size(lg);
+        }
+    }
+
+    .Content {
+        @include gap(all sm);
+        @include padding(all xs);
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, size(md, component)), 1fr));
+
+        &.Under3 {
+            @include screen-width(4xs) {
+                grid-template-columns: repeat(auto-fit, size(md, component));
+                justify-content: center;
+            }
+        }
+
+        @include screen-width(2xs) {
+            @include gap(all md);
+        }
+
+        @include screen-width(2xl) {
+            @include gap(x lg);
+        }
+
+        & > li {
+            @include flex;
+            @include bg-color(300);
+            @include rounded(all sm);
+            list-style: none;
+            overflow: hidden;
+        }
+    }
+}

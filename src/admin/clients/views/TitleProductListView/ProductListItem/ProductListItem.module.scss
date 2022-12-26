@@ -1,0 +1,78 @@
+@import 'styles';
+
+.ProductListItem {
+    @include flex;
+    @include gap(all sm);
+    position: relative;
+
+    & > img {
+        aspect-ratio: 3 / 2;
+        object-fit: cover;
+    }
+
+    .Header {
+        @include flex;
+        @include gap(all xs);
+        @include padding(x xs);
+
+        & > h4 {
+            @include font-weight(lg);
+        }
+
+        & > span {
+            @include height(lg, element);
+            overflow: hidden;
+            text-align: justify;
+        }
+    }
+
+    .Price {
+        @include bg-color(400, secondary);
+        @include font-color(100);
+        @include font-size(xl);
+        @include font-weight(lg);
+        @include padding(x lg);
+        @include rounded(bottom-left sm);
+        @include shadow(bottom xs, left xs);
+        min-width: 50%;
+        position: absolute;
+        right: 0;
+        top: 0;
+        transform: skewX(25deg) translateX(8px);
+
+        & > span {
+            transform: skewX(-25deg);
+        }
+    }
+
+    .Actions {
+        @include bg-color(600);
+        @include gap(all sm);
+        @include padding(all xs);
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+
+        & > div {
+            @include flex;
+            @include font-color(100);
+
+            & > span:first-of-type {
+                font-style: italic;
+            }
+
+            & > span:last-of-type {
+                @include font-size(lg);
+                @include font-weight(lg);
+            }
+        }
+
+        & > button {
+            @include flex(row, center);
+            @include gap(all xs);
+
+            & > span {
+                flex-grow: 1;
+            }
+        }
+    }
+}

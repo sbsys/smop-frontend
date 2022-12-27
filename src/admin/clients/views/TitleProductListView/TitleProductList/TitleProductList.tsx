@@ -7,6 +7,7 @@ import { PanelLayout, ScrollLayout } from 'shared/layouts';
 /* components */
 import { Legend } from 'shared/components';
 import { ProductListItem } from '../ProductListItem';
+import { ConfigureProductModal } from '../ConfigureProductModal';
 /* hooks */
 import { useClientsLang } from 'admin/core';
 /* utils */
@@ -52,6 +53,8 @@ const TitleProductList = () => {
             ) : (
                 <div>No menu products</div>
             )}
+
+            <ConfigureProductModal />
         </PanelLayout>
     );
 };

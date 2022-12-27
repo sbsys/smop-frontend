@@ -1,5 +1,5 @@
 /* react */
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 /* props */
 import { TitleProductListContextProps } from './TitleProductList.props';
@@ -10,6 +10,8 @@ import { useLoader } from 'shared/hooks';
 import { useClientsDispatch, useClientsNotify, useClientsSelector } from 'admin/core';
 /* services */
 import { getTitleProductListService } from 'admin/clients/services';
+/* types */
+import { TitleProductListItem } from 'admin/clients/types';
 /* assets */
 import { MdDangerous } from 'react-icons/md';
 
@@ -21,6 +23,8 @@ export const useTitleProductList = () => {
 
     const { menuTitle, productList } = useClientsSelector(selectCurrentTitle(Number.parseInt(titleId ?? '0')));
 
+    const [selectedProductToAdd, setSelectedProductToAdd] = useState<TitleProductListItem | null>(null);
+
     const { notify } = useClientsNotify();
 
     const { showLoader, hideLoader } = useLoader();
@@ -28,7 +32,20 @@ export const useTitleProductList = () => {
     const dispatch = useClientsDispatch();
 
     /* functions */
+    const handleSelectedProductToAddToCart = useCallback(
+        (productId: string) => () => {
+            setSelectedProductToAdd(productList.find(product => product.productId === productId) ?? null);
+        },
+        [productList]
+    );
+
+    const handleUnSelectedProductToAddToCart = useCallback(() => {
+        setSelectedProductToAdd(null);
+    }, []);
+
     const getTitleProductList = useCallback(async () => {
+        handleUnSelectedProductToAddToCart();
+
         showLoader();
 
         const service = await getTitleProductListService(
@@ -50,7 +67,16 @@ export const useTitleProductList = () => {
         dispatch(
             clientsStoreSetMenuTitleProductList({ titleId: Number.parseInt(titleId ?? '0'), productList: service.data })
         );
-    }, [commerceId, dispatch, hideLoader, notify, org?.schema, showLoader, titleId]);
+    }, [
+        commerceId,
+        dispatch,
+        handleUnSelectedProductToAddToCart,
+        hideLoader,
+        notify,
+        org?.schema,
+        showLoader,
+        titleId,
+    ]);
 
     /* reactivity */
     useEffect(() => {
@@ -62,6 +88,10 @@ export const useTitleProductList = () => {
         /* states */
         menuTitle,
         productList,
+        selectedProductToAdd,
+        /* functions */
+        handleSelectedProductToAddToCart,
+        handleUnSelectedProductToAddToCart,
     };
 
     return { context };

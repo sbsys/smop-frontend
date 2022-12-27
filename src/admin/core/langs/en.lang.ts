@@ -618,4 +618,6 @@ export const en: Record<AdminLang, string> = {
     'cart.on': 'On cart',
     'cart.add': 'Add to cart',
     'cart.remove': 'Remove from cart',
+    'cart.amount': 'Product amount to add',
+    'cart.min': 'Add at least once product',
 };

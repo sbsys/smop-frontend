@@ -608,4 +608,4 @@ export type AdminLang =
           | 'replace'
           | `commerce.${'title' | 'placeholder' | 'hint' | 'nocommerces' | 'noselected' | 'nomenu'}`}`
     /* publisher */
-    | `cart.${'on' | 'add' | 'remove'}`;
+    | `cart.${'on' | 'add' | 'remove' | 'amount' | 'min'}`;

@@ -16,7 +16,9 @@
         @include padding(x xs);
 
         & > h4 {
-            @include font-weight(lg);
+            @include font-color(400, primary);
+            @include font-weight(xl);
+            @include font-size(lg);
         }
 
         & > span {
@@ -27,13 +29,14 @@
     }
 
     .Price {
-        @include bg-color(400, secondary);
-        @include font-color(100);
+        @include bg-color(200);
+        @include font-color(400, primary);
         @include font-size(xl);
         @include font-weight(lg);
         @include padding(x lg);
         @include rounded(bottom-left sm);
         @include shadow(bottom xs, left xs);
+        @include shadow-color(left 400 primary);
         min-width: 50%;
         position: absolute;
         right: 0;
@@ -46,7 +49,6 @@
     }
 
     .Actions {
-        @include bg-color(600);
         @include gap(all sm);
         @include padding(all xs);
         display: grid;
@@ -54,13 +56,13 @@
 
         & > div {
             @include flex;
-            @include font-color(100);
 
             & > span:first-of-type {
                 font-style: italic;
             }
 
             & > span:last-of-type {
+                @include font-color(400, primary);
                 @include font-size(lg);
                 @include font-weight(lg);
             }

@@ -5,6 +5,10 @@ const Context = createContext<TitleProductListContextProps>({
     /* states */
     menuTitle: null,
     productList: [],
+    selectedProductToAdd: null,
+    /* functions */
+    handleSelectedProductToAddToCart: () => () => {},
+    handleUnSelectedProductToAddToCart: () => {},
 });
 
 export const TitleProductListProvider: FC<TitleProductListProviderProps> = ({ context, children }) => {

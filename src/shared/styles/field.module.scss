@@ -28,6 +28,34 @@
     }
 }
 
+.OutlineSecondary {
+    @include border-color(bottom 400 secondary);
+    @include border-width(bottom sm);
+
+    & *:not(input):not(select):not(option) {
+        @include font-color(400, secondary);
+    }
+
+    &:hover,
+    &:focus-within {
+        @include border-color(bottom 300 secondary);
+
+        & *:not(input):not(select):not(option) {
+            @include font-color(300, secondary);
+        }
+    }
+
+    & > input,
+    & > select {
+        @include padding(x sm split, y xs split);
+    }
+
+    & > input:disabled,
+    & > select:disabled {
+        @include disabled;
+    }
+}
+
 .OutlineDanger {
     @include border-color(bottom 400 danger);
     @include border-width(bottom sm);

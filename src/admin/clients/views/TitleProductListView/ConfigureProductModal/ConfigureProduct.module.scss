@@ -1,0 +1,87 @@
+@import 'styles';
+
+.ConfigureProduct {
+    @include bg-color(300);
+    @include gap(all sm);
+    @include rounded(all sm);
+    @include width(xs, view);
+    max-width: 100%;
+
+    .Header {
+        @include bg-color(400, primary);
+        @include flex(row, center);
+        @include font-color(100);
+        @include font-size(lg);
+        @include font-weight(lg);
+        @include gap(all xs);
+        @include padding(all xs);
+
+        & > h4 {
+            flex-grow: 1;
+        }
+
+        & > button {
+            @include bg-color(400, secondary);
+            @include font-size(2xl);
+            @include interactable;
+            @include padding(all xs split);
+            @include rounded(all md);
+            @include bg-opacity(20);
+
+            &:hover {
+                @include bg-opacity(40);
+            }
+
+            &:active {
+                @include bg-opacity(60);
+            }
+        }
+    }
+
+    .Actions {
+        @include flex;
+        @include gap(all sm);
+        @include padding(all xs);
+
+        & > div {
+            @include flex;
+            @include gap(all sm);
+
+            @include screen-width(4xs) {
+                @include flex(row, start, center);
+                @include gap(all md);
+
+                & > fieldset {
+                    @include min-width(sm, component);
+                }
+            }
+
+            @include screen-width(xs) {
+                @include gap(all xl);
+            }
+
+            & > span {
+                @include font-size(lg);
+                @include font-weight(lg);
+            }
+        }
+
+        & > button {
+            @include flex(row, center);
+            @include gap(all xs);
+
+            & > span {
+                flex-grow: 1;
+            }
+        }
+
+        @include screen-width(xs) {
+            @include flex(row);
+            @include gap(all md);
+
+            & > div {
+                flex-grow: 1;
+            }
+        }
+    }
+}

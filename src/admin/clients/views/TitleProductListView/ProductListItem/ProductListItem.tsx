@@ -1,18 +1,23 @@
 /* react */
 import { FC, memo } from 'react';
+/* context */
+import { useTitleProductListContext } from '../TitleProductList.context';
 /* components */
 import { Button, Legend } from 'shared/components';
 /* hooks */
 import { useClientsLang } from 'admin/core';
+/* utils */
+import { amountFormat } from 'shared/utils';
 /* types */
 import { TitleProductListItem } from 'admin/clients/types';
-/* styles */
-import styles from './ProductListItem.module.scss';
-import { amountFormat } from 'shared/utils';
+/* assets */
 import { MdAddShoppingCart } from 'react-icons/md';
+/* styles */
 import { ButtonStyles } from 'shared/styles';
+import styles from './ProductListItem.module.scss';
 
 const ProductListItem: FC<TitleProductListItem> = ({
+    productId,
     url,
     defaultReference,
     referenceCollection,
@@ -20,6 +25,11 @@ const ProductListItem: FC<TitleProductListItem> = ({
     descriptionCollection,
     price,
 }) => {
+    const {
+        /* functions */
+        handleSelectedProductToAddToCart,
+    } = useTitleProductListContext();
+
     const { lang, translate } = useClientsLang();
 
     return (
@@ -53,7 +63,10 @@ const ProductListItem: FC<TitleProductListItem> = ({
                     <Legend justify="center">0</Legend>
                 </div>
 
-                <Button className={ButtonStyles.FillPrimary} title={`${translate('cart.add')}`}>
+                <Button
+                    className={ButtonStyles.FillPrimary}
+                    title={`${translate('cart.add')}`}
+                    onClick={handleSelectedProductToAddToCart(productId)}>
                     <Legend hasDots justify="center">
                         {translate('cart.add')}
                     </Legend>

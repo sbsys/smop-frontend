@@ -77,6 +77,11 @@
     }
 }
 
+textarea.TextField {
+    @include max-height(2xl, element);
+    @include min-height(md, element);
+}
+
 .FileLabel {
     @include flex(row);
     cursor: pointer;

@@ -1,26 +1,43 @@
 /* react */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+/* store */
+import { selectOrganization } from 'admin/clients/store';
 /* context */
 import { useTitleProductListContext } from '../TitleProductList.context';
 /* props */
-import { FieldSetProps, useClientsLang, useClientsNotify } from 'admin/core';
+import { FieldSetProps, useClientsLang, useClientsNotify, useClientsSelector } from 'admin/core';
+/* components */
+import { Button } from 'shared/components';
 /* hooks */
 import { useLoader } from 'shared/hooks';
+/* services */
+import { getTitleProductConfigService } from 'admin/clients/services';
 /* utils */
 import { amountFormat } from 'shared/utils';
+/* types */
+import { ProductConfig, ProductTitleListItem } from 'admin/clients/types';
 /* assets */
-import { MdDangerous, MdWarning } from 'react-icons/md';
+import { MdAddCircle, MdDangerous, MdRemoveCircle, MdWarning } from 'react-icons/md';
 /* styles */
-import { FieldStyles } from 'shared/styles';
+import { ButtonStyles, FieldStyles } from 'shared/styles';
+import styles from './ConfigureProduct.module.scss';
 
 export const useConfigureProduct = () => {
     /* states */
+    const org = useClientsSelector(selectOrganization);
+
     const {
         /* states */
         selectedProductToAdd,
         /* functions */
         handleUnSelectedProductToAddToCart,
     } = useTitleProductListContext();
+
+    const [productConfig, setProductConfig] = useState<ProductConfig>({
+        singles: [],
+        multiples: [],
+        combos: [],
+    });
 
     const isSelectedProductToAdd = useMemo(() => selectedProductToAdd !== null, [selectedProductToAdd]);
 
@@ -36,13 +53,19 @@ export const useConfigureProduct = () => {
 
     const { notify } = useClientsNotify();
 
-    const { translate } = useClientsLang();
+    const { translate, lang } = useClientsLang();
 
     /* functions */
     const handleCloseAddToCart = useCallback(() => {
         handleUnSelectedProductToAddToCart();
 
         setProductAmount(1);
+
+        setProductConfig({
+            singles: [],
+            multiples: [],
+            combos: [],
+        });
     }, [handleUnSelectedProductToAddToCart]);
 
     const handleAddTocart = useCallback(() => {
@@ -66,7 +89,7 @@ export const useConfigureProduct = () => {
 
         showLoader();
 
-        const service = await { error: true, message: 'Product configuration', data: {} };
+        const service = await getTitleProductConfigService(org?.schema ?? '', selectedProductToAdd?.productId ?? '');
 
         hideLoader();
 
@@ -77,7 +100,9 @@ export const useConfigureProduct = () => {
                 text: service.message,
                 timestamp: new Date(),
             });
-    }, [hideLoader, isSelectedProductToAdd, notify, showLoader]);
+
+        setProductConfig(service.data);
+    }, [hideLoader, isSelectedProductToAdd, notify, org?.schema, selectedProductToAdd?.productId, showLoader]);
 
     /* reactivity */
     useEffect(() => {
@@ -85,26 +110,213 @@ export const useConfigureProduct = () => {
     }, [handleGetProductConfiguration]);
 
     /* props */
+    const singlesTitleProps = useCallback(
+        (title: ProductTitleListItem, index: number): FieldSetProps[] => {
+            return [
+                {
+                    className: styles.Title,
+                    field: {
+                        disabled: true,
+                    },
+                    hint: {
+                        hasDots: true,
+                        title:
+                            title.titleCollection.find(collection => collection.lang === lang)?.ref ??
+                            title.defaultTitle,
+                        children:
+                            title.titleCollection.find(collection => collection.lang === lang)?.ref ??
+                            title.defaultTitle,
+                    },
+                },
+                ...title.complements.map(
+                    (complement, complementIndex) =>
+                        ({
+                            className: styles.Single,
+                            field: {
+                                strategy: 'radio',
+                                name: title.defaultTitle,
+                                defaultValue: complement.productId,
+                                id: `single_${index}_${complementIndex}`,
+                            },
+                            hint: {
+                                hasDots: true,
+                                title:
+                                    complement.referenceCollection.find(collection => collection.lang === lang)?.ref ??
+                                    complement.defaultReference,
+                                children: (
+                                    <label htmlFor={`single_${index}_${complementIndex}`}>
+                                        {complement.referenceCollection.find(collection => collection.lang === lang)
+                                            ?.ref ?? complement.defaultReference}
+                                    </label>
+                                ),
+                            },
+                        } as FieldSetProps)
+                ),
+            ];
+        },
+        [lang]
+    );
+    const multiplesTitleProps = useCallback(
+        (title: ProductTitleListItem, index: number): FieldSetProps[] => {
+            return [
+                {
+                    className: styles.Title,
+                    field: {
+                        disabled: true,
+                    },
+                    hint: {
+                        hasDots: true,
+                        title:
+                            title.titleCollection.find(collection => collection.lang === lang)?.ref ??
+                            title.defaultTitle,
+                        children:
+                            title.titleCollection.find(collection => collection.lang === lang)?.ref ??
+                            title.defaultTitle,
+                    },
+                },
+                ...title.complements.map(
+                    (complement, complementIndex) =>
+                        ({
+                            className: styles.Multiple,
+                            field: {
+                                strategy: 'checkbox',
+                                name: title.defaultTitle,
+                                id: `multiple_${index}_${complementIndex}`,
+                            },
+                            hint: {
+                                hasDots: true,
+                                title:
+                                    complement.referenceCollection.find(collection => collection.lang === lang)?.ref ??
+                                    complement.defaultReference,
+                                children: (
+                                    <label htmlFor={`multiple_${index}_${complementIndex}`}>
+                                        {complement.referenceCollection.find(collection => collection.lang === lang)
+                                            ?.ref ?? complement.defaultReference}
+                                    </label>
+                                ),
+                            },
+                        } as FieldSetProps)
+                ),
+            ];
+        },
+        [lang]
+    );
+    const combosTitleProps = useCallback(
+        (title: ProductTitleListItem, index: number): FieldSetProps[] => {
+            return [
+                {
+                    className: styles.Title,
+                    field: {
+                        disabled: true,
+                    },
+                    hint: {
+                        hasDots: true,
+                        title:
+                            title.titleCollection.find(collection => collection.lang === lang)?.ref ??
+                            title.defaultTitle,
+                        children: `${
+                            title.titleCollection.find(collection => collection.lang === lang)?.ref ??
+                            title.defaultTitle
+                        } (0/${title.maxAccuSubItem})`,
+                    },
+                },
+                ...title.complements.map(
+                    (complement, complementIndex) =>
+                        ({
+                            className: styles.Combo,
+                            field: {
+                                strategy: 'number',
+                                defaultValue: 0,
+                                min: 0,
+                                max: /* calculated */ 1,
+                                step: 1,
+                                beforeContent: (
+                                    <Button className={ButtonStyles.Plain} type="button">
+                                        <i>
+                                            <MdRemoveCircle />
+                                        </i>
+                                    </Button>
+                                ),
+                                afterContent: (
+                                    <Button className={ButtonStyles.Plain} type="button">
+                                        <i>
+                                            <MdAddCircle />
+                                        </i>
+                                    </Button>
+                                ),
+                            },
+                            hint: {
+                                hasDots: true,
+                                title:
+                                    complement.referenceCollection.find(collection => collection.lang === lang)?.ref ??
+                                    complement.defaultReference,
+                                children: (
+                                    <label htmlFor={`combo_${index}_${complementIndex}`}>
+                                        {complement.referenceCollection.find(collection => collection.lang === lang)
+                                            ?.ref ?? complement.defaultReference}
+                                    </label>
+                                ),
+                            },
+                        } as FieldSetProps)
+                ),
+            ];
+        },
+        [lang]
+    );
+
+    const allowPrompsProps: FieldSetProps[] = useMemo(
+        () => [
+            {
+                className: styles.Title,
+                field: {
+                    disabled: true,
+                },
+                hint: {
+                    hasDots: true,
+                    title: 'Promps',
+                    children: 'Promps',
+                },
+            },
+            {
+                field: {
+                    className: FieldStyles.OutlinePrimary,
+                    strategy: 'area',
+                    placeholder: 'Promps',
+                },
+            },
+        ],
+        []
+    );
+
     const productAmountProps: FieldSetProps = useMemo(
         () => ({
             field: {
-                className: FieldStyles.OutlineSecondary,
+                className: FieldStyles.OutlinePrimary,
                 placeholder: translate('cart.amount'),
-                strategy: 'number',
+                strategy: 'decimal',
                 value: productAmount,
-                onChange: (event: any) => setProductAmount(event.target.value),
+                onChange: (event: any) =>
+                    setProductAmount(event.target.value ? Math.floor(event.target.value) : event.target.value),
                 afterContent: ` x $ ${amountFormat(selectedProductToAdd?.price ?? 0, 2)}`,
                 min: 1,
                 step: 1,
                 ref: amountRef,
             },
             hint: {
+                hasDots: true,
                 title: translate('cart.amount'),
                 children: translate('cart.amount'),
             },
         }),
         [productAmount, selectedProductToAdd?.price, translate]
     );
+
+    const configurationFieldProps: FieldSetProps[] = [
+        ...(productConfig.singles.length > 0 ? productConfig.singles.map(singlesTitleProps).flat() : []),
+        ...(productConfig.multiples.length > 0 ? productConfig.multiples.map(multiplesTitleProps).flat() : []),
+        ...(productConfig.combos.length > 0 ? productConfig.combos.map(combosTitleProps).flat() : []),
+        ...(selectedProductToAdd?.allowPrompts ? allowPrompsProps : []),
+    ];
 
     return {
         isSelectedProductToAdd,
@@ -113,5 +325,6 @@ export const useConfigureProduct = () => {
         productAmountProps,
         productSubTotal,
         handleAddTocart,
+        configurationFieldProps,
     };
 };

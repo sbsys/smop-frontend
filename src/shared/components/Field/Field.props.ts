@@ -6,6 +6,7 @@ import {
     LabelHTMLAttributes,
     ReactNode,
     SelectHTMLAttributes,
+    TextareaHTMLAttributes,
 } from 'react';
 /* props */
 import { ChildrenProps, ContentLayoutProps } from 'shared/props';
@@ -17,6 +18,7 @@ export interface FieldLayoutProps
 
 export type FieldStrategy =
     | 'text'
+    | 'area'
     | 'password'
     | 'email'
     | 'number'
@@ -73,5 +75,15 @@ export interface SelectFieldProps
     options?: SelectFieldOptionProps[];
 }
 
+/* text area field */
+export interface AreaProps
+    extends Omit<
+            DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>,
+            'ref' | 'children'
+        >,
+        ContentLayoutProps {
+    classNameContent?: string;
+}
+
 /* field strategy */
-export type FieldsProps = FieldProps | PasswordFieldProps | FileFieldProps | SelectFieldProps;
+export type FieldsProps = FieldProps | PasswordFieldProps | FileFieldProps | SelectFieldProps | AreaProps;

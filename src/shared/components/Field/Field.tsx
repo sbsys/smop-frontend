@@ -2,6 +2,7 @@
 import { FC, forwardRef, memo } from 'react';
 /* props */
 import {
+    AreaProps,
     FieldProps,
     FieldsProps,
     FieldStrategy,
@@ -14,6 +15,7 @@ import TextField from './TextField';
 import PasswordField from './PasswordField';
 import FileField from './FileField';
 import SelectField from './SelectField';
+import AreaField from './AreaField';
 /* strategy */
 import { ComponentStrategy, StrategyProps } from '../ComponentStrategy';
 /* utils */
@@ -25,6 +27,11 @@ const components: Record<FieldStrategy, FC<FieldsProps>> = {
     text: memo(
         forwardRef<HTMLInputElement | null>((props, ref) => (
             <TextField inputMode="text" {...(props as FieldProps)} ref={ref} />
+        ))
+    ),
+    area: memo(
+        forwardRef<HTMLTextAreaElement | null>((props, ref) => (
+            <AreaField inputMode="text" {...(props as AreaProps)} ref={ref} />
         ))
     ),
     password: memo(

@@ -2,8 +2,6 @@
 import { memo } from 'react';
 /* custom hook */
 import { useUpdateSetting } from './useUpdateSetting.hook';
-/* context */
-import { useCommerceDetailContext } from '../CommerceDetail.context';
 /* layouts */
 import { ModalLayout, ScrollLayout } from 'shared/layouts';
 /* components */
@@ -17,12 +15,12 @@ import styles from './UpdateSetting.module.scss';
 
 const UpdateSettingModal = () => {
     const {
-        /* states */
         isUpdateSetting,
         hideUpdateSetting,
-    } = useCommerceDetailContext();
-
-    const { handleUpdateSetting, handleResetUpdateSettingForm, updateSettingFormFields } = useUpdateSetting();
+        handleUpdateSetting,
+        handleResetUpdateSettingForm,
+        updateSettingFormFields,
+    } = useUpdateSetting();
 
     const { translate } = useAdminLang();
 

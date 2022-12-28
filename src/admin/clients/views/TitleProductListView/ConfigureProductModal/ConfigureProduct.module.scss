@@ -17,6 +17,7 @@
         @include padding(all xs);
 
         & > h4 {
+            overflow: hidden;
             flex-grow: 1;
         }
 
@@ -34,6 +35,75 @@
 
             &:active {
                 @include bg-opacity(60);
+            }
+        }
+    }
+
+    .Content {
+        @include flex;
+        @include gap(all sm);
+        @include min-height(lg, element);
+        @include padding(all xs);
+
+        @include screen-width(xs) {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        & > fieldset {
+            overflow: visible;
+
+            &:has(textarea) {
+                @include screen-width(xs) {
+                    grid-column: span 2;
+                }
+            }
+        }
+
+        .Title {
+            @include border-width(bottom sm);
+            border-style: dashed;
+
+            @include screen-width(xs) {
+                grid-column: span 2;
+            }
+
+            & > label {
+                display: none;
+            }
+
+            & > span {
+                @include font-size(lg);
+                @include font-weight(lg);
+            }
+
+            &:nth-child(n + 2) {
+                @include margin(top sm);
+            }
+        }
+
+        .Single,
+        .Multiple,
+        .Combo {
+            @include flex(row, center);
+            @include gap(all sm);
+
+            & > label {
+                overflow: visible;
+            }
+        }
+
+        .Combo {
+            & > label {
+                @include gap(all xs);
+                display: grid;
+                grid-template-columns: 1fr size(sm, element) 1fr;
+
+                & > input {
+                    @include disabled;
+                    text-align: center;
+                    width: auto;
+                }
             }
         }
     }

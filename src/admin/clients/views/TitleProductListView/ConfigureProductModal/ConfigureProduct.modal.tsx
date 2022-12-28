@@ -25,6 +25,7 @@ const ConfigureProductModal = () => {
         productAmountProps,
         productSubTotal,
         handleAddTocart,
+        configurationFieldProps,
     } = useConfigureProduct();
 
     const { lang, translate } = useClientsLang();
@@ -52,7 +53,11 @@ const ConfigureProductModal = () => {
                 </div>
 
                 <ScrollLayout orientation="col">
-                    <div className={styles.Content}></div>
+                    <div className={styles.Content}>
+                        {configurationFieldProps.map((field, index) => (
+                            <FieldSet {...field} key={index} />
+                        ))}
+                    </div>
                 </ScrollLayout>
 
                 <div className={styles.Actions}>

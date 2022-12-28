@@ -318,5 +318,11 @@ export const useUpdateSetting = () => {
         smsAlertsField,
     ];
 
-    return { handleUpdateSetting, handleResetUpdateSettingForm, updateSettingFormFields };
+    return {
+        isUpdateSetting,
+        hideUpdateSetting,
+        handleUpdateSetting,
+        handleResetUpdateSettingForm,
+        updateSettingFormFields,
+    };
 };

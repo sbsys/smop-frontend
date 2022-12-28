@@ -21,27 +21,17 @@ const CommerceList = () => {
 
     const hasCommerces = useMemo(() => (organization?.commerces?.length ?? 0) > 0, [organization?.commerces?.length]);
 
-    const isUnder3Commerces = useMemo(
-        () => (organization?.commerces?.length ?? 0) < 3,
+    const isUnder4Commerces = useMemo(
+        () => (organization?.commerces?.length ?? 0) < 4,
         [organization?.commerces?.length]
     );
 
     return (
         <PanelLayout orientation="col" className={styles.CommerceList}>
-            <section className={styles.Branding}>
-                <img crossOrigin="anonymous" src={organization?.files?.find(file => file.isCover)?.url} alt="cover" />
-
-                <img
-                    crossOrigin="anonymous"
-                    src={organization?.files?.find(file => !file.isCover)?.url}
-                    alt="profile"
-                />
-            </section>
-
             {hasCommerces ? (
                 <ScrollLayout orientation="col">
                     <section className={styles.List}>
-                        <ul className={classNames(isUnder3Commerces && styles.Under3)}>
+                        <ul className={classNames(isUnder4Commerces && styles.Under4)}>
                             {organization?.commerces?.map((commerce, index) => (
                                 <li key={index} onClick={handleSelectCommerce(commerce.commerceId)}>
                                     <CommerceListItem {...commerce} />

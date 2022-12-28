@@ -3,50 +3,6 @@
 .CommerceList {
     @include gap(all sm);
 
-    .Branding {
-        @include flex(row);
-        position: relative;
-
-        & > img:first-of-type {
-            @include margin(x xs split);
-            @include rounded(all xs);
-            aspect-ratio: 2 / 1;
-            margin-bottom: calc(size(2xl, element) / 2);
-            object-fit: cover;
-            overflow: hidden;
-            width: 100%;
-
-            @include screen-width(6xs) {
-                aspect-ratio: 3 / 1;
-            }
-
-            @include screen-width(xs) {
-                aspect-ratio: 4 / 1;
-            }
-
-            @include screen-width(md) {
-                aspect-ratio: 5 / 1;
-            }
-
-            @include screen-width(lg) {
-                aspect-ratio: 6 / 1;
-            }
-        }
-
-        & > img:last-of-type {
-            @include border-color(all 200 bg);
-            @include border-width(all sm);
-            @include height(2xl, element);
-            @include margin(left xs);
-            @include rounded(all md split);
-            @include width(2xl, element);
-            bottom: 0;
-            object-fit: cover;
-            overflow: hidden;
-            position: absolute;
-        }
-    }
-
     .List {
         @include flex;
         @include padding(all xs);
@@ -54,11 +10,11 @@
         & > ul {
             @include gap(all sm);
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, size(xl, component)), 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, size(lg, component)), 1fr));
 
-            &.Under3 {
+            &.Under4 {
                 @include screen-width(lg) {
-                    grid-template-columns: repeat(auto-fit, size(xl, component));
+                    grid-template-columns: repeat(auto-fit, size(lg, component));
                     justify-content: center;
                 }
             }

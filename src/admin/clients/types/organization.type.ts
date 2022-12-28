@@ -37,6 +37,7 @@ export interface CommerceListItem {
     /* type charge */
     typeCharge: ChargeDescription[];
     servicePhones: ServicePhone[];
+    url: string;
 }
 
 export interface OrganizationDetail {

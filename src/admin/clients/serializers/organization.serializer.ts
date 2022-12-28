@@ -15,6 +15,7 @@ export const organizationDetailSerializer = (data: any): OrganizationDetail => {
                         ...charge,
                         value: Number.parseFloat(charge.value ?? '0'),
                     })) ?? [],
+                url: `https://picsum.photos/seed/${Math.random()}/1920/1080`,
             })) ?? [],
     };
 };

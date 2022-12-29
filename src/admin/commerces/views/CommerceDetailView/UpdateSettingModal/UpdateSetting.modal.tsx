@@ -14,13 +14,8 @@ import { ButtonStyles } from 'shared/styles';
 import styles from './UpdateSetting.module.scss';
 
 const UpdateSettingModal = () => {
-    const {
-        isUpdateSetting,
-        hideUpdateSetting,
-        handleUpdateSetting,
-        handleResetUpdateSettingForm,
-        updateSettingFormFields,
-    } = useUpdateSetting();
+    const { isUpdateSetting, handleCancelUpdateSetting, handleUpdateSetting, updateSettingFormFields } =
+        useUpdateSetting();
 
     const { translate } = useAdminLang();
 
@@ -47,11 +42,7 @@ const UpdateSettingModal = () => {
                             type="button"
                             className={ButtonStyles.OutlineNone}
                             title={translate('actions.cancel')}
-                            onClick={() => {
-                                handleResetUpdateSettingForm();
-
-                                hideUpdateSetting();
-                            }}>
+                            onClick={handleCancelUpdateSetting}>
                             <Legend hasDots justify="center">
                                 {translate('actions.cancel')}
                             </Legend>

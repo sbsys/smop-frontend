@@ -1,5 +1,7 @@
 /* react */
+import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+/* types */
 import { AdminLang } from '../types';
 
 export type Lang = 'en' | 'es';
@@ -25,7 +27,7 @@ export const useAdminLang = () => {
 
     const changeLang = (lang: Lang) => i18n.changeLanguage(lang);
 
-    const translate = (key: AdminLang) => t(key);
+    const translate = useCallback((key: AdminLang) => t(key), [t]);
 
     return {
         lang: i18n.language,

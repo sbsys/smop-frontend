@@ -55,7 +55,7 @@ const CommerceDetail: FC<{ isHeaderHide?: boolean }> = ({ isHeaderHide = false }
                     <UpdateReferenceModal />
 
                     <CommerceSettingSection />
-                    {/* <UpdateSettingModal /> */}
+                    <UpdateSettingModal />
 
                     <CommerceDeliverySection />
                     <UpdateDeliveryModal />

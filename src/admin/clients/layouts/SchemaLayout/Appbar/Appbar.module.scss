@@ -5,12 +5,17 @@
     @include flex(row, center);
     @include font-color(50);
     @include gap(all lg);
-    @include margin(x xs);
-    @include padding(y xs split, x xs);
+    @include padding(all xs);
     @include rounded(bottom sm);
 
     & > img {
         @include height(lg, element);
+        @include max-width(xs, component);
+        object-fit: contain;
+
+        @include screen-width(2xs) {
+            @include max-width(sm, component);
+        }
     }
 
     & > div:first-of-type {

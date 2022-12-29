@@ -10,13 +10,11 @@
         & > ul {
             @include gap(all sm);
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, size(lg, component)), 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, size(2xl, component)), 1fr));
 
-            &.Under4 {
-                @include screen-width(lg) {
-                    grid-template-columns: repeat(auto-fit, size(lg, component));
-                    justify-content: center;
-                }
+            @include screen-width(3xs) {
+                grid-template-columns: repeat(auto-fit, size(2xl, component));
+                justify-content: center;
             }
 
             @include screen-width(2xs) {

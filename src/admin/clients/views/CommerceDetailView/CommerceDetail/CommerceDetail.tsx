@@ -33,9 +33,7 @@ const CommerceDetail = () => {
                     <CommerceSideMenu />
                 </div>
 
-                <PanelLayout orientation="col" className={styles.Main}>
-                    {outlet === null ? <CommerceInfo /> : outlet}
-                </PanelLayout>
+                <PanelLayout orientation="col">{outlet === null ? <CommerceInfo /> : outlet}</PanelLayout>
 
                 <div className={styles.Cart}>Shopping Cart</div>
             </PanelLayout>

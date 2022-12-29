@@ -40,7 +40,10 @@
     .Content {
         @include flex;
         @include gap(all sm);
+        @include max-width(lg, view);
         @include padding(all xs);
+        margin: 0 auto;
+        width: 100%;
 
         @include screen-width(lg) {
             display: grid;

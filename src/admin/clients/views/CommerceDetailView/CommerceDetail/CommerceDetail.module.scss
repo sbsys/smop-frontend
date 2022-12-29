@@ -17,11 +17,19 @@
 
         @include screen-width(sm) {
             display: grid;
-            grid-template-columns: size(md, component) repeat(2, 1fr);
+            grid-template-columns: size(md, component) 1fr;
         }
 
         @include screen-width(2xl) {
-            grid-template-columns: size(md, component) repeat(2, 1fr) size(md, component);
+            grid-template-columns: size(md, component) 1fr size(md, component);
+        }
+
+        @include screen-width(3xl) {
+            grid-template-columns: size(md, component) 1fr size(lg, component);
+        }
+
+        @include screen-width(6xl) {
+            grid-template-columns: size(md, component) 1fr size(2xl, component);
         }
 
         .Menu {
@@ -30,12 +38,6 @@
 
             @include screen-width(sm) {
                 @include flex;
-            }
-        }
-
-        .Main {
-            @include screen-width(sm) {
-                grid-column: span 2;
             }
         }
 

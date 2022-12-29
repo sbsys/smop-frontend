@@ -61,7 +61,7 @@ const CommerceDetail: FC<{ isHeaderHide?: boolean }> = ({ isHeaderHide = false }
                     <UpdateDeliveryModal />
 
                     <CommerceAttentionSection />
-                    {/* <UpdateAttentionModal /> */}
+                    <UpdateAttentionModal />
                 </div>
             </ScrollLayout>
         </PanelLayout>

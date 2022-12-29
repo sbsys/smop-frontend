@@ -1,5 +1,5 @@
 /* react */
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 /* context */
 import { useCommerceDetailContext } from '../CommerceDetail.context';
@@ -142,6 +142,8 @@ export const useUpdateAttention = () => {
         curbside: { 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1, 7: 1 },
         pickup: { 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1, 7: 1 },
     });
+
+    const [render, setRender] = useState<boolean>(false);
 
     const { translate } = useAdminLang();
 
@@ -291,6 +293,7 @@ export const useUpdateAttention = () => {
         [translate]
     );
 
+    const watchServiceHours = watch('serviceHours');
     const serviceHoursFields = useCallback(
         (index: number, attention: Attention): FieldSetProps[] => {
             const dayService = commerce?.serviceHours[attention]?.[index] as ExtendedDayService;
@@ -328,7 +331,9 @@ export const useUpdateAttention = () => {
                         strategy: 'checkbox',
                         id: `serviceHours.${attention}.${index}.enabled`,
                         disabled: !!errors.serviceHours?.[attention]?.[index]?.schedules,
-                        ...register(`serviceHours.${attention}.${index}.enabled`),
+                        ...register(`serviceHours.${attention}.${index}.enabled`, {
+                            onChange: () => setRender(!render),
+                        }),
                     },
                     isHintReserved: true,
                     hint: {
@@ -361,7 +366,8 @@ export const useUpdateAttention = () => {
                         return [
                             {
                                 key: `serviceHours.${attention}.${index}.schedules.${scheduleIndex}.opening`,
-                                disabled: !watch(`serviceHours.${attention}.${index}.enabled`),
+                                /* disabled: !watch(`serviceHours.${attention}.${index}.enabled`), */
+                                disabled: !watchServiceHours?.[attention]?.[index]?.enabled,
                                 className: classNames(
                                     isLastServiceHours && styles.LastServiceHours,
                                     isNotFirstOpening && styles.NotFirstOpening
@@ -398,7 +404,8 @@ export const useUpdateAttention = () => {
                             },
                             {
                                 key: `serviceHours.${attention}.${index}.schedules.${scheduleIndex}.closing`,
-                                disabled: !watch(`serviceHours.${attention}.${index}.enabled`),
+                                /* disabled: !watch(`serviceHours.${attention}.${index}.enabled`), */
+                                disabled: !watchServiceHours?.[attention]?.[index]?.enabled,
                                 className: classNames(isLastServiceHours && styles.LastServiceHours),
                                 field: {
                                     className: errors.serviceHours?.[attention]?.[index]?.schedules?.[scheduleIndex]
@@ -447,6 +454,8 @@ export const useUpdateAttention = () => {
             trigger,
             unregister,
             watch,
+            watchServiceHours,
+            render,
         ]
     );
     const preparationTimeField = (attention: /* Attention */ 'delivery' | 'onsite'): FieldSetProps[] => {
@@ -519,20 +528,19 @@ export const useUpdateAttention = () => {
         ];
     };
 
-    const updateAttentionServiceHoursStrategy: Record<Attention, FieldSetProps[]> = {
-        onsite: [...Array(DayServiceValue.length)]
-            .map((_, index) => serviceHoursFields(index, 'onsite'))
-            .reduce((prev, current) => [...prev, ...current]),
-        delivery: [...Array(DayServiceValue.length)]
-            .map((_, index) => serviceHoursFields(index, 'delivery'))
-            .reduce((prev, current) => [...prev, ...current]),
-        curbside: [...Array(DayServiceValue.length)]
-            .map((_, index) => serviceHoursFields(index, 'curbside'))
-            .reduce((prev, current) => [...prev, ...current]),
-        pickup: [...Array(DayServiceValue.length)]
-            .map((_, index) => serviceHoursFields(index, 'pickup'))
-            .reduce((prev, current) => [...prev, ...current]),
-    };
+    const updateAttentionServiceHoursStrategy: Record<Attention, FieldSetProps[]> = useMemo(
+        () => ({
+            onsite: [...Array(DayServiceValue.length)].map((_, index) => serviceHoursFields(index, 'onsite')).flat(),
+            delivery: [...Array(DayServiceValue.length)]
+                .map((_, index) => serviceHoursFields(index, 'delivery'))
+                .flat(),
+            curbside: [...Array(DayServiceValue.length)]
+                .map((_, index) => serviceHoursFields(index, 'curbside'))
+                .flat(),
+            pickup: [...Array(DayServiceValue.length)].map((_, index) => serviceHoursFields(index, 'pickup')).flat(),
+        }),
+        [serviceHoursFields]
+    );
 
     const updateAttentionPreparationTimeStrategy: Record<Attention, FieldSetProps[]> = {
         onsite: preparationTimeField('onsite'),
@@ -541,21 +549,23 @@ export const useUpdateAttention = () => {
         pickup: [],
     };
 
-    const updateAttentionServiceHoursOnsiteFormFields: FieldSetProps[] = [
-        ...[...Array(commerce?.serviceHours.onsite.length)]
-            .map((_, index) => serviceHoursFields(index, 'onsite'))
-            .reduce((prev, current) => [...prev, ...current], [] as FieldSetProps[]),
-    ];
+    const updateAttentionServiceHoursOnsiteFormFields: FieldSetProps[] = useMemo(
+        () => [
+            ...[...Array(commerce?.serviceHours.onsite.length)]
+                .map((_, index) => serviceHoursFields(index, 'onsite'))
+                .flat(),
+        ],
+        [commerce?.serviceHours.onsite.length, serviceHoursFields]
+    );
 
-    const updateAttentionOnsitePreparationTimeFormFields: FieldSetProps[] = [...preparationTimeField('onsite')];
-
-    const updateAttentionServiceHoursDeliveryFormFields: FieldSetProps[] = [
-        ...[...Array(commerce?.serviceHours.delivery.length)]
-            .map((_, index) => serviceHoursFields(index, 'delivery'))
-            .reduce((prev, current) => [...prev, ...current], [] as FieldSetProps[]),
-    ];
-
-    const updateAttentionDeliveryPreparationTimeFormFields: FieldSetProps[] = [...preparationTimeField('delivery')];
+    const updateAttentionServiceHoursDeliveryFormFields: FieldSetProps[] = useMemo(
+        () => [
+            ...[...Array(commerce?.serviceHours.delivery.length)]
+                .map((_, index) => serviceHoursFields(index, 'delivery'))
+                .flat(),
+        ],
+        [commerce?.serviceHours.delivery.length, serviceHoursFields]
+    );
 
     return {
         handleUpdateAttention,
@@ -564,8 +574,6 @@ export const useUpdateAttention = () => {
         updateAttentionServiceHoursStrategy,
         updateAttentionPreparationTimeStrategy,
         updateAttentionServiceHoursOnsiteFormFields,
-        updateAttentionOnsitePreparationTimeFormFields,
         updateAttentionServiceHoursDeliveryFormFields,
-        updateAttentionDeliveryPreparationTimeFormFields,
     };
 };

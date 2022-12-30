@@ -4,3 +4,4 @@ export * from './tenant.serializer';
 export * from './tenant-list.serializer';
 export * from './create-tenant.serializer';
 export * from './organization-settings.serializer';
+export * from './gateway.serializer';

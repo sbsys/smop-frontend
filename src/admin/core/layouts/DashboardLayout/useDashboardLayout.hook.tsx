@@ -25,7 +25,7 @@ import {
     MdStore,
     MdSupervisedUserCircle,
 } from 'react-icons/md';
-import { HiOfficeBuilding } from 'react-icons/hi';
+import { HiKey, HiOfficeBuilding } from 'react-icons/hi';
 
 export const useDashboardLayout = () => {
     /* states */
@@ -75,6 +75,13 @@ export const useDashboardLayout = () => {
         icon: <HiOfficeBuilding />,
         text: translate('links.organization'),
         to: 'organization',
+        end: true,
+    };
+
+    const keysNavItem: NavItemProps = {
+        icon: <HiKey />,
+        text: translate('links.keys'),
+        to: 'organization/keys',
     };
 
     const commercesNavItem: NavItemProps = {
@@ -133,7 +140,7 @@ export const useDashboardLayout = () => {
         admin: [
             {
                 title: translate('profiles.admin'),
-                items: [organizationNavItem, commercesNavItem, usersNavItem, collectionsNavItem],
+                items: [organizationNavItem, keysNavItem, commercesNavItem, usersNavItem, collectionsNavItem],
             },
         ],
         manager: [

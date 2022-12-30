@@ -98,6 +98,7 @@ export const es: Record<AdminLang, string> = {
     'headers.contacts': 'Contactos',
     'headers.price': 'Precio de venta',
     'headers.type': 'Tipo de selección',
+    'headers.commerces': 'Comercios',
     /* status */
     'status.active': 'Activo',
     'status.inactive': 'Inactivo',
@@ -111,6 +112,7 @@ export const es: Record<AdminLang, string> = {
     'links.home': 'Inicio',
     'links.organizations': 'Organizaciones',
     'links.organization': 'Organización',
+    'links.keys': 'Claves secretas',
     'links.commerces': 'Comercios',
     'links.users': 'Usuarios',
     'links.shelf': 'Estante de productos',
@@ -620,4 +622,6 @@ export const es: Record<AdminLang, string> = {
     'cart.remove': 'Eliminar del carrito',
     'cart.amount': 'Cantidad del producto a agregar',
     'cart.min': 'Agrega al menos un producto',
+    /* organization secret keys */
+    'keylist.title': 'Lista de claves secretas',
 };

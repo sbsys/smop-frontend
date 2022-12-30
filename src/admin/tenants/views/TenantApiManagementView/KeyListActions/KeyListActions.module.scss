@@ -1,0 +1,77 @@
+@import 'styles';
+
+.KeyListActions {
+    @include flex(row, center, center);
+    @include gap(all md);
+    flex-grow: 1;
+    overflow: hidden;
+
+    & > button {
+        @include font-size(2xl);
+        @include interactable;
+        @include padding(all xs split);
+        @include rounded(all xs);
+
+        &:hover {
+            @include bg-color(600);
+            @include bg-opacity(10);
+        }
+
+        &:active {
+            @include bg-opacity(20);
+        }
+
+        &:disabled {
+            @include font-opacity(50);
+            transform: scale(0.75);
+        }
+    }
+
+    .Delete {
+        @include font-color(400, danger);
+
+        &:hover {
+            @include font-color(300, danger);
+        }
+
+        &:active {
+            @include font-color(500, danger);
+        }
+    }
+
+    .Restore {
+        @include font-color(400, success);
+
+        &:hover {
+            @include font-color(300, success);
+        }
+
+        &:active {
+            @include font-color(500, success);
+        }
+    }
+
+    .Edit {
+        @include font-color(400, warning);
+
+        &:hover {
+            @include font-color(300, warning);
+        }
+
+        &:active {
+            @include font-color(500, warning);
+        }
+    }
+
+    .View {
+        @include font-color(400, info);
+
+        &:hover {
+            @include font-color(300, info);
+        }
+
+        &:active {
+            @include font-color(500, info);
+        }
+    }
+}

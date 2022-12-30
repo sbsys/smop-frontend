@@ -15,7 +15,13 @@ import { MdError } from 'react-icons/md';
 /* authentication */
 import { AuthLayout, authStoreSignIn, ResetPasswordView, selectAuthStore, SignInDTO, SignInView } from './auth';
 /* tenants */
-import { CreateTenantView, TenantListView, TenantSettingsView, TenantsLayout } from './tenants';
+import {
+    CreateTenantView,
+    TenantApiManagementView,
+    TenantListView,
+    TenantSettingsView,
+    TenantsLayout,
+} from './tenants';
 /* commerces */
 import {
     CommerceDetailView,
@@ -139,6 +145,8 @@ const AppRoutes: FC = () => {
                         <Route index element={<Navigate to="settings" replace />} />
 
                         <Route path="settings" element={<TenantSettingsView />} />
+
+                        <Route path="keys" element={<TenantApiManagementView />} />
                     </Route>
 
                     {/* commerces module */}

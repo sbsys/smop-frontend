@@ -1,0 +1,86 @@
+@import 'styles';
+
+.TenantApiManagement {
+    @include flex;
+    @include gap(all md);
+    @include padding(y md);
+
+    @include screen-width(md) {
+        display: none;
+    }
+
+    .Header {
+        @include flex(row, center, space-between);
+        @include gap(all md);
+
+        & > h1 {
+            @include font-size(xl);
+            @include font-weight(lg);
+            overflow: hidden;
+        }
+    }
+
+    .Filter {
+        @include font-size(2xl);
+        @include interactable;
+        @include margin(x xs split);
+        @include padding(all xs split);
+        @include rounded(all xs);
+
+        &:hover {
+            @include bg-color(600);
+            @include bg-opacity(30);
+        }
+
+        &:active {
+            @include bg-opacity(50);
+        }
+    }
+
+    .FilterContent {
+        @include bg-color(400);
+        @include padding(all xs);
+        @include rounded(all xs);
+        @include width(md, component);
+
+        & > button {
+            @include font-size(lg);
+            @include interactable;
+            @include padding(all xs split);
+            @include rounded(all xs);
+            margin-left: auto;
+
+            &:hover {
+                @include bg-color(600);
+                @include bg-opacity(30);
+            }
+
+            &:active {
+                @include bg-opacity(50);
+            }
+        }
+    }
+
+    & > span {
+        @include bg-color(400, primary);
+        @include flex(row, center, flex-end);
+        @include font-color(100);
+        @include font-size(sm);
+        @include rounded(all xs);
+        margin-left: auto;
+        max-width: 100%;
+
+        & > a {
+            overflow: hidden;
+        }
+    }
+
+    .List {
+        @include padding(y xs split);
+
+        & > ul {
+            @include flex;
+            @include gap(all xs);
+        }
+    }
+}

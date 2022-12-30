@@ -1,0 +1,33 @@
+@import 'styles';
+
+.Filter {
+    @include flex;
+    @include gap(all sm);
+
+    .Fields {
+        @include gap(all sm);
+        align-items: center;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+
+        @include screen-width(md) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include screen-width(xl) {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    .Actions {
+        @include gap(all sm);
+        @include max-width(lg, component);
+        align-self: flex-end;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+
+        & > button {
+            overflow: hidden;
+        }
+    }
+}

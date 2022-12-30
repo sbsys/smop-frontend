@@ -100,6 +100,7 @@ export type AdminLang =
     | 'headers.contacts'
     | 'headers.price'
     | 'headers.type'
+    | 'headers.commerces'
     /* status */
     | 'status.active'
     | 'status.inactive'
@@ -111,6 +112,7 @@ export type AdminLang =
     | 'links.home'
     | 'links.organizations'
     | 'links.organization'
+    | 'links.keys'
     | 'links.commerces'
     | 'links.users'
     | 'links.shelf'
@@ -608,4 +610,6 @@ export type AdminLang =
           | 'replace'
           | `commerce.${'title' | 'placeholder' | 'hint' | 'nocommerces' | 'noselected' | 'nomenu'}`}`
     /* publisher */
-    | `cart.${'on' | 'add' | 'remove' | 'amount' | 'min'}`;
+    | `cart.${'on' | 'add' | 'remove' | 'amount' | 'min'}`
+    /* organization secret keys */
+    | 'keylist.title';

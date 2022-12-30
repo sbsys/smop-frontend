@@ -1,0 +1,47 @@
+@import 'styles';
+
+.KeyListItem {
+    @include flex(row, center, space-between);
+    @include gap(all xs);
+    @include padding(all sm);
+    @include rounded(all xs);
+    @include shadow(bottom xs);
+
+    .Title {
+        @include flex;
+        @include gap(all xs split);
+        flex-grow: 1;
+        overflow: hidden;
+
+        & > h4 {
+            @include font-size(lg);
+            @include font-weight(lg);
+        }
+
+        & > span {
+            @include font-size(sm);
+        }
+    }
+
+    .DropAction {
+        @include font-size(2xl);
+        @include interactable;
+        @include padding(all xs split);
+        @include rounded(all xs);
+
+        &:hover {
+            @include bg-color(600);
+            @include bg-opacity(10);
+        }
+
+        &:active {
+            @include bg-opacity(20);
+        }
+    }
+
+    .DropContainer {
+        @include bg-color(400);
+        @include padding(all xs split);
+        @include rounded(all xs);
+    }
+}
